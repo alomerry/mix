@@ -4,7 +4,6 @@
 
 using namespace std;
 
-//todo 选择排序，插入排序，归并排序，堆排序
 void quickSort(vector<int> &nums, int left, int right) {
     if (left >= right)
         return;
