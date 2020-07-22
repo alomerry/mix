@@ -22,10 +22,3 @@ int lengthOfLongestSubstring(string s)
     }
     return max;
 }
-int main()
-{
-    cout << lengthOfLongestSubstring("abcabcbb") << endl;
-    cout << lengthOfLongestSubstring("bbbbb") << endl;
-    cout << lengthOfLongestSubstring("pwwkew") << endl;
-    return 0;
-}

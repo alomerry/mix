@@ -1,31 +1,40 @@
 #include <iostream>
-#include <algorithm>
+#include <vector>
 #include <queue>
+
 using namespace std;
 
-void test(vector<int> &nums)
-{
-    for (int i = 0; i < nums.size(); i++)
-        cout << nums[i] << " ";
-    cout << endl;
+void quickSort(vector<int> &nums, int left, int right) {
+    int i = left + 1, j = right, z,tmp = nums[left];
+    while (i != j) {
+        while (nums[j] >= tmp && i < j) {
+            j--;
+        }
+        while (nums[i] <= tmp && i < j) {
+            i++;
+        }
+        z = nums[i];
+        nums[i] = nums[j];
+        nums[j] = z;
+    }
+    z = nums[i];
+    nums[i] = tmp;
+    nums[left] = z;
+    quickSort(nums,left,i-1);
+    quickSort(nums,j+1,right);
 }
-void quickSort(vector<int> &nums)
-{
-    int i,j;
 
-}
-double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2)
-{
+double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
     for (int i = 0; i < nums2.size(); i++)
         nums1.push_back(nums2[i]);
-    quickSort(nums1);
+    quickSort(nums1, 0, nums1.size() - 1);
     if (nums1.size() % 2 == 0)
         return 1.0 * (nums1[nums1.size() / 2 - 1] + nums1[nums1.size() / 2]) / 2.0;
     else
         return 1.0 * nums1[nums1.size() / 2];
 }
-int main()
-{
+
+int main() {
     vector<int> a, b;
     a.push_back(1);
     a.push_back(2);

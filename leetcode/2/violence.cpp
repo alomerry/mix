@@ -38,19 +38,3 @@ ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
     }
     return result->next;
 }
-
-int main()
-{
-    ListNode *a = new ListNode(2);
-    a->next = new ListNode(4);
-    a->next->next = new ListNode(3);
-    ListNode *b = new ListNode(5);
-    b->next = new ListNode(6);
-    b->next->next = new ListNode(4);
-    ListNode *res = addTwoNumbers(a, b);
-    while (res != NULL)
-    {
-        cout << res->val << " ";
-        res = res->next;
-    }
-}

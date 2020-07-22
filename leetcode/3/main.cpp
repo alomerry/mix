@@ -2,14 +2,13 @@
 #include <algorithm>
 #include <queue>
 using namespace std;
-
 int lengthOfLongestSubstring(string s)
 {
     int len = s.size(), max = 0, tmp;
     bool flag[200];
     fill(flag, flag + 200, false);
     queue<char> q;
-    for (int i = 0; i < s.size(); i++)
+    for (int i = 0; i < len; i++)
     {
         while (flag[s[i]])
         {
@@ -22,11 +21,4 @@ int lengthOfLongestSubstring(string s)
         max = q.size() > max ? q.size() : max;
     }
     return max;
-}
-int main()
-{
-    cout << lengthOfLongestSubstring("abcabcbb") << endl;
-    cout << lengthOfLongestSubstring("bbbbb") << endl;
-    cout << lengthOfLongestSubstring("pwwkew") << endl;
-    return 0;
 }
