@@ -7,14 +7,29 @@
 
 using namespace std;
 
-int maxArea(vector<int> &height) {
-    int left = 0,right = height.size()-1;
-    return max;
+vector<int> tmp1,tmp2;
+int maxi = 0;
+void dp(vector<int> &height, int left, int right) {
+    if(left>=right)
+        return;
+    if (height[left] < height[right]) {
+        int now = height[left] * abs(left - right);
+        maxi = maxi>now ? maxi:now;
+        dp(height,left+1,right);
+    }else{
+        int now = height[right] * abs(left - right);
+        maxi = maxi>now ? maxi:now;
+        dp(height,left,right-1);
+    }
 }
 
-int test() {
-    vector<int> tmp1 = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-    vector<int> tmp2 = {15000, 14999, 14998, 14997, 14996, 14995, 14994, 14993, 14992, 14991, 14990, 14989, 14988,
+int maxArea(vector<int>& height) {
+    return dp(height,0,height.size()-1);
+}
+
+void setData() {
+    tmp1 = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    tmp2 = {15000, 14999, 14998, 14997, 14996, 14995, 14994, 14993, 14992, 14991, 14990, 14989, 14988,
                         14987, 14986, 14985, 14984, 14983, 14982, 14981, 14980, 14979, 14978, 14977, 14976, 14975,
                         14974, 14973, 14972, 14971, 14970, 14969, 14968, 14967, 14966, 14965, 14964, 14963, 14962,
                         14961, 14960, 14959, 14958, 14957, 14956, 14955, 14954, 14953, 14952, 14951, 14950, 14949,
@@ -1013,14 +1028,21 @@ int test() {
                         65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42,
                         41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18,
                         17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-    cout << maxArea(tmp1) << endl;
-    cout << maxArea(tmp2) << endl;
+}
+
+void run(){
+    maxArea(tmp1,0,tmp1.size()-1);
+    cout<<maxi<<endl;
+    maxi = 0;
+    maxArea(tmp2,0,tmp2.size()-1);
+    cout<<maxi<<endl;
 }
 
 int main() {
     long start, end;
     start = clock();
-    test();
+    setData();
+    run();
     start = clock();
     cout << (start - end) / 1000 << endl;
     return 0;
