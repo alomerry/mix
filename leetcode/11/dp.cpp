@@ -24,7 +24,8 @@ void dp(vector<int> &height, int left, int right) {
 }
 
 int maxArea(vector<int>& height) {
-    return dp(height,0,height.size()-1);
+    dp(height,0,height.size()-1);
+    return maxi;
 }
 
 void setData() {
@@ -1031,10 +1032,10 @@ void setData() {
 }
 
 void run(){
-    maxArea(tmp1,0,tmp1.size()-1);
+    maxArea(tmp1);
     cout<<maxi<<endl;
     maxi = 0;
-    maxArea(tmp2,0,tmp2.size()-1);
+    maxArea(tmp2);
     cout<<maxi<<endl;
 }
 
