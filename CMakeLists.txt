@@ -2,5 +2,5 @@ cmake_minimum_required(VERSION 3.16)
 project(algorithm)
 
 set(CMAKE_CXX_STANDARD 11)
-file(GLOB DBoW2_SRCS leetcode/33/binarySearch.cpp)
+file(GLOB DBoW2_SRCS leetcode/297/main.cpp)
 add_executable(${PROJECT_NAME} ${DBoW2_SRCS})
