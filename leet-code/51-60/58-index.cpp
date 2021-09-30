@@ -1,5 +1,5 @@
 //
-//  58-main.cpp
+//  58-index.cpp
 //  algorithm
 //
 //  Created by 清欢 on 2021/9/30.
@@ -20,21 +20,15 @@
 using namespace std;
 
 int lengthOfLastWord(string s) {
-    int len = 0;
+    int left = -1, right = 0;
+    bool isNew = true;
     for (int i = 0; i < s.size(); i++) {
-        if (s[i] == ' ') {
-            len = -abs(len);
-            continue;
-        }
-        if (len < 0 ){
-            len = 0;
-        }
-        len++;
+        // TODO
     }
-    return abs(len);
+    return right - left;
 }
 
 int main() {
-    cout << lengthOfLastWord("a ") << endl;
+    cout << lengthOfLastWord("VPtCBexbhyOqEHWMpF  VJOZpC") << endl;
     return 0;
 }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B9A751CA27059A7C00F088B1 /* 58-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9A751C927059A7C00F088B1 /* 58-main.cpp */; };
+		B9A751CC2705A89000F088B1 /* 58-index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9A751CB2705A89000F088B1 /* 58-index.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -161,6 +161,7 @@
 		B9A751BF2701AF9400F088B1 /* 28-kmp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "28-kmp.cpp"; sourceTree = "<group>"; };
 		B9A751C62704438700F088B1 /* 53-dp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "53-dp.cpp"; sourceTree = "<group>"; };
 		B9A751C927059A7C00F088B1 /* 58-main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "58-main.cpp"; sourceTree = "<group>"; };
+		B9A751CB2705A89000F088B1 /* 58-index.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "58-index.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1058,6 +1059,7 @@
 			children = (
 				B9A751C62704438700F088B1 /* 53-dp.cpp */,
 				B9A751C927059A7C00F088B1 /* 58-main.cpp */,
+				B9A751CB2705A89000F088B1 /* 58-index.cpp */,
 			);
 			path = "51-60";
 			sourceTree = "<group>";
@@ -1119,7 +1121,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9A751CA27059A7C00F088B1 /* 58-main.cpp in Sources */,
+				B9A751CC2705A89000F088B1 /* 58-index.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
