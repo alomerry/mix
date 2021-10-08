@@ -6,6 +6,10 @@
 	objectVersion = 55;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B9BFF710271021DE00A7F2E7 /* 67-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9BFF70F271021DE00A7F2E7 /* 67-main.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		B976BF2B26FBA3490029D671 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -19,7 +23,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B976BF2D26FBA3490029D671 /* algorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = algorithm; path = /Users/alomerry/workspace/algorithm/build/Debug/algorithm; sourceTree = "<absolute>"; };
 		B976BF3726FBA3FD0029D671 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B976BF3826FBA4030029D671 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B976BF3C26FBA40B0029D671 /* 1001-main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "1001-main.cpp"; sourceTree = "<group>"; };
@@ -158,6 +161,9 @@
 		B9BFF706270EEA8D00A7F2E7 /* 27-main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "27-main.cpp"; sourceTree = "<group>"; };
 		B9BFF707270EEA8D00A7F2E7 /* 21-dp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "21-dp.cpp"; sourceTree = "<group>"; };
 		B9BFF708270EEA8D00A7F2E7 /* 23-main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "23-main.cpp"; sourceTree = "<group>"; };
+		B9BFF709270FDECA00A7F2E7 /* algorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = algorithm; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9BFF70B270FE14300A7F2E7 /* 66-main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "66-main.cpp"; sourceTree = "<group>"; };
+		B9BFF70F271021DE00A7F2E7 /* 67-main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "67-main.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,8 +181,9 @@
 			isa = PBXGroup;
 			children = (
 				B976BF3826FBA4030029D671 /* .gitignore */,
-				B9BFF6DE270EEA8D00A7F2E7 /* leet-code */,
+				B9BFF709270FDECA00A7F2E7 /* algorithm */,
 				B976C02826FBA4190029D671 /* csp */,
+				B9BFF6DE270EEA8D00A7F2E7 /* leet-code */,
 				B976BF3926FBA40B0029D671 /* pat */,
 				B976BF3726FBA3FD0029D671 /* README.md */,
 			);
@@ -948,26 +955,27 @@
 		B9BFF6DE270EEA8D00A7F2E7 /* leet-code */ = {
 			isa = PBXGroup;
 			children = (
-				B9BFF6DF270EEA8D00A7F2E7 /* 291-300 */,
-				B9BFF6E1270EEA8D00A7F2E7 /* 11-20 */,
-				B9BFF6E8270EEA8D00A7F2E7 /* 51-60 */,
-				B9BFF6EC270EEA8D00A7F2E7 /* 1-10 */,
-				B9BFF6FD270EEA8D00A7F2E7 /* 201-210 */,
-				B9BFF6FF270EEA8D00A7F2E7 /* 31-40 */,
-				B9BFF702270EEA8D00A7F2E7 /* 21-30 */,
+				B9BFF6EC270EEA8D00A7F2E7 /* 1+ */,
+				B9BFF6E1270EEA8D00A7F2E7 /* 10+ */,
+				B9BFF702270EEA8D00A7F2E7 /* 20+ */,
+				B9BFF6FF270EEA8D00A7F2E7 /* 30+ */,
+				B9BFF6E8270EEA8D00A7F2E7 /* 50+ */,
+				B9BFF70A270FE0E300A7F2E7 /* 60+ */,
+				B9BFF6FD270EEA8D00A7F2E7 /* 200+ */,
+				B9BFF6DF270EEA8D00A7F2E7 /* 290+ */,
 			);
 			path = "leet-code";
 			sourceTree = "<group>";
 		};
-		B9BFF6DF270EEA8D00A7F2E7 /* 291-300 */ = {
+		B9BFF6DF270EEA8D00A7F2E7 /* 290+ */ = {
 			isa = PBXGroup;
 			children = (
 				B9BFF6E0270EEA8D00A7F2E7 /* -297-main.cpp */,
 			);
-			path = "291-300";
+			path = "290+";
 			sourceTree = "<group>";
 		};
-		B9BFF6E1270EEA8D00A7F2E7 /* 11-20 */ = {
+		B9BFF6E1270EEA8D00A7F2E7 /* 10+ */ = {
 			isa = PBXGroup;
 			children = (
 				B9BFF6E2270EEA8D00A7F2E7 /* 11-dp.cpp */,
@@ -977,20 +985,20 @@
 				B9BFF6E6270EEA8D00A7F2E7 /* x13-main.cpp */,
 				B9BFF6E7270EEA8D00A7F2E7 /* 12-map.cpp */,
 			);
-			path = "11-20";
+			path = "10+";
 			sourceTree = "<group>";
 		};
-		B9BFF6E8270EEA8D00A7F2E7 /* 51-60 */ = {
+		B9BFF6E8270EEA8D00A7F2E7 /* 50+ */ = {
 			isa = PBXGroup;
 			children = (
 				B9BFF6E9270EEA8D00A7F2E7 /* 58-index.cpp */,
 				B9BFF6EA270EEA8D00A7F2E7 /* 58-main.cpp */,
 				B9BFF6EB270EEA8D00A7F2E7 /* 53-dp.cpp */,
 			);
-			path = "51-60";
+			path = "50+";
 			sourceTree = "<group>";
 		};
-		B9BFF6EC270EEA8D00A7F2E7 /* 1-10 */ = {
+		B9BFF6EC270EEA8D00A7F2E7 /* 1+ */ = {
 			isa = PBXGroup;
 			children = (
 				B9BFF6ED270EEA8D00A7F2E7 /* 7-main.cpp */,
@@ -1010,27 +1018,27 @@
 				B9BFF6FB270EEA8D00A7F2E7 /* 3-main.cpp */,
 				B9BFF6FC270EEA8D00A7F2E7 /* 1-map.cpp */,
 			);
-			path = "1-10";
+			path = "1+";
 			sourceTree = "<group>";
 		};
-		B9BFF6FD270EEA8D00A7F2E7 /* 201-210 */ = {
+		B9BFF6FD270EEA8D00A7F2E7 /* 200+ */ = {
 			isa = PBXGroup;
 			children = (
 				B9BFF6FE270EEA8D00A7F2E7 /* 207-topo.cpp */,
 			);
-			path = "201-210";
+			path = "200+";
 			sourceTree = "<group>";
 		};
-		B9BFF6FF270EEA8D00A7F2E7 /* 31-40 */ = {
+		B9BFF6FF270EEA8D00A7F2E7 /* 30+ */ = {
 			isa = PBXGroup;
 			children = (
 				B9BFF700270EEA8D00A7F2E7 /* 33-binarySearch.cpp */,
 				B9BFF701270EEA8D00A7F2E7 /* 35-main.cpp */,
 			);
-			path = "31-40";
+			path = "30+";
 			sourceTree = "<group>";
 		};
-		B9BFF702270EEA8D00A7F2E7 /* 21-30 */ = {
+		B9BFF702270EEA8D00A7F2E7 /* 20+ */ = {
 			isa = PBXGroup;
 			children = (
 				B9BFF703270EEA8D00A7F2E7 /* 21-main.cpp */,
@@ -1040,7 +1048,16 @@
 				B9BFF707270EEA8D00A7F2E7 /* 21-dp.cpp */,
 				B9BFF708270EEA8D00A7F2E7 /* 23-main.cpp */,
 			);
-			path = "21-30";
+			path = "20+";
+			sourceTree = "<group>";
+		};
+		B9BFF70A270FE0E300A7F2E7 /* 60+ */ = {
+			isa = PBXGroup;
+			children = (
+				B9BFF70B270FE14300A7F2E7 /* 66-main.cpp */,
+				B9BFF70F271021DE00A7F2E7 /* 67-main.cpp */,
+			);
+			path = "60+";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1060,7 +1077,7 @@
 			);
 			name = algorithm;
 			productName = algorithm;
-			productReference = B976BF2D26FBA3490029D671 /* algorithm */;
+			productReference = B9BFF709270FDECA00A7F2E7 /* algorithm */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -1100,6 +1117,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9BFF710271021DE00A7F2E7 /* 67-main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
