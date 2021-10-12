@@ -16,8 +16,6 @@
 
 using namespace std;
 
-//int dp[0x3f3f3f3f] = {0};
-
 int climbStairs(int n) {
     if (n <= 2) {
         return n;
