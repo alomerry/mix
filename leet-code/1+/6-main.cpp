@@ -8,26 +8,25 @@
 
 using namespace std;
 
-string convert(string s, int numRows) {
+string convert(string s, int numRows)
+{
     string res = "";
     if (numRows == 1)
         return s;
     vector<char> list[numRows];
     int index = 0, flag = 1;
-    for (int i = 0; i < s.size(); ++i) {
+    for (int i = 0; i < s.size(); ++i)
+    {
         list[index].push_back(s[i]);
         index += flag;
-        if (index == numRows - 1) {
+        if (index == numRows - 1)
             flag = -1;
-        } else if (index == 0) {
+        else if (index == 0)
             flag = 1;
-        }
     }
-    for (int i = 0; i < numRows; ++i) {
-        for (int j = 0; j < list[i].size(); ++j) {
+    for (int i = 0; i < numRows; ++i)
+        for (int j = 0; j < list[i].size(); ++j)
             res.push_back(list[i][j]);
-        }
-    }
     return res;
 }
 

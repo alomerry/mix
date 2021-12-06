@@ -19,22 +19,25 @@
 
 using namespace std;
 
-int lengthOfLastWord(string s) {
+int lengthOfLastWord(string s)
+{
     int len = 0;
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] == ' ') {
+    for (int i = 0; i < s.size(); i++)
+    {
+        if (s[i] == ' ')
+        {
             len = -abs(len);
             continue;
         }
-        if (len < 0 ){
+        if (len < 0)
             len = 0;
-        }
         len++;
     }
     return abs(len);
 }
 
-int main() {
+int main()
+{
     cout << lengthOfLastWord("a ") << endl;
     return 0;
 }

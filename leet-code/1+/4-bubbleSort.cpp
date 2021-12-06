@@ -5,7 +5,7 @@ void bubbleSort(vector<int> &nums)
     int temp = 0;
     for (int i = 0; i < nums.size() - 1; i++)
     {
-        for (int j = 0; j < nums.size() - 1-i; j++)
+        for (int j = 0; j < nums.size() - 1 - i; j++)
         {
             if (nums[j] > nums[j + 1])
             {

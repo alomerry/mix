@@ -1,7 +1,7 @@
 class Solution
 {
 public:
-    bool canFinish(int numCourses, vector<vector<int>> &prerequisites)
+    bool canFinish(int numCourses, vector<vector<int> > &prerequisites)
     {
         int ind[numCourses] = {0}, i, u, l, item;
         vector<int> gra[numCourses];

@@ -19,16 +19,19 @@
 
 using namespace std;
 
-int lengthOfLastWord(string s) {
+int lengthOfLastWord(string s)
+{
     int left = -1, right = 0;
     bool isNew = true;
-    for (int i = 0; i < s.size(); i++) {
+    for (int i = 0; i < s.size(); i++)
+    {
         // TODO
     }
     return right - left;
 }
 
-int main() {
+int main()
+{
     cout << lengthOfLastWord("VPtCBexbhyOqEHWMpF  VJOZpC") << endl;
     return 0;
 }

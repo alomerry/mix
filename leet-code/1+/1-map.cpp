@@ -16,9 +16,7 @@ vector<int> twoSum(vector<int> &nums, int target)
         if (res != tmp.end())
         {
             if (res->first == nums[i] && count[nums[i]] <= 1)
-            {
                 continue;
-            }
             else
             {
                 result.push_back(i);

@@ -14,37 +14,40 @@
 
 using namespace std;
 
-bool isValid(string s) {
+bool isValid(string s)
+{
     set<char> left;
-    string ls = "({[",rs = ")}]";
-    map<char,char> m;
-    
-    for (int i = 0; i < ls.size(); i++){
+    string ls = "({[", rs = ")}]";
+    map<char, char> m;
+
+    for (int i = 0; i < ls.size(); i++)
+    {
         left.insert(ls[i]);
         m[ls[i]] = rs[i];
     }
-    
+
     stack<char> st;
     set<char>::iterator it;
-    for (int i = 0; i < s.size(); i++){
+    for (int i = 0; i < s.size(); i++)
+    {
         it = left.find(s[i]);
-        if (it != left.end()){
+        if (it != left.end())
+        {
             st.push(s[i]);
             continue;
         }
-        if (st.empty()){
+        if (st.empty())
             return false;
-        }
         char top = st.top();
         st.pop();
-        if (m[top] != s[i]){
-             return false;
-        }
+        if (m[top] != s[i])
+            return false;
     }
     return st.empty();
 }
 
-int main(){
+int main()
+{
     string s;
     std::ios::sync_with_stdio(false);
     std::cin.tie(0);

@@ -5,31 +5,37 @@
 using namespace std;
 
 //todo 选择排序，插入排序，归并排序，堆排序
-void quickSort(vector<int> &nums, int left, int right) {
+void quickSort(vector<int> &nums, int left, int right)
+{
     if (left >= right)
         return;
     int i = left + 1, j = right, z, tmp = nums[left];
-    while (i != j) {
-        while (nums[j] >= tmp && i < j) {
+    while (i != j)
+    {
+        while (nums[j] >= tmp && i < j)
+        {
             j--;
         }
-        while (nums[i] <= tmp && i < j) {
+        while (nums[i] <= tmp && i < j)
+        {
             i++;
         }
         z = nums[i];
         nums[i] = nums[j];
         nums[j] = z;
     }
-    if (tmp > nums[i]) {
+    if (tmp > nums[i])
+    {
         z = nums[i];
         nums[i] = tmp;
         nums[left] = z;
     }
     quickSort(nums, left, i - 1);
-    quickSort(nums, j , right);
+    quickSort(nums, j, right);
 }
 
-double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
+double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2)
+{
     for (int i = 0; i < nums2.size(); i++)
         nums1.push_back(nums2[i]);
     quickSort(nums1, 0, nums1.size() - 1);
@@ -39,7 +45,8 @@ double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
         return 1.0 * nums1[nums1.size() / 2];
 }
 
-int main() {
+int main()
+{
     vector<int> a, b;
     a.push_back(1);
     a.push_back(2);
