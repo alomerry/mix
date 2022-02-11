@@ -1,5 +1,7 @@
 node_modules
 dist
 blog/.vuepress/.temp
+blog/.vuepress/.cache
 .idea
 */.DS_Store
+.DS_Store

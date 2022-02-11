@@ -1,9 +1,9 @@
 ---
 layout: About
 title: About
-avatar: /img/avatar.jpg
-name: Xiaohan Zou
-subname: 邹笑寒
+avatar: /img/avatar.png
+name: Alomerry Wu
+subname: 清欢
 cv: /files/cv/brief/en.pdf
 
 interests:
@@ -13,12 +13,9 @@ interests:
   - <s>Sleeping and Eating</s>
 
 education:
-  - degree: M.S. in Computer Science
-    year: 2023
-    school: Boston University
-  - degree: B.Eng. in Software Engineering
-    year: 2020
-    school: Tongji University
+  - degree: Software Engineering
+    year: 2019
+    school: Unknow
 ---
 
 

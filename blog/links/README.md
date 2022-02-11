@@ -4,12 +4,12 @@ title: Links
 links:
   - title: 我自己能用就完事了
     items:
-      - sitename: Flint
-        url: https://github.com/Renovamen/flint
+      - sitename: PAT/LeetCode
+        url: https://github.com/Alomerry/alogrithm
         img: /img/links/flint.svg
-        desc: 山寨版 PyTorch
-      - sitename: Metallic
-        url: https://github.com/Renovamen/metallic
+        desc: PAT/LeetCode solution
+      - sitename: Note
+        url: https://note.alomerry.com
         img: /img/links/meta.svg
         desc: 准元学习工具包
       - sitename: torchop
