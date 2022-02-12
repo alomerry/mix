@@ -1,0 +1,18 @@
+---
+layout: page
+title: Problems
+show_header: false
+---
+
+<div class="layout--archive js-all">
+  {%- include tags-leet-code.html -%}
+  <div class="js-result layout--archive__result d-none">
+    {%- include leet-code-list.html articles=site.categories.LeetCode type='brief' show_info=true reverse=false group_by='year' -%}
+  </div>
+</div>
+
+<script>
+  {%- include scripts/leet-code.js -%}
+</script>
+
+

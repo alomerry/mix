@@ -1,0 +1,60 @@
+{%- assign _tag_max_size = 1 -%}
+{%- assign _tag_min_size = 1 -%}
+{%- assign _tag_cur_size = 1 -%}
+{%- assign _tags = site.tags | sort -%}
+{%- for _tag in _tags -%}
+{%- assign _tag_cur_size = _tag[1].size -%}
+{%- if _tag_cur_size > _tag_max_size -%}
+{%- assign _tag_max_size =  _tag_cur_size -%}
+{%- endif -%}
+{%- if _tag_cur_size < _tag_min_size -%}
+{%- assign _tag_min_size = _tag_cur_size -%}
+{%- endif -%}
+{%- endfor -%}
+{%- assign _tag_gap_size =  _tag_max_size | minus: _tag_min_size | plus: 1 | divided_by: 4 -%}
+{%- if _tag_gap_size < 1 -%}
+{%- assign _tag_gap_size = 1 -%}
+{%- endif -%}
+<div class="site-tags-leet-code js-tags-leet-code">
+  <ul class="menu">
+    <li>
+      {%- if percent > 0 -%}
+      {%- assign _solved_percent = site.categories.LeetCode | size | times: 100 | divided_by: site.data.variables.leet_code.total_problem_num -%}
+      {%- else -%}
+      {%- assign _solved_percent = 1 -%}
+      {%- endif -%}
+
+      <button type="button"
+              style="background: linear-gradient(to right, #6699e9 {{ _solved_percent }}%, #e8e8e8 0);"
+              class="button button--secondary button--pill tag-leet-code-button tag-leet-code-button--all" data-encode="">
+        {{ site.categories.LeetCode | size }}/{{ site.data.variables.leet_code.total_problem_num }} Solved
+      </button>
+    </li>&nbsp;-&nbsp;
+    {%- for _tag in _tags -%}
+    {%- if _tag[0] == 'Easy' -%}
+    <li><button type="button" class="button button--pill tag-leet-code-button tag-leet-code-button-{{ _tag[0] | strip | url_encode }}" data-encode="{{ _tag[0] | strip | url_encode }}">
+      <span>{{ _tag[0] | strip }}</span><div class="tag-leet-code-button__count">{{ _tag[1].size }}</div>
+    </button>
+    </li>
+    {%- endif -%}
+    {%- endfor -%}
+
+    {%- for _tag in _tags -%}
+    {%- if _tag[0] == 'Medium' -%}
+    <li><button type="button" class="button button--pill tag-leet-code-button tag-leet-code-button-{{ _tag[0] | strip | url_encode }}" data-encode="{{ _tag[0] | strip | url_encode }}">
+      <span>{{ _tag[0] | strip }}</span><div class="tag-leet-code-button__count">{{ _tag[1].size }}</div>
+    </button>
+    </li>
+    {%- endif -%}
+    {%- endfor -%}
+
+    {%- for _tag in _tags -%}
+    {%- if _tag[0] == 'Hard' -%}
+    <li><button type="button" class="button button--pill tag-leet-code-button tag-leet-code-button-{{ _tag[0] | strip | url_encode }}" data-encode="{{ _tag[0] | strip | url_encode }}">
+      <span>{{ _tag[0] | strip }}</span><div class="tag-leet-code-button__count">{{ _tag[1].size }}</div>
+    </button>
+    </li>
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>

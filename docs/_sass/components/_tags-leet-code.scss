@@ -1,0 +1,36 @@
+.site-tags-leet-code {
+  .tag-leet-code-button {
+    //@include clickable($text-color-3, $main-color-3, default, default, $text-color-2,$main-color-2, $text-color-2,$main-color-2);
+    & > .tag-leet-code-button__count {
+      display: inline-block;
+      margin-left: map-get($spacers, 1);
+      font-size: map-get($base, font-size-xs);
+      line-height: 1;
+      vertical-align: top;
+
+    }
+  }
+  .tag-leet-code-button-Easy {
+    @include clickable($text-color-1, rgba(#5fb760, 0.8), default, default, $text-color-1,$main-color-2, $text-color-2,darken(rgba(#5fb760, 0.9), 24%));
+  }
+  .tag-leet-code-button-Medium {
+    @include clickable($text-color-1, rgba(#eeac57, 0.8), default, default, $text-color-2,$main-color-2, $text-color-2,darken(rgba(#eeac57, 0.9), 24%));
+  }
+  .tag-leet-code-button-Hard {
+    @include clickable($text-color-1, rgba(#d75452, 0.8), default, default, $text-color-2,$main-color-2, $text-color-2,darken(rgba(#d75452, 0.9), 24%));
+  }
+}
+
+.tag-leet-code-button-Easy {
+  @include clickable($text-color-1, rgba(#5fb760, 0.8), default, default, $text-color-1,$main-color-2, $text-color-2,darken(rgba(#5fb760, 0.9), 24%));
+}
+.tag-leet-code-button-Medium {
+  @include clickable($text-color-1, rgba(#eeac57, 0.8), default, default, $text-color-2,$main-color-2, $text-color-2,darken(rgba(#eeac57, 0.9), 24%));
+}
+.tag-leet-code-button-Hard {
+  @include clickable($text-color-1, rgba(#d75452, 0.8), default, default, $text-color-2,$main-color-2, $text-color-2,darken(rgba(#d75452, 0.9), 24%));
+}
+.tag-leet-code-button-difficulty{
+  font-size: 0.5rem;
+  padding: 0.25rem 0.3333333333rem;
+}
