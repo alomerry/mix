@@ -1,4 +1,15 @@
-C++好用的库函数
+---
+layout: Post
+title: C++好用的库函数
+subtitle:
+author: Alomerry Wu
+date: 2019-07-21
+headerImage: /img/in-post/2019-07-21/header.jpg
+catalog: true
+tags:
+- Y2019
+---
+
 
 ```
 <algorithm>

@@ -5,7 +5,7 @@ links:
   - title: 我自己能用就完事了
     items:
       - sitename: PAT/LeetCode
-        url: https://github.com/Alomerry/alogrithm
+        url: https://io.alomerry.com
         img: /img/links/flint.svg
         desc: PAT/LeetCode solution
       - sitename: Note
