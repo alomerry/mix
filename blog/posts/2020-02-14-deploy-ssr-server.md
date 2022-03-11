@@ -4,7 +4,7 @@ title: 搭建 S?R 教程
 subtitle: 
 author: Alomerry Wu
 date: 2020-02-14
-headerImage: /img/in-post/2020-02-14/header.jpg
+headerImage: /img/in-post/header-image/14.jpg
 catalog: true
 tags:
 - Y2020
@@ -36,9 +36,7 @@ download_files(){
 
 备注:此处修改只针对 `debian`/`ubuntu`，`centos` 等需要下载另一个 shadowsocks 文件
 
-文件下载地址
-
-[hide]https://www.lanzous.com/i9d7qpa [/hide]
+[文件下载地址](https://www.lanzous.com/i9d7qpa)
 
 ![ssr服务端搭建文件列表.png][1]
 

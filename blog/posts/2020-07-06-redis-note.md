@@ -4,7 +4,7 @@ title: Redis 知识点
 subtitle: 
 author: Alomerry Wu
 date: 2020-07-06
-headerImage: /img/in-post/2020-07-06/header.jpg
+headerImage: /img/in-post/header-image/3.jpg
 catalog: true
 tags:
 - Y2020

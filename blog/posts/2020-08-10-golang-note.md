@@ -4,7 +4,7 @@ title: Golang Note
 subtitle: 
 author: Alomerry Wu
 date: 2020-08-10
-headerImage: /img/in-post/2020-08-10/header.jpg
+headerImage: /img/in-post/header-image/10.jpg
 catalog: true
 tags:
 - Y2020

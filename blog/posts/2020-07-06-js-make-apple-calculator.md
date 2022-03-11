@@ -4,7 +4,7 @@ title: 前端作业-计算器
 subtitle: 
 author: Alomerry Wu
 date: 2020-07-06
-headerImage: /img/in-post/2020-07-06/header.jpg
+headerImage: /img/in-post/header-image/11.jpg
 catalog: true
 tags:
 - Y2020
@@ -14,9 +14,9 @@ tags:
 
 <!-- more -->
 
-![calculate.png][1]
-
 ## 思路
+
+## 代码
 
 ```html
 <!DOCTYPE html>
@@ -426,5 +426,3 @@ tags:
 </body>
 </html>
 ```
-
-[1]: http://alomerry.com/usr/uploads/2020/07/871769878.png

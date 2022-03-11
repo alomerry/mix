@@ -1,15 +1,14 @@
 ---
 layout: Post
-title: C++好用的库函数
+title: C++ 好用的库函数
 subtitle:
 author: Alomerry Wu
 date: 2019-07-21
-headerImage: /img/in-post/2019-07-21/header.jpg
+headerImage: /img/in-post/header-image/20.jpg
 catalog: true
 tags:
 - Y2019
 ---
-
 
 ```
 <algorithm>
@@ -101,10 +100,9 @@ using namespace std;
 int a[40] = {1,2};
 int main()
 {
-cout << __gcd(12,6);
-//cout << __INT32_MAX__ << endl;
+    cout << __gcd(12,6);
+    //cout << __INT32_MAX__ << endl;
 }
-
 
 accumulate求和
 #include<numeric>
@@ -113,11 +111,11 @@ accumulate求和
 using namespace std;
 int main()
 {
-vector<int> v;
-v.push_back(3);
-v.push_back(5);
-v.push_back(9);
-cout << accumulate(v.begin(),v.end(),0);  //0是累加的初值
+    vector<int> v;
+    v.push_back(3);
+    v.push_back(5);
+    v.push_back(9);
+    cout << accumulate(v.begin(),v.end(),0);  //0是累加的初值
 }
 
 
@@ -129,13 +127,12 @@ bitset
 using namespace std;
 int main()
 {
-bitset<32> a(8);
-cout << a[1] << endl;
-int b;
-b = a.to_ullong();
-cout <<a << " " << b <<endl;
+    bitset<32> a(8);
+    cout << a[1] << endl;
+    int b;
+    b = a.to_ullong();
+    cout <<a << " " << b <<endl;
 }
-
 
 count
 /*
@@ -149,18 +146,15 @@ using namespace std;
 template <class T>
 void print(T x)
 {
-cout << x << endl;
+    cout << x << endl;
 }
 
 int main()
 {
-int a[10] = {1,2,3,4,5,5,7,8,9,10};
-cout << count(a,a+10,10);
-//for_each(a,a+9,print<int>) ;
+    int a[10] = {1,2,3,4,5,5,7,8,9,10};
+    cout << count(a,a+10,10);
+    //for_each(a,a+9,print<int>) ;
 }
-
-
-
 
 copy
 /*
@@ -173,14 +167,14 @@ using namespace std;
 template <class T>
 void print(T x)
 {
-cout << x << endl;
+    cout << x << endl;
 }
 int main()
 {
-int a[] = {1,2,3,4,5,6,7,8,9} ;
-int b[] = {9,8,7,6,5,4,3,2,1} ;  //
-copy(a,a+5,b);  //复制前五个
-for_each(b,b+9,print<int>);
+    int a[] = {1,2,3,4,5,6,7,8,9} ;
+    int b[] = {9,8,7,6,5,4,3,2,1} ;  //
+    copy(a,a+5,b);  //复制前五个
+    for_each(b,b+9,print<int>);
 }
 
 
@@ -195,23 +189,23 @@ find_if(begin,end,greatThree)
 using namespace std;
 bool greatThree(int x)
 {
-if(x > 3)
-return true;
-else
-return false;
+    if(x > 3)
+        return true;
+    else
+        return false;
 }
 template <class T>
 void print(T x)
 {
-cout << x << endl;
+    cout << x << endl;
 }
 
 int main()
 {
-int a[10] = {1,2,3,4,5,6,7,8,9,10};
-int *p = find_if(a,a+10,greatThree) ;
-for(int i = 0;i < 7;i++)
-cout << *p++ <<endl;
+    int a[10] = {1,2,3,4,5,6,7,8,9,10};
+    int *p = find_if(a,a+10,greatThree) ;
+    for (int i = 0;i < 7;i++)
+        cout << *p++ <<endl;
 
 	//for_each(a,a+9,print<int>) ;
 }
@@ -229,13 +223,13 @@ using namespace std;
 template <class T>
 void print(T x)
 {
-cout << x << endl;
+    cout << x << endl;
 }
 
 int main()
 {
-int a[10] = {1,2,3,4,5,6,7,8,9,10};
-cout << find(a,a+10,6);
+    int a[10] = {1,2,3,4,5,6,7,8,9,10};
+    cout << find(a,a+10,6);
 }
 
 
@@ -247,13 +241,13 @@ using namespace std;
 template <class T>
 void print(T x)
 {
-cout << x << endl;
+    cout << x << endl;
 }
 
 int main()
 {
-int a[10] = {1,2,3,4,5,6,7,8,9,10};
-for_each(a,a+10,print<int>);
+    int a[10] = {1,2,3,4,5,6,7,8,9,10};
+    for_each(a,a+10,print<int>);
 }
 ```
 

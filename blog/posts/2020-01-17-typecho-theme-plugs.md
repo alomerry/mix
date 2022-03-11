@@ -4,7 +4,7 @@ title: typecho 主题 handsome 美化插件 Skymo
 subtitle: 
 author: Alomerry Wu
 date: 2020-01-17
-headerImage: /img/in-post/2020-01-17/header.jpg
+headerImage: /img/in-post/header-image/17.jpg
 catalog: true
 tags:
 - Y2020
@@ -15,7 +15,6 @@ tags:
 <!-- more -->
 
 
-```
 # SkyMo V1.2.1
 
 > 插件最新更新时间：2021/02/24
@@ -56,7 +55,7 @@ tags:
 - [tag type="warning"]![/tag] 修改文件夹名字为 SkyMo。
 - 进入网站后台-控制台-插件-激活插件。
 - 启用或关闭部分动效。
-- [`Github下载地址`][1]https://github.com/Alomerry/SkyMo
+- [`Github下载地址`](https://github.com/Alomerry/SkyMo)
 
 ## 更新
 
@@ -227,10 +226,6 @@ this._canvas.id = "bgCanvas";
 
 参考[typecho文章内挂载B站视频][16]https://www.icnfox.cn/archives/42.html
 
-```
-
-```
-
 [1]: https://github.com/Alomerry/SkyMo
 [2]: http://blog.alomerry.com/usr/uploads/2020/07/1620333604.png
 [3]: http://blog.alomerry.com/usr/uploads/2020/07/2366965718.png
@@ -249,4 +244,3 @@ this._canvas.id = "bgCanvas";
 [16]: https://www.icnfox.cn/archives/42.html
 [17]: http://blog.alomerry.com/usr/uploads/2020/10/2495026317.png
 [18]: http://blog.alomerry.com/usr/uploads/2020/10/2799388962.png
-
