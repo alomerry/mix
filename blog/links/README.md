@@ -7,7 +7,7 @@ links:
       - sitename: PAT/LeetCode
         url: https://io.alomerry.com
         img: /img/links/flint.svg
-        desc: PAT/LeetCode solution
+        desc: 山寨版 PyTorch
       - sitename: Note
         url: https://note.alomerry.com
         img: /img/links/meta.svg
@@ -20,14 +20,22 @@ links:
         url: https://github.com/Renovamen/torchmasked
         img: /img/links/torchmasked.svg
         desc: 带 mask 的张量操作
+      - sitename: Metallic
+        url: https://github.com/Renovamen/metallic
+        img: /img/links/meta.svg
+        desc: 准元学习工具包
       - sitename: Oh, Vue Icons!
-        url: https://oh-vue-icons.netlify.app
+        url: https://oh-vue-icons.js.org
         img: /img/links/icon.svg
         desc: Vue 图标组件
       - sitename: Gungnir
         url: https://v2-vuepress-theme-gungnir.vercel.app/
         img: /img/links/gungnir.svg
         desc: VuePress 1/2 主题
+      - sitename: Wordle Helper
+        url: https://wordle.zxh.io
+        img: /img/links/wordle.jpg
+        desc: Wordle 作弊小工具
   - title: 咸鱼翻滚
     items:
       - sitename: What If?

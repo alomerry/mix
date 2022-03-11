@@ -1,10 +1,10 @@
 ---
 layout: Post
-title: Nginx 笔记
+title: Nginx Note
 subtitle:
 author: Alomerry Wu
 date: 2022-02-26
-headerImage: /img/in-post/header-image/2.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2022
@@ -83,3 +83,8 @@ upstream myserver {
 
 Nginx 动静分离严格意义上说是将动态请求和静态请求分开。 通过 location 指定不同的后缀名实现不同的请求转发。通过 expire 参数，可以使浏览器缓存过期时间，减少与服务器之前的请求和流量。
 
+#### Nginx 高可用集群
+
+- 多台 nginx 服务器
+- keepalived 服务
+- 虚拟 IP

@@ -7,7 +7,7 @@
             <div class="profile__basic">
               <img class="avatar" :src="$withBase(pageData.frontmatter.avatar)" />
 
-              <h3 class="title">{{ pageData.frontmatter.name }}</h3>
+              <h2 class="title">{{ pageData.frontmatter.name }}</h2>
               <p class="subname">{{ pageData.frontmatter.subname }}</p>
 
               <div class="sns">
@@ -17,20 +17,20 @@
                   class="sns__item"
                 >
                   <a target="_blank" :href="link">
-                    <v-icon :name="snsIcon(platform)" :scale="snsIconSize(platform)" />
+                    <v-icon :name="snsIcon(platform)" scale="1.82" />
                   </a>
                 </div>
 
                 <div v-if="pageData.frontmatter.cv" class="sns__item">
                   <a :href="pageData.frontmatter.cv">
-                    <v-icon name="cv" scale="1.8" />
+                    <v-icon name="ai-cv" scale="2" />
                   </a>
                 </div>
               </div>
             </div>
 
             <div class="profile__info">
-              <h3 class="title">Biography</h3>
+              <h2 class="title">Biography</h2>
 
               <div class="bio-info" v-html="bioMarkdown" />
 
@@ -81,23 +81,21 @@ import MarkdownIt from "markdown-it";
 const LINKS = {
   github: "https://github.com/Renovamen",
   linkedin: "https://www.linkedin.com/in/xiaohan-zou",
-  facebook: "https://www.facebook.com/renovamen.zou",
+  googleScholar: "https://scholar.google.com/citations?user=RuW6xgMAAAAJ",
+  // facebook: "https://www.facebook.com/renovamen.zou",
   twitter: "https://www.twitter.com/renovamen_zxh",
   zhihu: "https://www.zhihu.com/people/chao-neng-gui-su",
   email: "mailto:renovamenzxh@gmail.com"
 };
 
 const ICONS = {
-  github: "github-fill",
-  linkedin: "linkedin-box-fill",
-  facebook: "facebook-box-fill",
-  twitter: "twitter",
-  zhihu: "zhihu",
-  email: "mail"
-};
-
-const ICON_SIZES = {
-  twitter: 0.9
+  github: "ri-github-fill",
+  linkedin: "ri-linkedin-box-fill",
+  googleScholar: "ai-google-scholar-square",
+  // facebook: "ri-facebook-box-fill",
+  twitter: "ri-twitter-fill",
+  zhihu: "ri-zhihu-line",
+  email: "hi-mail"
 };
 
 const BIO_PATH = "/md/about.md";
@@ -137,5 +135,4 @@ onMounted(() => {
 });
 
 const snsIcon = (platform) => ICONS[platform];
-const snsIconSize = (platform) => 1.82 * (ICON_SIZES[platform] || 1)
 </script>
