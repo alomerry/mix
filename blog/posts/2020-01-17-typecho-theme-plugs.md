@@ -4,7 +4,7 @@ title: typecho 主题 handsome 美化插件 Skymo
 subtitle: 
 author: Alomerry Wu
 date: 2020-01-17
-headerImage: /img/in-post/header-image/17.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2020

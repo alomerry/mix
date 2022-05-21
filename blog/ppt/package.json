@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "node prestart.ts",
+    "start": "nodeppt build adapter-pattern.md go-trap.md grpc.md",
+    "serve": "nodeppt serve go-trap.md"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodeppt": "^2.2.2"
+  }
+}

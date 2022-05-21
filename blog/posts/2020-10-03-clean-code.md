@@ -4,7 +4,7 @@ title: Clean Code
 subtitle: 
 author: Alomerry Wu
 date: 2020-10-03
-headerImage: /img/in-post/header-image/3.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2020

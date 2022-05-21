@@ -4,7 +4,7 @@ title: Code Style
 subtitle: 
 author: Alomerry Wu
 date: 2022-02-14
-headerImage: /img/in-post/header-image/15.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2022

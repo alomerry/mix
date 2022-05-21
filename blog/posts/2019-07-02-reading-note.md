@@ -1,13 +1,14 @@
 ---
 layout: Post
-title: 村上春树 《我的职业是小说家》
+title: 美文文摘
 subtitle:
 author: Alomerry Wu
 date: 2019-07-02
-headerImage: /img/in-post/header-image/2.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2019
+- Digest
 ---
 
 
@@ -102,3 +103,15 @@ But it won't be hard forever.
 那些冷漠和刻薄是理所当然
 
 那些温柔相待才更应该珍惜
+
+## xi jin ping
+
+每个优秀的人，都有一段成魔时光，那段时光，是付以了很多努力，却得不到结果的日子，我们把它叫做扎根。-2019.7.10
+
+## 昆明
+
+昆明的冬天没有雪，只有海鸥。
+如果你要来，我会带着你去海埂大坝，买一根尝尝的面包喂海鸥，或许他们会一闷头儿全朝你涌来，又或许它们会高冷地掠过你还留下新鲜的便便。我会给你拍照片，在你最美丽的时刻。
+昆明的冬天很大风，银杏叶漫天飞舞的时候煞是好看。
+如果你要来，我会带你去老云大，抛一大把银杏叶在你的头上，跳着蹦着绕过叶子穿过那路口。我们会站在石椅上，数数在草坪上学习的是情侣多还是单身狗多。
+

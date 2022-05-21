@@ -4,7 +4,7 @@ title: 搭建 S?R 教程
 subtitle: 
 author: Alomerry Wu
 date: 2020-02-14
-headerImage: /img/in-post/header-image/14.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2020

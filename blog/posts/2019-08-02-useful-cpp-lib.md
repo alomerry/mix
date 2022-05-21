@@ -4,7 +4,7 @@ title: C++ 好用的库函数
 subtitle:
 author: Alomerry Wu
 date: 2019-07-21
-headerImage: /img/in-post/header-image/20.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2019

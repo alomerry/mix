@@ -4,7 +4,7 @@ title: The Go Programming Language
 subtitle: 
 author: Alomerry Wu
 date: 2021-03-01
-headerImage: /img/in-post/header-image/1.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2021
@@ -14,8 +14,6 @@ tags:
 <!-- Description. -->
 
 <!-- more -->
-
-# The Go Programming Language
 
 ## 入门
 
@@ -473,6 +471,15 @@ Go 语言中接口类型的独特之处在于它是满足隐式实现的，即�
 ## 包和工具
 
 ## 测试
+
+https://sanyuesha.com/2019/08/21/go-test/
+https://zhuanlan.zhihu.com/p/80567543
+https://books.studygolang.com/The-Golang-Standard-Library-by-Example/chapter09/09.2.html
+https://learnku.com/articles/39971
+https://mlog.club/article/89460
+https://github.com/stretchr/testify
+https://bastengao.com/blog/2019/12/go-test-practices.html
+https://stackoverflow.com/questions/26641454/testify-is-seemingly-running-test-suites-concurrrently
 
 ## 反射
 

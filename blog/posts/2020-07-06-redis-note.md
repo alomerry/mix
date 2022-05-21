@@ -1,10 +1,10 @@
 ---
 layout: Post
-title: Redis 知识点
+title: Redis Note
 subtitle: 
 author: Alomerry Wu
 date: 2020-07-06
-headerImage: /img/in-post/header-image/3.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2020

@@ -4,7 +4,7 @@ title: Code Review 注意事项
 subtitle: 
 author: Alomerry Wu
 date: 2020-07-06
-headerImage: /img/in-post/header-image/12.jpg
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
 - Y2020
