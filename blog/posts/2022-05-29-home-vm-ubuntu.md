@@ -1,6 +1,6 @@
 ---
 layout: Post
-title: Kaiheila bot
+title: Home VMware Ubuntu 
 subtitle:
 author: Alomerry Wu
 date: 2022-02-26
@@ -11,4 +11,4 @@ tags:
 - golang
 ---
 
-https://developer.kaiheila.cn/doc/intro
+https://www.gzblog.tech/2022/04/30/Build-Your-Own-Cloud-Game-Streaming-Service/

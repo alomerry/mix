@@ -13,3 +13,6 @@ tags:
 ## 
 
 https://docs.rocket.chat/quick-start/installing-and-updating/rapid-deployment-methods/docker-and-docker-compose
+https://support.websoft9.com/docs/rocketchat/zh/solution-smtp.html
+https://bynss.com/linux/553614.html
+https://docs.rocket.chat/getting-support#mongodb-versions

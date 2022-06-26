@@ -6,20 +6,31 @@
   "author": "Alomerry Wu <alomerry@hotmail.com>",
   "scripts": {
     "clean": "rimraf blog/.vuepress/.temp blog/.vuepress/.cache dist",
-    "dev": "vuepress dev blog --clean-cache",
-    "build": "yarn clean && vuepress build blog --clean-cache --dest dist",
-    "serve": "anywhere -h localhost -d dist"
+    "dev": "vuepress-cli dev blog --clean-cache",
+    "build": "pnpm clean && vuepress-cli build blog --clean-cache",
+    "serve": "serve blog/.vuepress/dist"
   },
-  "dependencies": {
-    "@vuepress/bundler-vite": "2.0.0-beta.45",
-    "@vuepress/cli": "2.0.0-beta.45",
-    "@vuepress/client": "2.0.0-beta.45",
-    "anywhere": "^1.6.0",
+  "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-beta.48",
+    "@vuepress/cli": "2.0.0-beta.48",
+    "@vuepress/client": "2.0.0-beta.48",
     "oh-vue-icons": "^1.0.0-rc3",
-    "sass-loader": "^12.6.0",
     "rimraf": "^3.0.2",
-    "vue": "^3.2.33",
-    "vuepress": "2.0.0-beta.45",
-    "vuepress-theme-gungnir": "2.0.0-alpha.23"
+    "sass-loader": "^13.0.0",
+    "serve": "^13.0.2",
+    "vue": "^3.2.36",
+    "vuepress": "2.0.0-beta.48",
+    "vuepress-theme-gungnir": "^2.0.0-alpha.25"
+  },
+  "engines": {
+    "node": ">=14",
+    "pnpm": ">=7"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "webpack"
+      ]
+    }
   }
 }
