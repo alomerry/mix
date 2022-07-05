@@ -1,100 +1,98 @@
 ---
 layout: Post
-title: C++ 好用的库函数
-subtitle:
+title: C++ 常用的函数
+subtitle: algorithm/stdlib/string/STL 库函数
 author: Alomerry Wu
 date: 2019-07-21
+update: 2022-07-02
+useHeaderImage: true
+headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
+
 - Y2019
+- U2022
+- IOI
+- STL
+- C++
+- TODO
+
 ---
 
-```
-<algorithm>
->`max_element`
+在做一些算法的时候会用到一些好用的库函数、STL 函数，总结整理一下
 
->`min_element`
+## 常用库函数
 
->`min`,`max`函数
+### `algorithm`
 
->`lower_bound`
-函数原型：
-`lower_bound(int* first,int* last,val)`;
-作用：查找有序区间[first，last]中第一个大于等于x的位置
+- `max_element` 查询最大值所在的第一个位置
+- `min_element` 查询最小值所在的第一个位置
+- `min`,`max`
+- `lower_bound(int* first,int* last,val)` 查找有序区间 `[first，last]` 中第一个大于等于x的位置
+- `upper_bound` 大致和 `lower_bound` 相同，不过查找的是有序区间 `[first，last]` 中第一个
+- `void sort(RanIt first, RanIt last, Pred pr)` `first` 指向容器首地址的指针（数组名）；`last` 指向容器尾地址的指针（数组名 + 数组长度）；`pr` 比较方法（默认为升序）
+- `void fill(first,last,val)` `first`  起始地址；`last` 末尾地址；`val` 将要替换的值
 
->`upper_bound`
-作用：大致和lower_bound()相同，不过查找的是有序区间[first，last]中第一个
+### `stdlib.h`
 
+- `atoi`
+- `atof` 字符串转换为double
 
->`Sort`
-函数原型：
-`void sort(RanIt first, RanIt last, Pred pr);`
-参数解释
-first	指向容器首地址的指针（数组名）
-last	指向容器尾地址的指针（数组名+数组长度）
-pr	比较方法（默认为升序）
+### `string`
 
->`fill`
-函数原型：
-`void fill(first,last,val); `
-参数解释
-first	起始地址
-last	末尾地址
-val	将要替换的值
+- getline
 
+### `ctype.h`
 
->#include<stdlib.h>
-atoi
-atof 字符串转换为double
+- tolower()/toupper() //值并没有改变
+- isalpha
+- isalnum
+- isdigit()、isprint()
+- isalpha （字母，包括大写、小写）
+- islower（小写字母）
+- isupper（大写字母）
+- isalnum（字母大写小写+数字）
+- isblank（space和\t）
+- isspace（space、\t、\r、\n）
 
+### `math.h`
 
->#include string
->getline
+- `double pow(double x, double y)` 返回 `x` 的 `y` 次方
+- `double floor(double x)`
+- `floor()`
+- `atan()`
+- `fabs(double)` 取 `double` 的绝对值；
+- `abs(int)` 取 `int` 的绝对值；
+- `round(double)` 对 `double` 类型进行四舍五入；
+- `sqrt(double)` 返回 `double` 的算术平方根；
 
->
-<ctype.h>
-tolower()/toupper() //值并没有改变
-isalpha
-isalnum
-isdigit（），isprint（）
-isalpha （字母，包括大写、小写）
-islower（小写字母）
-isupper（大写字母）
-isalnum（字母大写小写+数字）
-isblank（space和\t）
-isspace（space、\t、\r、\n）
+## STL
 
+### vector
 
->
-<math.h>
-1.pow()
-函数原型：double pow(double x, double y)
+### map
 
-作用：返回x的y次方
+### set
 
-2.floor()
-函数原型：double floor（double x）；
+## 各个类型的转换
 
-3.atan()
-fabs(double) 取double的绝对值；
-abs(int) 取int的绝对值；
-round(double) 对double类型进行四舍五入；
-sqrt(double) 返回double的算术平方根；
+### 使用 stringstream
 
-关于各个类型的转换
-可以使用stringstream
-eg:
-
+```cpp
 #include <sstream>
 stringstream ss;
 string a="12";
 int b;
 ss<<a;
 ss>>b;
+```
 
-最大公约数
-//公倍数 两数相乘  除以公约数
+## 常见技巧 case
+
+### 最大公约数（公倍数 两数相乘  除以公约数）
+
+```cpp
 #include<bits/stdc++.h>
 using namespace std;
 int a[40] = {1,2};
@@ -103,8 +101,11 @@ int main()
     cout << __gcd(12,6);
     //cout << __INT32_MAX__ << endl;
 }
+```
 
-accumulate求和
+### accumulate 求和
+
+```cpp
 #include<numeric>
 #include<iostream>
 #include<vector>
@@ -117,11 +118,11 @@ int main()
     v.push_back(9);
     cout << accumulate(v.begin(),v.end(),0);  //0是累加的初值
 }
+```
 
+### bitset 实现十进制和二进制的互换
 
-bitset
-可实现十进制和二进制的互换
-
+```cpp
 #include<iostream>
 #include<bitset>
 using namespace std;
@@ -133,13 +134,15 @@ int main()
     b = a.to_ullong();
     cout <<a << " " << b <<endl;
 }
+```
 
-count
+### count
+
+```cpp
 /*
 count(begin,end, int)  大于int型的数
 count_if(begin,end,fun)  自定义函数
 */
-
 #include<iostream>
 #include<algorithm>
 using namespace std;
@@ -155,8 +158,11 @@ int main()
     cout << count(a,a+10,10);
     //for_each(a,a+9,print<int>) ;
 }
+```
 
-copy
+### copy
+
+```cpp
 /*
 copy(begin,end,begin)
 将第一个数组的begin至end   赋值到第二个容器begin开始
@@ -176,8 +182,11 @@ int main()
     copy(a,a+5,b);  //复制前五个
     for_each(b,b+9,print<int>);
 }
+```
 
+### find_if
 
+```cpp
 find_if()
 /*
 find_if(begin,end,greatThree)
@@ -209,9 +218,11 @@ int main()
 
 	//for_each(a,a+9,print<int>) ;
 }
+```
 
+### find
 
-
+```cpp
 find
 /*
 find返回找到元素的地址
@@ -232,8 +243,11 @@ int main()
     cout << find(a,a+10,6);
 }
 
+```
 
+### for_each()
 
+```cpp
 for_each()
 #include<iostream>
 #include<algorithm>

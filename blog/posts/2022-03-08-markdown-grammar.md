@@ -4,11 +4,14 @@ title: Markdown Syntax
 subtitle:
 author: Alomerry Wu
 date: 2022-03-08
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
+useHeaderImage: true
 catalog: true
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
 tags:
+
 - Y2022
-- markdown
+- Markdown
+
 ---
 
 <!-- Description. -->
@@ -34,6 +37,93 @@ _________________
 **Output**
 
 ***
+
+### [Mermaid](https://mermaid-js.github.io/mermaid/#/)
+
+**流程图**
+
+先看两个简单的例子
+
+~~~
+```mermaid
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+```
+~~~
+
+```mermaid
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+```
+
+~~~
+```mermaid
+graph TB
+
+  SubGraph1 --> SubGraph1Flow
+  subgraph "SubGraph 1 Flow"
+  SubGraph1Flow(SubNode 1)
+  SubGraph1Flow -- Choice1 --> DoChoice1
+  SubGraph1Flow -- Choice2 --> DoChoice2
+  end
+
+  subgraph "Main Graph"
+  Node1[Node 1] --> Node2[Node 2]
+  Node2 --> SubGraph1[Jump to SubGraph1]
+  SubGraph1 --> FinalThing[Final Thing]
+end
+```
+~~~
+
+```mermaid
+graph TB
+
+  SubGraph1 --> SubGraph1Flow
+  subgraph "SubGraph 1 Flow"
+  SubGraph1Flow(SubNode 1)
+  SubGraph1Flow -- Choice1 --> DoChoice1
+  SubGraph1Flow -- Choice2 --> DoChoice2
+  end
+
+  subgraph "Main Graph"
+  Node1[Node 1] --> Node2[Node 2]
+  Node2 --> SubGraph1[Jump to SubGraph1]
+  SubGraph1 --> FinalThing[Final Thing]
+end
+```
+
+| 字母表示 | 含义 |
+| :-: | :-: |
+| TB | 从上到下 |
+| BT | 从下到上 |
+| LR | 从左到右 |
+| RL | 从右到左 |
+
+| 表述 | 说明 | 含义 |
+| :-: | :-: | :-: |
+| id[文字] | 矩形节点 | 表示过程 |
+| id(文字) | 圆角矩形节点 | 表示开始与结束 |
+| id((文字)) | 圆形节点 | 表示连接。为避免流程过长或有交叉，可将流程切开成对 |
+| id{文字} | 菱形节点 | 表示判断、决策 |
+| id>文字] | 右向旗帜节点 | |
+
+| 箭头 | 含义 |
+| :-: | :-: |
+| --- | 虚线 |
+| -.- | 实线 |
+| --> | 有箭头 |
+| -.-> | 无箭头 |
+| --文字--> | 有文字 |
+| -.文字.-> | 有文字 |
+
+- [mermaid-live-editor](https://mermaid-js.github.io/mermaid-live-editor/)
+- https://www.jianshu.com/p/77cc07f47cdc
 
 ## VuePress's Syntax Extensions[^VuePress]
 
@@ -151,6 +241,10 @@ Supported `type` :
 
 ::: link {Icon Name | Image URL} [title](url)
 description
+:::
+
+::: link {/img/links/me.png} [My Blog](https://blog.zxh.io)
+My blog 🧐, powered by VuePress 2, themed by Gungnir.
 :::
 
 ## VuePress's Built-in Components[^Built-in-Components]

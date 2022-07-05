@@ -1,14 +1,21 @@
 ---
 layout: Post
 title: Redis Note
-subtitle: 
+subtitle:
 author: Alomerry Wu
 date: 2020-07-06
+update: 2022-07-02
+useHeaderImage: true
+headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
 tags:
+
 - Y2020
+- U2022
 - Redis
+- TODO
+
 ---
 
 <!-- Description. -->
@@ -67,11 +74,11 @@ tags:
 ## Homework
 
 - 写出下面的 Redis 命令
-    - Redis 中插入十条 student{id, name, age} 的数据。
-    - Redis 中记录 student 的投票次数，并执行加 1 和加 3 的操作。
+  - Redis 中插入十条 student{id, name, age} 的数据。
+  - Redis 中记录 student 的投票次数，并执行加 1 和加 3 的操作。
 - 使用后端框架操作 Redis 实现下面的功能
-    - Redis 中插入十条 student{id, name, age} 的数据。其中 student 需要定义成 model，id、name、age 都需要随机生成。
-    - Redis 中记录 student 的投票次数(初始值随机生成)，并按从低到高的顺序取出来。
+  - Redis 中插入十条 student{id, name, age} 的数据。其中 student 需要定义成 model，id、name、age 都需要随机生成。
+  - Redis 中记录 student 的投票次数(初始值随机生成)，并按从低到高的顺序取出来。
 
 使用 Redis 命令代码：
 
@@ -165,21 +172,21 @@ OK
 
 set key value 设置指定 key 的值，执行代码如下：
 
-```text
+```shell
 > set mo 14
 OK
 ```
 
 get key 获取指定 key 的值，执行代码如下：
 
-```text
+```shell
 > getset mo 16
 "14"
 ```
 
 getrange key start end 返回 key 中字符串的子字符串，执行代码如下：
 
-```text
+```shell
 > set mo "314dsafdaga"
 OK                                  
 > getrange mo 0 7
@@ -188,21 +195,21 @@ OK
 
 getset key value 将指定 key 的值设置为 value，并返回 key 的旧值，执行代码如下：
 
-```text
+```shell
 > getset mo 1
 "314dsafdaga"
 ```
 
 mset key value [key value] 设置一个或多个 key-value 对，执行代码如下：
 
-```text
+```shell
 > mset mo 12 de 12
 OK
 ```
 
 mget key1 [key2] 获取一个或多个 key 的值，执行代码如下：
 
-```text
+```shell
 > mget mo de
 1) "12"
 2) "12"
@@ -210,21 +217,21 @@ mget key1 [key2] 获取一个或多个 key 的值，执行代码如下：
 
 setnx key value 只有 key 不存在时才会设置 value，执行代码如下：
 
-```text
+```shell
 > setnx mo 10
 (integer) 0
 ```
 
 strlen key 返回 key 所储存的字符串值的长度，执行代码如下：
 
-```text
+```shell
 > strlen mo
 (integer) 1
 ```
 
 msetnx key value [key value] 给一个或多个 key 设置 value，当且仅当所有 key 都不存在时，执行代码如下：
 
-```text
+```shell
 > msetnx mo 100
 (integer) 0
 > del mo
@@ -828,7 +835,8 @@ zlexcount key min max 返回分数相同时指定字典序区间的成员数，�
 (integer) 4
 ```
 
-zrangebyscore key min max [withscores] [limit offset count] 返回指定分数范围内的有序集合元素，按分数从小到大排序，添加 `withscores` 参数使结果包含分数，`limit` 可以获取指定区间的结果，执行代码如下：
+zrangebyscore key min max [withscores] [limit offset count] 返回指定分数范围内的有序集合元素，按分数从小到大排序，添加 `withscores` 参数使结果包含分数，`limit`
+可以获取指定区间的结果，执行代码如下：
 
 ```text
 > zrangebyscore mo -inf +inf withscores limit 1 2

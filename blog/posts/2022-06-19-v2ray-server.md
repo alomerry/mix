@@ -5,11 +5,14 @@ subtitle:
 author: Alomerry Wu
 date: 2022-06-18
 useHeaderImage: true
-headerImage: /img/in-post/header-image?max=51
 catalog: true
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
+headerMask: rgba(40, 57, 101, .5)
+headerImageCredit: pixiv
+headerImageCreditLink: https://www.pixiv.net/
 tags:
   - Y2022
-  - v2ray
+  - V2ray
 ---
 
 ## 安装环境
@@ -120,7 +123,7 @@ location /<伪装路径>/ {
         "decryption": "none",
         "clients": [
           {
-            "id": "1bb83c10-911e-4767-81d2-adb5177c0718",
+            "id": "<uuid>",
             "level": 0
           }
         ]
@@ -152,13 +155,13 @@ vcore 配置
 {
     "inbounds": [
         {
-            "port": 5235,
+            "port": <配置端口>,
             "protocol": "vless",
             "settings": {
                 "decryption": "none",
                 "clients": [
                     {
-                        "id": "7bb2f58e-c05e-439d-a541-89e593272fa8",
+                        "id": "<uuid>",
                         "flow": "xtls-rprx-direct",
                         "level": 0
                     }

@@ -4,8 +4,10 @@ title: Nginx Note
 subtitle:
 author: Alomerry Wu
 date: 2022-02-26
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
+useHeaderImage: true
+headerMask: rgba(40, 57, 101, .5)
 catalog: true
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
 tags:
 - Y2022
 - Nginx

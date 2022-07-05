@@ -32,5 +32,9 @@
         "webpack"
       ]
     }
+  },
+  "dependencies": {
+    "@renovamen/vuepress-plugin-mermaid": "2.0.0-alpha.25",
+    "vuepress-plugin-chart": "2.0.0-alpha.25"
   }
 }

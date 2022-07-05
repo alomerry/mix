@@ -1,14 +1,18 @@
 ---
 layout: Post
 title: The Go Programming Language
-subtitle: 
+subtitle:
 author: Alomerry Wu
 date: 2021-03-01
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
+useHeaderImage: true
+headerMask: rgba(40, 57, 101, .5)
 catalog: true
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
 tags:
+
 - Y2021
-- golang
+- Golang
+
 ---
 
 <!-- Description. -->
@@ -21,21 +25,21 @@ tags:
 
 ```go
 func main() {
-	urls := []string{"https://www.baidu.com"}
-	for _, url := range urls {
-		resp, err := http.Get(url)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
-			os.Exit(1)
-		}
-		b, err := ioutil.ReadAll(resp.Body)
-		resp.Body.Close()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
-			os.Exit(1)
-		}
-		fmt.Printf("%s\n", b)
-	}
+urls := []string{"https://www.baidu.com"}
+for _, url := range urls {
+resp, err := http.Get(url)
+if err != nil {
+fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
+os.Exit(1)
+}
+b, err := ioutil.ReadAll(resp.Body)
+resp.Body.Close()
+if err != nil {
+fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
+os.Exit(1)
+}
+fmt.Printf("%s\n", b)
+}
 }
 ```
 
@@ -43,35 +47,35 @@ func main() {
 
 ```go
 func main() {
-	urls := []string{
-		"https://qte.alomerry.com",
-		"https://alomerry.com",
-		"https://doc.cloudmo.top",
-	}
-	ch := make(chan string)
-	for _, url := range urls {
-		go fetch(url, ch)
-	}
-	for range urls {
-		fmt.Println(<-ch)
-	}
+urls := []string{
+"https://qte.alomerry.com",
+"https://alomerry.com",
+"https://doc.cloudmo.top",
+}
+ch := make(chan string)
+for _, url := range urls {
+go fetch(url, ch)
+}
+for range urls {
+fmt.Println(<-ch)
+}
 }
 
 func fetch(url string, ch chan<- string) {
-	start := time.Now()
-	resp, err := http.Get(url)
-	if err != nil {
-		ch <- fmt.Sprint(err)
-		return
-	}
-	nbytes, err := io.Copy(ioutil.Discard, resp.Body)
-	resp.Body.Close()
-	if err != nil {
-		ch <- fmt.Sprintf("while reading %s: %v", url, err)
-		return
-	}
-	sec := time.Since(start).Seconds()
-	ch <- fmt.Sprintf("%.2fs\t%d\t%s", sec, nbytes, url)
+start := time.Now()
+resp, err := http.Get(url)
+if err != nil {
+ch <- fmt.Sprint(err)
+return
+}
+nbytes, err := io.Copy(ioutil.Discard, resp.Body)
+resp.Body.Close()
+if err != nil {
+ch <- fmt.Sprintf("while reading %s: %v", url, err)
+return
+}
+sec := time.Since(start).Seconds()
+ch <- fmt.Sprintf("%.2fs\t%d\t%s", sec, nbytes, url)
 }
 ```
 
@@ -87,14 +91,14 @@ func fetch(url string, ch chan<- string) {
 
 ```go
 func newInt() *int {
-    return new(int)
+return new(int)
 }
 ```
 
 ```go
 func newInt() *int {
-    var dummy int
-    return &dummy
+var dummy int
+return &dummy
 }
 ```
 
@@ -111,9 +115,12 @@ fmt.Println(q == p) // false
 
 #### 变量的生命周期
 
-> 变量的生命周期指的是在程序运行期间变量有效存在的时间间隔。对于在包一级声明的变量来说，他们的生命周期和整个程序运行周期是一致的。而相比之下，局部变量的生命周期则是动态的：每次从创建一个新变量的声明语句开始，知道该变量不再被引用为止，然后变量的存储空间可能被回收。函数的参数变量和返回值变量都是局部变量。它们在函数每次被调用的时候创建。
 >
-> 那么 GO 语言的自动垃圾收集器是如何知道一个变量是何时可以被回收的呢？基本的实现思路是，从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不存在这样的访问路径，那么说明该变量是不可达的，也就是说它是否存在并不会影响程序的后续计算结果。
+变量的生命周期指的是在程序运行期间变量有效存在的时间间隔。对于在包一级声明的变量来说，他们的生命周期和整个程序运行周期是一致的。而相比之下，局部变量的生命周期则是动态的：每次从创建一个新变量的声明语句开始，知道该变量不再被引用为止，然后变量的存储空间可能被回收。函数的参数变量和返回值变量都是局部变量。它们在函数每次被调用的时候创建。
+>
+> 那么 GO
+>
+语言的自动垃圾收集器是如何知道一个变量是何时可以被回收的呢？基本的实现思路是，从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不存在这样的访问路径，那么说明该变量是不可达的，也就是说它是否存在并不会影响程序的后续计算结果。
 >
 > 因为一个变量的有效周期只取决于是否可达，因此一个循环迭代内部的局部变量的声明周期可能超出其局部作用域。同时，局部变量可能在函数返回之后依然存在。
 >
@@ -133,11 +140,14 @@ fmt.Println(q == p) // false
 > }
 > ```
 >
-> f 函数里的 x 变量必须在堆上分配，因为它在函数退出后依然可以通过包一级的 global 变量找到，虽然它是在函数内部定义的；用 GO 的术语说，这个 x 局部变量从函数 f 中逃逸了。相反，当 g 函数返回是，变量 *y 将是不可达的，也就是说可以马上被回收的。 因此，\*y 并没有从函数 g 中逃逸，编译器可以选择在栈上分配 \*y 的存储空间（也可以选择在堆上分配，然后由 GO 语言的 GC 回收这个变量的存储空间），虽然这里用的是 new 方式。
+> f 函数里的 x 变量必须在堆上分配，因为它在函数退出后依然可以通过包一级的 global 变量找到，虽然它是在函数内部定义的；用 GO 的术语说，这个 x 局部变量从函数 f 中逃逸了。相反，当 g 函数返回是，变量 *y
+> 将是不可达的，也就是说可以马上被回收的。 因此，\*y 并没有从函数 g 中逃逸，编译器可以选择在栈上分配 \*y 的存储空间（也可以选择在堆上分配，然后由 GO 语言的 GC 回收这个变量的存储空间），虽然这里用的是 new 方式。
 >
 > 逃逸的变量需要额外分配内存，同时对性能的优化可能会产生细微的影响。
 >
-> GO 语言的自动垃圾收集器对编写正确的代码是一个巨大的帮助，但也并不是说你完全不用考虑内存了。虽然不需要显示地分配和释放内存，但是要编写高效的程序你依然需要了解变量的声明周期。例如将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命对象的垃圾回收。
+> GO
+>
+语言的自动垃圾收集器对编写正确的代码是一个巨大的帮助，但也并不是说你完全不用考虑内存了。虽然不需要显示地分配和释放内存，但是要编写高效的程序你依然需要了解变量的声明周期。例如将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命对象的垃圾回收。
 
 ### 包和文件
 
@@ -147,8 +157,8 @@ fmt.Println(q == p) // false
 
 ```go
 var a = b + c // a 第三个初始化，为 3
-var b = f()   // b 第二个初始化，为 2，通过调用 f（依赖 c）
-var c = 1     // c 第一个初始化，为 1
+var b = f() // b 第二个初始化，为 2，通过调用 f（依赖 c）
+var c = 1   // c 第一个初始化，为 1
 
 func f() int { return c + 1}
 ```
@@ -248,15 +258,15 @@ Go 语言有一个特性让我们只声明一个成员对应的数据类型而�
 
 ```go
 type Point struct {
-    X, Y int
+X, Y int
 }
 type Circle struct {
-	Point
-    Radius int
+Point
+Radius int
 }
 type Wheel struct {
-    Circle
-    Spokes int
+Circle
+Spokes int
 }
 ```
 
@@ -264,9 +274,9 @@ type Wheel struct {
 
 ```go
 var w Wheel
-w.X = 8			// equivalent to w.Circle.Point.X = 8
-w.Y = 8			// equivalent to w.Circle.Point.Y = 8
-w.Radius = 5	// equivalent to w.Circle.Radius = 5
+w.X = 8 // equivalent to w.Circle.Point.X = 8
+w.Y = 8 // equivalent to w.Circle.Point.Y = 8
+w.Radius = 5 // equivalent to w.Circle.Radius = 5
 w.Spokes = 5
 ```
 
@@ -291,7 +301,7 @@ TODO
 - 传播错误
 - 重试
 - 输出错误信息，结束程序
-    - 需要注意的是，这种策略只应该在 main 中执行。对于库函数而言，应仅向上传播错误，除非该错误意味着程序内部包含不一致性，即遇到了 bug，才能在库函数中结束程序。
+  - 需要注意的是，这种策略只应该在 main 中执行。对于库函数而言，应仅向上传播错误，除非该错误意味着程序内部包含不一致性，即遇到了 bug，才能在库函数中结束程序。
 - 仅输出错误信息，保持程序运行
 - 忽略错误
 
@@ -300,20 +310,20 @@ TODO
 匿名函数可以访问完整的语法环境。
 
 ```go
-func squares() func() int {
-    var x int
-    return func() int {
-        x++
-        return  x * x
-    }
+func squares() func () int {
+var x int
+return func () int {
+x++
+return x * x
+}
 }
 
 func main(){
-    f := squares()
-    fmt.Println(f()) // "1"
-    fmt.Println(f()) // "4"
-    fmt.Println(f()) // "9"
-    fmt.Println(f()) // "16"
+f := squares()
+fmt.Println(f()) // "1"
+fmt.Println(f()) // "4"
+fmt.Println(f()) // "9"
+fmt.Println(f()) // "16"
 }
 ```
 
@@ -324,16 +334,16 @@ func main(){
 #### 警告：捕获迭代变量
 
 ```go
-var rmdirs []func()
+var rmdirs []func ()
 for _, d := range tempDirs() {
-    os.MkdirAll(dir, 0755)
-    rmdirs = append(rmdirs, func() {
-        os.RemoveAll(dir) // NOTE: incorrect!
-    })
+os.MkdirAll(dir, 0755)
+rmdirs = append(rmdirs, func () {
+os.RemoveAll(dir) // NOTE: incorrect!
+})
 }
 // ...do some work ...
 for _, rmdir := range rmdirs {
-    rmdir() // clean up
+rmdir() // clean up
 }
 ```
 
@@ -342,13 +352,13 @@ for _, rmdir := range rmdirs {
 这个问题不仅存在基于 range 的循环中，下面例子有同样的问题：
 
 ```go
-var rmdirs []func()
+var rmdirs []func ()
 dirs := tempDirs()
-for i:= 0; i < len(dirs); i++ {
-    os.MkdirAll(dirs[i], 0755)
-    rmdirs = append(rmdirs, func() {
-        os.RemoveAll(dirs[i]) // NOTE: incorrect!
-    })
+for i := 0; i < len(dirs); i++ {
+os.MkdirAll(dirs[i], 0755)
+rmdirs = append(rmdirs, func () {
+os.RemoveAll(dirs[i]) // NOTE: incorrect!
+})
 }
 ```
 
@@ -363,18 +373,18 @@ defer 语句经常被用于处理成对的操作，如打开、关闭、连接�
 
 ```go
 func bigSlowOperation(){
-    defer trace("bigSlowOperation")() // don't forget the
-    extra parentheses
-    // ...lots of work...
-    time.Sleep(10 *  time.Second) // simulate slow
-    operation by sleeping
+defer trace("bigSlowOperation")() // don't forget the
+extra parentheses
+// ...lots of work...
+time.Sleep(10 *  time.Second) // simulate slow
+operation by sleeping
 }
-func trace(msg string) func() {
-    start := time.Now()
-    log.Printf("enter %s", msg)
-    return func() {
-        log.Printf("exit %s (%s)", msg, time.Since(start))
-    }
+func trace(msg string) func () {
+start := time.Now()
+log.Printf("enter %s", msg)
+return func () {
+log.Printf("exit %s (%s)", msg, time.Since(start))
+}
 }
 ```
 
@@ -384,11 +394,11 @@ defer 语句中函数会在 return 语句更新返回值变量后再执行，又
 
 ```go
 func double(x int) int {
-	return x + x
+return x + x
 }
 func triple(x int) (result int) {
-	defer func() { result += x }()
-	return double(x)
+defer func () { result += x }()
+return double(x)
 }
 fmt.Println(triple(4)) // "12"
 ```
@@ -413,29 +423,29 @@ recover 时对 panic value 进行检查，如果发现是特殊类型，就将 p
 // soleTitle returns the text of the first non-empty title element
 // in doc, and an error if there was not exactly one.
 func soleTitle(doc *html.Node) (title string, err error) {
-	type bailout struct{}
-	defer func() {
-        switch p := recover(); p {
-        case nil: // no panic
-        case bailout{}: // "expected" panic
-        err = fmt.Errorf("multiple title elements")
-        default:
-        panic(p) // unexpected panic; carry on panicking
-	}
+type bailout struct{}
+defer func () {
+switch p := recover(); p {
+case nil: // no panic
+case bailout{}: // "expected" panic
+err = fmt.Errorf("multiple title elements")
+default:
+panic(p) // unexpected panic; carry on panicking
+}
 }()
-	// Bail out of recursion if we find more than one nonempty title.
-    forEachNode(doc, func(n *html.Node) {
-        if n.Type == html.ElementNode && n.Data == "title" && n.FirstChild != nil {
-            if title != "" {
-                panic(bailout{}) // multiple titleelements
-            }
-            title = n.FirstChild.Data
-        }
-	}, nil)
-	if title == "" {
-        return "", fmt.Errorf("no title element")
-	}
-	return title, nil
+// Bail out of recursion if we find more than one nonempty title.
+forEachNode(doc, func (n *html.Node) {
+if n.Type == html.ElementNode && n.Data == "title" && n.FirstChild != nil {
+if title != "" {
+panic(bailout{}) // multiple titleelements
+}
+title = n.FirstChild.Data
+}
+}, nil)
+if title == "" {
+return "", fmt.Errorf("no title element")
+}
+return title, nil
 }
 ```
 
@@ -443,7 +453,12 @@ func soleTitle(doc *html.Node) (title string, err error) {
 
 ### 基于指针的接收器
 
-> 如果命名类型T(译注：用type xxx定义的类型)的所有方法都是用T类型自己来做接收器(是 *T )，那么拷贝这种类型的实例就是安全的；调用他的任何一个方法也就会产生一个拷贝。比如time.Duration的这个类型，在调用其方法时就会被全部拷贝一份，包括在作数传入函数的时候。但是如果一个方法使用指针作为接收器，你需要避免对其进行拷贝为这样可能会破坏掉该类型内部的不变性。比如你对bytes.Buffer对象进行了拷贝，那么会引起原始对象和拷贝对象只是别名而已，但实际上其指向的对象是一致的。紧接着对后的变量进行修改可能会有让你意外的结果。译注： 作者这里说的比较绕，其实有两点：1. 不管你的method的receiver是指针类型还是非指针类型，都是可以通过指针/非指针进行调用的，编译器会帮你做类型转换。2. 在声明一个method的receiver该是指针还是非指针类型时，你需要考虑两方面的内一方面是这个对象本身是不是特别大，如果声明为非指针变量时，调用会产生一次贝；第二方面是如果你用指针类型作为receiver，那么你一定要注意，这种指针类型的始终是一块内存地址，就算你对其进行了拷贝。熟悉C或者C艹的人这里应该很快白。
+> 如果命名类型T(译注：用type xxx定义的类型)的所有方法都是用T类型自己来做接收器(是 *T )
+>
+，那么拷贝这种类型的实例就是安全的；调用他的任何一个方法也就会产生一个拷贝。比如time.Duration的这个类型，在调用其方法时就会被全部拷贝一份，包括在作数传入函数的时候。但是如果一个方法使用指针作为接收器，你需要避免对其进行拷贝为这样可能会破坏掉该类型内部的不变性。比如你对bytes.Buffer对象进行了拷贝，那么会引起原始对象和拷贝对象只是别名而已，但实际上其指向的对象是一致的。紧接着对后的变量进行修改可能会有让你意外的结果。译注：
+> 作者这里说的比较绕，其实有两点：1. 不管你的method的receiver是指针类型还是非指针类型，都是可以通过指针/非指针进行调用的，编译器会帮你做类型转换。2.
+>
+在声明一个method的receiver该是指针还是非指针类型时，你需要考虑两方面的内一方面是这个对象本身是不是特别大，如果声明为非指针变量时，调用会产生一次贝；第二方面是如果你用指针类型作为receiver，那么你一定要注意，这种指针类型的始终是一块内存地址，就算你对其进行了拷贝。熟悉C或者C艹的人这里应该很快白。
 
 ### Nil 也是合法的接收器类型
 
@@ -495,19 +510,19 @@ https://stackoverflow.com/questions/26641454/testify-is-seemingly-running-test-s
 
 ```go
 func main() {
-	start := time.Now()
+start := time.Now()
 
-	array, result := []string{
-		"a", "b", "c", "d", "e", "f", "g",
-	}, ""
+array, result := []string{
+"a", "b", "c", "d", "e", "f", "g",
+}, ""
 
-	for i := 0; i < 10000; i++ {
-		for j := range array {
-			result += array[j]
-		}
-	}
-	sec := time.Since(start).Seconds()
-	fmt.Println(sec)
+for i := 0; i < 10000; i++ {
+for j := range array {
+result += array[j]
+}
+}
+sec := time.Since(start).Seconds()
+fmt.Println(sec)
 }
 ```
 
@@ -515,17 +530,17 @@ func main() {
 
 ```go
 func main() {
-	start := time.Now()
+start := time.Now()
 
-	array, result := []string{
-		"a", "b", "c", "d", "e", "f", "g",
-	}, ""
+array, result := []string{
+"a", "b", "c", "d", "e", "f", "g",
+}, ""
 
-	for i := 0; i < 10000; i++ {
-		result = strings.Join(array, "")
-	}
-	sec := time.Since(start).Seconds()
-	fmt.Println(sec)
+for i := 0; i < 10000; i++ {
+result = strings.Join(array, "")
+}
+sec := time.Since(start).Seconds()
+fmt.Println(sec)
 }
 ```
 
@@ -537,21 +552,21 @@ func main() {
 
 ```go
 func main() {
-	urls := []string{"https://www.baidu.com"}
-	for _, url := range urls {
-		resp, err := http.Get(url)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
-			os.Exit(1)
-		}
+urls := []string{"https://www.baidu.com"}
+for _, url := range urls {
+resp, err := http.Get(url)
+if err != nil {
+fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
+os.Exit(1)
+}
 
-		_, err = io.Copy(os.Stdout,resp.Body)
-		resp.Body.Close()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
-			os.Exit(1)
-		}
-	}
+_, err = io.Copy(os.Stdout, resp.Body)
+resp.Body.Close()
+if err != nil {
+fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
+os.Exit(1)
+}
+}
 }
 ```
 
@@ -559,24 +574,24 @@ func main() {
 
 ```go
 func main() {
-	urls := []string{"www.baidu.com"}
-	for _, url := range urls {
-		if !strings.HasPrefix(url, "https://") {
-			url = "https://" + url
-		}
-		resp, err := http.Get(url)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
-			os.Exit(1)
-		}
+urls := []string{"www.baidu.com"}
+for _, url := range urls {
+if !strings.HasPrefix(url, "https://") {
+url = "https://" + url
+}
+resp, err := http.Get(url)
+if err != nil {
+fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
+os.Exit(1)
+}
 
-		_, err = io.Copy(os.Stdout, resp.Body)
-		resp.Body.Close()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
-			os.Exit(1)
-		}
-	}
+_, err = io.Copy(os.Stdout, resp.Body)
+resp.Body.Close()
+if err != nil {
+fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
+os.Exit(1)
+}
+}
 }
 ```
 
@@ -584,22 +599,21 @@ func main() {
 
 ```go
 func main() {
-	urls := []string{"www.baidu.com"}
-	for _, url := range urls {
-		if !strings.HasPrefix(url, "https://") {
-			url = "https://" + url
-		}
-		resp, err := http.Get(url)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
-			os.Exit(1)
-		}
+urls := []string{"www.baidu.com"}
+for _, url := range urls {
+if !strings.HasPrefix(url, "https://") {
+url = "https://" + url
+}
+resp, err := http.Get(url)
+if err != nil {
+fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
+os.Exit(1)
+}
 
-		fmt.Printf("status:%v, code:%v", resp.Status, resp.StatusCode)
-	}
+fmt.Printf("status:%v, code:%v", resp.Status, resp.StatusCode)
+}
 }
 ```
-
 
 ```chart
 {
