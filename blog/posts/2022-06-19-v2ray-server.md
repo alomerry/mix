@@ -1,6 +1,6 @@
 ---
 layout: Post
-title: 搭建 v?Ray 教程
+title: 搭建 v2Ray 教程
 subtitle:
 author: Alomerry Wu
 date: 2022-06-18

@@ -22,19 +22,65 @@ tags:
 
 <!-- more -->
 
-# Golang
+## TODO
+
+## Package
+
+## Case
+
+### Overwrite Pointer Receiver in Method
 
 ```go
-func main(){
-  a := []string{xxx}
-  xxx(a)
-  // a 未改变？
+package main
+
+import "fmt"
+
+func (p Person) MethodNoPt() {
+	p = Person{name: "MethodNoPt Changed!", age: 1000}
 }
 
-func xxx(a []string){
-  a = []string{xxx} ? append
+func (p *Person) MethodPt() {
+	*p = Person{name: "MethodPt Changed!", age: 1000}
+}
+
+func (p *Person) MethodPtR() *Person {
+	p = &Person{name: "MethodPt Changed!", age: 1000}
+	return p
+}
+
+type Person struct {
+	name string
+	age  int
+}
+
+func main() {
+	case1 := Person{name: "No Change", age: 10}
+	case1.MethodNoPt()
+	fmt.Printf("%+v\n", case1)
+
+	case2 := Person{name: "No Change", age: 10}
+	fmt.Printf("%+v\n", case2)
+	(&case2).MethodNoPt()
+	fmt.Printf("%+v\n", case2)
+
+	case3 := Person{name: "No Change", age: 10}
+	fmt.Printf("%+v\n", case3)
+	case3.MethodPt()
+	fmt.Printf("%+v\n", case3)
+
+	case4 := &Person{name: "No Change", age: 10}
+	fmt.Printf("%+v\n", case4)
+	case4.MethodPt()
+	fmt.Printf("%+v\n", case4)
+
+	case5 := &Person{name: "No Change", age: 10}
+	fmt.Printf("%+v\n", case5)
+	case5 = case5.MethodPtR()
+	fmt.Printf("%+v\n", case5)
 }
 ```
+
+- https://groups.google.com/g/golang-nuts/c/qWCSz0A0F8o?pli=1
 
 ## Slice
 
@@ -201,7 +247,8 @@ Value(key interface{}) interface{}
 
 在请求处理的过程中，会调用各层的函数，每层的函数会创建自己的routine，是一个routine树。所以，context也应该反映并实现成一棵树。
 
-要创建context树，第一步是要有一个根结点。`context.Background`函数的返回值是一个空的context，经常作为树的根结点，它一般由接收请求的第一个routine创建，不能被取消、没有值、也没有过期时间。
+要创建context树，第一步是要有一个根结点。`context.Background`
+函数的返回值是一个空的context，经常作为树的根结点，它一般由接收请求的第一个routine创建，不能被取消、没有值、也没有过期时间。
 
 ```go
 func Background() Context
@@ -236,9 +283,11 @@ case <-cxt.Done():
 根据cxt.Done()判断是否结束。当顶层的Request请求处理结束，或者外部取消了这次请求，就可以cancel掉顶层context，从而使整个请求的routine树得以退出。
 
 `WithDeadline`和`WithTimeout`比`WithCancel`
-多了一个时间参数，它指示context存活的最长时间。如果超过了过期时间，会自动撤销它的子context。所以context的生命期是由父context的routine和`deadline`共同决定的。
+多了一个时间参数，它指示context存活的最长时间。如果超过了过期时间，会自动撤销它的子context。所以context的生命期是由父context的routine和`deadline`
+共同决定的。
 
-`WithValue`返回parent的一个副本，该副本保存了传入的key/value，而调用Context接口的Value(key)方法就可以得到val。注意在同一个context中设置key/value，若key相同，值会被覆盖。
+`WithValue`返回parent的一个副本，该副本保存了传入的key/value，而调用Context接口的Value(key)
+方法就可以得到val。注意在同一个context中设置key/value，若key相同，值会被覆盖。
 
 ### 原理
 
@@ -293,7 +342,8 @@ Done() <-chan struct{}
 }
 ```
 
-`cancelCtx`结构体中`children`保存它的所有`子canceler`， 当外部触发cancel时，会调用`children`中的所有`cancel()`来终止所有的`cancelCtx`。`done`
+`cancelCtx`结构体中`children`保存它的所有`子canceler`， 当外部触发cancel时，会调用`children`中的所有`cancel()`
+来终止所有的`cancelCtx`。`done`
 用来标识是否已被cancel。当外部触发cancel、或者父Context的channel关闭时，此done也会关闭。
 
 ```go
@@ -344,8 +394,10 @@ PIC
 
 ### Panic
 
-虽然 Go 的 panic 机制类似于其他语言的异常，但是 panic 的适用场景有一些不同。由于 panic 会引起程序的崩溃，因此 panic 一般用于严重的错误，如程序内部的逻辑不一致，所以对应大部分漏洞，应该使用 Go
-提供错误机制，而不是 panic，尽量避免程序的崩溃。在健壮的程序中，任何可以预料到的错误，如不正确的输入、错误的配置或是失败的 I/O 操作都应该被优雅的处理。
+虽然 Go 的 panic 机制类似于其他语言的异常，但是 panic 的适用场景有一些不同。由于 panic 会引起程序的崩溃，因此 panic
+一般用于严重的错误，如程序内部的逻辑不一致，所以对应大部分漏洞，应该使用 Go
+提供错误机制，而不是 panic，尽量避免程序的崩溃。在健壮的程序中，任何可以预料到的错误，如不正确的输入、错误的配置或是失败的 I/O
+操作都应该被优雅的处理。
 
 ## defer
 
@@ -375,7 +427,8 @@ PIC
 
 ### 同步与锁
 
-Go 语言作为一个原生支持用户态进程（Goroutine）的语言，当提到并发编程、多线程编程时，往往都离不开锁这一概念。锁是一种并发编程中的同步原语（Synchronization Primitives），它能保证多个 Goroutine
+Go 语言作为一个原生支持用户态进程（Goroutine）的语言，当提到并发编程、多线程编程时，往往都离不开锁这一概念。锁是一种并发编程中的同步原语（Synchronization
+Primitives），它能保证多个 Goroutine
 在访问同一片内存时不会出现竞争条件（Race condition）等问题。
 
 Go 语言中常见的同步原语 [`sync.Mutex`](https://draveness.me/golang/tree/sync.Mutex)
@@ -404,7 +457,8 @@ Go 语言的 [`sync.Mutex`](https://draveness.me/golang/tree/sync.Mutex) 由两�
 
 ##### 状态
 
-互斥锁的状态比较复杂，如下图所示，最低三位分别表示 `mutexLocked`、`mutexWoken` 和 `mutexStarving`，剩下的位置用来表示当前有多少个 Goroutine 在等待互斥锁的释放：
+互斥锁的状态比较复杂，如下图所示，最低三位分别表示 `mutexLocked`、`mutexWoken` 和 `mutexStarving`，剩下的位置用来表示当前有多少个
+Goroutine 在等待互斥锁的释放：
 
 ```go
 type Mutex struct {
@@ -424,7 +478,8 @@ starvationThresholdNs = 1e6
 ```
 
 Mutex 拥有两种模式：正常模式和饥饿模式。
-处于正常模式时，等待者会被排进一个先进先出顺序的队列，但是一个被唤醒的等待者无法拥有锁同时还要和新的到来的协程争抢锁的所有权。新到的协程有优势（因为它们已经运行在 CPU 上并且可能有大量这样的协程），在这种情况下
+处于正常模式时，等待者会被排进一个先进先出顺序的队列，但是一个被唤醒的等待者无法拥有锁同时还要和新的到来的协程争抢锁的所有权。新到的协程有优势（因为它们已经运行在
+CPU 上并且可能有大量这样的协程），在这种情况下
 ，如果一个等待者获取锁的失败时间超过 1ms，锁会切换成饥饿模式。
 在饥饿模式锁的所有权会直接从释放锁的协程直接交给等待队列最前端的协程，新到达的协程无法尝试获取锁即使是锁要释放了，同时也不会自旋等待，而是将置入等待队列的尾部。
 如果一个等待者获得锁的同时发现以下任意情况：
@@ -674,7 +729,8 @@ Value(key interface{}) interface{}
 
 在请求处理的过程中，会调用各层的函数，每层的函数会创建自己的 routine，是一个 routine 树。所以，context 也应该反映并实现成一棵树。
 
-要创建 context 树，第一步是要有一个根结点。`context.Background`函数的返回值是一个空的 context，经常作为树的根结点，它一般由接收请求的第一个 routine 创建，不能被取消、没有值、也没有过期时间。
+要创建 context 树，第一步是要有一个根结点。`context.Background`函数的返回值是一个空的 context，经常作为树的根结点，它一般由接收请求的第一个
+routine 创建，不能被取消、没有值、也没有过期时间。
 
 ```go
 func Background() Context
@@ -689,7 +745,9 @@ func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
 func WithValue(parent Context, key interface{}, val interface{}) Context
 ```
 
-这四个函数的第一个参数都是父 context，返回一个 Context 类型的值，这样就层层创建出不同的节点。子节点是从复制父节点得到的，并且根据接收的函数参数保存子节点的一些状态值，然后就可以将它传递给下层的 routine 了。
+这四个函数的第一个参数都是父 context，返回一个 Context
+类型的值，这样就层层创建出不同的节点。子节点是从复制父节点得到的，并且根据接收的函数参数保存子节点的一些状态值，然后就可以将它传递给下层的
+routine 了。
 
 `WithCancel`函数，返回一个额外的 CancelFunc 函数类型变量，该函数类型的定义为：
 
@@ -697,7 +755,8 @@ func WithValue(parent Context, key interface{}, val interface{}) Context
 type CancelFunc func ()
 ```
 
-调用 CancelFunc 对象将撤销对应的 Context 对象，这样父结点的所在的环境中，获得了撤销子节点 context 的权利，当触发某些条件时，可以调用 CancelFunc 对象来终止子结点树的所有 routine。在子节点的
+调用 CancelFunc 对象将撤销对应的 Context 对象，这样父结点的所在的环境中，获得了撤销子节点 context 的权利，当触发某些条件时，可以调用
+CancelFunc 对象来终止子结点树的所有 routine。在子节点的
 routine 中，需要用类似下面的代码来判断何时退出 routine：
 
 ```go
@@ -707,12 +766,15 @@ case <-cxt.Done():
 }
 ```
 
-根据 cxt.Done()判断是否结束。当顶层的 Request 请求处理结束，或者外部取消了这次请求，就可以 cancel 掉顶层 context，从而使整个请求的 routine 树得以退出。
+根据 cxt.Done()判断是否结束。当顶层的 Request 请求处理结束，或者外部取消了这次请求，就可以 cancel 掉顶层 context，从而使整个请求的
+routine 树得以退出。
 
-`WithDeadline`和`WithTimeout`比`WithCancel`多了一个时间参数，它指示 context 存活的最长时间。如果超过了过期时间，会自动撤销它的子 context。所以 context 的生命期是由父
+`WithDeadline`和`WithTimeout`比`WithCancel`多了一个时间参数，它指示 context 存活的最长时间。如果超过了过期时间，会自动撤销它的子
+context。所以 context 的生命期是由父
 context 的 routine 和`deadline`共同决定的。
 
-`WithValue`返回 parent 的一个副本，该副本保存了传入的 key/value，而调用 Context 接口的 Value(key)方法就可以得到 val。注意在同一个 context 中设置 key/value，若 key
+`WithValue`返回 parent 的一个副本，该副本保存了传入的 key/value，而调用 Context 接口的 Value(key)方法就可以得到 val。注意在同一个
+context 中设置 key/value，若 key
 相同，值会被覆盖。
 
 ### 原理
@@ -741,7 +803,8 @@ return c.Context.Value(key)
 }
 ```
 
-context 上下文数据的存储就像一个树，每个结点只存储一个 key/value 对。`WithValue()`保存一个 key/value 对，它将父 context 嵌入到新的子 context，并在节点中保存了 key/value
+context 上下文数据的存储就像一个树，每个结点只存储一个 key/value 对。`WithValue()`保存一个 key/value 对，它将父 context
+嵌入到新的子 context，并在节点中保存了 key/value
 数据。`Value()`查询 key 对应的 value 数据，会从当前 context 中查询，如果查不到，会递归查询父 context 中的数据。
 
 值得注意的是，**context 中的上下文数据并不是全局的，它只查询本节点及父节点们的数据，不能查询兄弟节点的数据。**
@@ -767,7 +830,8 @@ Done() <-chan struct{}
 }
 ```
 
-`cancelCtx`结构体中`children`保存它的所有`子canceler`， 当外部触发 cancel 时，会调用`children`中的所有`cancel()`来终止所有的`cancelCtx`。`done`用来标识是否已被
+`cancelCtx`结构体中`children`保存它的所有`子canceler`， 当外部触发 cancel 时，会调用`children`中的所有`cancel()`
+来终止所有的`cancelCtx`。`done`用来标识是否已被
 cancel。当外部触发 cancel、或者父 Context 的 channel 关闭时，此 done 也会关闭。
 
 ```go
@@ -823,7 +887,8 @@ fmt.Println("LongTimeWork timeout")
 }
 ```
 
-比如希望 100ms 超时，那么 100ms 之后 <-timeoutCh 这个读管道的操作需要解除阻塞，而解除阻塞有 2 种方式，要么有人往管道里写入了数据，要么管道被 close 了。
+比如希望 100ms 超时，那么 100ms 之后 <-timeoutCh 这个读管道的操作需要解除阻塞，而解除阻塞有 2 种方式，要么有人往管道里写入了数据，要么管道被
+close 了。
 
 #### 式一
 
@@ -876,7 +941,8 @@ fmt.Println("LongTimeWork timeout")
 
 #### 式四
 
-跟式三类似，timerCtx也是Context的一个具体实现，当调用它的cancle()函数或者到达指定的超时时间后，都会关闭Done()这个管道，<-Done()会解除阻塞。
+跟式三类似，timerCtx也是Context的一个具体实现，当调用它的cancle()函数或者到达指定的超时时间后，都会关闭Done()这个管道，<
+-Done()会解除阻塞。
 
 ```go
 ctx, _ := context.WithTimeout(context.Background(), time.Millisecond*100)
@@ -944,8 +1010,10 @@ fmt.Print(*v, " ")
 
 ### Panic
 
-虽然 Go 的 panic 机制类似于其他语言的异常，但是 panic 的适用场景有一些不同。由于 panic 会引起程序的崩溃，因此 panic 一般用于严重的错误，如程序内部的逻辑不一致，所以对应大部分漏洞，应该使用 Go
-提供错误机制，而不是 panic，尽量避免程序的崩溃。在健壮的程序中，任何可以预料到的错误，如不正确的输入、错误的配置或是失败的 I/O 操作都应该被优雅的处理。
+虽然 Go 的 panic 机制类似于其他语言的异常，但是 panic 的适用场景有一些不同。由于 panic 会引起程序的崩溃，因此 panic
+一般用于严重的错误，如程序内部的逻辑不一致，所以对应大部分漏洞，应该使用 Go
+提供错误机制，而不是 panic，尽量避免程序的崩溃。在健壮的程序中，任何可以预料到的错误，如不正确的输入、错误的配置或是失败的 I/O
+操作都应该被优雅的处理。
 
 ## defer
 
@@ -989,10 +1057,12 @@ c.model = "Chevrolet Impala"
 
 我们需要记住的是，当外围函数还没有返回的时候，Go 的运行时就会立刻将传递给延迟函数的参数保存起来。
 
-因此，当一个以值作为接收者的方法被 defer 修饰时，接收者会在声明时被拷贝（在这个例子中那就是 Car 对象），此时任何对拷贝的修改都将不可见（例中的 Car.model ），因为，接收者也同时是输入的参数，当使用 defer
+因此，当一个以值作为接收者的方法被 defer 修饰时，接收者会在声明时被拷贝（在这个例子中那就是 Car 对象），此时任何对拷贝的修改都将不可见（例中的
+Car.model ），因为，接收者也同时是输入的参数，当使用 defer
 修饰时会立刻得出参数的值(也就是 "DeLorean DMC-12" )。
 
-在另一种情况下，当被延迟调用时，接收者为指针对象，此时虽然会产生新的指针变量，但其指向的地址依然与上例中的 "c" 指针的地址相同。因此，任何修改都会完美地作用在同一个对象中。
+在另一种情况下，当被延迟调用时，接收者为指针对象，此时虽然会产生新的指针变量，但其指向的地址依然与上例中的 "c"
+指针的地址相同。因此，任何修改都会完美地作用在同一个对象中。
 
 ### 用途
 
@@ -1190,43 +1260,43 @@ https://studygolang.com/articles/23104
 package main
 
 import (
-  "context"
-  "log"
-  "reflect"
+	"context"
+	"log"
+	"reflect"
 )
 
 //Define a function that requires a context.Context as its first parameter for testing
 func FunctionAny(ctx context.Context, param ...interface{}) error {
-  return nil
+	return nil
 }
 
 func main() {
 
-  //Acquire the reflect.Type of the function
-  funcInput := reflect.ValueOf(FunctionAny)
+	//Acquire the reflect.Type of the function
+	funcInput := reflect.ValueOf(FunctionAny)
 
-  //This is how we get the reflect.Type of a parameter of a function
-  //by index of course.
-  firstParam := funcInput.Type().In(0)
-  secondParam := funcInput.Type().In(1)
+	//This is how we get the reflect.Type of a parameter of a function
+	//by index of course.
+	firstParam := funcInput.Type().In(0)
+	secondParam := funcInput.Type().In(1)
 
-  //We can easily find the reflect.Type.Implements(u reflect.Type) func if we look into the source code.
-  //And it says "Implements reports whether the type implements the interface type u."
-  //This looks like what we want, no, this is exactly what we want.
-  //To use this func, a Type param is required. Because context.Context is an interface, not a reflect.Type,
-  //we need to convert it to, or get a reflect.Type.
+	//We can easily find the reflect.Type.Implements(u reflect.Type) func if we look into the source code.
+	//And it says "Implements reports whether the type implements the interface type u."
+	//This looks like what we want, no, this is exactly what we want.
+	//To use this func, a Type param is required. Because context.Context is an interface, not a reflect.Type,
+	//we need to convert it to, or get a reflect.Type.
 
-  //The easiest way is by using reflect.TypeOf(interface{})
-  actualContextType := new(context.Context)
+	//The easiest way is by using reflect.TypeOf(interface{})
+	actualContextType := new(context.Context)
 
-  //Another syntax is :
-  //actualContextType := (*context.Context)(nil)
-  //We know that nil is the zero value of reference types, simply conversion is OK.
+	//Another syntax is :
+	//actualContextType := (*context.Context)(nil)
+	//We know that nil is the zero value of reference types, simply conversion is OK.
 
-  var contextType = reflect.TypeOf(actualContextType).Elem()
+	var contextType = reflect.TypeOf(actualContextType).Elem()
 
-  log.Println(firstParam.Implements(contextType))  //true
-  log.Println(secondParam.Implements(contextType)) //false
+	log.Println(firstParam.Implements(contextType))  //true
+	log.Println(secondParam.Implements(contextType)) //false
 
 }
 ```

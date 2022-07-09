@@ -11,6 +11,7 @@ headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
 tags:
 
 - Y2021
+- Postman
 
 ---
 
@@ -18,11 +19,11 @@ tags:
 
 ### Environments
 
-![image-20211126145531979](https://gitee.com/alomerry/image-bed/raw/master/note/202111261455035.png)
+![Environments](/img/in-post/2021-03-15/postman-globals.png)
 
 ### Pre-request Script
 
-![image-20211126145802707](https://gitee.com/alomerry/image-bed/raw/master/note/202111261458798.png)
+![pre-request](/img/in-post/2021-03-15/postman-pre-request.png)
 
 ```js
 var lastResponseStatus = pm.environment.get("lastResponseStatus");
@@ -62,8 +63,6 @@ if (lastResponseStatus != 200) {
 pm.environment.set('lastResponseStatus', pm.response.code);
 ```
 
-![image-20211126145833394](https://gitee.com/alomerry/image-bed/raw/master/note/202111261458426.png)
-
 ### 请求 API
 
-![image-20211126150100323](https://gitee.com/alomerry/image-bed/raw/master/note/202111261501362.png)
+![pre-request](/img/in-post/2021-03-15/postman-variable-value.png)

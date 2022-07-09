@@ -9,8 +9,20 @@ catalog: true
 headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
 tags:
+
 - Y2022
+- Docker
+- U2022
+
 ---
+
+## TODO
+
+https://blog.csdn.net/mar_ljh/article/details/109011822
+
+build https://yeasy.gitbook.io/docker_practice/image/build
+
+https://yeasy.gitbook.io/docker_practice/
 
 ## Docker
 
@@ -26,6 +38,8 @@ tags:
 - `sudo apt-get update`
 - `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
 - `sudo docker run hello-world`
+
+- [设置阿里云镜像加速服务]((https://help.aliyun.com/document_detail/60750.html))
 
 ## Docker Compose
 
@@ -47,12 +61,11 @@ https://docs.docker.com/compose/install/
 - `sudo gpasswd -a ${USER} docker`将用户添加到该 组，例如 xxx 用户
 - `sudo systemctl restart docker`重启 docker-daemon
   newgrp docker
+
 ### 拷贝容器文件到宿主机
 
 `docker cp <containerId>:<fileName> <hostPath>`
 
+## Reference
 
-
-## TODO
-
-https://yeasy.gitbook.io/docker_practice/
+- [[^aliyun-docker-register]]

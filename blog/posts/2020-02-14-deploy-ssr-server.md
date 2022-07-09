@@ -1,6 +1,6 @@
 ---
 layout: Post
-title: 搭建 S?R 教程
+title: 搭建 SSR 教程
 subtitle:
 author: Alomerry Wu
 date: 2020-02-14

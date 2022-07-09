@@ -1,7 +1,7 @@
 ---
 layout: Post
-title: Go 语言设计与实现
-subtitle:
+title: Go Design
+subtitle: 《 Go 语言设计与实现》读书笔记
 author: Alomerry Wu
 date: 2022-02-14
 useHeaderImage: true
