@@ -1,6 +1,6 @@
+.idea
+.vscode
 cmake-build-debug
 *.DS_Store
 algorithm.xcodeproj/
-.idea
 docs/_site
-.vscode
