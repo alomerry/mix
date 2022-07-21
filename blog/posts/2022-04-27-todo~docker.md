@@ -18,11 +18,22 @@ tags:
 
 ## TODO
 
+https://vuepress.mirror.docker-practice.com/
+
+practice https://github.com/yeasy/docker_practice
+
 https://blog.csdn.net/mar_ljh/article/details/109011822
 
 build https://yeasy.gitbook.io/docker_practice/image/build
 
 https://yeasy.gitbook.io/docker_practice/
+
+docker -t build alomerry/xxx  .
+docker login
+docker push
+
+
+https://yeasy.gitbook.io/docker_practice/image/multistage-builds/laravel
 
 ## Docker
 

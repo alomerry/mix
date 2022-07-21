@@ -17,6 +17,10 @@ tags:
 
 <!-- more -->
 
+## TODO
+
+
+
 ## 特点
 
 - 反向代理
@@ -33,6 +37,36 @@ tags:
   - [zlib](http://www.zlib.net/)
   - openssl
 - 安装 make && make install
+
+### FAQ
+
+ubuntu 安装nginx报错 ./configure: error: SSL modules require the OpenSSL library
+sudo apt-get install libssl-dev
+
+nginx: [emerg] the "http2" parameter requires ngx_http_v2_module
+
+sudo ./configure --prefix=/usr/local/nginx --with-http_addition_module --with-http_flv_module --with-http_gzip_static_module --with-http_realip_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_dav_module --with-http_v2_module
+./configure --prefix=/usr/local/nginx \
+--conf-path=/usr/local/nginx/conf/nginx.conf \
+--sbin-path=/usr/local/nginx/sbin/nginx \
+--pid-path=/usr/local/nginx/nginx.pid \
+--error-log-path=/var/log/nginx/nginx-error.log \
+--http-log-path=/var/log/nginx/nginx-access.log \
+--user=nginx \
+--group=nginx \
+--with-http_ssl_module \
+--with-http_realip_module \
+--with-http_flv_module \
+--with-http_mp4_module \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_secure_link_module \
+--with-http_v2_module \
+--with-http_stub_status_module \
+--with-http_sub_module \
+--with-openssl=/usr/bin/openssl
+
+
 
 ## 常用命令
 

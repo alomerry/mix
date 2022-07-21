@@ -147,11 +147,6 @@ module.exports = {
         icon: "fa-fort-awesome"
       },
       {
-        text: "About",
-        link: "/about/",
-        icon: "fa-paw"
-      },
-      {
         text: "Tags",
         link: "/tags/",
         icon: "fa-tag"

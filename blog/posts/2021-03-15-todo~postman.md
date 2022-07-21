@@ -66,3 +66,20 @@ pm.environment.set('lastResponseStatus', pm.response.code);
 ### 请求 API
 
 ![pre-request](/img/in-post/2021-03-15/postman-variable-value.png)
+
+## Case 
+
+### 使用 Environment、Pre-request Script 注入请求参数
+
+测试 API 时需要 mock 一个随机字符串
+
+pre-request script 代码[^js-random-string]：
+
+```javascript
+let randomId = (new Date()).toISOString()+Math.random().toString(36).slice(-8);
+pm.environment.set('randomId', randomId);
+```
+
+## Reference
+
+[^js-random-string]: [原生 JAVAScript 生成简单随机字符串](https://juejin.cn/post/6844903665522704398)

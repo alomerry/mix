@@ -16,6 +16,8 @@ tags:
 
 ## TODO
 
+shopt https://wangchujiang.com/linux-command/c/shopt.html
+
 https://stackoverflow.com/questions/47304329/error-syntax-error-near-unexpected-token-in-bash-script-when-selecting-fil
 
 ## 文件夹

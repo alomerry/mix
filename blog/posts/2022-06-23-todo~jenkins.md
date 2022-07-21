@@ -8,7 +8,7 @@ useHeaderImage: true
 catalog: true
 headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
-hide: true
+hide: false
 tags:
 
 - Y2022
@@ -19,6 +19,8 @@ tags:
 ---
 
 ## TODO
+
+https://www.k8stech.net/jenkins-docs/pipelineintegrated/chapter03/
 
 https://www.jenkins.io/zh/doc/book/pipeline/multibranch/
 https://blog.csdn.net/qq_22648091/article/details/116424237
@@ -37,6 +39,58 @@ https://mirrors.jenkins.io/war/
 
 docker run -u root --rm -d -p 880:8080 -v /home/alomerry/apps/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
 
+## Case
+
+## 部署 Blog
+
+由于修改了一点 node_modules 的内容，所以 dist 文件是在本地 build 之后 push 到 github 中，这个 case 主要记录将 github 的代码中的 dist 文件 publish 到服务器的配置
+
+## 部署 IOI 题解 Blog
+
+以前刷过一段时间的 PAT，有一些经典题目记录了下来，后续也会抽空刷 LeetCode，所以使用 jekyll 搭建了一个 IOI 题解的 blog，需要一些环境，这个 case 主要记录将 github 中的代码 build 并发布到服务器。
+
+由于 jekyll 需要一些环境，所以我就做了一个用于 build site 的 docker image（很简陋，后面会优化一下）：
+
+```dockerfile
+FROM phusion/baseimage:focal-1.1.0
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV HOME /root
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# COPY conf/aptSources.list /etc/apt/sources.list
+
+RUN apt-get update
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
+    ruby-full \
+    nodejs \
+    build-essential \
+    git \
+    net-tools \
+    wget
+
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+RUN curl -s https://cdn.alomerry.com/packages/nvm/install.sh | bash
+ENV NVM_DIR /root/.nvm
+RUN . ${NVM_DIR}/nvm.sh && nvm install 16.16.0 && nvm alias default 16.16.0
+
+ENV NODE_PATH $NVM_DIR/versions/node/v16.16.0/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v16.16.0/bin:$PATH
+
+RUN npm config set registry https://registry.npm.taobao.org
+
+RUN rm -rf /etc/cron.daily/apt
+RUN sed -i 's/#force_color_prompt/force_color_prompt/' /root/.bashrc
+
+RUN gem sources --remove https://rubygems.org/
+RUN gem sources -a https://gems.ruby-china.com
+RUN gem install bundler jekyll
+RUN bundle config mirror.https://rubygems.org https://gems.ruby-china.com
+```
 
 ## 升级 Jenkins
 
