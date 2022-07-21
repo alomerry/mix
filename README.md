@@ -1,1 +1,11 @@
-## TODO
+#
+
+## install
+
+```shell
+cd docs
+npm install
+bundle install
+
+# npm run build
+```

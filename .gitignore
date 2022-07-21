@@ -3,3 +3,4 @@ cmake-build-debug
 algorithm.xcodeproj/
 .idea
 docs/_site
+.vscode
