@@ -1,5 +1,5 @@
-const {viteBundler} = require("@vuepress/bundler-vite");
-const {gungnirTheme} = require("vuepress-theme-gungnir");
+const { viteBundler } = require("@vuepress/bundler-vite");
+const { gungnirTheme } = require("vuepress-theme-gungnir");
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -26,21 +26,28 @@ module.exports = {
         href: `/img/logo/favicon-32x32.png`
       }
     ],
-    ["meta", {name: "application-name", content: "Alomerry Wu"}],
-    ["meta", {name: "apple-mobile-web-app-title", content: "Alomerry Wu"}],
+    ["meta", { name: "application-name", content: "Alomerry Wu" }],
+    ["meta", { name: "apple-mobile-web-app-title", content: "Alomerry Wu" }],
     [
       "meta",
-      {name: "apple-mobile-web-app-status-bar-style", content: "black"}
+      { name: "apple-mobile-web-app-status-bar-style", content: "black" }
     ],
     [
       "link",
-      {rel: "apple-touch-icon", href: `/images/icons/apple-touch-icon.png`}
+      { rel: "apple-touch-icon", href: `/images/icons/apple-touch-icon.png` }
     ],
-    ["meta", {name: "theme-color", content: "#377bb5"}],
-    ["meta", {name: "msapplication-TileColor", content: "#377bb5"}]
+    ["meta", { name: "theme-color", content: "#377bb5" }],
+    ["meta", { name: "msapplication-TileColor", content: "#377bb5" }]
   ],
 
-  bundler: viteBundler(),
+  bundler: viteBundler({
+    viteOptions: {
+      server: {
+        hmr: false
+      }
+    },
+    vuePluginOptions: {},
+  }),
 
   theme: gungnirTheme({
     repo: "Alomerry/blog",

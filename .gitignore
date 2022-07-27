@@ -1,5 +1,6 @@
 .idea
 .fleet
+.vscode
 node_modules
 blog/.vuepress/.temp
 **/*.DS_Store

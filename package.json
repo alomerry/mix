@@ -8,7 +8,8 @@
     "clean": "rimraf blog/.vuepress/.temp blog/.vuepress/.cache dist",
     "dev": "vuepress-cli dev blog --clean-cache",
     "build": "pnpm clean && vuepress-cli build blog --clean-cache",
-    "serve": "serve blog/.vuepress/dist"
+    "serve": "serve blog/.vuepress/dist",
+    "postinstall": "node scripts/postinstall.js"
   },
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-beta.48",
