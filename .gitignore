@@ -1,8 +1,16 @@
+# ide config
 .idea
 .fleet
 .vscode
+
+# npm install
 node_modules
-blog/.vuepress/.temp
-**/*.DS_Store
 pnpm-lock.yaml
+
+# macos cache
+**/*.DS_Store
+
+# vuepress cache
+blog/.vuepress/.temp
 blog/.vuepress/.cache
+blog/.vuepress/dist

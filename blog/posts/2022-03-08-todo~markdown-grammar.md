@@ -122,10 +122,64 @@ end
 | --文字--> | 有文字 |
 | -.文字.-> | 有文字 |
 
+
+<!-- TODO -->
 - [mermaid-live-editor](https://mermaid-js.github.io/mermaid-live-editor/)
 - https://www.jianshu.com/p/77cc07f47cdc
+- https://www.runoob.com/markdown/md-advance.html
 
 ## VuePress's Syntax Extensions[^VuePress]
+
+### Links
+
+When using Markdown link syntax, VuePress will implement some conversions for you.
+
+Take our documentation source files as an example:
+
+```sh:no-line-numbers
+└─ docs
+   ├─ guide
+   │  ├─ getting-started.md
+   │  ├─ markdown.md    # <- Here we are
+   │  └─ README.md
+   ├─ reference
+   │  └─ config.md
+   └─ README.md
+```
+
+**Raw Markdown**
+
+```markdown
+<!-- relative path -->
+[Home](../README.md)  
+[Config Reference](../reference/config.md)  
+[Getting Started](./getting-started.md)  
+<!-- absolute path -->
+[Guide](/guide/README.md)  
+[Config Reference > markdown.links](/reference/config.md#links)  
+<!-- URL -->
+[GitHub](https://github.com)  
+```
+
+**Converted to**
+
+```vue
+<template>
+  <RouterLink to="/">Home</RouterLink>
+  <RouterLink to="/reference/config.html">Config Reference</RouterLink>
+  <RouterLink to="/guide/getting-started.html">Getting Started</RouterLink>
+  <RouterLink to="/guide/">Guide</RouterLink>
+  <RouterLink to="/reference/config.html#links">Config Reference &gt; markdown.links</RouterLink>
+  <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+</template>
+```
+
+**Suggestion**
+
+Try to use relative paths instead of absolute paths for internal links to markdown files.
+
+- Relative paths are a valid links to the target files, and they can navigate correctly when browsing the source files in your editor or repository.
+- Relative paths are consistent in different locales, so you don't need to change the locale path when translating your content.
 
 ### Emoji
 
