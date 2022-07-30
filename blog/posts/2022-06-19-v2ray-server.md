@@ -27,6 +27,7 @@ bash install-release.sh
 
 安装日志，其中包含一些 v2ray 的配置、日志位置，在此记录一下：
 
+:::details
 ```shell
 info: Installing V2Ray v4.45.2 for x86_64
 warning: The following are the actual parameters for the v2ray service startup.
@@ -86,6 +87,7 @@ Jun 22 04:04:45 C20210629188207 v2ray: V2Ray 4.45.2 (V2Fly, a community-driven e
 linux/amd64)
 Jun 22 04:04:45 C20210629188207 v2ray: A unified platform for anti-censorship.
 ```
+:::
 
 ## 配置
 

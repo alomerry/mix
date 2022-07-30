@@ -12,7 +12,6 @@ catalog: true
 tags:
 
 - Y2020
-- U2022
 - Typecho
 
 ---
