@@ -1,44 +1,20 @@
 ---
-layout: Post
 title: Jenkins Note
 subtitle: 记录学习 Jenkins 过程的一些心得、笔记
 author: Alomerry Wu
 date: 2022-06-17
 update: 2022-07-25
-useHeaderImage: true
-catalog: true
-headerMask: rgba(40, 57, 101, .5)
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
-hide: false
-tags:
-
-- Y2022
-- Jenkins
-- TODO
-- U2022
-
 ---
 
 ## TODO
 
-<https://www.k8stech.net/jenkins-docs/pipelineintegrated/chapter03/>
-
-<https://www.jenkins.io/zh/doc/book/pipeline/multibranch/>
-<https://blog.csdn.net/qq_22648091/article/details/116424237>
-<https://www.mafeifan.com/DevOps/Jenkins/Jenkins2-%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9727----pipeline-%E4%B8%AD-Docker-%E6%93%8D%E4%BD%9C.html>
-<https://segmentfault.com/a/1190000020687343>
-<https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials>
-<https://blog.csdn.net/sleetdream/article/details/121900624>
-<https://www.jenkins.io/zh/doc/tutorials/build-a-multibranch-pipeline-project/>
-<https://www.jenkins.io/zh/doc/book/pipeline/syntax/>
-<https://plugins.jenkins.io/credentials/>
-<https://github.com/jenkinsci/ssh-steps-plugin>
-<https://www.jenkins.io/zh/doc/book/pipeline/docker/>
-<https://blog.csdn.net/weixin_42357472/article/details/120848450>
-
-<https://mirrors.jenkins.io/war/>
-
-docker run -u root --rm -d -p 880:8080 -v /home/alomerry/apps/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
+- 构建 docker 镜像并推送到仓库
+- 集成 k8s
+- Jenkins 升级 https://mirrors.jenkins.io/war
+- Others
+- https://www.mafeifan.com/DevOps/Jenkins/Jenkins2-%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9727----pipeline-%E4%B8%AD-Docker-%E6%93%8D%E4%BD%9C.html
+- https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow
+- https://www.jenkins.io/zh/doc/book/pipeline/docker/
 
 ## Pipeline
 
@@ -135,6 +111,31 @@ Conditions
 - `unstable` 只有当前流水线或阶段的完成状态为“unstable”，才允许在 `post` 部分运行该步骤，通常由于测试失败，代码违规等造成。
 - `aborted` 只有当前流水线或阶段的完成状态为“aborted”，才允许在 `post` 部分运行该步骤，通常由于流水线被手动的 aborted。
 
+Case [处理故障](https://www.jenkins.io/zh/doc/book/pipeline/jenkinsfile/#handling-failure)：
+
+测试失败后发送邮件
+
+```groovy:no-line-numbers
+pipeline {
+    agent any
+    stages {
+        stage('Test') {
+            steps {
+                sh 'make check'
+            }
+        }
+    }
+    post {
+        always {
+            junit '**/target/*.xml'
+        }
+        failure {
+            mail to: team@example.com, subject: 'The Pipeline failed :('
+        }
+    }
+}
+```
+
 #### stages
 
 >包含一系列一个或多个 stage 指令，`stages` 部分是流水线描述的大部分“work”的位置。建议 `stages` 至少包含一个 `stage` 指令用于连续交付过程的每个离散部分，比如构建、测试和部署。
@@ -148,6 +149,19 @@ Conditions
 - 顶层流水线块中使用的 `environment` 指令将适用于流水线中的所有步骤。
 - 在一个 `stage` 中定义的 `environment` 指令只会将给定的环境变量应用于 stage 中的步骤。
 - `environment` 块有一个 助手方法 `credentials()` 定义，该方法可以在 Jenkins 环境中用于通过标识符访问预定义的凭证。
+
+:::tip
+
+[Jenkins 环境变量](https://www.jenkins.io/zh/doc/book/pipeline/jenkinsfile/#使用环境变量)
+
+:::
+
+#### [处理凭据](https://www.jenkins.io/zh/doc/book/pipeline/jenkinsfile/#处理凭据)
+
+- Secret 文本
+- 带密码的用户名
+- Secret 文件
+- 其他凭据类型（SSH 私钥、PKCS、Docker 主机证书）
 
 #### options
 
@@ -541,7 +555,7 @@ genericVariables 中配置一些从 request.body 中获取的变量，上例中�
 
 配置后可以使用 gitlab Test push 查看 jenkins 返回值
 
-```json
+```json:no-line-numbers
 {
     "jobs": {
         "bot-huan": {
@@ -625,21 +639,8 @@ sshRemove remote: remote, path: '/www/wwwroot/[your website]/algorithm.tar.gz'
 
 <https://wiki.eryajf.net/pages/639.html#%E8%A1%A5%E5%85%85%E4%BA%8C-%E6%96%B0%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91%E3%80%82>
 
-gem bundle 切换源
-
-- <https://www.twle.cn/l/yufei/ruby/ruby-basic-gem-mirrors.html>
-- <https://www.jianshu.com/p/4ff1a3b52dff>
-  bundle config mirror.<https://rubygems.org> <https://gems.ruby-china.com>
-
-  docker run -u root --rm -d -p 880:8080 -v /home/alomerry/documents/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
-
-- 在流水线中使用Docker <https://www.jenkins.io/zh/doc/book/pipeline/docker/#%E5%9C%A8%E6%B5%81%E6%B0%B4%E7%BA%BF%E4%B8%AD%E4%BD%BF%E7%94%A8docker>
 - jenkins docker pipeline plugin <https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow>
-- 流水线语法 <https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow>
-  - <https://ci.alomerry.com/job/bot-huan/pipeline-syntax/html>
-- <https://ci.alomerry.com/job/bot-huan/pipeline-syntax/globals>
 - stash/unstash
-- 持续交付的八条原则 <https://blog.csdn.net/tony1130/article/details/6673741>
 - Auto-commit Jenkins configuration changes with Git <https://www.coveros.com/auto-commit-jenkins-configuration-changes-with-git>
 - <https://www.coveros.com/auto-commit-jenkins-configuration-changes-with-git>
 - 使用 Jenkinsfile <https://www.jenkins.io/zh/doc/book/pipeline/jenkinsfile/#%E4%BD%BF%E7%94%A8-jenkinsfile>

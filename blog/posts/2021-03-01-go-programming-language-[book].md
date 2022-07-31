@@ -1,18 +1,8 @@
 ---
-layout: Post
 title: The Go Programming Language
 subtitle:
 author: Alomerry Wu
 date: 2021-03-01
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-catalog: true
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
-tags:
-
-- Y2021
-- Golang
-
 ---
 
 <!-- Description. -->

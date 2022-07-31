@@ -2,7 +2,7 @@
 layout: Links
 title: Links
 links:
-  - title: 我自己能用就完事了
+  - title: Something
     items:
       - sitename: PAT/LeetCode
         url: https://io.alomerry.com
@@ -22,13 +22,21 @@ links:
         desc: jenkins
       - sitename: VuePress v2
         url: https://v2.vuepress.vuejs.org/
-        img: /img/links/icon.svg
+        img: /img/links/vuepress.svg
         desc: VuePress v2
+      - sitename: Oh, Vue Icons!
+        url: https://oh-vue-icons.js.org
+        img: /img/links/icon.svg
+        desc: Vue 图标组件
       - sitename: Gungnir
         url: https://v2-vuepress-theme-gungnir.vercel.app/
         img: /img/links/gungnir.svg
         desc: VuePress 1/2 主题
-  - title: 咸鱼翻滚
+      - sitename: Oh, CV!
+        url: https://ohcv.zxh.io
+        img: /img/links/ohcv.svg
+        desc: 用 Markdown 写简历
+  - title: One day
     items:
       - sitename: VSCode Web
         url: https://vscode.alomerry.com

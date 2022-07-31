@@ -4,6 +4,7 @@ title: Markdown Syntax
 subtitle:
 author: Alomerry Wu
 date: 2022-03-08
+update: 2022-07-29
 useHeaderImage: true
 catalog: true
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
@@ -121,7 +122,6 @@ end
 | -.-> | 无箭头 |
 | --文字--> | 有文字 |
 | -.文字.-> | 有文字 |
-
 
 <!-- TODO -->
 - [mermaid-live-editor](https://mermaid-js.github.io/mermaid-live-editor/)
@@ -439,10 +439,26 @@ Use JavaScript charting library [Chart.js](https://www.chartjs.org/) in Markdown
 
 ### Mark
 
-Mark important information: "Excuse me. Can you tell me how much the shirt is?" "Yes, it's ===nine fifteen===."
+Mark important information: "Excuse me. Can you tell me how much the shirt is?" "Yes, it's ==nine fifteen==."
 
 ```markdown
 Yes, it's ==nine fifteen==.
+```
+
+### Subscript
+
+H~2~O
+
+```markdown
+H~2~O
+```
+
+### Superscript
+
+29^th^
+
+```markdown
+29^th^
 ```
 
 ## Reference

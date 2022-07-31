@@ -1,21 +1,9 @@
 ---
-layout: Post
 title: Clean Code
 subtitle: 《代码整洁之道》读书笔记和日常写代码、读代码对于代码风格的总结
 author: Alomerry Wu
 date: 2020-10-03
 update: 2022-07-02
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-catalog: true
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
-tags:
-
-- Y2020
-- U2022
-- Golang
-- JAVA
-
 ---
 
 <!-- Description. -->

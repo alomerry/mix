@@ -1,21 +1,10 @@
 ---
-layout: Post
 title: Redis Note
 subtitle:
 author: Alomerry Wu
 date: 2020-07-06
 update: 2022-07-02
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
 catalog: true
-tags:
-
-- Y2020
-- U2022
-- Redis
-- TODO
-
 ---
 
 <!-- Description. -->

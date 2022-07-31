@@ -209,3 +209,6 @@ CMD ./server.sh --accept-server-license-terms --host 0.0.0.0 --connection-token 
 docker run --rm -d -p 4000:8000 -p 8080:8080 -p 8081:4000 --name vscode-web -v /home/alomerry-home/Applications/vscode-web/extensions:/root/.vscode-server/extensions -v /home/alomerry-home/workspace:/root/workspace/ -v /var/run/docker.sock:/var/run/docker.sock registry.cn-hangzhou.aliyuncs.com/alomerry/vscode-web
 ```
 
+### jenkins
+
+docker run -u root --rm -d -p 880:8080 -v /home/alomerry-home/Applications/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean

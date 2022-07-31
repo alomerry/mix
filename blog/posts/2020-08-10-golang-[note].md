@@ -1,21 +1,9 @@
 ---
-layout: Post
 title: Golang Note
 subtitle: 记录 Golang 学习过程中的经验、遇到的坑点等
 author: Alomerry Wu
 date: 2020-08-10
 update: 2022-07-02
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-catalog: true
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
-tags:
-
-- Y2020
-- U2022
-- Golang
-- TODO
-
 ---
 
 <!-- Description. -->
