@@ -11,7 +11,7 @@ date: 2022-02-26
 
 ## TODO
 
-
+- [blog](https://xuexb.github.io/learn-nginx/guide/#nginx%E7%9A%84%E7%89%B9%E7%82%B9-2)
 
 ## 特点
 

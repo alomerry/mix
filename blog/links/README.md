@@ -66,10 +66,10 @@ links:
         url: https://zelda.zxh.io
         img: /img/links/zelda.jpg
         desc: 仿 Ori 的荒野之息主页
-      - sitename: 小游戏合集
-        url: https://galaxy.zxh.io
+      - sitename: 核电站
+        url: https://0792z.blogspot.com/
         img: /img/links/game.svg
-        desc: 虽然其实也就俩游戏
+        desc: 三流的人做干电池，二流的人做充电电池，一流的人做核电站。
       - sitename: Cube
         url: https://cube.zxh.io
         img: /img/links/cube.svg
