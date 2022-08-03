@@ -7,45 +7,22 @@ module.exports = {
   title: "Alomerry Wu",
   description: "Alomerry's blog, powered by VuePress 2, themed by Gungnir.",
 
+  // pagePatterns: ['**/*.md', '!.vuepress', '!node_modules'],
+
   head: [
-    [
-      "link",
-      {
-        rel: "icon",
-        type: "image/ico",
-        sizes: "16x16",
-        href: `/img/logo/favicon-16x16.ico`
-      }
-    ],
-    [
-      "link",
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "32x32",
-        href: `/img/logo/favicon-32x32.png`
-      }
-    ],
+    ["link", { rel: "icon", type: "image/ico", sizes: "16x16", href: `/img/logo/favicon-16x16.ico` }],
+    ["link", { rel: "icon", type: "image/png", sizes: "32x32", href: `/img/logo/favicon-32x32.png` }],
     ["meta", { name: "application-name", content: "Alomerry Wu" }],
     ["meta", { name: "apple-mobile-web-app-title", content: "Alomerry Wu" }],
-    [
-      "meta",
-      { name: "apple-mobile-web-app-status-bar-style", content: "black" }
-    ],
-    [
-      "link",
-      { rel: "apple-touch-icon", href: `/images/icons/apple-touch-icon.png` }
-    ],
+    ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
+    ["link", { rel: "apple-touch-icon", href: `/images/icons/apple-touch-icon.png` }],
     ["meta", { name: "theme-color", content: "#377bb5" }],
-    ["meta", { name: "msapplication-TileColor", content: "#377bb5" }]
+    ["meta", { name: "msapplication-TileColor", content: "#377bb5" }],
+    ["script", { src: "https://umami.alomerry.com/umami.js", "data-website-id": "ce8fe04d-bd4e-4d37-894b-5450f5f4fb0a" }],
   ],
 
   bundler: viteBundler({
-    viteOptions: {
-      server: {
-        hmr: false
-      }
-    },
+    viteOptions: {},
     vuePluginOptions: {},
   }),
 
@@ -79,43 +56,22 @@ module.exports = {
 
     // header images on home page
     homeHeaderImages: [
-      {
-        path: "https://cdn.alomerry.com/blog/img/home-bg/1.jpg",
-        mask: "rgba(40, 57, 101, .4)"
-      },
-      {
-        path: "https://cdn.alomerry.com/blog/img/home-bg/2.jpg",
-        mask: "rgba(196, 176, 131, .1)"
-      },
-      {
-        path: "https://cdn.alomerry.com/blog/img/home-bg/3.jpg",
-        mask: "rgba(68, 74, 83, .1)"
-      },
-      {
-        path: "https://cdn.alomerry.com/blog/img/home-bg/4.jpg",
-        mask: "rgba(19, 75, 50, .2)"
-      },
-      {
-        path: "https://cdn.alomerry.com/blog/img/home-bg/5.jpg"
-      },
+      { path: "https://cdn.alomerry.com/blog/img/home-bg/1.jpg", mask: "rgba(40, 57, 101, .4)" },
+      { path: "https://cdn.alomerry.com/blog/img/home-bg/2.jpg", mask: "rgba(196, 176, 131, .1)" },
+      { path: "https://cdn.alomerry.com/blog/img/home-bg/3.jpg", mask: "rgba(68, 74, 83, .1)" },
+      { path: "https://cdn.alomerry.com/blog/img/home-bg/4.jpg", mask: "rgba(19, 75, 50, .2)" },
+      { path: "https://cdn.alomerry.com/blog/img/home-bg/5.jpg", mask: "rgba(19, 75, 50, .2)" },
     ],
 
     // other pages
     pages: {
       tags: {
         subtitle: "Black Sheep Wall",
-        bgImage: {
-          path: "/img/pages/tags.jpg",
-          mask: "rgba(211, 136, 37, .5)"
-        }
+        bgImage: { path: "/img/pages/tags.jpg", mask: "rgba(211, 136, 37, .5)" }
       },
       links: {
-        subtitle:
-          "When you are looking at the stars, please put the brightest star shining night sky as my soul.",
-        bgImage: {
-          path: "https://cdn.alomerry.com/blog/img/pages/links.jpg",
-          mask: "rgba(64, 118, 190, 0.5)"
-        }
+        subtitle: "When you are looking at the stars, please put the brightest star shining night sky as my soul.",
+        bgImage: { path: "https://cdn.alomerry.com/blog/img/pages/links.jpg", mask: "rgba(64, 118, 190, 0.5)" }
       }
     },
 
@@ -140,11 +96,7 @@ module.exports = {
       ga: "G-LHJK5ZQ3QM",
       ba: "7180a072cf5615d82aacf44b5d7dd0b0",
       chartjs: true,
-      mermaid: {
-        token: "mermaid",
-        theme: "default",
-        darkTheme: "dark"
-      },
+      mermaid: { token: "mermaid", theme: "default", darkTheme: "dark" },
       rss: {
         siteURL: "https://blog.alomerry.com",
         copyright: "Alomerry 2018-2022"
@@ -156,7 +108,14 @@ module.exports = {
       { text: "Tags", link: "/tags/", icon: "fa-tag" },
       { text: "Links", link: "/links/", icon: "fa-satellite-dish" },
       { text: "IOI", link: "https://io.alomerry.com", icon: "bi-diamond-half" },
-      { text: "Digest", link: "/posts/2019-07-02-reading-note.md", icon: "bi-book-half" },
+      {
+        text: `Space`,
+        icon: "co-spacemacs",
+        children: [
+          { text: "digest", link: "/posts/2019-07-02-digest.md", icon: "bi-book-half" },
+          { text: "vps-backup", link: "/posts/2022-05-29-vps-home.md", icon: "vi-file-type-git" },
+        ]
+      },
       {
         text: `Notes`,
         icon: "bi-bookmark-heart-fill",

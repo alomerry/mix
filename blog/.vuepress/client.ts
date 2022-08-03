@@ -28,7 +28,7 @@ import {
   ViFileTypeDocker2,
   SiCoronaengine,
   BiHypnotize,
-  
+
   RiBook2Fill,
   RiBookReadFill,
   RiBookletFill,
@@ -39,6 +39,8 @@ import {
   MdLibrarybooksRound,
   MdBookRound,
 
+
+  CoSpacemacs,
   FaTools,
   ViFileTypeJenkins,
   RiMessage3Fill,
@@ -83,6 +85,7 @@ addIcons(
   // MdLibrarybooksRound,
   // MdBookRound,
 
+  CoSpacemacs,
   FaTools,
   ViFileTypeJenkins,
   RiMessage3Fill,
@@ -98,4 +101,14 @@ addIcons(
   AiGoogleScholarSquare
 );
 
-export default defineClientConfig({});
+const isProd = process.env.NODE_ENV === "production";
+
+export default defineClientConfig({
+  enhance({ router }) {
+    router.beforeEach((to) => {
+      // if (isProd) {
+        // document.head.innerHTML = document.head.innerHTML + '<script async defer data-website-id="ce8fe04d-bd4e-4d37-894b-5450f5f4fb0a" src="https://umami.alomerry.com/umami.js"></script>'
+      // }
+    })
+  },
+});
