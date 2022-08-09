@@ -11,13 +11,12 @@ ARG NODE_VERSION=16.16.0
 # COPY conf/aptSources.list /etc/apt/sources.list
 
 RUN apt-get update; \
-  DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
-  ruby-dev \
-  git \
-  build-essential \
-  ; \
-  apt-get clean; \
-  rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+    DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
+        ruby-dev \
+        build-essential \
+        git; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 ENV NVM_DIR /root/.nvm
 RUN curl -s https://cdn.alomerry.com/packages/nvm/install.sh | bash; \
@@ -42,4 +41,4 @@ RUN rm -rf /etc/cron.daily/apt; \
   sed -i 's/#force_color_prompt/force_color_prompt/' /root/.bashrc
 
 # docker build -t alomerry/algorithm .
-# docker run --name test --rm -ti -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro alpine /bin/sh
+# docker run --name alomerry/algorithm --rm -ti -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro alpine /bin/sh
