@@ -14,3 +14,4 @@ pnpm-lock.yaml
 blog/.vuepress/.temp
 blog/.vuepress/.cache
 blog/.vuepress/dist
+blog/posts/codes/*

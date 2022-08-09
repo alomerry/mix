@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@renovamen/vuepress-plugin-mermaid": "2.0.0-alpha.25",
+    "request": "^2.88.2",
     "vuepress-plugin-chart": "2.0.0-alpha.25"
   }
 }

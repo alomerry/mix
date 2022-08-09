@@ -1,15 +1,33 @@
-var fs = require('fs');
+var fs = require("fs");
+var path = require("path");
+var request = require("request");
 
-copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue');
-copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/PostListItem.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/PostListItem.vue');
+run()
 
-copyFileSync('./patches/vuepress-theme-gungnir/lib/client/config.js', './node_modules/vuepress-theme-gungnir/lib/client/config.js');
-copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/index.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/index.js');
-copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/useDynamicStyles.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/useDynamicStyles.js');
-copyFileSync('./patches/vuepress-theme-gungnir/lib/client/styles/mode/light.scss', './node_modules/vuepress-theme-gungnir/lib/client/styles/mode/light.scss');
-copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/useTags.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/useTags.js');
+function run() {
+    patchGungnir()
+    downloadUrlCode()
+}
 
-copyFileSync('./patches/vuepress-theme-gungnir/patches.md', './node_modules/vuepress-theme-gungnir/patches.md');
+function downloadUrlCode() {
+    // 导入代码块
+    let importCodePrefix = "./blog/posts/codes/"
+    removeDir(importCodePrefix + "algorithm")
+    getfileByUrl("https://gitlab.com/Alomerry/algorithm/-/raw/master/.jenkins/docker/dev/dockerfile", importCodePrefix + "algorithm/.jenkins/docker/dev/", "dockerfile")
+}
+
+function patchGungnir() {
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/PostListItem.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/PostListItem.vue');
+
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/config.js', './node_modules/vuepress-theme-gungnir/lib/client/config.js');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/index.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/index.js');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/useDynamicStyles.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/useDynamicStyles.js');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/styles/mode/light.scss', './node_modules/vuepress-theme-gungnir/lib/client/styles/mode/light.scss');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/useTags.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/useTags.js');
+
+    copyFileSync('./patches/vuepress-theme-gungnir/patches.md', './node_modules/vuepress-theme-gungnir/patches.md');
+}
 
 function copyFileSync(source, target) {
     var targetFile = target;
@@ -22,4 +40,55 @@ function copyFileSync(source, target) {
     }
 
     fs.writeFileSync(targetFile, fs.readFileSync(source));
+}
+
+function makeDir(dirpath) {
+    if (!fs.existsSync(dirpath)) {
+        var pathtmp;
+        dirpath.split("/").forEach(function (dirname) {
+            if (pathtmp) {
+                pathtmp = path.join(pathtmp, dirname);
+            }
+            else {
+                if (dirname) {
+                    pathtmp = dirname;
+                } else {
+                    pathtmp = "/";
+                }
+            }
+            if (!fs.existsSync(pathtmp)) {
+                if (!fs.mkdirSync(pathtmp)) {
+                    return false;
+                }
+            }
+        });
+    }
+    return true;
+}
+
+function removeDir(dir) {
+    if (!fs.existsSync(dir)) {
+        return;
+    }
+    let files = fs.readdirSync(dir)
+    for (var i = 0; i < files.length; i++) {
+        let newPath = path.join(dir, files[i]);
+        let stat = fs.statSync(newPath)
+        if (stat.isDirectory()) {
+            //如果是文件夹就递归下去
+            removeDir(newPath);
+        } else {
+            //删除文件
+            fs.unlinkSync(newPath);
+        }
+    }
+    fs.rmdirSync(dir)//如果文件夹是空的，就将自己删除掉
+}
+
+function getfileByUrl(url, dir, fileName) {
+    makeDir(dir)
+    let stream = fs.createWriteStream(path.join(dir, fileName));
+    request(url).pipe(stream).on("close", function (err) {
+        console.log(fileName + " download success.");
+    });
 }

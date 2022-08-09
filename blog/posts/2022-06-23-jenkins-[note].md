@@ -256,105 +256,16 @@ pipeline {
 
 由于 jekyll 需要一些环境，所以我就做了一个用于 build site 的 docker image（很简陋，后面会优化一下）：
 
-:::: code-group
-::: code-group-item blog
-
-```dockerfile:no-line-numbers
-# 构建 blog 的 dockerfile，主要安装 nodejs、pnpm
-
-FROM phusion/baseimage:focal-1.1.0 as build
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV HOME /root
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
-ARG NODE_VERSION=16.16.0
-
-# COPY conf/aptSources.list /etc/apt/sources.list
-
-RUN apt-get update; \
-  DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
-  git \
-  ; \
-  apt-get clean; \
-  rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
-
-ENV NVM_DIR /root/.nvm
-RUN curl -s https://cdn.alomerry.com/packages/nvm/install.sh | bash; \
-  . ${NVM_DIR}/nvm.sh && nvm install ${NODE_VERSION} && nvm alias default ${NODE_VERSION} && nvm use default ${NODE_VERSION}
-
-ENV NODE_PATH $NVM_DIR/versions/node/v${NODE_VERSION}/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH
-
-RUN npm config set registry https://registry.npm.taobao.org; \
-  npm install -g pnpm; \    
-  pnpm config set registry http://registry.npm.taobao.org 
-
-WORKDIR /var/jenkins_home/workspace
-
-RUN rm -rf /etc/cron.daily/apt; \
-  sed -i 's/#force_color_prompt/force_color_prompt/' /root/.bashrc
-```
-
-:::
-::: code-group-item algorithm
-
-```dockerfile:no-line-numbers
-# 构建 algorithm 的 dockerfile，主要需要安装 ruby、nodejs；使用 gem 安装 bundle 和 jekyll
-
-FROM phusion/baseimage:focal-1.1.0
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV HOME /root
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
-# COPY conf/aptSources.list /etc/apt/sources.list
-
-RUN apt-get update; \
-    DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
-        ruby-dev \
-        build-essential \
-        git; \
-    apt-get clean; \
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
-
-ENV NVM_DIR /root/.nvm
-RUN curl -s https://cdn.alomerry.com/packages/nvm/install.sh | bash
-RUN . ${NVM_DIR}/nvm.sh && nvm install 16.16.0 && nvm alias default 16.16.0
-
-ENV NODE_PATH $NVM_DIR/versions/node/v16.16.0/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v16.16.0/bin:$PATH
-
-RUN npm config set registry https://registry.npm.taobao.org
-
-RUN rm -rf /etc/cron.daily/apt
-RUN sed -i 's/#force_color_prompt/force_color_prompt/' /root/.bashrc
-
-RUN gem sources --remove https://rubygems.org/; \
-    gem sources -a https://gems.ruby-china.com; \
-    gem install bundler jekyll; \
-    bundle config mirror.https://rubygems.org https://gems.ruby-china.com
-
-RUN rm -rf /etc/cron.daily/apt; \
-  sed -i 's/#force_color_prompt/force_color_prompt/' /root/.bashrc
-```
-
-:::
-::::
-
 pipeline
 
-:::details
+:::: code-group
+::: code-group-item blog
 
 ```groovy
 pipeline {
     // 环境变量
     environment {
-        url = 'https://gitlab.com/alomerry/algorithm.git'
+        url = 'https://gitlab.com/Alomerry/blog.git'
     }
     // pipeline 的触发方式
     triggers {
@@ -370,7 +281,96 @@ pipeline {
             ],
             printContributedVariables: false, 
             printPostContent: false, 
-            tokenCredentialId: 'jenkins-webhook-token',
+            tokenCredentialId: 'jenkins-git-webhook-token',
+            regexpFilterText: '$name',
+            regexpFilterExpression: '^(B|b)log$',
+            causeString: ' Triggered on $ref' ,
+        )
+    }
+    
+    // 代理
+    agent {
+        docker {
+            image 'registry.cn-hangzhou.aliyuncs.com/alomerry/blog-build:latest'
+            args '-v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro'
+        }
+    }
+    // 阶段
+    stages {
+        stage('pull code') {
+            steps {
+                retry(3) {
+                    // 拉取代码
+                    git(url: env.url, branch: 'master')
+                }
+            }
+        }
+        stage('install and build') {
+            steps {
+                // 构建
+                sh 'pnpm install --no-frozen-lockfile && pnpm build'
+            }
+        }
+        stage('compress') {
+            steps {
+                // 压缩构建后的文件用于发布到服务器的 nginx 中
+                sh '''
+                    cd /var/jenkins_home/workspace/blog/blog/.vuepress/dist/
+                    tar -zcf blog.tar.gz *
+                    '''
+            }
+        }
+        stage('ssh') {
+            steps {
+                script {
+                    def remote = [:]
+                    remote.name = 'root'
+                    remote.logLevel = 'FINEST'
+                    remote.host = 'blog.alomerry.com'
+                    remote.allowAnyHosts = true
+                    withCredentials([usernamePassword(credentialsId: 'tencent-vps-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
+                        remote.user = "${username}"
+                        remote.password = "${password}"
+                    }
+                    sshCommand remote: remote, command: '''#!/bin/bash
+                        cd /www/wwwroot/blog.alomerry.com/
+                        shopt -s extglob
+                        rm -rf !(.htaccess|.user.ini|.well-known|favicon.ico|blog.tar.gz)
+                        '''
+                    sshPut remote: remote, from: '/var/jenkins_home/workspace/blog/blog/.vuepress/dist/blog.tar.gz', into: '/www/wwwroot/blog.alomerry.com/'
+                    sshCommand remote: remote, command: "cd /www/wwwroot/blog.alomerry.com && tar -xf blog.tar.gz"
+                    sshRemove remote: remote, path: '/www/wwwroot/blog.alomerry.com/blog.tar.gz'
+                }
+            }
+        }
+    }
+}
+```
+
+:::
+::: code-group-item algorithm
+
+```groovy
+pipeline {
+    // 环境变量
+    environment {
+        url = 'https://gitlab.com/Alomerry/algorithm.git'
+    }
+    // pipeline 的触发方式
+    triggers {
+        GenericTrigger(
+            genericVariables: [
+                [
+                   key: 'name', 
+                   value: '$.repository.name', 
+                   expressionType: 'JSONPath', 
+                   regularFilter: '', 
+                   defaultValue: ''
+                ]
+            ],
+            printContributedVariables: false, 
+            printPostContent: false, 
+            tokenCredentialId: 'jenkins-git-webhook-token',
             regexpFilterText: '$name',
             regexpFilterExpression: '^(A|a)lgorithm$',
             causeString: ' Triggered on $ref' ,
@@ -415,14 +415,14 @@ pipeline {
                     def remote = [:]
                     remote.name = 'root'
                     remote.logLevel = 'FINEST'
-                   remote.host = '[your host]'
+                    remote.host = 'io.alomerry.com'
                     remote.allowAnyHosts = true
-                    withCredentials([usernamePassword(credentialsId: 'tencent-ubuntu-root', passwordVariable: 'password', usernameVariable: 'username')]) {
+                    withCredentials([usernamePassword(credentialsId: 'tencent-vps-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
                         remote.user = "${username}"
                         remote.password = "${password}"
                     }
                     sshCommand remote: remote, command: '''#!/bin/bash
-                        cd /www/wwwroot/io.alomerry.com/
+                        cd /www/wwwroot/algorithm.alomerry.com/
                         shopt -s extglob
                         rm -rf !(.htaccess|.user.ini|.well-known|favicon.ico|algorithm.tar.gz)
                         '''
@@ -437,6 +437,9 @@ pipeline {
 ```
 
 :::
+::::
+
+
 
 ### 部署 bot-huan
 
