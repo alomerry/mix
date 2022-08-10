@@ -1,0 +1,44 @@
+{
+    "projects": [
+        {
+            "name": "algorithm",
+            "algorithm": [
+                {
+                    "fileName": "dockerfile",
+                    "relativeLocation": ".jenkins/docker/dev/",
+                    "url": "https://gitlab.com/Alomerry/algorithm/-/raw/master/.jenkins/docker/dev/dockerfile"
+                }
+            ]
+        },
+        {
+            "name": "vps-home",
+            "vps-home": [
+                {
+                    "fileName": "docker-compose.yml",
+                    "relativeLocation": "frpc/vscode-web/",
+                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/vscode-web/docker-compose.yml"
+                },
+                {
+                    "fileName": "docker-compose.yml",
+                    "relativeLocation": "frpc/jenkins/",
+                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/jenkins/docker-compose.yml"
+                },
+                {
+                    "fileName": "docker-compose.yml",
+                    "relativeLocation": "frpc/dozzle/",
+                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/dozzle/docker-compose.yml"
+                },
+                {
+                    "fileName": "docker-compose.yml",
+                    "relativeLocation": "frpc/umami/",
+                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/umami/docker-compose.yml"
+                },
+                {
+                    "fileName": "docker-compose.yml",
+                    "relativeLocation": "frpc/flarum/",
+                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/flarum/docker-compose.yml"
+                }
+            ]
+        }
+    ]
+}

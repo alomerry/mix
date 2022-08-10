@@ -11,9 +11,27 @@ function run() {
 
 function downloadUrlCode() {
     // 导入代码块
-    let importCodePrefix = "./blog/posts/codes/"
-    removeDir(importCodePrefix + "algorithm")
-    getfileByUrl("https://gitlab.com/Alomerry/algorithm/-/raw/master/.jenkins/docker/dev/dockerfile", importCodePrefix + "algorithm/.jenkins/docker/dev/", "dockerfile")
+    let importCodePrefix = "./blog/posts/codes/";
+    let projects = JSON.parse(readJsonFromFile('./scripts/import-code.json')).projects;
+
+    projects.forEach(function (project) {
+        let projectName = project.name;
+        removeDir(importCodePrefix + projectName)
+        let files = project[project.name]
+        files.forEach(function (code) {
+            getfileByUrl(code.url, importCodePrefix + projectName + "/" + code.relativeLocation, code.fileName)
+        })
+    })
+
+}
+
+function readJsonFromFile(file) {
+    try {
+        const data = fs.readFileSync(file, 'utf8')
+        return data
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 function patchGungnir() {
@@ -89,6 +107,8 @@ function getfileByUrl(url, dir, fileName) {
     makeDir(dir)
     let stream = fs.createWriteStream(path.join(dir, fileName));
     request(url).pipe(stream).on("close", function (err) {
-        console.log(fileName + " download success.");
+        if (err){
+            console.log(err);
+        }
     });
 }

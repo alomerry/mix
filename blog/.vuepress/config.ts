@@ -1,4 +1,5 @@
 const { viteBundler } = require("@vuepress/bundler-vite");
+const { externalLinkIconPlugin } = require('@vuepress/plugin-external-link-icon')
 const { gungnirTheme } = require("vuepress-theme-gungnir");
 
 const isProd = process.env.NODE_ENV === "production";
@@ -183,6 +184,15 @@ module.exports = {
     code: {
       lineNumbers: true
     }
-  }
+  },
 
+  plugins: [
+    externalLinkIconPlugin({
+      locales: {
+        '/': {
+          openInNewWindow: 'open in new window',
+        },
+      },
+    })
+  ]
 };
