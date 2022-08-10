@@ -14,13 +14,23 @@ function downloadUrlCode() {
     let importCodePrefix = "./blog/posts/codes/";
     let projects = JSON.parse(readJsonFromFile('./scripts/import-code.json')).projects;
 
+    let downloadQueue = [];
+    
     projects.forEach(function (project) {
         let projectName = project.name;
         removeDir(importCodePrefix + projectName)
         let files = project[project.name]
         files.forEach(function (code) {
-            getfileByUrl(code.url, importCodePrefix + projectName + "/" + code.relativeLocation, code.fileName)
+            let p = new Promise((resolve, reject) => {
+                getfileByUrl(code.url, importCodePrefix + projectName + "/" + code.relativeLocation, code.fileName)
+                resolve();
+            })
+            downloadQueue.push(p)
         })
+    })
+    // 等待所有文件下载完毕
+    Promise.all(downloadQueue).then(res => {
+        console.info('projects download success.');
     })
 
 }

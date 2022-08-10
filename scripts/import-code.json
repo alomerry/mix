@@ -37,6 +37,16 @@
                     "fileName": "docker-compose.yml",
                     "relativeLocation": "frpc/flarum/",
                     "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/flarum/docker-compose.yml"
+                },
+                {
+                    "fileName": "pipeline.groovy",
+                    "relativeLocation": "pipeline/blog/",
+                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/pipeline/blog/pipeline.groovy"
+                },
+                {
+                    "fileName": "pipeline.groovy",
+                    "relativeLocation": "pipeline/algorithm/",
+                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/pipeline/algorithm/pipeline.groovy"
                 }
             ]
         }

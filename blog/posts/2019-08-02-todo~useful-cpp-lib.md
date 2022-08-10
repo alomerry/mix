@@ -14,6 +14,7 @@ tags:
 - Y2019
 - U2022
 - IOI
+- Algorithm
 - STL
 - C++
 - TODO
