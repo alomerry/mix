@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf blog/.vuepress/.temp blog/.vuepress/.cache dist",
     "dev": "vuepress-cli dev blog --clean-cache",
-    "build": "pnpm clean && vuepress-cli build blog --clean-cache",
+    "build": "pnpm clean && vuepress-cli build blog --clean-cache && node scripts/postbuild.js",
     "serve": "serve blog/.vuepress/dist",
     "postinstall": "node scripts/postinstall.js"
   },

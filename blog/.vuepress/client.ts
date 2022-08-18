@@ -107,7 +107,6 @@ export default defineClientConfig({
   enhance({ router }) {
     router.beforeEach((to) => {
       if (isProd) {
-        // document.head.innerHTML = document.head.innerHTML + '<script async defer data-website-id="8f9a338f-b2d4-47d9-ab92-f46d6e054d0e" src="https://umami.alomerry.com/umami.js"></script>'
       }
     })
   },
