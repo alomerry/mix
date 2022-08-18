@@ -106,9 +106,9 @@ const isProd = process.env.NODE_ENV === "production";
 export default defineClientConfig({
   enhance({ router }) {
     router.beforeEach((to) => {
-      // if (isProd) {
-        // document.head.innerHTML = document.head.innerHTML + '<script async defer data-website-id="ce8fe04d-bd4e-4d37-894b-5450f5f4fb0a" src="https://umami.alomerry.com/umami.js"></script>'
-      // }
+      if (isProd) {
+        // document.head.innerHTML = document.head.innerHTML + '<script async defer data-website-id="8f9a338f-b2d4-47d9-ab92-f46d6e054d0e" src="https://umami.alomerry.com/umami.js"></script>'
+      }
     })
   },
 });

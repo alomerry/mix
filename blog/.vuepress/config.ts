@@ -19,7 +19,7 @@ module.exports = {
     ["link", { rel: "apple-touch-icon", href: `/images/icons/apple-touch-icon.png` }],
     ["meta", { name: "theme-color", content: "#377bb5" }],
     ["meta", { name: "msapplication-TileColor", content: "#377bb5" }],
-    ["script", { src: "https://umami.alomerry.com/umami.js", "data-website-id": "ce8fe04d-bd4e-4d37-894b-5450f5f4fb0a" }],
+    ["script", { src: "https://umami.alomerry.com/umami.js", "data-website-id": "8f9a338f-b2d4-47d9-ab92-f46d6e054d0e" }],
   ],
 
   bundler: viteBundler({

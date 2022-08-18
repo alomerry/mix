@@ -113,12 +113,16 @@ const headerStyle = () => {
   return style;
 };
 
+let lastIndex = 0;
 function triggerUri(url) {
   if (typeof url === "string" && ((url || "").split("?")).length >= 2) {
     const cdn = (url || "").split("?")[0]
     const index = (url || "").split("?")[1].split("=")[1];
     const max = Math.floor(Math.random() * index + 1);
-    return cdn + "/" + max + ".jpg";
+    if (lastIndex == 0) {
+      lastIndex = max
+    }
+    return cdn + "/" + lastIndex + ".jpg";
   }
 
   return url;
