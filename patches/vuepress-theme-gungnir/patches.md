@@ -14,12 +14,16 @@ style.backgroundImage = `url(${withBase(frontmatter.value.headerImage)})`;
 style.backgroundImage = `url(${withBase(triggerUri(frontmatter.value.headerImage))})`;
 
 <!-- 添加方法 -->
+let lastIndex = 0;
 function triggerUri(url) {
   if (typeof url === "string" && ((url || "").split("?")).length >= 2) {
     const cdn = (url || "").split("?")[0]
     const index = (url || "").split("?")[1].split("=")[1];
     const max = Math.floor(Math.random() * index + 1);
-    return cdn + "/" + max + ".jpg";
+    if (lastIndex == 0) {
+      lastIndex = max
+    }
+    return cdn + "/" + lastIndex + ".jpg";
   }
 
   return url;
@@ -57,10 +61,6 @@ userTags.js
 ```js
 export const useTags = (start = "#ff0000", end = "#ffb3b3") => {}
 ```
-
-## 夜间模式滚动条
-
-- https://github.com/Renovamen/vuepress-theme-gungnir/pull/81/files#diff-1e6c08f28c5b1ee1968b90e9d26f33beb41150835c0a88652ebec6c16f934328
 
 ## Reference
 

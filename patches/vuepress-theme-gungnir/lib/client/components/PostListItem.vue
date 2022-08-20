@@ -1,7 +1,7 @@
 <template>
   <div class="post-item">
     <div class="post-item__img" @click="$router.push(item.path)">
-      <img :src="withBase(triggerUri(item.info.headerImage))"/>
+      <img :src="withBase(triggerUri(item.info.headerImage))" />
     </div>
     <div class="else">
       <p class="post-item__date">
@@ -16,18 +16,18 @@
         </h3>
       </RouterLink>
       <div
-          class="post-item__content"
-          v-html="getExcerpt(item.info.excerpt || '')"
+        class="post-item__content"
+        v-html="getExcerpt(item.info.excerpt || '')"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {withBase} from "@vuepress/client";
-import type {PropType} from "vue";
-import type {GungnirThemePostData} from "../../shared";
-import {formateDateString} from "../utils";
+import { withBase } from "@vuepress/client";
+import type { PropType } from "vue";
+import type { GungnirThemePostData } from "../../shared";
+import { formateDateString } from "../utils";
 
 defineProps({
   item: {
@@ -52,7 +52,7 @@ function triggerUri(url) {
 
 const getExcerpt = (excerpt: string) => {
   return excerpt
-      .replace(/<RouterLink to/g, "<a href")
-      .replace(/<\/RouterLink>/g, "</a>");
+    .replace(/<RouterLink to/g, "<a href")
+    .replace(/<\/RouterLink>/g, "</a>");
 };
 </script>

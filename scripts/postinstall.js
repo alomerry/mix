@@ -48,12 +48,6 @@ function patchGungnir() {
     copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue');
     copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/PostListItem.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/PostListItem.vue');
 
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/config.js', './node_modules/vuepress-theme-gungnir/lib/client/config.js');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/index.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/index.js');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/useDynamicStyles.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/useDynamicStyles.js');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/styles/mode/light.scss', './node_modules/vuepress-theme-gungnir/lib/client/styles/mode/light.scss');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/composables/useTags.js', './node_modules/vuepress-theme-gungnir/lib/client/composables/useTags.js');
-
     copyFileSync('./patches/vuepress-theme-gungnir/patches.md', './node_modules/vuepress-theme-gungnir/patches.md');
 }
 
