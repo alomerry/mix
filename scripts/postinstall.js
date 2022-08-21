@@ -30,7 +30,7 @@ function downloadUrlCode() {
     })
     // 等待所有文件下载完毕
     Promise.all(downloadQueue).then(res => {
-        console.info('projects download success.');
+        console.info('start to download import codes.');
     })
 
 }
@@ -47,6 +47,8 @@ function readJsonFromFile(file) {
 function patchGungnir() {
     copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue');
     copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/PostListItem.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/PostListItem.vue');
+
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/styles/layouts/base.scss', './node_modules/vuepress-theme-gungnir/lib/client/styles/layouts/base.scss');
 
     copyFileSync('./patches/vuepress-theme-gungnir/patches.md', './node_modules/vuepress-theme-gungnir/patches.md');
 }

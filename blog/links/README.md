@@ -36,6 +36,15 @@ links:
         url: https://ohcv.zxh.io
         img: /img/links/ohcv.svg
         desc: 用 Markdown 写简历
+      - sitename: vuepress plug md-enhance
+        url: https://vuepress-theme-hope.github.io/v2/md-enhance/zh/
+        img: /img/links/ohcv.svg
+        desc: Markdown 增强
+      - sitename: vuepress 插件组件
+        url: https://vuepress-theme-hope.github.io/v2/components/zh/
+        img: /img/links/ohcv.svg
+        desc: Markdown 增强
+        
   - title: One day
     items:
       - sitename: VSCode Web

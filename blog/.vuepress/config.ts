@@ -1,3 +1,6 @@
+import { mdEnhancePlugin } from "vuepress-plugin-md-enhance";
+import { componentsPlugin } from "vuepress-plugin-components";
+
 const { viteBundler } = require("@vuepress/bundler-vite");
 const { externalLinkIconPlugin } = require('@vuepress/plugin-external-link-icon')
 const { gungnirTheme } = require("vuepress-theme-gungnir");
@@ -192,6 +195,13 @@ module.exports = {
           openInNewWindow: 'open in new window',
         },
       },
-    })
+    }),
+    mdEnhancePlugin({
+      // 启用任务列表
+      tasklist: true,
+    }),
+    componentsPlugin({
+      components: ["PDF"],
+    }),
   ]
 };
