@@ -1,5 +1,6 @@
 import { mdEnhancePlugin } from "vuepress-plugin-md-enhance";
 import { componentsPlugin } from "vuepress-plugin-components";
+import { clipboardPlugin } from 'vuepress-plugin-clipboard';
 
 const { viteBundler } = require("@vuepress/bundler-vite");
 const { externalLinkIconPlugin } = require('@vuepress/plugin-external-link-icon')
@@ -203,5 +204,7 @@ module.exports = {
     componentsPlugin({
       components: ["PDF"],
     }),
+    clipboardPlugin({
+    })
   ]
 };
