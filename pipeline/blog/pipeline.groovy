@@ -50,10 +50,12 @@ pipeline {
         stage('compress') {
             steps {
                 // 压缩构建后的文件用于发布到服务器的 nginx 中
-                sh '''
+                retry(3) {
+                    sh '''
                     cd /var/jenkins_home/workspace/blog/blog/.vuepress/dist/
                     tar -zcf blog.tar.gz *
                     '''
+                }
             }
         }
         stage('ssh') {
