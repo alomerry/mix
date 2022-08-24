@@ -39,6 +39,11 @@
                     "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/flarum/docker-compose.yml"
                 },
                 {
+                    "fileName": "docker-compose.yml",
+                    "relativeLocation": "frpc/rocket.chat/",
+                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/rocket.chat/docker-compose.yml"
+                },
+                {
                     "fileName": "pipeline.groovy",
                     "relativeLocation": "pipeline/blog/",
                     "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/pipeline/blog/pipeline.groovy"
