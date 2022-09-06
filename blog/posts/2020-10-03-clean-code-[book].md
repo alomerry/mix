@@ -312,6 +312,12 @@ https://go-proverbs.github.io/
 
 https://the-zen-of-go.netlify.com/
 
+- 名字的长度没有逻辑限制，但是Go语言的风格是尽量使用短小
+的名字，对于局部变量尤其是这样；你会经常看到之类的短名
+宇，而不是元长的theLoopindex命名。通常来说，如果一个名
+宇的作用域比较大，生命周期也比较长，那么用长的名字将会
+更有意义《The Go Programming Language》
+
 ### 代码
 
 #### 多个 if 语句可以折叠成 switch

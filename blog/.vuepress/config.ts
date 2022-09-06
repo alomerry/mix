@@ -182,7 +182,7 @@ module.exports = {
 
   markdown: {
     extractHeaders: {
-      level: [2, 3, 4, 5]
+      level: [2, 3, 4, 5, 6]
     },
     code: {
       lineNumbers: true
