@@ -43,8 +43,11 @@ pipeline {
         }
         stage('install and build') {
             steps {
-                // 构建
-                sh 'pnpm install --no-frozen-lockfile && pnpm build'
+                retry(3) {
+                    // 构建
+                    sh 'pnpm install --no-frozen-lockfile && pnpm build'
+                }
+                
             }
         }
         stage('compress') {
