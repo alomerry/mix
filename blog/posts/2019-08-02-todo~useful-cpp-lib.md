@@ -43,10 +43,13 @@ tags:
 ### `string`
 
 - getline
+- find 用于搜索字符串中的特定字符。它返回字符的第一个实例的索引或 string::npos 如果不存在
+
+[在 C++ 中将 char 转换为字符串的 10 种方法](https://www.techiedelight.com/zh/convert-char-to-string-cpp/)
 
 ### `ctype.h`
 
-- tolower()/toupper() //值并没有改变
+- tolower()/toupper() // 值并没有改变
 - isalpha
 - isalnum
 - isdigit()、isprint()
@@ -62,6 +65,7 @@ tags:
 - `double pow(double x, double y)` 返回 `x` 的 `y` 次方
 - `double floor(double x)`
 - `floor()`
+- `ceil()` 向上取整
 - `atan()`
 - `fabs(double)` 取 `double` 的绝对值；
 - `abs(int)` 取 `int` 的绝对值；
