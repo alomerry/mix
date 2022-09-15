@@ -1,0 +1,7 @@
+{%- include snippets/get-sources.html -%}
+{%- assign _sources = __return -%}
+<script>
+  window.Lazyload.js('{{ _sources.mdimport }}', function() {
+    
+  });
+</script>

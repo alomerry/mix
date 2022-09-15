@@ -15,3 +15,9 @@
 {%- if __return == true -%}
   {%- include markdown-enhancements/mermaid.html -%}
 {%- endif -%}
+
+{%- include snippets/assign.html target=site.data.variables.default.mdimport
+  source0=site.mdimport source1=page.mdimport -%}
+{%- if __return == true -%}
+  {%- include markdown-enhancements/mdimport.html -%}
+{%- endif -%}

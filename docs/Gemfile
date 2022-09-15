@@ -4,3 +4,4 @@ source "https://rubygems.org"
 gemspec
 
 gem "webrick", "~> 1.7"
+gem 'jekyll_include_plugin', '1.1.0'

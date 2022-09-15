@@ -36,10 +36,10 @@ timezone: # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for
 author:
   type      : # "person" (default), "organization"
   name      : Alomerry Wu
-  url       :
+  url       : https://blog.alomerry.com
   avatar    : https://blog.alomerry.com/img/avatar.png # path or url of avatar image (square)
   bio       : I am an amazing person.
-  email     : wu1jin2cheng3@live.cn
+  email     : alomerry.wu@gmail.com
   facebook  : # "user_name" the last part of your profile url, e.g. https://www.facebook.com/user_name
   twitter   : # "user_name" the last part of your profile url, e.g. https://twitter.com/user_name
   weibo     : # "user_id"   the last part of your profile url, e.g. https://www.weibo.com/user_id/profile?...
@@ -93,10 +93,12 @@ mermaid: true
 # Chart
 chart: true
 
+# Markdown Import
+mdimport: true
 
 ## => Paginate
 ##############################
-paginate: 5
+paginate: 15
 paginate_path: /page:num # don't change this unless for special need
 
 
@@ -223,3 +225,4 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jemoji
+  - jekyll_include_plugin
