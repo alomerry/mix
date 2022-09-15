@@ -58,25 +58,28 @@ pipeline {
         }
         stage('ssh') {
             steps {
-                script {
-                    def remote = [:]
-                    remote.name = 'root'
-                    remote.logLevel = 'FINEST'
-                    remote.host = 'io.alomerry.com'
-                    remote.allowAnyHosts = true
-                    withCredentials([usernamePassword(credentialsId: 'tencent-vps-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
-                        remote.user = "${username}"
-                        remote.password = "${password}"
+                retry(3) {
+                    script {
+                        def remote = [:]
+                        remote.name = 'root'
+                        remote.logLevel = 'FINEST'
+                        remote.host = 'io.alomerry.com'
+                        remote.allowAnyHosts = true
+                        withCredentials([usernamePassword(credentialsId: 'tencent-vps-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
+                            remote.user = "${username}"
+                            remote.password = "${password}"
+                        }
+                        sshCommand remote: remote, command: '''#!/bin/bash
+                            cd /www/wwwroot/algorithm.alomerry.com/
+                            shopt -s extglob
+                            rm -rf !(.htaccess|.user.ini|.well-known|favicon.ico|algorithm.tar.gz)
+                            '''
+                        sshPut remote: remote, from: '/var/jenkins_home/workspace/algorithm/docs/_site/algorithm.tar.gz', into: '/www/wwwroot/io.alomerry.com/'
+                        sshCommand remote: remote, command: "cd /www/wwwroot/io.alomerry.com && tar -xf algorithm.tar.gz"
+                        sshRemove remote: remote, path: '/www/wwwroot/io.alomerry.com/algorithm.tar.gz'
                     }
-                    sshCommand remote: remote, command: '''#!/bin/bash
-                        cd /www/wwwroot/algorithm.alomerry.com/
-                        shopt -s extglob
-                        rm -rf !(.htaccess|.user.ini|.well-known|favicon.ico|algorithm.tar.gz)
-                        '''
-                    sshPut remote: remote, from: '/var/jenkins_home/workspace/algorithm/docs/_site/algorithm.tar.gz', into: '/www/wwwroot/io.alomerry.com/'
-                    sshCommand remote: remote, command: "cd /www/wwwroot/io.alomerry.com && tar -xf algorithm.tar.gz"
-                    sshRemove remote: remote, path: '/www/wwwroot/io.alomerry.com/algorithm.tar.gz'
                 }
+                
             }
         }
     }
