@@ -5,3 +5,4 @@
 
 - Base vuepress-next
 - Theme vuepress-theme-gungnir
+- Vuepress-plugin-md-enhance
