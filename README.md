@@ -1,5 +1,7 @@
 # ioi solution
 
+[![Build Status](https://ci.alomerry.com/buildStatus/icon?job=algorithm&style=flat)](https://ci.alomerry.com/job/algorithm/)
+
 ## install
 
 ```shell

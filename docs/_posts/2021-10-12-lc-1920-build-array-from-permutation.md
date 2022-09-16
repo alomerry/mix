@@ -56,15 +56,4 @@ ans = [nums[nums[0]], nums[nums[1]], nums[nums[2]], nums[nums[3]], nums[nums[4]]
 
 ## Code
 
-```cpp
-class Solution {
-public:
-    vector<int> buildArray(vector<int>& nums) {
-vector<int> result = vector<int>(nums.size(), 0);
-    for (int i = 0; i<nums.size(); i++) {
-        result[i] = nums[nums[i]];
-    }
-    return result;
-    }
-};
-```
+{% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/1920-main.cpp" syntax="cpp" %}
