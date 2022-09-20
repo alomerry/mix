@@ -12,4 +12,7 @@ bundle install
 # npm run build
 ```
 
-https://github.com/4074/leetcode-helper
+## reference
+
+- chrome plugin https://github.com/4074/leetcode-helper
+- jekyll tutorial https://www.bootwiki.com/jekyii/jekyll-posts.html
