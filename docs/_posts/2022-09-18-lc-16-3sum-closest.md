@@ -1,13 +1,13 @@
 ---
 title: 最接近的三数之和
-problem_no: 88
+problem_no: 16
 date: 2022-09-18
 categories:
 - LeetCode
 tags:
 - Y2022
 - LeetCode
-- Media
+- Medium
 ---
 
 ## [Description]((https://leetcode.cn/problems/3sum-closest/))
