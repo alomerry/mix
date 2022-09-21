@@ -1,83 +1,52 @@
 //
-// Created by user on 8/7/20.
+// Created by alomerry.wu on 8/6/20.
 //
 
 #include <vector>
 #include <string>
+#include <map>
 #include <set>
 #include <iostream>
-#include <map>
 #include <algorithm>
-
+#include <math.h>
+#include <ctype.h>
 using namespace std;
 
-map<int, int> mapper;
-vector<vector<int> > res;
-
-bool check(vector<int> sets, int left, int right, int needValue)
+vector<vector<int>> threeSum(vector<int> nums)
 {
-    if (mapper[needValue] <= 0)
-        return false;
-    for (int i = left + 1; i < right && i < sets.size(); ++i)
-        if (sets[i] == needValue)
-            return true;
-    return false;
-}
-
-void dp(vector<int> sets, int left, int right)
-{
-    if (left >= right || left + 1 == right)
-        return;
-    int need = 0 - sets[left] - sets[right];
-    if (check(sets, left, right, need))
-    {
-        vector<int> tmp = {sets[left], sets[right], need};
-        res.push_back(tmp);
-    }
-    int lefter = left, righter = right;
-    while (lefter + 1 < righter && sets[lefter] == sets[lefter + 1])
-        ++lefter;
-    while (righter - 1 > righter && sets[righter] == sets[righter - 1])
-        --righter;
-    dp(sets, lefter + 1, righter);
-    dp(sets, lefter, righter - 1);
-}
-
-vector<vector<int> > threeSum(vector<int> &nums)
-{
-    for (int i = 0; i < nums.size(); ++i)
-        ++mapper[nums[i]];
+    vector<vector<int>> result;
     sort(nums.begin(), nums.end());
-    dp(nums, 0, nums.size() - 1);
-    return res;
-}
-
-void printTest(vector<vector<int> > input)
-{
-    cout << "[" << endl;
-    for (int i = 0; i < input.size(); ++i)
+    int a, b, c;
+    for (a = 0; a <= nums.size() - 3; a++)
     {
-        cout << "[";
-        for (int j = 0; j < input[i].size(); ++j)
+        if (a > 0 && nums[a] == nums[a - 1])
+            continue;
+        b = a + 1, c = nums.size() - 1;
+        while (b < c)
         {
-            cout << input[i][j] << " ";
+            int now = nums[a] + nums[b] + nums[c];
+            now > 0 ? c-- : now < 0 ? b++
+                                    : 0;
+            if (now == 0)
+            {
+                result.push_back({nums[a], nums[b], nums[c]});
+                b++;
+                c--;
+                while (b < c && nums[b] == nums[b - 1])
+                    b++;
+                while (b < c && nums[c] == nums[c + 1])
+                    c--;
+            }
         }
-        cout << "]" << endl;
     }
-    cout << "]" << endl;
-}
-
-void test()
-{
-    //    vector<int> test1 = {-1, 0, 1, 2, -1, -4};
-    //    vector<int> test1 = {0, 0};
-    //    vector<int> test1 = {-2, 0, 1, 1, 2};
-    vector<int> test1 = {-1, 0, 1, 2, -1, -4};
-    printTest(threeSum(test1));
+    return result;
 }
 
 int main()
 {
-    test();
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(0);
+    vector<int> v = {-1, 0, 1, 2, -1, -4};
+    threeSum(v);
     return 0;
 }
