@@ -7,7 +7,7 @@ categories:
 tags:
 - Y2022
 - LeetCode
-- Medium
+- Easy
 - bfs
 - dfs
 - binary-tree
