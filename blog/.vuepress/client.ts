@@ -38,6 +38,7 @@ import {
   MdLibrarybooksRound,
   MdBookRound,
 
+  CiAlgo,
 
   CoSpacemacs,
   FaTools,
@@ -83,6 +84,8 @@ addIcons(
   // SiBookstack,
   // MdLibrarybooksRound,
   // MdBookRound,
+
+  CiAlgo,
 
   CoSpacemacs,
   FaTools,

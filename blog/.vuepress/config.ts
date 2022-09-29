@@ -117,7 +117,8 @@ module.exports = {
         icon: "co-spacemacs",
         children: [
           { text: "digest", link: "/posts/2019-07-02-digest.md", icon: "bi-book-half" },
-          { text: "Todo", link: "/posts/2022-09-17-todo.md", icon: "vi-file-type-light-todo" },
+          { text: "todo", link: "/posts/2022-09-17-todo.md", icon: "vi-file-type-light-todo" },
+          { text: "algorithm", link: "/posts/2022-09-26-algorithm-[note].md", icon: "ci-algo" },
           { text: "vps-backup", link: "/posts/2022-05-29-vps-home.md", icon: "vi-file-type-git" },
         ]
       },

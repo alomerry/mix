@@ -10,205 +10,341 @@ update: 2022-07-02
 
 <!-- more -->
 
-## TODO
+## 同步原语
 
-## Package
-
-## Case
-
-### Overwrite Pointer Receiver in Method
+### Mutex
 
 ```go
-package main
-
-import "fmt"
-
-func (p Person) MethodNoPt() {
-	p = Person{name: "MethodNoPt Changed!", age: 1000}
-}
-
-func (p *Person) MethodPt() {
-	*p = Person{name: "MethodPt Changed!", age: 1000}
-}
-
-func (p *Person) MethodPtR() *Person {
-	p = &Person{name: "MethodPt Changed!", age: 1000}
-	return p
-}
-
-type Person struct {
-	name string
-	age  int
-}
-
-func main() {
-	case1 := Person{name: "No Change", age: 10}
-	case1.MethodNoPt()
-	fmt.Printf("%+v\n", case1)
-
-	case2 := Person{name: "No Change", age: 10}
-	fmt.Printf("%+v\n", case2)
-	(&case2).MethodNoPt()
-	fmt.Printf("%+v\n", case2)
-
-	case3 := Person{name: "No Change", age: 10}
-	fmt.Printf("%+v\n", case3)
-	case3.MethodPt()
-	fmt.Printf("%+v\n", case3)
-
-	case4 := &Person{name: "No Change", age: 10}
-	fmt.Printf("%+v\n", case4)
-	case4.MethodPt()
-	fmt.Printf("%+v\n", case4)
-
-	case5 := &Person{name: "No Change", age: 10}
-	fmt.Printf("%+v\n", case5)
-	case5 = case5.MethodPtR()
-	fmt.Printf("%+v\n", case5)
+type Mutex struct {
+  state int32 // 表示当前互斥锁的状态
+  sema  uint32 // 用于控制锁状态的信号量
 }
 ```
+|              32...4               |            3             |           2            |          1           |
+| :-------------------------------: | :----------------------: | :--------------------: | :------------------: |
+|           waitersCount            |       mutexLocked        |       mutexWoken       |    mutexStarving     |
+| 当前互斥锁上等待的 Goroutine 个数 | 当前的互斥锁进入饥饿状态 | 表示从正常模式被从唤醒 | 表示互斥锁的锁定状态 |
 
-- https://groups.google.com/g/golang-nuts/c/qWCSz0A0F8o?pli=1
+#### 正常模式和饥饿模式
 
-## Slice
+:::tip
 
-如果你需要测试一个slice是否是空的，使用len(s) == 0来判断，而不应该用s == nil来判断。
+Mutex fairness.
 
-## Signal 包
+Mutex can be in 2 modes of operations: normal and starvation.
 
-Notify 函数 https://blog.csdn.net/chuanglan/article/details/80750119
+In normal mode waiters are queued in FIFO order, but a woken up waiter does not own the mutex and competes with new arriving goroutines over the ownership. New arriving goroutines have an advantage -- they are already running on CPU and there can be lots of them, so a woken up waiter has good chances of losing. In such case it is queued at front of the wait queue. If a waiter fails to acquire the mutex for more than 1ms, it switches mutex to the starvation mode.
 
-## flag 包
+In starvation mode ownership of the mutex is directly handed off from the unlocking goroutine to the waiter at the front of the queue.
 
-### os.Args
+New arriving goroutines don't try to acquire the mutex even if it appears to be unlocked, and don't try to spin. Instead they queue themselves at the tail of the wait queue.
 
-简单获取命令行参数的方式，演示代码如下：
+If a waiter receives ownership of the mutex and sees that either 
+
+(1) it is the last waiter in the queue, or (2) it waited for less than 1 ms, it switches mutex back to normal operation mode.
+
+Normal mode has considerably better performance as a goroutine can acquire a mutex several times in a row even if there are blocked waiters.
+
+Starvation mode is important to prevent pathological cases of tail latency.
+
+:::
+
+在正常模式下，锁的等待者会按照先进先出的顺序获取锁。但是刚被唤起的 Goroutine 与新创建的 Goroutine 竞争时，大概率会获取不到锁，为了减少这种情况的出现，一旦 Goroutine 超过 1ms 没有获取到锁，它就会将当前互斥锁切换饥饿模式，防止部分 Goroutine 被『饿死』。
+
+在饥饿模式中，互斥锁会直接交给等待队列最前面的 Goroutine。新的 Goroutine 在该状态下不能获取锁、也不会进入自旋状态，它们只会在队列的末尾等待。如果一个 Goroutine 获得了互斥锁并且它在队列的末尾或者它等待的时间少于 1ms，那么当前的互斥锁就会切换回正常模式。
+
+与饥饿模式相比，正常模式下的互斥锁能够提供更好地性能，饥饿模式的能避免 Goroutine 由于陷入等待无法获取锁而造成的高尾延时。
+
+#### 加锁和解锁
 
 ```go
-func main() {
-for index, arg := range os.Args {
-fmt.Printf("arg[%v]=[%v]", index, arg)
-}
-}
-```
-
-执行 ``$ go build -o "main"` 编译，后运行输出结果：
-
-```shell
-$ ./main os.Args demo
-arg[0]=[./main]
-arg[1]=[os.Args]
-arg[2]=[demo]
-```
-
-```go
-// A Flag represents the state of a flag.
-type Flag struct {
-Name     string // name as it appears on command line
-Usage    string // help message
-Value    Value  // value as set
-DefValue string // default value (as text); for usage message
+func (m *Mutex) Lock() {
+  if atomic.CompareAndSwapInt32(&m.state, 0, mutexLocked) {
+    return
+  }
+  m.lockSlow() // Spinnig
 }
 ```
 
-```go
-// A FlagSet represents a set of defined flags. The zero value of a FlagSet
-// has no name and has ContinueOnError error handling.
-type FlagSet struct {
-// Usage is the function called when an error occurs while parsing flags.
-// The field is a function (not a method) that may be changed to point to
-// a custom error handler. What happens after Usage is called depends
-// on the ErrorHandling setting; for the command line, this defaults
-// to ExitOnError, which exits the program after calling Usage.
-Usage func ()
+如果互斥锁的状态不是 0 时就会调用 sync.Mutex.lockSlow 尝试通过自旋（）等方式等待锁的释放：
 
-name          string
-parsed        bool
-actual        map[string]*Flag
-formal        map[string]*Flag
-args          []string // arguments after flags
-errorHandling ErrorHandling
-output        io.Writer // nil means stderr; use out() accessor
+判断当前 Goroutine 能否进入自旋；
+
+- 通过自旋等待互斥锁的释放；
+- 计算互斥锁的最新状态；
+- 更新互斥锁的状态并获取锁；
+
+```go
+func (m *Mutex) lockSlow() {
+  var waitStartTime int64
+  starving := false
+  awoke := false
+  iter := 0
+  old := m.state
+  for {
+    if old&(mutexLocked|mutexStarving) == mutexLocked && runtime_canSpin(iter) {
+      // Active spinning makes sense.
+      // Try to set mutexWoken flag to inform Unlock
+      // to not wake other blocked goroutines.
+      if !awoke && old&mutexWoken == 0 && old>>mutexWaiterShift != 0 && atomic.CompareAndSwapInt32(&m.state, old, old|mutexWoken) {
+        awoke = true
+      }
+      runtime_doSpin() // 30*PAUSE
+      iter++
+      old = m.state
+      continue
 }
 ```
 
-## 自定义类型与类型别名
-
-### 自定义类型
-
-```go
-//自定义类型是定义了一个全新的类型
-//将MyInt定义为int类型
-type MyInt int
-```
-
-### 类型别名
+- 互斥锁只有在普通模式才能进入自旋；
+- runtime.sync_runtime_canSpin 需要返回 true：
+  - 运行在多 CPU 的机器上；
+  - 当前 Goroutine 为了获取该锁进入自旋的次数小于四次；
+  - 当前机器上至少存在一个正在运行的处理器 P 并且处理的运行队列为空；
 
 ```go
-//类型别名规定：TypeAlias只是Type的别名，本质上TypeAlias与Type是同一个类型。
-type TypeAlias = Type
-type byte = uint8
-type rune = int32
-```
-
-### 区别
-
-```go
-//类型定义
-type NewInt int
-
-//类型别名
-type MyInt = int
-
-func main() {
-var a NewInt
-var b MyInt
-
-fmt.Printf("type of a:%T\n", a) //type of a:main.NewInt
-fmt.Printf("type of b:%T\n", b) //type of b:int
+new := old
+// Don't try to acquire starving mutex, new arriving goroutines must queue.
+if old&mutexStarving == 0 {
+    new |= mutexLocked
 }
-//区别
-//结果显示a的类型是main.NewInt，表示main包下定义的NewInt类型。b的类型是int。MyInt类型只会在代码中存在，编译完成时并不会有MyInt类型。
+if old&(mutexLocked|mutexStarving) != 0 {
+    new += 1 << mutexWaiterShift
+}
+// The current goroutine switches mutex to starvation mode. But if the mutex is currently unlocked, don't do the switch. Unlock expects that starving mutex has waiters, which will not be true in this case.
+if starving && old&mutexLocked != 0 {
+    new |= mutexStarving
+}
+if awoke {
+    new &^= mutexWoken
+}
 ```
 
-## [unsafe](https://golang.org/pkg/unsafe/)
+计算了新的互斥锁状态之后，会使用 CAS 函数 sync/atomic.CompareAndSwapInt32 更新状态：
 
-### Pointer
+```go
+if atomic.CompareAndSwapInt32(&m.state, old, new) {
+  if old&(mutexLocked|mutexStarving) == 0 {
+    break // 通过 CAS 函数获取了锁
+  }
+  queueLifo := waitStartTime != 0
+	if waitStartTime == 0 {
+		waitStartTime = runtime_nanotime()
+	}
+  runtime_SemacquireMutex(&m.sema, queueLifo, 1)
+  starving = starving || runtime_nanotime()-waitStartTime > starvationThresholdNs
+  old = m.state
+  if old&mutexStarving != 0 {
+    delta := int32(mutexLocked - 1<<mutexWaiterShift)
+    if !starving || old>>mutexWaiterShift == 1 {
+      // Exit starvation mode. Critical to do it here and consider wait time. Starvation mode is so inefficient, that two goroutines can go lock-step infinitely once they switch mutex to starvation mode.
+      delta -= mutexStarving
+    }
+    atomic.AddInt32(&m.state, delta)
+    break
+  }
+  awoke = true
+  iter = 0
+} else {
+  old = m.state
+}
+```
 
-Go 是一门强类型静态语言。强类型意味着类型一旦定义了就无法改变，静态意味着类型检查在运行前就完成了。
+互斥锁的解锁会先使用 sync/atomic.AddInt32 函数快速解锁：
 
-#### 指针类型转换
+- 如果该函数返回的新状态等于 0，当前 Goroutine 就成功解锁了互斥锁；
+- 如果该函数返回的新状态不等于 0，会调用 sync.Mutex.unlockSlow 开始慢速解锁：
 
-> 如果 Type1 与 Type2 一样大，并且两者有相同的内存结构；那么就允许把一个类型的数据，重新定义成另一个类型的数据。
+```go
+func (m *Mutex) Unlock() {
+  new := atomic.AddInt32(&m.state, -mutexLocked)
+  if new != 0 {
+    m.unlockSlow(new)
+  }
+}
+func (m *Mutex) unlockSlow(new int32) {
+  if (new+mutexLocked)&mutexLocked == 0 {
+    throw("sync: unlock of unlocked mutex")
+  }
+  if new&mutexStarving == 0 { // 正常模式
+    old := new
+    for {
+      // If there are no waiters or a goroutine has already been woken or grabbed the lock, no need to wake anyone. In starvation mode ownership is directly handed off from unlocking goroutine to the next waiter. We are not part of this chain, since we did not observe mutexStarving when we unlocked the mutex above. So get off the way.
+      if old>>mutexWaiterShift == 0 || old&(mutexLocked|mutexWoken|mutexStarving) != 0 {
+        return
+      }
+      new = (old - 1<<mutexWaiterShift) | mutexWoken
+      if atomic.CompareAndSwapInt32(&m.state, old, new) {
+        runtime_Semrelease(&m.sema, false, 1)
+        return
+      }
+      old = m.state
+    }
+  } else { // 饥饿模式
+    runtime_Semrelease(&m.sema, true, 1)
+  }
+}
+```
 
-#### 处理系统调用
+- 在正常模式下：
+  - 如果互斥锁不存在等待者或者互斥锁的 mutexLocked、mutexStarving、mutexWoken 状态不都为 0，那么当前方法可以直接返回，不需要唤醒其他等待者；
+  - 如果互斥锁存在等待者，会通过 sync.runtime_Semrelease 唤醒等待者并移交锁的所有权；
+- 在饥饿模式下，上述代码会直接调用 [sync.runtime_Semrelease](https://github.com/golang/go/blob/master/src/runtime/sema.go#L175) 将当前锁交给下一个正在尝试获取锁的等待者，等待者被唤醒后会得到锁，在这时互斥锁还不会退出饥饿状态；
 
-4 个规则
+#### 小结
 
-- 任何指针都可以转换为 `unsafe.Pointer`
-- `unsafe.Pointer` 可以转换为任何指针
-- `uintptr`可以转换为 `unsafe.Pointer`
-- `unsafe.Pointer` 可以转换为 `uintptr`
+加锁：
 
-## 克隆 深浅拷贝
+- 如果互斥锁处于初始化状态，会通过置位 mutexLocked 加锁；
+- 如果互斥锁处于 mutexLocked 状态并且在普通模式下工作，会进入自旋，执行 30 次 PAUSE 指令消耗 CPU 时间等待锁的释放；
+- 如果当前 Goroutine 等待锁的时间超过了 1ms，互斥锁就会切换到饥饿模式；
+- 互斥锁在正常情况下会通过 runtime.sync_runtime_SemacquireMutex 将尝试获取锁的 Goroutine 切换至休眠状态，等待锁的持有者唤醒；
+- 如果当前 Goroutine 是互斥锁上的最后一个等待的协程或者等待的时间小于 1ms，那么它会将互斥锁切换回正常模式；
 
-[golang通过反射克隆数据](https://studygolang.com/articles/26514)
+解锁：
 
-[Golang之情非得已的DeepCopy](https://www.jianshu.com/p/f1cdb1bc1b74)
+- 当互斥锁已经被解锁时，调用 sync.Mutex.Unlock 会直接抛出异常；
+- 当互斥锁处于饥饿模式时，将锁的所有权交给队列中的下一个等待者，等待者会负责设置 mutexLocked 标志位；
+- 当互斥锁处于普通模式时，如果没有 Goroutine 等待锁的释放或者已经有被唤醒的 Goroutine 获得了锁，会直接返回；在其他情况下会通过 sync.runtime_Semrelease 唤醒对应的 Goroutine；
 
-[Go语言如何深度拷贝对象](https://studygolang.com/articles/6984)
+#### Reference
 
-## Context
+- [知乎 你真的了解 sync.Mutex 吗](https://zhuanlan.zhihu.com/p/350456432)
+- [图解 sync.Mutex](https://developer.huawei.com/consumer/cn/forum/topic/0202545781985490042?fid=23)
+- [多图详解互斥锁 Mutex](https://www.cnblogs.com/luozhiyun/p/14157542.html)
 
-https://blog.csdn.net/yzf279533105/article/details/107292247
+### RWMutex
 
-https://gitlab.********.com/mai/********/issues/24
+读写互斥锁 sync.RWMutex 是细粒度的互斥锁，它不限制资源的并发读，但是读写、写写操作无法并行执行。
 
-context 只读
+| 并发  |  读   |  写   |
+| :---: | :---: | :---: |
+|  读   |   Y   |   N   |
+|  写   |   N   |   N   |
 
-[Go Context的踩坑经历](https://studygolang.com/articles/12566)
+```go
+type RWMutex struct {
+  w           Mutex
+  writerSem   uint32
+  readerSem   uint32
+  readerCount int32
+  readerWait  int32
+}
+```
 
-[gRPC and Deadlines](https://gitlab.********.com/mai/********/issues/24)
+- `w` — 复用互斥锁提供的能力；
+- `writerSem` 和 `readerSem` — 分别用于写等待读和读等待写：
+- `readerCount` 存储了当前正在执行的读操作数量；
+- `readerWait` 表示当写操作被阻塞时等待的读操作个数；
+
+#### 写锁
+
+```go
+func (rw *RWMutex) Lock() {
+    rw.w.Lock()
+    r := atomic.AddInt32(&rw.readerCount, -rwmutexMaxReaders) + rwmutexMaxReaders
+    if r != 0 && atomic.AddInt32(&rw.readerWait, r) != 0 {
+        runtime_SemacquireMutex(&rw.writerSem, false, 0)
+    }
+}
+```
+
+- 调用结构体持有的 sync.Mutex 结构体的 sync.Mutex.Lock 阻塞后续的写操作；
+  - 因为互斥锁已经被获取，其他 Goroutine 在获取写锁时会进入休眠；
+- 调用 sync/atomic.AddInt32 函数阻塞后续的读操作：
+- 如果仍然有其他 Goroutine 持有互斥锁的读锁，该 Goroutine 会调用 runtime.sync_runtime_SemacquireMutex 进入休眠状态等待所有读锁所有者执行结束后释放 writerSem 信号量将当前协程唤醒；
+
+```go
+func (rw *RWMutex) Unlock() {
+  r := atomic.AddInt32(&rw.readerCount, rwmutexMaxReaders)
+  if r >= rwmutexMaxReaders {
+    throw("sync: Unlock of unlocked RWMutex")
+  }
+  for i := 0; i < int(r); i++ {
+    runtime_Semrelease(&rw.readerSem, false, 0)
+  }
+  rw.w.Unlock()
+}
+```
+
+写锁的释放：
+
+- 调用 sync/atomic.AddInt32 函数将 readerCount 变回正数，释放读锁；
+- 通过 for 循环释放所有因为获取读锁而陷入等待的 Goroutine：
+- 调用 sync.Mutex.Unlock 释放写锁；
+
+获取写锁时会先阻塞写锁的获取，后阻塞读锁的获取，这种策略能够保证读操作不会被连续的写操作『饿死』。
+
+#### 读锁
+
+```go
+func (rw *RWMutex) RLock() {
+  if atomic.AddInt32(&rw.readerCount, 1) < 0 {
+    runtime_SemacquireMutex(&rw.readerSem, false, 0) // 写锁
+  }
+}
+```
+
+```go
+func (rw *RWMutex) RUnlock() {
+  if r := atomic.AddInt32(&rw.readerCount, -1); r < 0 {
+    rw.rUnlockSlow(r)
+  }
+}
+
+func (rw *RWMutex) rUnlockSlow(r int32) {
+  if r+1 == 0 || r+1 == -rwmutexMaxReaders {
+    throw("sync: RUnlock of unlocked RWMutex")
+  }
+  if atomic.AddInt32(&rw.readerWait, -1) == 0 {
+    runtime_Semrelease(&rw.writerSem, false, 1)
+  }
+}
+```
+
+该方法会先减少正在读资源的 readerCount 整数，根据 sync/atomic.AddInt32 的返回值不同会分别进行处理：
+
+- 如果返回值大于等于零 — 读锁直接解锁成功；
+- 如果返回值小于零 — 有一个正在执行的写操作，在这时会调用sync.RWMutex.rUnlockSlow 方法；
+
+sync.RWMutex.rUnlockSlow 会减少获取锁的写操作等待的读操作数 readerWait 并在所有读操作都被释放之后触发写操作的信号量 writerSem，该信号量被触发时，调度器就会唤醒尝试获取写锁的 Goroutine。
+
+#### 小结
+
+- 调用 sync.RWMutex.Lock 尝试获取写锁时；
+  - 每次 sync.RWMutex.RUnlock 都会将 readerCount 其减一，当它归零时该 Goroutine 会获得写锁；
+  - 将 readerCount 减少 rwmutexMaxReaders 个数以阻塞后续的读操作；
+- 调用 sync.RWMutex.Unlock 释放写锁时，会先通知所有的读操作，然后才会释放持有的互斥锁；
+
+## Golang
+
+- context [Go Context的踩坑经历](https://studygolang.com/articles/12566)
+- channel 的死锁
+  - 区别
+  - 有缓冲
+  - 无缓冲
+  - 关闭、遍历
+  - 死锁（定义）https://juejin.cn/post/7032892079260827679
+- GMP
+  - goroutine 默认栈空间多少？goroutine 为什么比 c++ 线程轻量化？
+  - context类型有哪些？Context的作用是什么？context如何实现cancel的？
+  - waitGroup原理
+  - golang函数传递的方式
+  - defer的原理
+- gc
+  - 三色
+- Go map 实现
+  - 遍历是否有序
+- select 用处、select 和 epoll
+- 内存逃逸
+- go map 扩容
+  - struct 能不能比较
+  - defer
+- interface的底层结构
+- go 设计模式
+  - go 语言的 duck type
+  - go语言的有哪些复用机制
+  - go的context的设计，如果在context里有两个传值用的相同的key，那么哪一个会被接受到
 
 ### Context 接口
 
@@ -369,6 +505,193 @@ return c, func () { c.cancel(true, Canceled) }
 PIC
 
 可以看出，**cancelCtx也是一棵树，当触发cancel时，会cancel本结点和其子树的所有cancelCtx**。
+
+
+## Package
+
+## Case
+
+### Overwrite Pointer Receiver in Method
+
+```go
+package main
+
+import "fmt"
+
+func (p Person) MethodNoPt() {
+    p = Person{name: "MethodNoPt Changed!", age: 1000}
+}
+
+func (p *Person) MethodPt() {
+    *p = Person{name: "MethodPt Changed!", age: 1000}
+}
+
+func (p *Person) MethodPtR() *Person {
+    p = &Person{name: "MethodPt Changed!", age: 1000}
+    return p
+}
+
+type Person struct {
+    name string
+    age  int
+}
+
+func main() {
+    case1 := Person{name: "No Change", age: 10}
+    case1.MethodNoPt()
+    fmt.Printf("%+v\n", case1)
+
+    case2 := Person{name: "No Change", age: 10}
+    fmt.Printf("%+v\n", case2)
+    (&case2).MethodNoPt()
+    fmt.Printf("%+v\n", case2)
+
+    case3 := Person{name: "No Change", age: 10}
+    fmt.Printf("%+v\n", case3)
+    case3.MethodPt()
+    fmt.Printf("%+v\n", case3)
+
+    case4 := &Person{name: "No Change", age: 10}
+    fmt.Printf("%+v\n", case4)
+    case4.MethodPt()
+    fmt.Printf("%+v\n", case4)
+
+    case5 := &Person{name: "No Change", age: 10}
+    fmt.Printf("%+v\n", case5)
+    case5 = case5.MethodPtR()
+    fmt.Printf("%+v\n", case5)
+}
+```
+
+- https://groups.google.com/g/golang-nuts/c/qWCSz0A0F8o?pli=1
+
+## Slice
+
+如果你需要测试一个slice是否是空的，使用len(s) == 0来判断，而不应该用s == nil来判断。
+
+## Signal 包
+
+Notify 函数 https://blog.csdn.net/chuanglan/article/details/80750119
+
+## flag 包
+
+### os.Args
+
+简单获取命令行参数的方式，演示代码如下：
+
+```go
+func main() {
+for index, arg := range os.Args {
+fmt.Printf("arg[%v]=[%v]", index, arg)
+}
+}
+```
+
+执行 ``$ go build -o "main"` 编译，后运行输出结果：
+
+```shell
+$ ./main os.Args demo
+arg[0]=[./main]
+arg[1]=[os.Args]
+arg[2]=[demo]
+```
+
+```go
+// A Flag represents the state of a flag.
+type Flag struct {
+Name     string // name as it appears on command line
+Usage    string // help message
+Value    Value  // value as set
+DefValue string // default value (as text); for usage message
+}
+```
+
+```go
+// A FlagSet represents a set of defined flags. The zero value of a FlagSet
+// has no name and has ContinueOnError error handling.
+type FlagSet struct {
+// Usage is the function called when an error occurs while parsing flags.
+// The field is a function (not a method) that may be changed to point to
+// a custom error handler. What happens after Usage is called depends
+// on the ErrorHandling setting; for the command line, this defaults
+// to ExitOnError, which exits the program after calling Usage.
+Usage func ()
+
+name          string
+parsed        bool
+actual        map[string]*Flag
+formal        map[string]*Flag
+args          []string // arguments after flags
+errorHandling ErrorHandling
+output        io.Writer // nil means stderr; use out() accessor
+}
+```
+
+## 自定义类型与类型别名
+
+### 自定义类型
+
+```go
+//自定义类型是定义了一个全新的类型
+//将MyInt定义为int类型
+type MyInt int
+```
+
+### 类型别名
+
+```go
+//类型别名规定：TypeAlias只是Type的别名，本质上TypeAlias与Type是同一个类型。
+type TypeAlias = Type
+type byte = uint8
+type rune = int32
+```
+
+### 区别
+
+```go
+//类型定义
+type NewInt int
+
+//类型别名
+type MyInt = int
+
+func main() {
+var a NewInt
+var b MyInt
+
+fmt.Printf("type of a:%T\n", a) //type of a:main.NewInt
+fmt.Printf("type of b:%T\n", b) //type of b:int
+}
+//区别
+//结果显示a的类型是main.NewInt，表示main包下定义的NewInt类型。b的类型是int。MyInt类型只会在代码中存在，编译完成时并不会有MyInt类型。
+```
+
+## [unsafe](https://golang.org/pkg/unsafe/)
+
+### Pointer
+
+Go 是一门强类型静态语言。强类型意味着类型一旦定义了就无法改变，静态意味着类型检查在运行前就完成了。
+
+#### 指针类型转换
+
+> 如果 Type1 与 Type2 一样大，并且两者有相同的内存结构；那么就允许把一个类型的数据，重新定义成另一个类型的数据。
+
+#### 处理系统调用
+
+4 个规则
+
+- 任何指针都可以转换为 `unsafe.Pointer`
+- `unsafe.Pointer` 可以转换为任何指针
+- `uintptr`可以转换为 `unsafe.Pointer`
+- `unsafe.Pointer` 可以转换为 `uintptr`
+
+## 克隆 深浅拷贝
+
+[golang通过反射克隆数据](https://studygolang.com/articles/26514)
+
+[Golang之情非得已的DeepCopy](https://www.jianshu.com/p/f1cdb1bc1b74)
+
+[Go语言如何深度拷贝对象](https://studygolang.com/articles/6984)
 
 ## 空 interface type
 
@@ -1248,43 +1571,43 @@ https://studygolang.com/articles/23104
 package main
 
 import (
-	"context"
-	"log"
-	"reflect"
+    "context"
+    "log"
+    "reflect"
 )
 
 //Define a function that requires a context.Context as its first parameter for testing
 func FunctionAny(ctx context.Context, param ...interface{}) error {
-	return nil
+    return nil
 }
 
 func main() {
 
-	//Acquire the reflect.Type of the function
-	funcInput := reflect.ValueOf(FunctionAny)
+    //Acquire the reflect.Type of the function
+    funcInput := reflect.ValueOf(FunctionAny)
 
-	//This is how we get the reflect.Type of a parameter of a function
-	//by index of course.
-	firstParam := funcInput.Type().In(0)
-	secondParam := funcInput.Type().In(1)
+    //This is how we get the reflect.Type of a parameter of a function
+    //by index of course.
+    firstParam := funcInput.Type().In(0)
+    secondParam := funcInput.Type().In(1)
 
-	//We can easily find the reflect.Type.Implements(u reflect.Type) func if we look into the source code.
-	//And it says "Implements reports whether the type implements the interface type u."
-	//This looks like what we want, no, this is exactly what we want.
-	//To use this func, a Type param is required. Because context.Context is an interface, not a reflect.Type,
-	//we need to convert it to, or get a reflect.Type.
+    //We can easily find the reflect.Type.Implements(u reflect.Type) func if we look into the source code.
+    //And it says "Implements reports whether the type implements the interface type u."
+    //This looks like what we want, no, this is exactly what we want.
+    //To use this func, a Type param is required. Because context.Context is an interface, not a reflect.Type,
+    //we need to convert it to, or get a reflect.Type.
 
-	//The easiest way is by using reflect.TypeOf(interface{})
-	actualContextType := new(context.Context)
+    //The easiest way is by using reflect.TypeOf(interface{})
+    actualContextType := new(context.Context)
 
-	//Another syntax is :
-	//actualContextType := (*context.Context)(nil)
-	//We know that nil is the zero value of reference types, simply conversion is OK.
+    //Another syntax is :
+    //actualContextType := (*context.Context)(nil)
+    //We know that nil is the zero value of reference types, simply conversion is OK.
 
-	var contextType = reflect.TypeOf(actualContextType).Elem()
+    var contextType = reflect.TypeOf(actualContextType).Elem()
 
-	log.Println(firstParam.Implements(contextType))  //true
-	log.Println(secondParam.Implements(contextType)) //false
+    log.Println(firstParam.Implements(contextType))  //true
+    log.Println(secondParam.Implements(contextType)) //false
 
 }
 ```
