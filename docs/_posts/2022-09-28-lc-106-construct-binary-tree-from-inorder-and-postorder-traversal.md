@@ -51,4 +51,4 @@ Related Topics: [树](https://leetcode.cn/tag/tree/), [数组](https://leetcode.
 
 Language: **C++**
 
-{ % include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/106-main.cpp" syntax="cpp" %}
+{% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/106-main.cpp" syntax="cpp" %}
