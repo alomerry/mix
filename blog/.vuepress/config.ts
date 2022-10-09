@@ -37,7 +37,7 @@ module.exports = {
     lastUpdated: true,
     blogNumPerPage: 15,
     hitokoto: "https://v1.hitokoto.cn?c=i", // enable hitokoto (一言) or not?
-
+    sortByUpdate: true, // 文章按更新时间排序
     // personal information
     personalInfo: {
       name: "Alomerry Wu",
@@ -104,7 +104,7 @@ module.exports = {
       rss: {
         siteURL: "https://blog.alomerry.com",
         copyright: "Alomerry 2018-2022"
-      }
+      },
     },
 
     navbar: [

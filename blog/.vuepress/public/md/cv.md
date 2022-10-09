@@ -58,7 +58,7 @@ header:
 
 **编程语言:** Golang(精通) go泛型特性
 
-**工具与框架:** Git, gRPC,gRPC gateway Linux, $LaTeX$, MongoDB, ElasticSearch, Redis, RocketMQ, Gin, Docker, K8S, Jenkins
+**工具与框架:** Git, gRPC,gRPC gateway Linux, MongoDB, ElasticSearch, Redis, RocketMQ, Gin, Docker, K8S, Jenkins
 
 ## 获奖情况
 

@@ -50,6 +50,15 @@ function patchGungnir() {
 
     copyFileSync('./patches/vuepress-theme-gungnir/lib/client/styles/layouts/base.scss', './node_modules/vuepress-theme-gungnir/lib/client/styles/layouts/base.scss');
 
+    // 导入 oh-my-icon
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/config.js', './node_modules/vuepress-theme-gungnir/lib/client/config.js');
+    // 按 update 排序
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/utils/resolveBlogs.js', './node_modules/vuepress-theme-gungnir/lib/client/utils/resolveBlogs.js');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/layouts/Tags.vue', './node_modules/vuepress-theme-gungnir/lib/client/layouts/Tags.vue');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/node/plugins/blog.js', './node_modules/vuepress-theme-gungnir/lib/node/plugins/blog.js');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/shared/blog.d.ts', './node_modules/vuepress-theme-gungnir/lib/shared/blog.d.ts');
+    copyFileSync('./patches/vuepress-theme-gungnir/lib/shared/page.d.ts', './node_modules/vuepress-theme-gungnir/lib/shared/page.d.ts');
+
     copyFileSync('./patches/vuepress-theme-gungnir/patches.md', './node_modules/vuepress-theme-gungnir/patches.md');
 }
 

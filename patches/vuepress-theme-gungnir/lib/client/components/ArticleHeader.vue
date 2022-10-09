@@ -41,8 +41,13 @@
         </div>
 
         <div v-if="frontmatter.date" class="article-icon">
-          <VIcon name="fa-regular-calendar" />
+          <VIcon name="md-createnewfolder-outlined" />
           <span>{{ formateDateString(frontmatter.date) }}</span>
+        </div>
+
+        <div v-if="frontmatter.update" class="article-icon">
+          <VIcon name="fa-regular-calendar" />
+          <span>{{ formateDateString(frontmatter.update) }}</span>
         </div>
 
         <div v-if="page.readingTime" class="article-icon">
