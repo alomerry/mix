@@ -1,5 +1,5 @@
 version: '3.8'
-
+# https://www.jetbrains.com/help/space/proof-of-concept-installation.html#customize-your-proof-of-concept-installation
 services:
     init-configs:
         image: "public.registry.jetbrains.space/p/space-on-premises/docker/init-configs:2022.1.0-BETA"
