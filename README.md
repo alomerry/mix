@@ -6,3 +6,4 @@
 - Base vuepress-next
 - Theme vuepress-theme-gungnir
 - Vuepress-plugin-md-enhance
+- [一些魔改](./patches/vuepress-theme-gungnir/patches.md)

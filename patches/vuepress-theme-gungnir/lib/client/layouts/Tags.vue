@@ -37,7 +37,6 @@
       currentTag.value === themeLocale.value.showAllTagsText
         ? ""
         : currentTag.value;
-    // +++
     return getPostsByYear(filterPostsByTag(posts.value, tag), themeLocale.value.sortByUpdate);
   });
   

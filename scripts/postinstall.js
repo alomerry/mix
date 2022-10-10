@@ -50,7 +50,7 @@ function patchGungnir() {
 
     copyFileSync('./patches/vuepress-theme-gungnir/lib/client/styles/layouts/base.scss', './node_modules/vuepress-theme-gungnir/lib/client/styles/layouts/base.scss');
 
-    // 导入 oh-my-icon
+    // 导入 oh-vue-icon
     copyFileSync('./patches/vuepress-theme-gungnir/lib/client/config.js', './node_modules/vuepress-theme-gungnir/lib/client/config.js');
     // 按 update 排序
     copyFileSync('./patches/vuepress-theme-gungnir/lib/client/utils/resolveBlogs.js', './node_modules/vuepress-theme-gungnir/lib/client/utils/resolveBlogs.js');

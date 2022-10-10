@@ -4,7 +4,7 @@ title: Markdown Syntax
 subtitle:
 author: Alomerry Wu
 date: 2022-03-08
-update: 2022-07-29
+update: 2022-10-10
 useHeaderImage: true
 catalog: true
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
@@ -198,6 +198,34 @@ VuePress 2 is out :tada: !
 VuePress 2 is out :tada: !
 
 ### Code Blocks
+
+#### Git diff
+
+**Input**
+
+~~~markdown
+``` diff
+diff --git a/filea.extension b/fileb.extension
+index d28nd309d..b3nu834uj 111111
+--- a/filea.extension
++++ b/fileb.extension
+@@ -1,6 +1,6 @@
+-oldLine
++newLine
+```
+~~~
+
+**Output**
+
+``` diff
+diff --git a/filea.extension b/fileb.extension
+index d28nd309d..b3nu834uj 111111
+--- a/filea.extension
++++ b/fileb.extension
+@@ -1,6 +1,6 @@
+-oldLine
++newLine
+```
 
 #### Line Highlighting
 

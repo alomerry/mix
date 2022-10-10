@@ -8,7 +8,6 @@ export interface GungnirThemePostInfo extends Record<string, unknown> {
     title: string;
     subtitle?: string;
     date?: string | null;
-    // +++
     update?: string | null;
     tags?: string[];
     headerImage: string;
