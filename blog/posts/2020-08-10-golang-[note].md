@@ -3,7 +3,7 @@ title: Golang Note
 subtitle: 记录 Golang 学习过程中的经验、遇到的坑点等
 author: Alomerry Wu
 date: 2020-08-10
-update: 2022-07-02
+update: 2022-10-10
 ---
 
 <!-- Description. -->
@@ -12,7 +12,7 @@ update: 2022-07-02
 
 ## 同步原语
 
-### Mutex
+### 互斥锁
 
 ```go
 type Mutex struct {
@@ -213,7 +213,7 @@ func (m *Mutex) unlockSlow(new int32) {
 - [图解 sync.Mutex](https://developer.huawei.com/consumer/cn/forum/topic/0202545781985490042?fid=23)
 - [多图详解互斥锁 Mutex](https://www.cnblogs.com/luozhiyun/p/14157542.html)
 
-### RWMutex
+### 读写锁
 
 读写互斥锁 sync.RWMutex 是细粒度的互斥锁，它不限制资源的并发读，但是读写、写写操作无法并行执行。
 
@@ -315,6 +315,8 @@ sync.RWMutex.rUnlockSlow 会减少获取锁的写操作等待的读操作数 rea
   - 每次 sync.RWMutex.RUnlock 都会将 readerCount 其减一，当它归零时该 Goroutine 会获得写锁；
   - 将 readerCount 减少 rwmutexMaxReaders 个数以阻塞后续的读操作；
 - 调用 sync.RWMutex.Unlock 释放写锁时，会先通知所有的读操作，然后才会释放持有的互斥锁；
+
+<!--
 
 ## Golang
 
@@ -1620,3 +1622,4 @@ time ticker https://github.com/golang/go/issues/17601
 
 
 
+-->

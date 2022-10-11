@@ -1,9 +1,10 @@
 require("dotenv").config();
 const package = require('./package.json');
 const path = require("path");
+// 脚本生成 pnpm start 命令
 const fs = require('fs');
 
-let MARKDOWN_SOURCE_FILE = 'nodeppt build';
+let MARKDOWN_SOURCE_FILE = '';
 let pathName = __dirname;
 
 fs.readdir(pathName, function (err, files) {
@@ -16,7 +17,10 @@ fs.readdir(pathName, function (err, files) {
     }
     fs.stat(path.join(pathName, files[i]), function (err, data) {
       if (data.isFile() && files[i].indexOf(".md") != -1 && files[i] != "README.md") {
-        MARKDOWN_SOURCE_FILE += (" " + files[i]);
+        if (MARKDOWN_SOURCE_FILE != '') {
+          MARKDOWN_SOURCE_FILE += " && ";
+        }
+        MARKDOWN_SOURCE_FILE += ("nodeppt build " + files[i]);
       }
       iterator(i + 1);
     });
