@@ -1,0 +1,8 @@
+{
+    "keymap": [
+        {"key": "cmd+d", "trigger": "-duplicate-line"},
+        {"key": "cmd+d", "trigger": "delete-line"},
+        {"key": "cmd-shift-l", "trigger": "-reformat-code"},
+        {"key": "cmd-alt-l", "trigger": "reformat-code"}
+    ]
+}

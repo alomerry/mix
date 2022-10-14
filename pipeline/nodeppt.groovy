@@ -45,7 +45,7 @@ pipeline {
             steps {
                 retry(3) {
                     // 构建
-                    sh 'cd blog/ppts && pnpm install --no-frozen-lockfile && pnpm prestart && pnpm start'
+                    sh 'cd blog/ppts && pnpm install --no-frozen-lockfile && pnpm start'
                 }
                 
             }
