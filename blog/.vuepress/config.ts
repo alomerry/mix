@@ -12,7 +12,12 @@ module.exports = {
   title: "Alomerry Wu",
   description: "Alomerry's blog, powered by VuePress 2, themed by Gungnir.",
 
-  pagePatterns: ['**/*.md', '!.vuepress', '!node_modules','!ppts/*.md'],
+  pagePatterns: [
+    '**/*.md',
+    '!.vuepress',
+    '!node_modules',
+    '!ppts/*.md' // 排除 
+  ],
 
   head: [
     ["link", { rel: "icon", type: "image/ico", sizes: "16x16", href: `/img/logo/favicon-16x16.ico` }],

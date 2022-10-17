@@ -303,6 +303,10 @@ Supported `type` :
 ::: details
 这是一个详情块
 :::
+
+::: link {Icon Name | Image URL} [title](url)
+description
+:::
 ```
 
 ::: tip
@@ -325,8 +329,8 @@ Supported `type` :
 description
 :::
 
-::: link {/img/links/me.png} [My Blog](https://blog.zxh.io)
-My blog 🧐, powered by VuePress 2, themed by Gungnir.
+::: link {/img/links/me.svg} [My Blog](https://blog.alomerry.com)
+My blog , powered by VuePress 2, themed by Gungnir.
 :::
 
 ### Import Code Blocks

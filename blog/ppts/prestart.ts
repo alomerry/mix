@@ -26,7 +26,3 @@ fs.readdir(pathName, function (err, files) {
     });
   })(0);
 });
-
-// todo 执行多次 build，不然每次 build 只 build 第一个
-
-
