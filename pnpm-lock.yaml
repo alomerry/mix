@@ -42,6 +42,7 @@ importers:
       vuepress-plugin-code-copy: workspace:*
       vuepress-plugin-components: 2.0.0-beta.91
       vuepress-plugin-md-enhance: 2.0.0-beta.91
+      vuepress-plugin-sitemap2: 2.0.0-beta.91
       vuepress-plugin-umami-analytics: 0.1.0
       vuepress-theme-gungnir: 2.0.0-alpha.26
     dependencies:
@@ -60,6 +61,7 @@ importers:
       vuepress-plugin-code-copy: link:../packages/plugins/code-copy
       vuepress-plugin-components: 2.0.0-beta.91
       vuepress-plugin-md-enhance: 2.0.0-beta.91
+      vuepress-plugin-sitemap2: 2.0.0-beta.91
       vuepress-plugin-umami-analytics: registry.npmmirror.com/vuepress-plugin-umami-analytics/0.1.0
       vuepress-theme-gungnir: registry.npmmirror.com/vuepress-theme-gungnir/2.0.0-alpha.26_ngvttelfayu5oo42vbz2rzkh3m
     devDependencies:
@@ -493,8 +495,18 @@ packages:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: false
 
+  /@types/node/17.0.45:
+    resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+    dev: false
+
   /@types/node/18.7.8:
     resolution: {integrity: sha512-/YP55EMK2341JkODUb8DM9O0x1SIz2aBvyF33Uf1c76St3VpsMXEIW0nxuKkq/5cxnbz0RD9cfwNZHEAZQD3ag==}
+    dev: false
+
+  /@types/sax/1.2.4:
+    resolution: {integrity: sha512-pSAff4IAxJjfAXUG6tFkO7dsSbTmf8CtUpfhhZ5VhkRpC4628tJhh3+V6H1E+/Gs9piSzYKT5yzHO5M4GG9jkw==}
+    dependencies:
+      '@types/node': 18.7.8
     dev: false
 
   /@types/web-bluetooth/0.0.16:
@@ -683,6 +695,13 @@ packages:
       '@vue/shared': 3.2.45
     dev: false
 
+  /@vuepress/shared/2.0.0-beta.51:
+    resolution: {integrity: sha512-0dbJp0M+d/schkD+xUI7MwwoyJRtFxH3QEYMcLTKhgkaNFjgzlIEG/coh1QywVIoQGX9cGQSa8PZk8BeMeePug==}
+    dependencies:
+      '@mdit-vue/types': registry.npmmirror.com/@mdit-vue/types/0.10.0
+      '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.45
+    dev: false
+
   /@vuepress/utils/2.0.0-beta.49:
     resolution: {integrity: sha512-t5i0V9FqpKLGlu2kMP/Y9+wdgEmsD2yQAMGojxpMoFhJBmqn2L9Rkk4WYzHKzPGDkm1KbBFzYQqjAhZQ7xtY1A==}
     dependencies:
@@ -696,6 +715,24 @@ packages:
       hash-sum: 2.0.0
       ora: 5.4.1
       upath: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@vuepress/utils/2.0.0-beta.51:
+    resolution: {integrity: sha512-BtWK38047GNk3CnzAN9dxm8n7XplHqOU/DhW4BYO84Czl6XZh0NExPny3aPf7SL8roy03eAzF0dgPgmug6whIQ==}
+    dependencies:
+      '@types/debug': registry.npmmirror.com/@types/debug/4.1.7
+      '@types/fs-extra': registry.npmmirror.com/@types/fs-extra/9.0.13
+      '@types/hash-sum': registry.npmmirror.com/@types/hash-sum/1.0.0
+      '@vuepress/shared': 2.0.0-beta.51
+      chalk: registry.npmmirror.com/chalk/5.0.1
+      debug: registry.npmmirror.com/debug/4.3.4
+      fs-extra: registry.npmmirror.com/fs-extra/10.1.0
+      globby: registry.npmmirror.com/globby/13.1.2
+      hash-sum: registry.npmmirror.com/hash-sum/2.0.0
+      ora: registry.npmmirror.com/ora/6.1.2
+      upath: registry.npmmirror.com/upath/2.0.1
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -802,7 +839,6 @@ packages:
 
   /arg/5.0.2:
     resolution: {integrity: sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==}
-    dev: true
 
   /argparse/1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
@@ -2711,6 +2747,10 @@ packages:
       source-map-js: 1.0.2
     dev: false
 
+  /sax/1.2.4:
+    resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
+    dev: false
+
   /section-matter/1.0.0:
     resolution: {integrity: sha512-vfD3pmTzGpufjScBh50YHKzEu2lxBWhVEHsNGoEXmCmn2hKGfeNLYMzCJpe8cD7gqX7TJluOVpBkAequ6dgMmA==}
     engines: {node: '>=4'}
@@ -2771,6 +2811,17 @@ packages:
 
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
+    dev: false
+
+  /sitemap/7.1.1:
+    resolution: {integrity: sha512-mK3aFtjz4VdJN0igpIJrinf3EO8U8mxOPsTBzSsy06UtjZQJ3YY3o3Xa7zSc5nMqcMrRwlChHZ18Kxg0caiPBg==}
+    engines: {node: '>=12.0.0', npm: '>=5.6.0'}
+    hasBin: true
+    dependencies:
+      '@types/node': 17.0.45
+      '@types/sax': 1.2.4
+      arg: 5.0.2
+      sax: 1.2.4
     dev: false
 
   /slash/3.0.0:
@@ -3098,6 +3149,18 @@ packages:
       '@vuepress/utils': 2.0.0-beta.49
       chokidar: 3.5.3
       sass: 1.56.1
+      vuepress-shared: 2.0.0-beta.91
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /vuepress-plugin-sitemap2/2.0.0-beta.91:
+    resolution: {integrity: sha512-EBTPSV6ayjfhCOLPczF8ceHm8Mlf6pAxVAb3Nqb3tHN1noD2zbfr3oeQ9kr3EFAd+wGBrLcDXy4697aABeoYng==}
+    deprecated: Please use latest beta version
+    dependencies:
+      '@vuepress/shared': 2.0.0-beta.49
+      '@vuepress/utils': 2.0.0-beta.49
+      sitemap: 7.1.1
       vuepress-shared: 2.0.0-beta.91
     transitivePeerDependencies:
       - supports-color
@@ -5555,8 +5618,8 @@ packages:
       '@mdit-vue/types': registry.npmmirror.com/@mdit-vue/types/0.10.0
       '@types/markdown-it': registry.npmmirror.com/@types/markdown-it/12.2.3
       '@types/markdown-it-emoji': registry.npmmirror.com/@types/markdown-it-emoji/2.0.2
-      '@vuepress/shared': registry.npmmirror.com/@vuepress/shared/2.0.0-beta.51
-      '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.51
+      '@vuepress/shared': 2.0.0-beta.51
+      '@vuepress/utils': 2.0.0-beta.51
       markdown-it: registry.npmmirror.com/markdown-it/13.0.1
       markdown-it-anchor: registry.npmmirror.com/markdown-it-anchor/8.6.4_ea7kj7wzjkld5jo2noyjqxi764
       markdown-it-emoji: registry.npmmirror.com/markdown-it-emoji/2.0.2
@@ -5587,7 +5650,7 @@ packages:
     dependencies:
       '@vuepress/client': registry.npmmirror.com/@vuepress/client/2.0.0-beta.49
       '@vuepress/core': registry.npmmirror.com/@vuepress/core/2.0.0-beta.49
-      '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.49
+      '@vuepress/utils': 2.0.0-beta.49
       ts-debounce: registry.npmmirror.com/ts-debounce/4.0.0
       vue: registry.npmmirror.com/vue/3.2.45
     transitivePeerDependencies:
@@ -5814,8 +5877,8 @@ packages:
       '@vuepress/plugin-palette': registry.npmmirror.com/@vuepress/plugin-palette/2.0.0-beta.49
       '@vuepress/plugin-prismjs': registry.npmmirror.com/@vuepress/plugin-prismjs/2.0.0-beta.49
       '@vuepress/plugin-theme-data': registry.npmmirror.com/@vuepress/plugin-theme-data/2.0.0-beta.49
-      '@vuepress/shared': registry.npmmirror.com/@vuepress/shared/2.0.0-beta.49
-      '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.49
+      '@vuepress/shared': 2.0.0-beta.49
+      '@vuepress/utils': 2.0.0-beta.49
       '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.9.4_vue@3.2.45
       sass: registry.npmmirror.com/sass/1.54.5
       vue: registry.npmmirror.com/vue/3.2.45
@@ -10822,8 +10885,8 @@ packages:
     dependencies:
       '@vuepress/client': registry.npmmirror.com/@vuepress/client/2.0.0-beta.49
       '@vuepress/plugin-git': registry.npmmirror.com/@vuepress/plugin-git/2.0.0-beta.49
-      '@vuepress/shared': registry.npmmirror.com/@vuepress/shared/2.0.0-beta.49
-      '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.49
+      '@vuepress/shared': 2.0.0-beta.49
+      '@vuepress/utils': 2.0.0-beta.49
       dayjs: registry.npmmirror.com/dayjs/1.11.5
       execa: registry.npmmirror.com/execa/5.1.1
       ora: registry.npmmirror.com/ora/5.4.1

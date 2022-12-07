@@ -2,7 +2,7 @@ import fs from "fs";
 
 const CDN_BLOG_URL = "https://cdn.alomerry.com/blog"
 const CDN_BLOG_HEADER_URL = "https://cdn.alomerry.com/blog/img/in-post/header-image?max="
-const CDN_BLOG_HEADER_IMAGE_COUNT = 59
+const CDN_BLOG_HEADER_IMAGE_COUNT = 64
 
 run()
 

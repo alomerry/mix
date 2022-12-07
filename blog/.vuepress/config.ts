@@ -5,6 +5,7 @@ import {mdEnhancePlugin} from "vuepress-plugin-md-enhance";
 import codeCopyPlugin from 'vuepress-plugin-code-copy';
 import {ComponentOptions, componentsPlugin} from "vuepress-plugin-components";
 import {registerComponentsPlugin} from "@vuepress/plugin-register-components";
+import {sitemapPlugin} from "vuepress-plugin-sitemap2";
 // import docSearchPlugin from "@vuepress/plugin-docsearch";
 import {path} from "@vuepress/utils";
 import themeConfig from "./theme";
@@ -49,6 +50,7 @@ export default defineUserConfig({
             codetabs: true, // 启用代码块分组
             flowchart: true, // 启用流程图
         }),
+        sitemapPlugin({hostname: "https://blog.alomerry.com", changefreq: "hourly"}),
         componentsPlugin(<ComponentOptions>{
             components: ["BiliBili", "PDF"],
         }),

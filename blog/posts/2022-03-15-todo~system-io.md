@@ -7,7 +7,7 @@ date: 2022-03-15
 useHeaderImage: true
 headerMask: rgba(40, 57, 101, .5)
 catalog: true
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 tags:
   - Y2020
 ---
