@@ -23,7 +23,8 @@
     "blog:build": "pnpm --filter blog blog:build",
     "postinstall": "node scripts/postinstall.js",
     "preview": "serve blog/.vuepress/dist",
-    "prepare": "node scripts/prepare.js"
+    "prepare": "node scripts/prepare.js",
+    "oss": "pnpm --filter blog blog:oss"
   },
   "devDependencies": {
     "@types/webpack-env": "^1.17.0",

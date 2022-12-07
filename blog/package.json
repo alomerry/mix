@@ -12,7 +12,8 @@
     "clean": "rimraf .vuepress/.temp .vuepress/.cache .vuepress/dist",
     "blog:purge": "pnpm clean && rimraf ./node_modules",
     "blog:dev": "vuepress-cli dev --clean-cache",
-    "blog:serve": "serve .vuepress/dist"
+    "blog:serve": "serve .vuepress/dist",
+    "blog:oss": "./.vuepress/ossPusher --configPath core.toml"
   },
   "dependencies": {
     "@vuepress/bundler-vite": "2.0.0-beta.49",
