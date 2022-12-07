@@ -83,7 +83,9 @@ const themeConfig: Partial<GungnirThemeOptions> = {
       categoryId: "DIC_kwDOGkQHgs4CA5AQ",
       lazyLoad: true,
       darkTheme: "https://blog.zxh.io/styles/giscus-dark.css"
-    }
+    },
+    pwa: true,
+    search: false // use @vuepress/plugin-docsearch instead
   },
   footer: `
       &copy; <a href="https://github.com/Alomerry" target="_blank">Alomerry Wu</a> 2018-2022
