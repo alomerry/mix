@@ -13,10 +13,11 @@ function run() {
 
 // 将 markdown 中的 @CDN 替换成 url
 function convertCDNAlias2URL() {
-    getAllFiles("./blog/posts");
-    // 遍历 posts 文件夹
+    // 遍历文件夹
     // 依次读取 md
     // 按行读取 @CDN 并替换
+    getAllFiles("./blog/posts");
+    getAllFiles("./blog/links");
 }
 
 function getAllFiles(filePath) {

@@ -31,7 +31,6 @@ importers:
       '@vuepress/client': 2.0.0-beta.49
       '@vuepress/plugin-container': 2.0.0-beta.49
       '@vuepress/plugin-docsearch': 2.0.0-beta.49
-      '@vuepress/plugin-external-link-icon': 2.0.0-beta.49
       '@vuepress/plugin-register-components': 2.0.0-beta.49
       '@vuepress/utils': 2.0.0-beta.49
       markdown-it: ^13.0.1
@@ -51,7 +50,6 @@ importers:
       '@vuepress/client': registry.npmmirror.com/@vuepress/client/2.0.0-beta.49
       '@vuepress/plugin-container': registry.npmmirror.com/@vuepress/plugin-container/2.0.0-beta.49
       '@vuepress/plugin-docsearch': registry.npmmirror.com/@vuepress/plugin-docsearch/2.0.0-beta.49
-      '@vuepress/plugin-external-link-icon': 2.0.0-beta.49
       '@vuepress/plugin-register-components': registry.npmmirror.com/@vuepress/plugin-register-components/2.0.0-beta.49
       '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.49
       markdown-it-container: registry.npmmirror.com/markdown-it-container/3.0.0

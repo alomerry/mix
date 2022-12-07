@@ -13,6 +13,16 @@ tags:
 - Y2022
 ---
 
+## 静态文件 Push 前上传到 OSS 中
+
+- 下载[源代码](https://github.com/alomerry/ossPusher)，构建成二进制文件后放入 blog 中
+- 修改 example.toml
+  - 目前 provider 仅支持七牛
+  - 设置 oss 上传前缀
+  - 设置本地项目路径
+  - 设置对应 provider 的 AK、SK 和 bucket
+- 运行二进制文件并指定配置文件位置 `./ossPusher --configPath core.toml`
+
 ## 一些魔改
 
 ### 导入 oh-vue-icon

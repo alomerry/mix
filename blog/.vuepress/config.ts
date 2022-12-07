@@ -1,7 +1,6 @@
 import {viteBundler} from "@vuepress/bundler-vite";
 import {defineUserConfig} from "vuepress";
 import {gungnirTheme} from "vuepress-theme-gungnir";
-import {externalLinkIconPlugin} from "@vuepress/plugin-external-link-icon"
 import {mdEnhancePlugin} from "vuepress-plugin-md-enhance";
 import codeCopyPlugin from 'vuepress-plugin-code-copy';
 import {ComponentOptions, componentsPlugin} from "vuepress-plugin-components";
@@ -25,7 +24,6 @@ export default defineUserConfig({
         '!ppts/*.md', // 排除
         '!obsidian/*.md' // 排除
     ],
-
     head: [
         ["link", {rel: "icon", type: "image/ico", sizes: "16x16", href: `/img/logo/favicon-16x16.ico`}],
         ["link", {rel: "icon", type: "image/png", sizes: "32x32", href: `/img/logo/favicon-32x32.png`}],
@@ -45,9 +43,6 @@ export default defineUserConfig({
     alias: {},
     bundler: viteBundler(),
     plugins: [
-        externalLinkIconPlugin({
-            locales: {'/': {openInNewWindow: 'open in new window'}},
-        }),
         mdEnhancePlugin({
             tabs: true, // 添加选项卡支持
             tasklist: true, // 启用任务列表

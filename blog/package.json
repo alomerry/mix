@@ -22,7 +22,6 @@
     "@vuepress/plugin-container": "2.0.0-beta.49",
     "@vuepress/plugin-docsearch": "2.0.0-beta.49",
     "@vuepress/plugin-register-components": "2.0.0-beta.49",
-    "@vuepress/plugin-external-link-icon": "2.0.0-beta.49",
     "vuepress-plugin-components": "2.0.0-beta.91",
     "vuepress-plugin-md-enhance": "2.0.0-beta.91",
     "@vuepress/utils": "2.0.0-beta.49",
