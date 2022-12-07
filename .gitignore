@@ -5,7 +5,7 @@
 
 # npm install
 **/*node_modules
-
+**/*.tsbuildinfo
 
 # macos cache
 **/*.DS_Store
