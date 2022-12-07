@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./.vuepress/components"]
+    }
+  },
+  "include": [
+    "./.vuepress/components/*.vue",
+    "./.vuepress/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".temp",
+    ".cache",
+    "lib",
+    "dist"
+  ],
+}

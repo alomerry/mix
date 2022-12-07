@@ -1,46 +1,41 @@
 {
   "name": "alomerry-blog",
   "private": true,
+  "packageManager": "pnpm@7.17.1",
+  "author": "Alomerry Wu <alomerry.wu@gmail.com>",
   "description": "Alomerry Wu's blog, powered by VuePress 2, themed by Gungnir.",
   "license": "Apache-2.0",
-  "author": "Alomerry Wu <alomerry@hotmail.com>",
-  "scripts": {
-    "clean": "rimraf blog/.vuepress/.temp blog/.vuepress/.cache dist",
-    "dev": "vuepress-cli dev blog --clean-cache",
-    "build": "pnpm clean && vuepress-cli build blog --clean-cache && node scripts/postbuild.js",
-    "serve": "serve blog/.vuepress/dist",
-    "postinstall": "node scripts/postinstall.js"
-  },
-  "devDependencies": {
-    "@vuepress/bundler-vite": "2.0.0-beta.49",
-    "@vuepress/cli": "2.0.0-beta.49",
-    "@vuepress/client": "2.0.0-beta.49",
-    "oh-vue-icons": "^1.0.0-rc3",
-    "rimraf": "^3.0.2",
-    "sass-loader": "^13.0.0",
-    "serve": "^13.0.2",
-    "vue": "^3.2.36",
-    "vuepress": "2.0.0-beta.49",
-    "vuepress-plugin-clipboard": "^2.1.3",
-    "vuepress-plugin-components": "2.0.0-beta.91",
-    "vuepress-plugin-md-enhance": "2.0.0-beta.91",
-    "vuepress-theme-gungnir": "2.0.0-alpha.26"
-  },
+  "repository": "https://github.com/alomerry/blog.git",
+  "main": "index.js",
+  "type": "module",
   "engines": {
     "node": ">=14",
     "pnpm": ">=7"
   },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "webpack"
-      ]
-    }
+  "scripts": {
+    "clean": "pnpm --stream -r clean",
+    "purge": "pnpm purge:packages && pnpm --filter blog blog:purge",
+    "build": "pnpm clean && pnpm build:packages && pnpm blog:build && node scripts/postbuild.js",
+    "purge:packages": "pnpm --stream -r purge",
+    "build:packages": "pnpm --stream -r build && pnpm --parallel --stream -r copy",
+    "blog:dev": "pnpm --filter blog blog:dev",
+    "go": "pnpm install && pnpm clean && pnpm build:packages && pnpm blog:dev",
+    "blog:build": "pnpm --filter blog blog:build",
+    "postinstall": "node scripts/postinstall.js",
+    "preview": "serve blog/.vuepress/dist",
+    "prepare": "node scripts/prepare.js"
   },
-  "dependencies": {
-    "@renovamen/vuepress-plugin-mermaid": "2.0.0-alpha.26",
-    "@vuepress/plugin-external-link-icon": "2.0.0-beta.49",
+  "devDependencies": {
+    "@types/webpack-env": "^1.17.0",
+    "cpx": "^1.5.0",
     "request": "^2.88.2",
-    "vuepress-plugin-chart": "2.0.0-alpha.26"
+    "rimraf": "^3.0.2",
+    "serve": "^14.0.1",
+    "typescript": "^4.8.3"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "vuepress-theme-gungnir@2.0.0-alpha.26": "patches/vuepress-theme-gungnir@2.0.0-alpha.26.patch"
+    }
   }
 }

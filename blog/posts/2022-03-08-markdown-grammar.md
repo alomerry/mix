@@ -4,7 +4,7 @@ title: Markdown Syntax
 subtitle:
 author: Alomerry Wu
 date: 2022-03-08
-update: 2022-10-10
+update: 2022-12-05
 useHeaderImage: true
 catalog: true
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
@@ -551,6 +551,84 @@ H~2~O
 ```markdown
 29^th^
 ```
+
+## Vuepress theme hope plugins
+
+### markdown enhance
+
+**tab**
+
+::: tabs#fruit
+
+@tab apple
+
+```
+apple
+```
+
+@tab banana
+
+Banana
+
+@tab orange
+
+Orange
+
+:::
+
+**code-tabs**
+
+安装 VuePress Theme Hope:
+
+::: code-tabs#shell
+
+@tab pnpm
+
+```bash
+pnpm add -D vuepress-theme-hope@next
+```
+
+@tab yarn
+
+```bash
+yarn add -D vuepress-theme-hope@next
+```
+
+@tab:active npm
+
+```bash
+npm i -D vuepress-theme-hope@next
+```
+
+:::
+
+安装 VuePress Plugin Markdown Enhance:
+
+::: code-tabs#shell
+
+@tab pnpm
+
+```bash
+pnpm add -D vuepress-plugin-md-enhance@next
+```
+
+@tab yarn
+
+```bash
+yarn add -D vuepress-plugin-md-enhance@next
+```
+
+@tab:active npm
+
+```bash
+npm i -D vuepress-plugin-md-enhance@next
+```
+
+:::
+
+**flowchart**
+
+https://vuepress-theme-hope.gitee.io/v2/md-enhance/zh/guide/flowchart.html
 
 ## Reference
 

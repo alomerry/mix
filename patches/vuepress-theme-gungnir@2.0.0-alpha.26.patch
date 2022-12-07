@@ -1,0 +1,121 @@
+diff --git a/lib/client/components/ArticleHeader.vue b/lib/client/components/ArticleHeader.vue
+index 475de8942dd5323f4b1e30dde64749ee673bdb63..22cbc198df6aa2a26bc94880dabe41fe607bc370 100644
+--- a/lib/client/components/ArticleHeader.vue
++++ b/lib/client/components/ArticleHeader.vue
+@@ -36,17 +36,17 @@
+           v-if="frontmatter.author || personalInfo.name"
+           class="article-icon"
+         >
+-          <VIcon name="fa-regular-user" />
++          <VIcon name="fa-regular-user"/>
+           <span>{{ frontmatter.author || personalInfo.name }}</span>
+         </div>
+ 
+         <div v-if="frontmatter.date" class="article-icon">
+-          <VIcon name="fa-regular-calendar" />
++          <VIcon name="fa-regular-calendar"/>
+           <span>{{ formateDateString(frontmatter.date) }}</span>
+         </div>
+ 
+         <div v-if="page.readingTime" class="article-icon">
+-          <VIcon name="ri-timer-line" />
++          <VIcon name="ri-timer-line"/>
+           <span>{{ page.readingTime.minutes }} min</span>
+         </div>
+       </div>
+@@ -70,14 +70,14 @@
+ </template>
+ 
+ <script setup lang="ts">
+-import { usePageData, usePageFrontmatter, withBase } from "@vuepress/client";
++import {usePageData, usePageFrontmatter, withBase} from "@vuepress/client";
+ import type {
+   GungnirThemePageData,
+   GungnirThemePostFrontmatter,
+   PersonalConfig
+ } from "../../shared";
+-import { useTagMap, useThemeLocaleData } from "../composables";
+-import { formateDateString } from "../utils/resolveTime";
++import {useTagMap, useThemeLocaleData} from "../composables";
++import {formateDateString} from "../utils/resolveTime";
+ 
+ defineProps({
+   currentTag: {
+@@ -103,10 +103,26 @@ const headerStyle = () => {
+     frontmatter.value.useHeaderImage &&
+     frontmatter.value.headerImage
+   ) {
+-    style.backgroundImage = `url(${withBase(frontmatter.value.headerImage)})`;
++    style.backgroundImage = `url(${withBase(triggerUri(frontmatter.value.headerImage))})`;
+   }
+   return style;
+ };
+ 
++let lastIndex = 0;
++
++function triggerUri(url: string) {
++  if (((url || "").split("?")).length >= 2) {
++    const cdn = (url || "").split("?")[0]
++    let index: string;
++    index = (url || "").split("?")[1].split("=")[1];
++    const max = Math.floor(Math.random() * Number() + 1);
++    if (lastIndex == 0) {
++      lastIndex = max
++    }
++    return cdn + "/" + lastIndex + ".jpg";
++  }
++  return url;
++}
++
+ const personalInfo = themeLocale.value.personalInfo as PersonalConfig;
+ </script>
+diff --git a/lib/client/components/PostListItem.vue b/lib/client/components/PostListItem.vue
+index f04a8e45b48f171405be374abca3e11b3f37798c..4c5114d5090475ec28a0f8fb9feca7370b8ae6f6 100644
+--- a/lib/client/components/PostListItem.vue
++++ b/lib/client/components/PostListItem.vue
+@@ -1,7 +1,7 @@
+ <template>
+   <div class="post-item">
+     <div class="post-item__img" @click="$router.push(item.path)">
+-      <img :src="withBase(item.info.headerImage)" />
++      <img :src="withBase(triggerUri(item.info.headerImage))" />
+     </div>
+     <div class="else">
+       <p class="post-item__date">
+@@ -41,4 +41,18 @@ const getExcerpt = (excerpt: string) => {
+     .replace(/<RouterLink to/g, "<a href")
+     .replace(/<\/RouterLink>/g, "</a>");
+ };
++let lastIndex = 0;
++function triggerUri(url: string) {
++  if (((url || "").split("?")).length >= 2) {
++    const cdn = (url || "").split("?")[0]
++    let index: string;
++    index = (url || "").split("?")[1].split("=")[1];
++    const max = Math.floor(Math.random() * Number() + 1);
++    if (lastIndex == 0) {
++      lastIndex = max
++    }
++    return cdn + "/" + lastIndex + ".jpg";
++  }
++  return url;
++}
+ </script>
+diff --git a/lib/client/config.js b/lib/client/config.js
+index 4120689fef1850bbb6769460ced9029821024b2c..24a206349b87b9c3be08b23e848d3c87f6421198 100644
+--- a/lib/client/config.js
++++ b/lib/client/config.js
+@@ -1,11 +1,11 @@
+ import { defineClientConfig } from "@vuepress/client";
+ import { addIcons, OhVueIcon } from "oh-vue-icons";
+-import { BiLayoutSidebarInset, FaChevronDown, FaChevronLeft, FaChevronRight, FaChevronUp, FaCircle, FaEnvelope, FaFacebookF, FaGithubAlt, FaLinkedinIn, FaListUl, FaMagic, FaMoon, FaPencilAlt, FaRegularCalendar, FaRegularUser, FaSun, FaTwitter, HiTranslate, RiRssFill, RiSearch2Line, RiTimerLine, RiWeiboFill, RiZhihuLine } from "oh-vue-icons/icons";
++import { BiLayoutSidebarInset, FaChevronDown, FaChevronLeft, FaChevronRight, FaChevronUp, FaCircle, FaEnvelope, FaFacebookF, FaGithubAlt, FaLinkedinIn, FaListUl, FaMagic, FaMoon, FaPencilAlt, FaRegularCalendar, MdCreatenewfolderOutlined, FaRegularUser, FaSun, FaTwitter, HiTranslate, RiRssFill, RiSearch2Line, RiTimerLine, RiWeiboFill, RiZhihuLine } from "oh-vue-icons/icons";
+ import { h } from "vue";
+ import { Badge, CodeGroup, CodeGroupItem, LinkCard } from "./components/global";
+ import { setupBlogPages, setupDarkMode, setupDynamicStyle, setupSidebarItems, setupTagMap, useScrollPromise } from "./composables";
+ import "./styles/index.scss";
+-addIcons(FaChevronDown, FaChevronUp, FaChevronLeft, FaChevronRight, FaMagic, FaSun, FaMoon, FaGithubAlt, FaLinkedinIn, FaFacebookF, FaTwitter, RiZhihuLine, RiWeiboFill, FaEnvelope, RiRssFill, FaCircle, FaPencilAlt, FaRegularUser, FaRegularCalendar, RiTimerLine, FaListUl, BiLayoutSidebarInset, HiTranslate, RiSearch2Line);
++addIcons(FaChevronDown, FaChevronUp, FaChevronLeft, FaChevronRight, FaMagic, FaSun, FaMoon, FaGithubAlt, FaLinkedinIn, FaFacebookF, FaTwitter, RiZhihuLine, RiWeiboFill, FaEnvelope, RiRssFill, FaCircle, FaPencilAlt, FaRegularUser, FaRegularCalendar, MdCreatenewfolderOutlined, RiTimerLine, FaListUl, BiLayoutSidebarInset, HiTranslate, RiSearch2Line);
+ export default defineClientConfig({
+     enhance({ app, router }) {
+         app.component("Badge", Badge);

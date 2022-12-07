@@ -1,1 +1,3 @@
 !posts/codes/*.md
+.vuepress/public/img
+.vuepress/public/files

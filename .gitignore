@@ -4,8 +4,8 @@
 .vscode
 
 # npm install
-node_modules
-pnpm-lock.yaml
+**/*node_modules
+
 
 # macos cache
 **/*.DS_Store
@@ -15,3 +15,9 @@ blog/.vuepress/.temp
 blog/.vuepress/.cache
 blog/.vuepress/dist
 blog/posts/codes/*
+
+# lib(groovy)
+lib/
+
+# backup
+bk/vuepress-theme-gungnir@2.0.0-alpha.26-patch

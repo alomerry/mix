@@ -1,12 +1,11 @@
-var fs = require("fs");
-var path = require("path");
-var request = require("request");
+import fs from "fs"
+import path from "path"
+import request from "request"
 
 run()
 
 function run() {
-    patchGungnir()
-    downloadUrlCode()
+    // downloadUrlCode()
 }
 
 function downloadUrlCode() {
@@ -15,7 +14,7 @@ function downloadUrlCode() {
     let projects = JSON.parse(readJsonFromFile('./scripts/import-code.json')).projects;
 
     let downloadQueue = [];
-    
+
     projects.forEach(function (project) {
         let projectName = project.name;
         removeDir(importCodePrefix + projectName)
@@ -30,9 +29,8 @@ function downloadUrlCode() {
     })
     // 等待所有文件下载完毕
     Promise.all(downloadQueue).then(res => {
-        console.info('start to download import codes.');
+        console.info('import codes download success.');
     })
-
 }
 
 function readJsonFromFile(file) {
@@ -44,45 +42,13 @@ function readJsonFromFile(file) {
     }
 }
 
-function patchGungnir() {
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/ArticleHeader.vue');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/components/PostListItem.vue', './node_modules/vuepress-theme-gungnir/lib/client/components/PostListItem.vue');
-
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/styles/layouts/base.scss', './node_modules/vuepress-theme-gungnir/lib/client/styles/layouts/base.scss');
-
-    // 导入 oh-vue-icon
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/config.js', './node_modules/vuepress-theme-gungnir/lib/client/config.js');
-    // 按 update 排序
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/utils/resolveBlogs.js', './node_modules/vuepress-theme-gungnir/lib/client/utils/resolveBlogs.js');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/client/layouts/Tags.vue', './node_modules/vuepress-theme-gungnir/lib/client/layouts/Tags.vue');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/node/plugins/blog.js', './node_modules/vuepress-theme-gungnir/lib/node/plugins/blog.js');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/shared/blog.d.ts', './node_modules/vuepress-theme-gungnir/lib/shared/blog.d.ts');
-    copyFileSync('./patches/vuepress-theme-gungnir/lib/shared/page.d.ts', './node_modules/vuepress-theme-gungnir/lib/shared/page.d.ts');
-
-    copyFileSync('./patches/vuepress-theme-gungnir/patches.md', './node_modules/vuepress-theme-gungnir/patches.md');
-}
-
-function copyFileSync(source, target) {
-    var targetFile = target;
-
-    // If target is a directory, a new file with the same name will be created
-    if (fs.existsSync(target)) {
-        if (fs.lstatSync(target).isDirectory()) {
-            targetFile = path.join(target, path.basename(source));
-        }
-    }
-
-    fs.writeFileSync(targetFile, fs.readFileSync(source));
-}
-
 function makeDir(dirpath) {
     if (!fs.existsSync(dirpath)) {
         var pathtmp;
         dirpath.split("/").forEach(function (dirname) {
             if (pathtmp) {
                 pathtmp = path.join(pathtmp, dirname);
-            }
-            else {
+            } else {
                 if (dirname) {
                     pathtmp = dirname;
                 } else {
@@ -122,7 +88,7 @@ function getfileByUrl(url, dir, fileName) {
     makeDir(dir)
     let stream = fs.createWriteStream(path.join(dir, fileName));
     request(url).pipe(stream).on("close", function (err) {
-        if (err){
+        if (err) {
             console.log(err);
         }
     });

@@ -6,7 +6,7 @@ author: Alomerry Wu
 date: 2022-04-26
 useHeaderImage: true
 headerMask: rgba(40, 57, 101, .5)
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=29
+headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=59
 catalog: true
 tags:
 
@@ -261,6 +261,33 @@ ps -aux | grep spring-boot:run
 - systemctl disable {xxx}.service 停止开机自启动
 - systemctl daemon-reload 重新加载某个服务的配置文件
 
+## 解决 umount 时 device is busy
+
+```shell
+umount /media/alomerry-home/1T-HDD-A
+
+umount: /media/alomerry-home/1T-HDD-A: device is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+```
+
+推出分区时有时会报 `device is buy` 的错误，此时目录多半是被某个进程占用，使用 fuser 命令找出正在对某个文件或端口访问的进程
+
+```shell
+fuser -m /media/alomerry-home/1T-HDD-A
+
+/media/alomerry-home/1T-HDD-A: 1338c
+```
+
+进程号英文字母含义：
+
+- c 将此文件作为当前目录使用
+- e 将此文件作为程序的可执行对象使用
+- r 将此文件作为根目录使用
+- s 将此文件作为共享库（或其他可装载对象）使用
+
+此时我们可以选择关闭或者杀死占用资源的进程即可
+
 ## 扩容
 
 - https://mikublog.com/tech/2458
@@ -272,6 +299,70 @@ https://wizardforcel.gitbooks.io/vbird-linux-basic-4e/content/150.html
 https://blog.csdn.net/weixin_34096885/article/details/118315790?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-3-118315790-blog-85302979.pc_relevant_downloadblacklistv1&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-3-118315790-blog-85302979.pc_relevant_downloadblacklistv1&utm_relevant_index=6
 https://blog.csdn.net/weixin_39278265/article/details/118306486
 
+## 自动挂载外置硬盘
+
+- 查看硬盘情况 `df -h` 或者 `duf`
+  ```shell
+  ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+  │ 6 local devices                                                                                                  │
+  ├───────────────────────────────┬────────┬────────┬────────┬───────────────────────────────┬──────┬────────────────┤
+  │ MOUNTED ON                    │   SIZE │   USED │  AVAIL │              USE%             │ TYPE │ FILESYSTEM     │
+  ├───────────────────────────────┼────────┼────────┼────────┼───────────────────────────────┼──────┼────────────────┤
+  │ /                             │ 467.3G │  42.8G │ 400.7G │ [#...................]   9.2% │ ext4 │ /dev/nvme0n1p2 │
+  │ /boot/efi                     │   1.0G │   5.2M │   1.0G │ [....................]   0.5% │ vfat │ /dev/nvme0n1p1 │
+  │ /home                         │ 468.4G │  28.9G │ 415.6G │ [#...................]   6.2% │ ext4 │ /dev/sdf       │
+  │ /media/alomerry-home/1T-HDD-A │ 915.8G │ 294.6G │ 574.6G │ [######..............]  32.2% │ ext4 │ /dev/sdb1      │
+  │ /media/alomerry-home/1T-HDD-B │ 915.8G │ 268.8G │ 600.4G │ [#####...............]  29.4% │ ext4 │ /dev/sdd1      │
+  │ /media/alomerry-home/720G-SSD │ 659.1G │ 236.1G │ 389.4G │ [#######.............]  35.8% │ ext4 │ /dev/sde1      │
+  ╰───────────────────────────────┴────────┴────────┴────────┴───────────────────────────────┴──────┴────────────────╯
+  ```
+- 获取挂载分区的 UUID 和分区类型 `sudo blkid`
+  ```shell
+  /dev/nvme1n1p1: UUID="xxx" TYPE="swap" PARTUUID="xxx"
+  /dev/nvme0n1p1: UUID="xxx" TYPE="vfat" PARTUUID="xxx"
+  /dev/nvme0n1p2: UUID="xxx" TYPE="ext4" PARTUUID="xxx"
+  /dev/sda1: LABEL="1T-HDD-A" UUID="xxx" TYPE="ext4" PARTUUID="xxx"
+  /dev/sdb1: LABEL="HDD-WD-500G" UUID="xxx" TYPE="ext4" PARTUUID="xxxx"
+  ```
+- 修改 fstab 文件 `sudo vim /etc/fstab`，并添加 `UUID="xxx" <path> ext4 defaults 0 2`
+  ```sh
+  # /etc/fstab: static file system information.
+  #
+  # Use 'blkid' to print the universally unique identifier for a
+  # device; this may be used with UUID= as a more robust way to name devices
+  # that works even if disks are added and removed. See fstab(5).
+  #
+  # <file system> <mount point>   <type>  <options>       <dump>  <pass>
+  # / was on /dev/nvme0n1p2 during curtin installation
+  /dev/disk/by-uuid/xxx / ext4 defaults 0 1
+  # /home was on /dev/sdg during curtin installation
+  /dev/disk/by-uuid/xxx /home ext4 defaults 0 1
+  /dev/disk/by-uuid/xxx none swap sw 0 0
+  # /boot/efi was on /dev/nvme0n1p1 during curtin installation
+  /dev/disk/by-uuid/FD25-5297 /boot/efi vfat defaults 0 1
+  /swap.img       none    swap    sw      0       0
+
+  # 添加以下
+  UUID="xxx" /media/alomerry-home/720G-SSD ext4 defaults 0 2
+  UUID="xxx" /media/alomerry-home/1T-HDD-A ext4 defaults 0 2
+  UUID="xxx" /media/alomerry-home/1T-HDD-B ext4 defaults 0 2
+  ```
+  - fstab 第一列用于标识分区，可以使用 UUID、分区卷标（Label）
+  - fstab 第二列是挂载路径，注意路径权限
+  - fstab 第三列是挂载分区文件系统类型，需要和分区格式化的类型一致，使用 auto 时系统会自动推断
+  - fstab 第四列是挂载选项：
+    - auto 系统自动挂载（默认选项）
+    - defaults rw, suid, dev, exec, auto, nouser, and async.
+    - noauto 开机不自动挂载
+    - nouser 只有超级用户可以挂载
+    - ro 按只读权限挂载
+    - rw 按可读可写权限挂载
+    - user 任何用户都可以挂载
+  - fstab 第五列是 dump 备份设置：
+    - 1 允许 dump 备份程序备份
+    - 0 忽略备份操作
+  - fstab 第六列是 fsck 磁盘检查设置，其值是一个顺序，0 永远不检查，根目录分区永远都为 1。其它分区从 2 开始，数字越小越先检查，如果相同，则同时检查。
+
 ## 防火墙
 
 - https://blog.csdn.net/lianghecai52171314/article/details/113813826
@@ -282,3 +373,7 @@ https://blog.csdn.net/weixin_39278265/article/details/118306486
 
 https://zhuanlan.zhihu.com/p/296803907
 https://cloud.tencent.com/developer/article/1115041
+
+## 终端代理
+
+export http_proxy=http://127.0.0.1:8889;export https_proxy=http://127.0.0.1:8889;

@@ -32,14 +32,7 @@ import {
   RiBookReadFill,
   RiBookletFill,
   RiBookOpenFill,
-  RiBookmark3Fill,
-  RiContactsBookUploadFill,
-  SiBookstack,
-  MdLibrarybooksRound,
-  MdBookRound,
-
   CiAlgo,
-
   CoSpacemacs,
   FaTools,
   ViFileTypeJenkins,
@@ -74,19 +67,11 @@ addIcons(
   ViFileTypeDocker2,
   SiCoronaengine,
   BiHypnotize,
-
   RiBook2Fill,
   RiBookReadFill,
   RiBookletFill,
   RiBookOpenFill,
-  // RiBookmark3Fill,
-  // RiContactsBookUploadFill,
-  // SiBookstack,
-  // MdLibrarybooksRound,
-  // MdBookRound,
-
   CiAlgo,
-
   CoSpacemacs,
   FaTools,
   ViFileTypeJenkins,
@@ -102,14 +87,11 @@ addIcons(
   BiBookHalf,
   AiGoogleScholarSquare
 );
-
-const isProd = process.env.NODE_ENV === "production";
-
 export default defineClientConfig({
-  enhance({ router }) {
-    router.beforeEach((to) => {
-      if (isProd) {
-      }
-    })
+  enhance({}) {
   },
+  setup: () => {
+  },
+
+  rootComponents: []
 });

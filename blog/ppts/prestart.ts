@@ -2,7 +2,6 @@ require("dotenv").config();
 const package = require('./package.json');
 const path = require("path");
 // 脚本生成 pnpm start 命令
-const fs = require('fs');
 
 let MARKDOWN_SOURCE_FILE = '';
 let pathName = __dirname;

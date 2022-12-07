@@ -1,59 +1,59 @@
 {
-    "projects": [
+  "projects": [
+    {
+      "name": "algorithm",
+      "algorithm": [
         {
-            "name": "algorithm",
-            "algorithm": [
-                {
-                    "fileName": "dockerfile",
-                    "relativeLocation": ".jenkins/docker/dev/",
-                    "url": "https://gitlab.com/Alomerry/algorithm/-/raw/master/.jenkins/docker/dev/dockerfile"
-                }
-            ]
+          "fileName": "dockerfile",
+          "relativeLocation": ".jenkins/docker/dev/",
+          "url": "https://raw.fastgit.org/alomerry/algorithm/master/.jenkins/docker/dev/dockerfile"
+        }
+      ]
+    },
+    {
+      "name": "vps-home",
+      "vps-home": [
+        {
+          "fileName": "docker-compose.yml",
+          "relativeLocation": "frpc/vscode-web/",
+          "url": "https://raw.fastgit.org/alomerry/vps-home/master/frpc/vscode-web/docker-compose.yml"
         },
         {
-            "name": "vps-home",
-            "vps-home": [
-                {
-                    "fileName": "docker-compose.yml",
-                    "relativeLocation": "frpc/vscode-web/",
-                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/vscode-web/docker-compose.yml"
-                },
-                {
-                    "fileName": "docker-compose.yml",
-                    "relativeLocation": "frpc/jenkins/",
-                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/jenkins/docker-compose.yml"
-                },
-                {
-                    "fileName": "docker-compose.yml",
-                    "relativeLocation": "frpc/dozzle/",
-                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/dozzle/docker-compose.yml"
-                },
-                {
-                    "fileName": "docker-compose.yml",
-                    "relativeLocation": "frpc/umami/",
-                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/umami/docker-compose.yml"
-                },
-                {
-                    "fileName": "docker-compose.yml",
-                    "relativeLocation": "frpc/flarum/",
-                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/flarum/docker-compose.yml"
-                },
-                {
-                    "fileName": "docker-compose.yml",
-                    "relativeLocation": "frpc/rocket.chat/",
-                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/frpc/rocket.chat/docker-compose.yml"
-                },
-                {
-                    "fileName": "pipeline.groovy",
-                    "relativeLocation": "pipeline/blog/",
-                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/pipeline/blog/pipeline.groovy"
-                },
-                {
-                    "fileName": "pipeline.groovy",
-                    "relativeLocation": "pipeline/algorithm/",
-                    "url": "https://gitlab.com/Alomerry/vps-home/-/raw/master/pipeline/algorithm/pipeline.groovy"
-                }
-            ]
+          "fileName": "docker-compose.yml",
+          "relativeLocation": "frpc/jenkins/",
+          "url": "https://raw.fastgit.org/alomerry/vps-home/master/frpc/jenkins/docker-compose.yml"
+        },
+        {
+          "fileName": "docker-compose.yml",
+          "relativeLocation": "frpc/dozzle/",
+          "url": "https://raw.fastgit.org/alomerry/vps-home/master/frpc/dozzle/docker-compose.yml"
+        },
+        {
+          "fileName": "docker-compose.yml",
+          "relativeLocation": "frpc/umami/",
+          "url": "https://raw.fastgit.org/alomerry/vps-home/master/frpc/umami/docker-compose.yml"
+        },
+        {
+          "fileName": "docker-compose.yml",
+          "relativeLocation": "frpc/flarum/",
+          "url": "https://raw.fastgit.org/alomerry/vps-home/master/frpc/flarum/docker-compose.yml"
+        },
+        {
+          "fileName": "docker-compose.yml",
+          "relativeLocation": "frpc/rocket.chat/",
+          "url": "https://raw.fastgit.org/alomerry/vps-home/master/frpc/rocket.chat/docker-compose.yml"
+        },
+        {
+          "fileName": "pipeline.groovy",
+          "relativeLocation": "pipeline/blog/",
+          "url": "https://raw.fastgit.org/alomerry/vps-home/master/pipeline/blog/pipeline.groovy"
+        },
+        {
+          "fileName": "pipeline.groovy",
+          "relativeLocation": "pipeline/algorithm/",
+          "url": "https://raw.fastgit.org/alomerry/vps-home/master/pipeline/algorithm.groovy"
         }
-    ]
+      ]
+    }
+  ]
 }

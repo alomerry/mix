@@ -10,6 +10,10 @@ update: 2022-10-10
 
 <!-- more -->
 
+## 测试
+
+
+
 ## 同步原语
 
 ### 互斥锁
@@ -20,6 +24,7 @@ type Mutex struct {
   sema  uint32 // 用于控制锁状态的信号量
 }
 ```
+
 |              32...4               |            3             |           2            |          1           |
 | :-------------------------------: | :----------------------: | :--------------------: | :------------------: |
 |           waitersCount            |       mutexLocked        |       mutexWoken       |    mutexStarving     |
@@ -49,9 +54,10 @@ Starvation mode is important to prevent pathological cases of tail latency.
 
 :::
 
-在正常模式下，锁的等待者会按照先进先出的顺序获取锁。但是刚被唤起的 Goroutine 与新创建的 Goroutine 竞争时，大概率会获取不到锁，为了减少这种情况的出现，一旦 Goroutine 超过 1ms 没有获取到锁，它就会将当前互斥锁切换饥饿模式，防止部分 Goroutine 被『饿死』。
+饥饿模式是在 Go 语言在 1.9 中通过提交 [sync: make Mutex more fair](https://github.com/golang/go/commit/0556e26273f704db73df9e7c4c3d2e8434dec7be) 引入的优化，引入的目的是保证互斥锁的公平性。
 
-在饥饿模式中，互斥锁会直接交给等待队列最前面的 Goroutine。新的 Goroutine 在该状态下不能获取锁、也不会进入自旋状态，它们只会在队列的末尾等待。如果一个 Goroutine 获得了互斥锁并且它在队列的末尾或者它等待的时间少于 1ms，那么当前的互斥锁就会切换回正常模式。
+- 在正常模式下，锁的等待者会按照先进先出的顺序获取锁。但是刚被唤起的 Goroutine 与新创建的 Goroutine 竞争时，大概率会获取不到锁，为了减少这种情况的出现，一旦 Goroutine 超过 1ms 没有获取到锁，它就会将当前互斥锁切换饥饿模式，防止部分 Goroutine 被『饿死』。
+- 在饥饿模式中，互斥锁会直接交给等待队列最前面的 Goroutine。新的 Goroutine 在该状态下不能获取锁、也不会进入自旋状态，它们只会在队列的末尾等待。如果一个 Goroutine 获得了互斥锁并且它在队列的末尾或者它等待的时间少于 1ms，那么当前的互斥锁就会切换回正常模式。
 
 与饥饿模式相比，正常模式下的互斥锁能够提供更好地性能，饥饿模式的能避免 Goroutine 由于陷入等待无法获取锁而造成的高尾延时。
 
@@ -66,7 +72,7 @@ func (m *Mutex) Lock() {
 }
 ```
 
-如果互斥锁的状态不是 0 时就会调用 sync.Mutex.lockSlow 尝试通过自旋（）等方式等待锁的释放：
+如果互斥锁的状态不是 0 时就会调用 [sync.Mutex.lockSlow](https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/sync/mutex.go#L84) 尝试通过自旋等待锁的释放：
 
 判断当前 Goroutine 能否进入自旋；
 
@@ -96,8 +102,10 @@ func (m *Mutex) lockSlow() {
 }
 ```
 
+自旋是一种多线程同步机制，当前的进程在进入自旋的过程中会一直保持 CPU 的占用，持续检查某个条件是否为真。在多核的 CPU 上，自旋可以避免 Goroutine 的切换，使用恰当会对性能带来很大的增益，但是使用的不恰当就会拖慢整个程序，所以 Goroutine 进入自旋的条件非常苛刻：
+
 - 互斥锁只有在普通模式才能进入自旋；
-- runtime.sync_runtime_canSpin 需要返回 true：
+- [runtime.sync_runtime_canSpin](https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/runtime/proc.go#L6038) 需要返回 true：
   - 运行在多 CPU 的机器上；
   - 当前 Goroutine 为了获取该锁进入自旋的次数小于四次；
   - 当前机器上至少存在一个正在运行的处理器 P 并且处理的运行队列为空；
@@ -150,10 +158,10 @@ if atomic.CompareAndSwapInt32(&m.state, old, new) {
 }
 ```
 
-互斥锁的解锁会先使用 sync/atomic.AddInt32 函数快速解锁：
+互斥锁的解锁会先使用 [sync/atomic.AddInt32](https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/sync/atomic/doc.go#L92) 函数快速解锁：
 
 - 如果该函数返回的新状态等于 0，当前 Goroutine 就成功解锁了互斥锁；
-- 如果该函数返回的新状态不等于 0，会调用 sync.Mutex.unlockSlow 开始慢速解锁：
+- 如果该函数返回的新状态不等于 0，会调用 [sync.Mutex.unlockSlow](https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/sync/mutex.go#L194) 开始慢速解锁：
 
 ```go
 func (m *Mutex) Unlock() {
@@ -215,7 +223,7 @@ func (m *Mutex) unlockSlow(new int32) {
 
 ### 读写锁
 
-读写互斥锁 sync.RWMutex 是细粒度的互斥锁，它不限制资源的并发读，但是读写、写写操作无法并行执行。
+读写互斥锁 [sync.RWMutex](https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/sync/rwmutex.go#L28) 是细粒度的互斥锁，它不限制资源的并发读，但是读写、写写操作无法并行执行。
 
 | 并发  |  读   |  写   |
 | :---: | :---: | :---: |
@@ -232,8 +240,8 @@ type RWMutex struct {
 }
 ```
 
-- `w` — 复用互斥锁提供的能力；
-- `writerSem` 和 `readerSem` — 分别用于写等待读和读等待写：
+- `w` 复用互斥锁提供的能力；
+- `writerSem` 和 `readerSem` 分别用于写等待读和读等待写：
 - `readerCount` 存储了当前正在执行的读操作数量；
 - `readerWait` 表示当写操作被阻塞时等待的读操作个数；
 
@@ -249,7 +257,7 @@ func (rw *RWMutex) Lock() {
 }
 ```
 
-- 调用结构体持有的 sync.Mutex 结构体的 sync.Mutex.Lock 阻塞后续的写操作；
+- 调用结构体持有的 sync.Mutex 结构体的 [sync.Mutex.Lock](https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/sync/rwmutex.go#L105) 阻塞后续的写操作；
   - 因为互斥锁已经被获取，其他 Goroutine 在获取写锁时会进入休眠；
 - 调用 sync/atomic.AddInt32 函数阻塞后续的读操作：
 - 如果仍然有其他 Goroutine 持有互斥锁的读锁，该 Goroutine 会调用 runtime.sync_runtime_SemacquireMutex 进入休眠状态等待所有读锁所有者执行结束后释放 writerSem 信号量将当前协程唤醒；
@@ -263,7 +271,7 @@ func (rw *RWMutex) Unlock() {
   for i := 0; i < int(r); i++ {
     runtime_Semrelease(&rw.readerSem, false, 0)
   }
-  rw.w.Unlock()
+  rw.w.Unlock() // 防止不会被连续的写操作『饿死』
 }
 ```
 
@@ -272,8 +280,6 @@ func (rw *RWMutex) Unlock() {
 - 调用 sync/atomic.AddInt32 函数将 readerCount 变回正数，释放读锁；
 - 通过 for 循环释放所有因为获取读锁而陷入等待的 Goroutine：
 - 调用 sync.Mutex.Unlock 释放写锁；
-
-获取写锁时会先阻塞写锁的获取，后阻塞读锁的获取，这种策略能够保证读操作不会被连续的写操作『饿死』。
 
 #### 读锁
 
@@ -315,6 +321,8 @@ sync.RWMutex.rUnlockSlow 会减少获取锁的写操作等待的读操作数 rea
   - 每次 sync.RWMutex.RUnlock 都会将 readerCount 其减一，当它归零时该 Goroutine 会获得写锁；
   - 将 readerCount 减少 rwmutexMaxReaders 个数以阻塞后续的读操作；
 - 调用 sync.RWMutex.Unlock 释放写锁时，会先通知所有的读操作，然后才会释放持有的互斥锁；
+
+##
 
 <!--
 
