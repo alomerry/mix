@@ -45,7 +45,7 @@ pipeline {
             steps {
                 retry(3) {
                     // 构建
-                    sh 'pnpm install --no-frozen-lockfile && pnpm build'
+                    sh 'pnpm install && pnpm build'
                 }
                 
             }
