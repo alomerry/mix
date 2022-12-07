@@ -6,7 +6,7 @@ import codeCopyPlugin from 'vuepress-plugin-code-copy';
 import {ComponentOptions, componentsPlugin} from "vuepress-plugin-components";
 import {registerComponentsPlugin} from "@vuepress/plugin-register-components";
 import {sitemapPlugin} from "vuepress-plugin-sitemap2";
-// import docSearchPlugin from "@vuepress/plugin-docsearch";
+import docSearchPlugin from "@vuepress/plugin-docsearch";
 import {path} from "@vuepress/utils";
 import themeConfig from "./theme";
 // import { containerPlugin } from "@vuepress/plugin-container";
@@ -85,12 +85,54 @@ export default defineUserConfig({
         //   }
         // }),
         codeCopyPlugin(),
-        // docSearchPlugin({
-        //     appId: "3BGNB9V5MC",
-        //     indexName: "rainbowatcher",
-        //     apiKey: "f757c625852758ee96aaf2268959166e",
-        //     placeholder: "Search"
-        // })
+        docSearchPlugin({
+            appId: "G0Z8T0BMSH",
+            apiKey: "268bd411a4d5188bf0c215bc5bf5b537",
+            indexName: "alomerry-blog",
+            locales: {
+                "/": {
+                    placeholder: "Search blog",
+                    translations: {
+                        button: {
+                            buttonText: "Search blog",
+                            buttonAriaLabel: "Search blog"
+                        },
+                        modal: {
+                            searchBox: {
+                                resetButtonTitle: "clear",
+                                resetButtonAriaLabel: "clear",
+                                cancelButtonText: "close",
+                                cancelButtonAriaLabel: "close"
+                            },
+                            startScreen: {
+                                recentSearchesTitle: "Search history",
+                                noRecentSearchesText: "No history",
+                                saveRecentSearchButtonTitle: "Save to history",
+                                removeRecentSearchButtonTitle: "Remove from history",
+                                favoriteSearchesTitle: "Star",
+                                removeFavoriteSearchButtonTitle: "Remove from star"
+                            },
+                            errorScreen: {
+                                titleText: "Fetch failed",
+                                helpText: "Need check Internet"
+                            },
+                            footer: {
+                                selectText: "Select",
+                                navigateText: "Switch",
+                                closeText: "Close",
+                                searchByText: "Provider"
+                            },
+                            noResultsScreen: {
+                                noResultsText: "No Result",
+                                suggestedQueryText: "Suggest Query",
+                                reportMissingResultsText: "Report missing result",
+                                reportMissingResultsLinkText: "Report"
+                            }
+                        }
+                    }
+                }
+            }
+        })
     ]
 });
 
