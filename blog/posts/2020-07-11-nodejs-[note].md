@@ -7,7 +7,16 @@ date: 2020-07-11
 
 ## 常用
 
-###  M1 nvm 安装
+### nvm 安装
+
+**Linux 安装**
+
+- curl -s https://cdn.alomerry.com/packages/nvm/install.sh | zsh
+- nvm ls-remote
+- nvm install v19.2.0
+- nvm use default v19.2.0
+
+**Mac M1 安装**
 
 https://juejin.cn/post/7000245004526419981
 

@@ -6,7 +6,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "prestart": "node prestart.ts",
         "start": "nodeppt build adapter-pattern.md && nodeppt build go-mutex-and-rwmutex.md && nodeppt build grpc.md",
-      "serve": "nodeppt serve go-mutex-and-rwmutex.md"
+        "serve": "nodeppt serve go-mutex-and-rwmutex.md"
     },
     "author": "Alomerry Wu",
     "license": "ISC",
