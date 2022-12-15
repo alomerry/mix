@@ -55,7 +55,7 @@ pipeline {
                 // 压缩构建后的文件用于发布到服务器的 nginx 中
                 retry(3) {
                     sh '''
-                    cd /var/jenkins_home/workspace/blog/blog/.vuepress/dist/
+                    cd /var/jenkins_home/workspace/vuepress-blog/blog/.vuepress/dist/
                     tar -zcf blog.tar.gz *
                     '''
                 }
@@ -78,7 +78,7 @@ pipeline {
                         shopt -s extglob
                         rm -rf !(.htaccess|.user.ini|.well-known|favicon.ico|blog.tar.gz)
                         '''
-                    sshPut remote: remote, from: '/var/jenkins_home/workspace/blog/blog/.vuepress/dist/blog.tar.gz', into: '/www/wwwroot/blog.alomerry.com/'
+                    sshPut remote: remote, from: '/var/jenkins_home/workspace/vuepress-blog/blog/.vuepress/dist/blog.tar.gz', into: '/www/wwwroot/blog.alomerry.com/'
                     sshCommand remote: remote, command: "cd /www/wwwroot/blog.alomerry.com && tar -xf blog.tar.gz"
                     sshRemove remote: remote, path: '/www/wwwroot/blog.alomerry.com/blog.tar.gz'
                 }
