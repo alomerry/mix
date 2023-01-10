@@ -23,6 +23,13 @@ tags:
   - 设置对应 provider 的 AK、SK 和 bucket
 - 运行二进制文件并指定配置文件位置 `./ossPusher --configPath core.toml`
 
+## 设置 [docSearch](https://docsearch.algolia.com/docs/legacy/run-your-own/)
+
+- 创建账号，新建 .env 文件，内容需要包含账号中的 `APPLICATION_ID`、`API_KEY`
+- 参考[文档](https://docsearch.algolia.com/docs/legacy/config-file/)，自定义配置文件，并压缩
+- 启动爬虫镜像
+  - `docker run -it --env-file=.env -e "CONFIG=配置文件压缩后的内容" algolia/docsearch-scraper`
+
 ## 一些魔改
 
 ### 导入 oh-vue-icon

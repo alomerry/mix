@@ -362,6 +362,8 @@ pipeline {
 
 ## Plugs
 
+### docker
+
 ### Generic Webhook Trigger[^generic-webhook-trigger]
 
 Case 配合 pipeline 中的 trigger 可以实现仓库有推送后即触发构建

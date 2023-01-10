@@ -12,6 +12,65 @@ update: 2022-10-10
 
 ## 测试
 
+[汇编](https://mp.weixin.qq.com/s/Sk9m7_gk9xJpklzGpEay0A)
+
+## 内联
+
+- [通过实例理解Go内联优化](https://tonybai.com/2022/10/17/understand-go-inlining-optimisations-by-example/)
+- [Go语言中的内联函数](https://segmentfault.com/a/1190000040399875)
+
+## 函数
+
+::: important
+
+函数参数皆是值拷贝，只是区别是拷贝目标对象还是拷贝指针，函数调用前就会为形参和返回值分配内存空间，并将实参拷贝到形参中
+
+:::
+
+## 逃逸分析
+
+- 匿名函数
+
+## defer
+
+避免在循环中 defer 可能会造成生命周期变长，内存占用增加
+
+```go
+func main() {
+    for i := 0; i < 100; i++ {
+        file, _ := os.Open(fmt.Sprintf("%v.txt", i))
+        defer file.Close()
+        // Do something
+    }
+}
+```
+
+由于 defer 在上例中循环结束后才执行，所以在所有循环结束前都不会关闭任何文件流
+
+## 字典
+
+对于海量小对象，应直接用字典存储键值数据拷贝，而非指针。这有助于减少需要扫描的对象数量，缩短垃圾回收时间。字典不会收缩内存，适当替换新对象是有必要的。
+
+## 方法
+
+使用指针/非指针 receiver 的场景：
+
+- 要修改实例的状态，使用 *T
+- 无需修改状态的小对象或固定值，使用 T
+- 大对象建议使用 *T，减少复制成本
+- 引用类型、字符串、函数等指针包装类型，使用 T
+- 若包含 Mutex 等同步字段，用 *T，避免因复制造成锁操作无效？
+- 其它无法确定的情况，用 *T
+
+方法集
+
+类型有一个与之相关的方法集（method set)，这决定了它是否实现某个接口。
+
+- 类型下方法集包含所有 receiver T 方法。
+- 类型 *T 方法集包含所有 receiverT ＋ *T 方法。
+- 匿名嵌人 S，T 方法集包含所有 receiverS 方法。
+- 匿名嵌人 *S，T 方法集包含所有 receiverS + *S 方法。
+- 匿名嵌人 S 或 *S，*T 方法集包含所有 receiverS + *S 方法。
 
 
 ## 同步原语
@@ -321,10 +380,6 @@ sync.RWMutex.rUnlockSlow 会减少获取锁的写操作等待的读操作数 rea
   - 每次 sync.RWMutex.RUnlock 都会将 readerCount 其减一，当它归零时该 Goroutine 会获得写锁；
   - 将 readerCount 减少 rwmutexMaxReaders 个数以阻塞后续的读操作；
 - 调用 sync.RWMutex.Unlock 释放写锁时，会先通知所有的读操作，然后才会释放持有的互斥锁；
-
-##
-
-<!--
 
 ## Golang
 
@@ -1426,11 +1481,11 @@ case stdFracSecond9: // Take any number of digits, even more than asked for, bec
 ## GVM 安装 Golang
 
 ```shell
-bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+zsh < <(curl -s -S -L https://cdn.alomerry.com/packages/gvm/gvm-installer.sh)
 ```
 
 ```shell
-gvm install go1.4
+gvm install go1.4 -B
 gvm use go1.4 [--default]
 ```
 
@@ -1627,7 +1682,3 @@ func main() {
 time ticker https://github.com/golang/go/issues/17601
 
 定时器 https://www.dazhuanlan.com/kantfollower/topics/1650624
-
-
-
--->

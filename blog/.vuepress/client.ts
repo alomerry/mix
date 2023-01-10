@@ -6,6 +6,7 @@ import {
   BiDiamondHalf,
   BiSteam,
   BiYoutube,
+  BiMarkdown,
   BiBookHalf,
   FaFortAwesome,
   FaPaw,
@@ -84,6 +85,7 @@ addIcons(
   BiDiamondHalf,
   BiYoutube,
   BiSteam,
+  BiMarkdown,
   BiBookHalf,
   AiGoogleScholarSquare
 );

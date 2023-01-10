@@ -13,6 +13,12 @@ tags:
 - Y2022
 ---
 
+:::tip 2022-12-26 更新
+
+[GoogleTranslateIpCheck](https://github.com/Ponderfly/GoogleTranslateIpCheck) 可以扫描尚未失效的 IP，如果还能扫出来的话，改 host 是最方便的，如果全部失效可以使用下文描述的 Proxifier
+
+:::
+
 Google 发言人称因“使用率太低”谷歌翻译服务已正式退出中国。现在访问谷歌翻译主页，显示的是提示用户使用香港 Google 翻译的页面，点击页面上的链接会进入香港 Google 翻译页面。
 
 ## 失效/无效
