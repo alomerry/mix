@@ -58,4 +58,4 @@ Language: **C++**
 
 空间替换时间：使用 map 记录“链”。key 为链表的序号，value 记录 next。删除倒数 n 个数字时，只需要将 n-1 的 value 指向 n+1 即可。
 
-{% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/19-main.cpp" syntax="cpp" %}
+{% include_file "https://gitee.com/alomerry/algorithm/raw/master/code/leet-code/19-main.cpp" syntax="cpp" %}

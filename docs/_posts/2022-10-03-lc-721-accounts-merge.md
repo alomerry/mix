@@ -56,6 +56,4 @@ Related Topics: [深度优先搜索](https://leetcode.cn/tag/depth-first-search/
 
 Language: **C++**
 
-[//]: # (https://gitee.com/alomerry/algorithm/raw/master/leet-code/1+/1-map.cpp)
-
-{% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/721-main.cpp" syntax="cpp" %}
+{% include_file "https://gitee.com/alomerry/algorithm/raw/master/code/leet-code/721-main.cpp" syntax="cpp" %}

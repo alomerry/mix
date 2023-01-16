@@ -44,4 +44,4 @@ Related Topics: [树](https://leetcode.cn/tag/tree/), [深度优先搜索](https
 
 Language: **C++**
 
-{% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/104-main.cpp" syntax="cpp" %}
+{% include_file "https://gitee.com/alomerry/algorithm/raw/master/code/leet-code/104-main.cpp" syntax="cpp" %}

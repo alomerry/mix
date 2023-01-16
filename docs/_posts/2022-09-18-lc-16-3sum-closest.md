@@ -47,4 +47,4 @@ Related Topics: [数组](https://leetcode.cn/tag/array/), [双指针](https://le
 
 Language: **C++**
 
-{% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/16-main.cpp" syntax="cpp" %}
+{% include_file "https://gitee.com/alomerry/algorithm/raw/master/code/leet-code/16-main.cpp" syntax="cpp" %}

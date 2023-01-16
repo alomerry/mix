@@ -66,4 +66,4 @@ Source: [LeetCode 88](https://leetcode-cn.com/problems/merge-sorted-array/){:tar
 
 ## Code
 
-{% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/88-main.cpp" syntax="cpp" %}
+{% include_file "https://gitee.com/alomerry/algorithm/raw/master/code/leet-code/88-main.cpp" syntax="cpp" %}

@@ -56,4 +56,4 @@ ans = [nums[nums[0]], nums[nums[1]], nums[nums[2]], nums[nums[3]], nums[nums[4]]
 
 ## Code
 
-{% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/1920-main.cpp" syntax="cpp" %}
+{% include_file "https://gitee.com/alomerry/algorithm/raw/master/code/leet-code/1920-main.cpp" syntax="cpp" %}
