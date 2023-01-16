@@ -3,22 +3,22 @@ title: 账户合并
 problem_no: 721
 date: 2022-10-03
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Medium
-- 并查集
+  - Y2022
+  - LeetCode
+  - Medium
+  - 并查集
 ---
 
 ## [Description](https://leetcode.cn/problems/accounts-merge/)
 
-Difficulty: **中等**  
+Difficulty: **中等**
 
 Related Topics: [深度优先搜索](https://leetcode.cn/tag/depth-first-search/), [广度优先搜索](https://leetcode.cn/tag/breadth-first-search/), [并查集](https://leetcode.cn/tag/union-find/), [数组](https://leetcode.cn/tag/array/), [字符串](https://leetcode.cn/tag/string/)
 
 
-给定一个列表 `accounts`，每个元素 `accounts[i]` 是一个字符串列表，其中第一个元素 `accounts[i][0]` 是 _名称 (name)_，其余元素是 _**emails**_ 表示该账户的邮箱地址。
+给定一个列表 `accounts`，每个元素 `accounts[i]` 是一个字符串列表，其中第一个元素 `accounts[i][0]` 是 _名称 (name)_，其余元素是 _**emails**_ 表示该账户的邮箱地址。
 
 现在，我们想合并这些账户。如果两个账户都有一些共同的邮箱地址，则两个账户必定属于同一个人。请注意，即使两个账户具有相同的名称，它们也可能属于不同的人，因为人们可能具有相同的名称。一个人最初可以拥有任意数量的账户，但其所有账户都具有相同的名称。
 
@@ -30,7 +30,7 @@ Related Topics: [深度优先搜索](https://leetcode.cn/tag/depth-first-search/
 输入：accounts = [["John", "johnsmith@mail.com", "john00@mail.com"], ["John", "johnnybravo@mail.com"], ["John", "johnsmith@mail.com", "john_newyork@mail.com"], ["Mary", "mary@mail.com"]]
 输出：[["John", 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com'],  ["John", "johnnybravo@mail.com"], ["Mary", "mary@mail.com"]]
 解释：
-第一个和第三个 John 是同一个人，因为他们有共同的邮箱地址 "johnsmith@mail.com"。 
+第一个和第三个 John 是同一个人，因为他们有共同的邮箱地址 "johnsmith@mail.com"。
 第二个 John 和 Mary 是不同的人，因为他们的邮箱地址没有被其他帐户使用。
 可以以任何顺序返回这些列表，例如答案 [['Mary'，'mary@mail.com']，['John'，'johnnybravo@mail.com']，
 ['John'，'john00@mail.com'，'john_newyork@mail.com'，'johnsmith@mail.com']] 也是正确的。
@@ -55,5 +55,7 @@ Related Topics: [深度优先搜索](https://leetcode.cn/tag/depth-first-search/
 ## Solution
 
 Language: **C++**
+
+[//]: # (https://gitee.com/alomerry/algorithm/raw/master/leet-code/1+/1-map.cpp)
 
 {% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/721-main.cpp" syntax="cpp" %}

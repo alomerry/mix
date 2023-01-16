@@ -11,9 +11,9 @@ tags:
 - binary-tree
 ---
 
-## [Description](https://leetcode.cn/problems/unique-binary-search-trees/) 
+## [Description](https://leetcode.cn/problems/unique-binary-search-trees/)
 
-Difficulty: **中等**  
+Difficulty: **中等**
 
 Related Topics: [树](https://leetcode.cn/tag/tree/), [二叉搜索树](https://leetcode.cn/tag/binary-search-tree/), [数学](https://leetcode.cn/tag/math/), [动态规划](https://leetcode.cn/tag/dynamic-programming/), [二叉树](https://leetcode.cn/tag/binary-tree/)
 
@@ -46,10 +46,10 @@ Related Topics: [树](https://leetcode.cn/tag/tree/), [二叉搜索树](https://
 Language: **C++**
 
 ```c++
-class Solution {
+class Solution {
 public:
-    int numTrees(int n) {
+    int numTrees(int n) {
 
-    }
+    }
 };
 ```

@@ -15,7 +15,7 @@ tags:
 
 ## [Description](https://leetcode.cn/problems/maximum-depth-of-binary-tree/)
 
-Difficulty: **简单**  
+Difficulty: **简单**
 
 Related Topics: [树](https://leetcode.cn/tag/tree/), [深度优先搜索](https://leetcode.cn/tag/depth-first-search/), [广度优先搜索](https://leetcode.cn/tag/breadth-first-search/), [二叉树](https://leetcode.cn/tag/binary-tree/)
 
@@ -24,9 +24,9 @@ Related Topics: [树](https://leetcode.cn/tag/tree/), [深度优先搜索](https
 
 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
 
-**说明:** 叶子节点是指没有子节点的节点。
+**说明:** 叶子节点是指没有子节点的节点。
 
-**示例：**  
+**示例：**
 给定二叉树 `[3,9,20,null,null,15,7]`，
 
 ```
@@ -37,7 +37,7 @@ Related Topics: [树](https://leetcode.cn/tag/tree/), [深度优先搜索](https
    15   7
 ```
 
-返回它的最大深度 3 。
+返回它的最大深度 3 。
 
 
 ## Solution

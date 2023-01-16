@@ -12,12 +12,12 @@ tags:
 
 ## [Description](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)
 
-Difficulty: **中等**  
+Difficulty: **中等**
 
 Related Topics: [链表](https://leetcode.cn/tag/linked-list/), [双指针](https://leetcode.cn/tag/two-pointers/)
 
 
-给你一个链表，删除链表的倒数第 `n`个结点，并且返回链表的头结点。
+给你一个链表，删除链表的倒数第 `n`个结点，并且返回链表的头结点。
 
 **示例 1：**
 

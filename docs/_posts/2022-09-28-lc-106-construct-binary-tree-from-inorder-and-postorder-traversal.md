@@ -13,12 +13,12 @@ tags:
 
 ## [Description](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
 
-Difficulty: **中等**  
+Difficulty: **中等**
 
 Related Topics: [树](https://leetcode.cn/tag/tree/), [数组](https://leetcode.cn/tag/array/), [哈希表](https://leetcode.cn/tag/hash-table/), [分治](https://leetcode.cn/tag/divide-and-conquer/), [二叉树](https://leetcode.cn/tag/binary-tree/)
 
 
-给定两个整数数组 `inorder` 和 `postorder` ，其中 `inorder` 是二叉树的中序遍历， `postorder` 是同一棵树的后序遍历，请你构造并返回这颗 _二叉树_ 。
+给定两个整数数组 `inorder` 和 `postorder` ，其中 `inorder` 是二叉树的中序遍历， `postorder` 是同一棵树的后序遍历，请你构造并返回这颗 _二叉树_ 。
 
 **示例 1:**
 
@@ -41,10 +41,10 @@ Related Topics: [树](https://leetcode.cn/tag/tree/), [数组](https://leetcode.
 *   `1 <= inorder.length <= 3000`
 *   `postorder.length == inorder.length`
 *   `-3000 <= inorder[i], postorder[i] <= 3000`
-*   `inorder` 和 `postorder` 都由 **不同** 的值组成
-*   `postorder` 中每一个值都在 `inorder` 中
-*   `inorder` **保证**是树的中序遍历
-*   `postorder` **保证**是树的后序遍历
+*   `inorder` 和 `postorder` 都由 **不同** 的值组成
+*   `postorder` 中每一个值都在 `inorder` 中
+*   `inorder` **保证**是树的中序遍历
+*   `postorder` **保证**是树的后序遍历
 
 
 ## Solution
