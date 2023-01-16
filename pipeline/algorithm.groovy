@@ -43,8 +43,10 @@ pipeline {
         }
         stage('install and build') {
             steps {
-                // 构建
-                sh 'cd docs && npm install && bundle install && npm run build'
+                retry(3) {
+                    // 构建
+                    sh 'cd docs && npm install && bundle install && npm run build'
+                }
             }
         }
         stage('compress') {
