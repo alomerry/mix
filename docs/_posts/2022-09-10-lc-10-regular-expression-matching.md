@@ -3,11 +3,11 @@ title: 正则表达式匹配
 problem_no: 10
 date: 2022-09-10
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Hard
+  - Y2022
+  - LeetCode
+  - Hard
 ---
 
 ## Description

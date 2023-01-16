@@ -3,11 +3,11 @@ title: 最大子数组和
 problem_no: 53
 date: 2021-09-30
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

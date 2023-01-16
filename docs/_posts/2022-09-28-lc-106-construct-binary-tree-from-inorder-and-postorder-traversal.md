@@ -3,12 +3,12 @@ title: 从中序与后序遍历序列构造二叉树
 problem_no: 106
 date: 2022-09-27
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Medium
-- binary-tree
+  - Y2022
+  - LeetCode
+  - Medium
+  - BinaryTree
 ---
 
 ## [Description](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)

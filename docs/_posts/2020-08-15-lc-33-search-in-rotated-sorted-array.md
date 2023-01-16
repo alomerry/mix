@@ -3,11 +3,11 @@ title: 搜索旋转排序数组
 date: 2020-08-13
 problem_no: 33
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Medium
+  - Y2020
+  - LeetCode
+  - Medium
 ---
 
 <!-- Description. -->

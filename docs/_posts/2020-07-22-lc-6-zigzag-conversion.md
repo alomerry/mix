@@ -3,11 +3,11 @@ title: Z 字形变换
 date: 2020-07-25
 problem_no: 6
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Medium
+  - Y2020
+  - LeetCode
+  - Medium
 ---
 
 <!-- Description. -->

@@ -3,11 +3,11 @@ title: 两数相加
 problem_no: 2
 date: 2020-07-21
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- Medium
-- LeetCode
+  - Y2020
+  - Medium
+  - LeetCode
 ---
 
 <!-- Description. -->

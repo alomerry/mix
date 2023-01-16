@@ -3,11 +3,11 @@ title: 有效的括号
 problem_no: 20
 date: 2021-09-25
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

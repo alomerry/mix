@@ -3,11 +3,11 @@ title: 合并K个升序链表
 date: 2020-08-11
 problem_no: 23
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Hard
+  - Y2020
+  - LeetCode
+  - Hard
 ---
 
 <!-- Description. -->

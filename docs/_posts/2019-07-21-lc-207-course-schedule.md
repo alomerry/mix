@@ -3,11 +3,11 @@ title: 两数之和
 problem_no: 207
 date: 2019-07-21
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2019
-- LeetCode
-- Medium
+  - Y2019
+  - LeetCode
+  - Medium
 ---
 
 <!-- more -->

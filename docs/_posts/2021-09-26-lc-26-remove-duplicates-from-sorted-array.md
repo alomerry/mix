@@ -3,11 +3,11 @@ title: 删除有序数组中的重复项
 problem_no: 26
 date: 2021-09-26
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

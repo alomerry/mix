@@ -3,11 +3,11 @@ title: 二叉树的中序遍历
 date: 2020-09-08
 problem_no: 94
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Easy
+  - Y2020
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

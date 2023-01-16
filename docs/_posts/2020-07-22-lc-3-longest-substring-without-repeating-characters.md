@@ -3,11 +3,11 @@ title: 无重复字符的最长子串
 problem_no: 3
 date: 2020-07-22
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Medium
+  - Y2020
+  - LeetCode
+  - Medium
 ---
 
 <!-- more -->

@@ -3,14 +3,14 @@ title: 二叉树的最大深度
 problem_no: 104
 date: 2022-09-27
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Easy
-- bfs
-- dfs
-- binary-tree
+  - Y2022
+  - LeetCode
+  - Easy
+  - BFS
+  - DFS
+  - BinaryTree
 ---
 
 ## [Description](https://leetcode.cn/problems/maximum-depth-of-binary-tree/)

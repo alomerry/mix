@@ -3,11 +3,11 @@ title: 整数转罗马数字
 date: 2020-08-07
 problem_no: 12
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Medium
+  - Y2020
+  - LeetCode
+  - Medium
 ---
 
 <!-- Description. -->

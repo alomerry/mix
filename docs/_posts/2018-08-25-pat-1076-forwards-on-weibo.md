@@ -5,7 +5,7 @@ categories:
 - PAT
 tags:
 - PAT-A
-- Y2019
+  - Y2019
 ---
 
 ## Problem

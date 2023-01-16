@@ -3,11 +3,11 @@ title: 二进制求和
 problem_no: 67
 date: 2021-10-08
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

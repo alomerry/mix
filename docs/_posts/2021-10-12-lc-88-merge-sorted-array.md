@@ -3,11 +3,11 @@ title: 合并两个有序数组
 problem_no: 88
 date: 2021-10-12
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

@@ -3,11 +3,11 @@ title: 最长回文子串
 problem_no: 5
 date: 2020-07-23
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Medium
+  - Y2020
+  - LeetCode
+  - Medium
 ---
 
 <!-- Description. -->

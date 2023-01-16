@@ -3,11 +3,11 @@ title: 盛最多水的容器
 date: 2020-08-05
 problem_no: 11
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Medium
+  - Y2020
+  - LeetCode
+  - Medium
 ---
 
 <!-- Description. -->

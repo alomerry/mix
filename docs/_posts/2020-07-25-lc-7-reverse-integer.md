@@ -3,11 +3,11 @@ title: 整数反转
 problem_no: 7
 date: 2020-07-25
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- Easy
-- LeetCode
+  - Y2020
+  - Easy
+  - LeetCode
 ---
 
 <!-- Description. -->

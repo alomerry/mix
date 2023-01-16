@@ -3,11 +3,11 @@ title: 最长公共前缀
 date: 2020-08-07
 problem_no: 14
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Easy
+  - Y2020
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

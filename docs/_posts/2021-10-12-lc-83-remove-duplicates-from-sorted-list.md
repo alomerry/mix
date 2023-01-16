@@ -3,11 +3,11 @@ title: 删除排序链表中的重复元素
 problem_no: 83
 date: 2021-10-12
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

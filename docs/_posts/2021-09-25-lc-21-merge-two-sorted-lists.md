@@ -3,11 +3,11 @@ title: 合并两个有序链表
 problem_no: 21
 date: 2021-09-25
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

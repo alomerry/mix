@@ -3,11 +3,11 @@ title: 回文数
 problem_no: 9
 date: 2021-08-27
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

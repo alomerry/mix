@@ -3,14 +3,14 @@ title: 对称二叉树
 problem_no: 101
 date: 2022-09-27
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Easy
-- dfs
-- bfs
-- binary-tree
+  - Y2022
+  - LeetCode
+  - Easy
+  - DFS
+  - BFS
+  - BinaryTree
 ---
 
 ## [Description](https://leetcode.cn/problems/symmetric-tree/)

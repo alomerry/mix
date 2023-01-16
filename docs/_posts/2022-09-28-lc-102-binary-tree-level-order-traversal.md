@@ -3,13 +3,13 @@ title: 二叉树的层序遍历
 problem_no: 102
 date: 2022-09-27
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Medium
-- bfs
-- binary-tree
+  - Y2022
+  - LeetCode
+  - Medium
+  - BFS
+  - BinaryTree
 ---
 
 ## [Description](https://leetcode.cn/problems/binary-tree-level-order-traversal/)

@@ -3,11 +3,11 @@ title: 罗马数字转整数
 problem_no: 13
 date: 2022-09-09
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Easy
+  - Y2022
+  - LeetCode
+  - Easy
 ---
 
 ## Description

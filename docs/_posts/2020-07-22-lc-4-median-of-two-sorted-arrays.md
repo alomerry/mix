@@ -3,11 +3,11 @@ title: 寻找两个正序数组的中位数
 problem_no: 4
 date: 2020-07-22
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- Hard
-- LeetCode
+  - Y2020
+  - Hard
+  - LeetCode
 ---
 
 <!-- Description. -->

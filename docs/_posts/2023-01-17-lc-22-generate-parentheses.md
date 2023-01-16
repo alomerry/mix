@@ -8,9 +8,9 @@ tags:
   - Y2023
   - LeetCode
   - Medium
-  - 动态规划
-  - 字符串
-  - 回溯
+  - DP
+  - String
+  - Backtracking
 ---
 
 ## [Description](https://leetcode.cn/problems/generate-parentheses/)

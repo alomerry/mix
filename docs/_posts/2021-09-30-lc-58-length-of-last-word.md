@@ -3,11 +3,11 @@ title: 最后一个单词的长度
 problem_no: 58
 date: 2021-09-30
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2021
-- LeetCode
-- Easy
+  - Y2021
+  - LeetCode
+  - Easy
 ---
 
 <!-- Description. -->

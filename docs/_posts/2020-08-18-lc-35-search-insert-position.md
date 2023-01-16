@@ -3,11 +3,11 @@ title: 搜索插入位置
 date: 2020-08-18
 problem_no: 35
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Medium
+  - Y2020
+  - LeetCode
+  - Medium
 ---
 
 <!-- Description. -->

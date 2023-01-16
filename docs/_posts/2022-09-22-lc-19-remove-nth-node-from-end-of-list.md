@@ -3,11 +3,11 @@ title: 删除链表的倒数第 N 个结点
 problem_no: 19
 date: 2022-09-22
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Medium
+  - Y2022
+  - LeetCode
+  - Medium
 ---
 
 ## [Description](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)

@@ -3,11 +3,11 @@ title: 字符串转换整数 (atoi)
 problem_no: 8
 date: 2020-07-26
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2020
-- LeetCode
-- Medium
+  - Y2020
+  - LeetCode
+  - Medium
 ---
 
 <!-- Description. -->

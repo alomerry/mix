@@ -3,12 +3,12 @@ title: 不同的二叉搜索树
 problem_no: 96
 date: 2022-09-27
 categories:
-- LeetCode
+  - LeetCode
 tags:
-- Y2022
-- LeetCode
-- Medium
-- binary-tree
+  - Y2022
+  - LeetCode
+  - Medium
+  - BinaryTree
 ---
 
 ## [Description](https://leetcode.cn/problems/unique-binary-search-trees/)

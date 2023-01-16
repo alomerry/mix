@@ -5,13 +5,12 @@ date: 2023-01-17
 categories:
   - LeetCode
 tags:
-  - Y2022
+  - Y2023
   - LeetCode
   - Medium
   - Recursion
-  - LinkList
+  - LinkedList
 ---
-# [\. ]
 
 ## [Description](https://leetcode.cn/problems/swap-nodes-in-pairs/)
 

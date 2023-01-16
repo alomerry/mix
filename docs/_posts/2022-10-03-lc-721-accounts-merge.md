@@ -8,7 +8,10 @@ tags:
   - Y2022
   - LeetCode
   - Medium
-  - 并查集
+  - UnionFind
+  - BFS
+  - DFS
+  - String
 ---
 
 ## [Description](https://leetcode.cn/problems/accounts-merge/)
