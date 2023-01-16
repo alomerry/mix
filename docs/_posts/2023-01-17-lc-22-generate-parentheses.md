@@ -43,6 +43,6 @@ Topics: [字符串](https://leetcode.cn/tag/string/), [动态规划](https://lee
 
 ## Solution
 
-Language: **C++**
+Language: **Golang**
 
 {% include_file "https://gitlab.com/Alomerry/algorithm/-/raw/master/code/leet-code/22-main.go" syntax="go" %}
