@@ -3,7 +3,7 @@ title: Golang Note
 subtitle: 记录 Golang 学习过程中的经验、遇到的坑点等
 author: Alomerry Wu
 date: 2020-08-10
-update: 2022-10-10
+update: 2023-01-19
 ---
 
 <!-- Description. -->
@@ -641,6 +641,8 @@ Notify 函数 https://blog.csdn.net/chuanglan/article/details/80750119
 ## flag 包
 
 ### os.Args
+
+https://colobu.com/2020/12/27/go-with-os-exec/
 
 简单获取命令行参数的方式，演示代码如下：
 
@@ -1537,7 +1539,7 @@ fmt.Println(n)
 - fmt.Sprintf()
 - bytes.Buffer
 
-### 　大量字符串拼接性能测试
+### 大量字符串拼接性能测试
 
 ```golang
 // fmt.Printf
