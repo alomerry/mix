@@ -22,3 +22,7 @@ lib/
 # backup
 bk/vuepress-theme-gungnir@2.0.0-alpha.26-patch
 **/*.bk
+
+# obsidian
+
+obsidian/.obsidian
