@@ -3,13 +3,13 @@ title: 电话号码的字母组合
 problem_no: 17
 date: 2023-01-23
 categories:
-- LeetCode
-  tags:
-- Y2023
-- LeetCode
-- String
-- Backtracking
-- HashTable
+  - LeetCode
+tags:
+  - Y2023
+  - LeetCode
+  - String
+  - Backtracking
+  - HashTable
 ---
 
 ## [Description](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)
