@@ -1,7 +1,8 @@
 .idea
+.fleet
 .vscode
 cmake-build-debug
-*.DS_Store
+**/*.DS_Store
 algorithm.xcodeproj/
 docs/_site
 main.cpp
