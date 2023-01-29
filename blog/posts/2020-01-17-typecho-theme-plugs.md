@@ -10,14 +10,21 @@ headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 catalog: true
 tags:
-
 - Y2020
 - Typecho
-
 ---
 
 <!-- Description. -->
-
+<!-- 
+head:
+  - - meta
+    - name: keywords
+      content: typecho handsome Skymo 插件 主题 美化
+    - name: description
+      content: typecho 主题 handsome 美化插件 Skymo
+    - name: author
+      content: Alomerry 清欢
+ -->
 <!-- more -->
 
 ::: danger Attention

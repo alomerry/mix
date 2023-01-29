@@ -15,3 +15,8 @@ cd blog/.vuepress
 ./ossPusher --configPath core.toml
 
 ## import code
+
+## patch vuepress-Gungnir
+
+- `pnpm patch vuepress-theme-gungnir@2.0.0-alpha.26 --edit-dir /Users/alomerry/workspace/blog/bk/vuepress-theme-gungnir@2.0.0-alpha.26-patch`
+- `pnpm patch-commit  /Users/alomerry/workspace/blog/bk/vuepress-theme-gungnir@2.0.0-alpha.26-patch`

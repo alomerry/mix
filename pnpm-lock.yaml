@@ -1,10 +1,5 @@
 lockfileVersion: 5.4
 
-patchedDependencies:
-  vuepress-theme-gungnir@2.0.0-alpha.26:
-    hash: ngvttelfayu5oo42vbz2rzkh3m
-    path: patches/vuepress-theme-gungnir@2.0.0-alpha.26.patch
-
 importers:
 
   .:
@@ -63,7 +58,7 @@ importers:
       vuepress-plugin-md-enhance: 2.0.0-beta.91
       vuepress-plugin-sitemap2: 2.0.0-beta.91
       vuepress-plugin-umami-analytics: registry.npmmirror.com/vuepress-plugin-umami-analytics/0.1.0
-      vuepress-theme-gungnir: registry.npmmirror.com/vuepress-theme-gungnir/2.0.0-alpha.26_ngvttelfayu5oo42vbz2rzkh3m
+      vuepress-theme-gungnir: registry.npmmirror.com/vuepress-theme-gungnir/2.0.0-alpha.26
     devDependencies:
       '@types/markdown-it': registry.npmmirror.com/@types/markdown-it/12.2.3
       markdown-it: registry.npmmirror.com/markdown-it/13.0.1
@@ -695,13 +690,6 @@ packages:
       '@vue/shared': 3.2.45
     dev: false
 
-  /@vuepress/shared/2.0.0-beta.51:
-    resolution: {integrity: sha512-0dbJp0M+d/schkD+xUI7MwwoyJRtFxH3QEYMcLTKhgkaNFjgzlIEG/coh1QywVIoQGX9cGQSa8PZk8BeMeePug==}
-    dependencies:
-      '@mdit-vue/types': registry.npmmirror.com/@mdit-vue/types/0.10.0
-      '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.45
-    dev: false
-
   /@vuepress/utils/2.0.0-beta.49:
     resolution: {integrity: sha512-t5i0V9FqpKLGlu2kMP/Y9+wdgEmsD2yQAMGojxpMoFhJBmqn2L9Rkk4WYzHKzPGDkm1KbBFzYQqjAhZQ7xtY1A==}
     dependencies:
@@ -715,24 +703,6 @@ packages:
       hash-sum: 2.0.0
       ora: 5.4.1
       upath: 2.0.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@vuepress/utils/2.0.0-beta.51:
-    resolution: {integrity: sha512-BtWK38047GNk3CnzAN9dxm8n7XplHqOU/DhW4BYO84Czl6XZh0NExPny3aPf7SL8roy03eAzF0dgPgmug6whIQ==}
-    dependencies:
-      '@types/debug': registry.npmmirror.com/@types/debug/4.1.7
-      '@types/fs-extra': registry.npmmirror.com/@types/fs-extra/9.0.13
-      '@types/hash-sum': registry.npmmirror.com/@types/hash-sum/1.0.0
-      '@vuepress/shared': 2.0.0-beta.51
-      chalk: registry.npmmirror.com/chalk/5.0.1
-      debug: registry.npmmirror.com/debug/4.3.4
-      fs-extra: registry.npmmirror.com/fs-extra/10.1.0
-      globby: registry.npmmirror.com/globby/13.1.2
-      hash-sum: registry.npmmirror.com/hash-sum/2.0.0
-      ora: registry.npmmirror.com/ora/6.1.2
-      upath: registry.npmmirror.com/upath/2.0.1
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -5618,8 +5588,8 @@ packages:
       '@mdit-vue/types': registry.npmmirror.com/@mdit-vue/types/0.10.0
       '@types/markdown-it': registry.npmmirror.com/@types/markdown-it/12.2.3
       '@types/markdown-it-emoji': registry.npmmirror.com/@types/markdown-it-emoji/2.0.2
-      '@vuepress/shared': 2.0.0-beta.51
-      '@vuepress/utils': 2.0.0-beta.51
+      '@vuepress/shared': registry.npmmirror.com/@vuepress/shared/2.0.0-beta.51
+      '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.51
       markdown-it: registry.npmmirror.com/markdown-it/13.0.1
       markdown-it-anchor: registry.npmmirror.com/markdown-it-anchor/8.6.4_ea7kj7wzjkld5jo2noyjqxi764
       markdown-it-emoji: registry.npmmirror.com/markdown-it-emoji/2.0.2
@@ -5650,7 +5620,7 @@ packages:
     dependencies:
       '@vuepress/client': registry.npmmirror.com/@vuepress/client/2.0.0-beta.49
       '@vuepress/core': registry.npmmirror.com/@vuepress/core/2.0.0-beta.49
-      '@vuepress/utils': 2.0.0-beta.49
+      '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.49
       ts-debounce: registry.npmmirror.com/ts-debounce/4.0.0
       vue: registry.npmmirror.com/vue/3.2.45
     transitivePeerDependencies:
@@ -5877,8 +5847,8 @@ packages:
       '@vuepress/plugin-palette': registry.npmmirror.com/@vuepress/plugin-palette/2.0.0-beta.49
       '@vuepress/plugin-prismjs': registry.npmmirror.com/@vuepress/plugin-prismjs/2.0.0-beta.49
       '@vuepress/plugin-theme-data': registry.npmmirror.com/@vuepress/plugin-theme-data/2.0.0-beta.49
-      '@vuepress/shared': 2.0.0-beta.49
-      '@vuepress/utils': 2.0.0-beta.49
+      '@vuepress/shared': registry.npmmirror.com/@vuepress/shared/2.0.0-beta.49
+      '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.49
       '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.9.4_vue@3.2.45
       sass: registry.npmmirror.com/sass/1.54.5
       vue: registry.npmmirror.com/vue/3.2.45
@@ -10885,8 +10855,8 @@ packages:
     dependencies:
       '@vuepress/client': registry.npmmirror.com/@vuepress/client/2.0.0-beta.49
       '@vuepress/plugin-git': registry.npmmirror.com/@vuepress/plugin-git/2.0.0-beta.49
-      '@vuepress/shared': 2.0.0-beta.49
-      '@vuepress/utils': 2.0.0-beta.49
+      '@vuepress/shared': registry.npmmirror.com/@vuepress/shared/2.0.0-beta.49
+      '@vuepress/utils': registry.npmmirror.com/@vuepress/utils/2.0.0-beta.49
       dayjs: registry.npmmirror.com/dayjs/1.11.5
       execa: registry.npmmirror.com/execa/5.1.1
       ora: registry.npmmirror.com/ora/5.4.1
@@ -10896,9 +10866,8 @@ packages:
       - supports-color
     dev: false
 
-  registry.npmmirror.com/vuepress-theme-gungnir/2.0.0-alpha.26_ngvttelfayu5oo42vbz2rzkh3m:
+  registry.npmmirror.com/vuepress-theme-gungnir/2.0.0-alpha.26:
     resolution: {integrity: sha512-ifVUzhVjTovmPRqQviVam8GI8gCHNuRt9Xxpbs0hCYFSfH2UuuiGk+HLbMK9aH/b7FSR6mCnE5M3MuWG7RSbPA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuepress-theme-gungnir/-/vuepress-theme-gungnir-2.0.0-alpha.26.tgz}
-    id: registry.npmmirror.com/vuepress-theme-gungnir/2.0.0-alpha.26
     name: vuepress-theme-gungnir
     version: 2.0.0-alpha.26
     peerDependencies:
@@ -10946,7 +10915,6 @@ packages:
       - stylus
       - supports-color
     dev: false
-    patched: true
 
   registry.npmmirror.com/vuepress-vite/2.0.0-beta.49_ujtqahpnjajrcutwes3owiqday:
     resolution: {integrity: sha512-iA0pBpjlonksEUbpyEKcTQH0r64mqWj+gHhFAur0/xzjsR8MYxU20b6gpEacDxyKLJr/zRja+XVPp6NSRnCCUg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuepress-vite/-/vuepress-vite-2.0.0-beta.49.tgz}

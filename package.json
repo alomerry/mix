@@ -19,8 +19,9 @@
     "purge:packages": "pnpm --stream -r purge",
     "build:packages": "pnpm --stream -r build && pnpm --parallel --stream -r copy",
     "blog:dev": "pnpm --filter blog blog:dev",
-    "go": "pnpm install && pnpm clean && pnpm build:packages && pnpm blog:dev",
+    "go": "pnpm install && pnpm blog:clean && pnpm blog:dev",
     "blog:build": "pnpm --filter blog blog:build",
+    "blog:clean": "pnpm --filter blog clean",
     "postinstall": "node scripts/postinstall.js",
     "preview": "serve blog/.vuepress/dist",
     "prepare": "node scripts/prepare.js",
@@ -33,10 +34,5 @@
     "rimraf": "^3.0.2",
     "serve": "^14.0.1",
     "typescript": "^4.8.3"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "vuepress-theme-gungnir@2.0.0-alpha.26": "patches/vuepress-theme-gungnir@2.0.0-alpha.26.patch"
-    }
   }
 }

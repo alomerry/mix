@@ -9,10 +9,8 @@ useHeaderImage: true
 catalog: true
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 tags:
-
 - Y2022
 - Markdown
-
 ---
 
 <!-- Description. -->

@@ -1,7 +1,5 @@
 {
   "name": "blog",
-  "description": "Rainbow Watcher's personal blog",
-  "author": "rainbowatcher <wwh33516@gmail.com>",
   "license": "MIT",
   "keywords": [
     "blog"

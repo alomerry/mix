@@ -32,6 +32,54 @@ tags:
 
 ## 一些魔改
 
+### 随机图
+
+- ArticleHeader
+  ```diff
+  --- lib/client/components/ArticleHeader.vue
+  +++ lib/client/components/ArticleHeader.vue
+  if (
+    frontmatter.value.layout === "Post" &&
+    frontmatter.value.useHeaderImage &&
+    frontmatter.value.headerImage
+  ) {
+  - style.backgroundImage = `url(${withBase(frontmatter.value.headerImage)})`;
+  + style.backgroundImage = `url(${triggerUri(frontmatter.value.headerImage)})`
+  }
+  return style;
+
+  + function triggerUri(url: string) {
+  +   if (((url || "").split("?")).length >= 2) {
+  +     const cdn = (url || "").split("?")[0]
+  +     let index: string;
+  +     index = (url || "").split("?")[1].split("=")[1];
+  +     console.log(index,parseInt(new Date().getTime(), 10))
+  +     return cdn + "/" + (parseInt(new Date().getTime(), 10)%(index+1)) + ".jpg";
+  +   }
+  +   return url;
+  + }
+  ```
+- PostListItem
+  ```diff
+  --- lib/client/components/PostListItem.vue
+  +++ lib/client/components/PostListItem.vue
+  <div class="post-item__img" @click="$router.push(item.path)">
+  - <img :src="withBase(item.info.headerImage)" />
+  + <img :src="triggerUri(item.info.headerImage)" />
+  </div>
+  ...
+  + function triggerUri(url: string) {
+  +   if (((url || "").split("?")).length >= 2) {
+  +     const cdn = (url || "").split("?")[0]
+  +     let index: string;
+  +     index = (url || "").split("?")[1].split("=")[1];
+  +     const max = Math.floor(Math.random() * parseInt(index, 10) + 1);
+  +     return cdn + "/" + max + ".jpg";
+  +   }
+  +   return url;
+  + }
+  ```
+
 ### 导入 oh-vue-icon
 
 ```diff
@@ -187,57 +235,6 @@ index 4120689fef1850bbb6769460ced9029821024b2c..24a206349b87b9c3be08b23e848d3c87
     next?: GungnirThemePostPager | null;
     prev?: GungnirThemePostPager | null;
   }
-  ```
-
-### 随机图
-
-- ArticleHeader
-  ```diff
-  --- lib/client/components/ArticleHeader.vue
-  +++ lib/client/components/ArticleHeader.vue
-  if (
-    frontmatter.value.layout === "Post" &&
-    frontmatter.value.useHeaderImage &&
-    frontmatter.value.headerImage
-  ) {
-  - style.backgroundImage = `url(${withBase(frontmatter.value.headerImage)})`;
-  + style.backgroundImage = `url(${withBase(triggerUri(frontmatter.value.headerImage))})`;
-  }
-  return style;
-
-  + let lastIndex = 0;
-  + function triggerUri(url) {
-  +   if (typeof url === "string" && ((url || "").split("?")).length >= 2) {
-  +     const cdn = (url || "").split("?")[0]
-  +     const index = (url || "").split("?")[1].split("=")[1];
-  +     const max = Math.floor(Math.random() * index + 1);
-  +     if (lastIndex == 0) {
-  +       lastIndex = max
-  +     }
-  +     return cdn + "/" + lastIndex + ".jpg";
-  + }
-  + return url;
-  + }
-  ```
-- PostListItem
-  ```diff
-  --- lib/client/components/PostListItem.vue
-  +++ lib/client/components/PostListItem.vue
-  <div class="post-item__img" @click="$router.push(item.path)">
-  -   <img :src="withBase(item.info.headerImage)" />
-  +   <img :src="withBase(triggerUri(item.info.headerImage))" />
-  </div>
-  ...
-  + let lastIndex = 0;
-  + function triggerUri(url) {
-  +   if (typeof url === "string" && ((url || "").split("?")).length >= 2) {
-  +     const cdn = (url || "").split("?")[0]
-  +     const index = (url || "").split("?")[1].split("=")[1];
-  +     const max = Math.floor(Math.random() * index + 1);
-  +     return cdn + "/" + max + ".jpg";
-  +   }
-  +   return url;
-  + }
   ```
 
 ### 修改 tags 渐变范围

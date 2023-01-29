@@ -5,7 +5,7 @@ import request from "request"
 run()
 
 function run() {
-     downloadUrlCode()
+    //  downloadUrlCode()
 }
 
 function downloadUrlCode() {

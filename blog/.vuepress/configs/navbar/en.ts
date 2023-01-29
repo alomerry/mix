@@ -36,7 +36,7 @@ export const en: NavbarConfig = [
             {
                 text: "markdown",
                 icon: "bi-markdown",
-                link: "/posts/2021-06-23-grpc-[note].md"
+                link: "/posts/2022-03-08-markdown-grammar.md"
             },
             {
                 text: "Golang",
