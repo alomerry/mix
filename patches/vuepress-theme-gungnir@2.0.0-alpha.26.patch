@@ -1,5 +1,5 @@
 diff --git a/lib/client/components/ArticleHeader.vue b/lib/client/components/ArticleHeader.vue
-index 475de8942dd5323f4b1e30dde64749ee673bdb63..3c9e5867ecea82d0a8ba37f12e9435da0cd6678a 100644
+index 475de8942dd5323f4b1e30dde64749ee673bdb63..8ef0c2746c70c73af26b5680ebc758124cd52353 100644
 --- a/lib/client/components/ArticleHeader.vue
 +++ b/lib/client/components/ArticleHeader.vue
 @@ -1,24 +1,12 @@
@@ -74,7 +74,7 @@ index 475de8942dd5323f4b1e30dde64749ee673bdb63..3c9e5867ecea82d0a8ba37f12e9435da
  import type {
    GungnirThemePageData,
    GungnirThemePostFrontmatter,
-@@ -103,10 +81,20 @@ const headerStyle = () => {
+@@ -103,10 +81,26 @@ const headerStyle = () => {
      frontmatter.value.useHeaderImage &&
      frontmatter.value.headerImage
    ) {
@@ -84,12 +84,18 @@ index 475de8942dd5323f4b1e30dde64749ee673bdb63..3c9e5867ecea82d0a8ba37f12e9435da
    return style;
  };
  
++let lastIndex = 0;
++
 +function triggerUri(url: string) {
 +  if (((url || "").split("?")).length >= 2) {
 +    const cdn = (url || "").split("?")[0]
 +    let index: string;
 +    index = (url || "").split("?")[1].split("=")[1];
-+    return cdn + "/" + Math.floor(Math.random() * parseInt(index, 10) + 1) + ".jpg";
++    const max = Math.floor(Math.random() * parseInt(index, 10) + 1);
++    if (lastIndex == 0) {
++      lastIndex = max
++    }
++    return cdn + "/" + lastIndex + ".jpg";
 +  }
 +  return url;
 +}
@@ -97,7 +103,7 @@ index 475de8942dd5323f4b1e30dde64749ee673bdb63..3c9e5867ecea82d0a8ba37f12e9435da
  const personalInfo = themeLocale.value.personalInfo as PersonalConfig;
  </script>
 diff --git a/lib/client/components/PostListItem.vue b/lib/client/components/PostListItem.vue
-index f04a8e45b48f171405be374abca3e11b3f37798c..ebaa24aa19e0d5fcbadfcc3b5eea0a08d79007a9 100644
+index f04a8e45b48f171405be374abca3e11b3f37798c..c1e3ec4a24ceed63efd7aba13b26bda10cbb2f8d 100644
 --- a/lib/client/components/PostListItem.vue
 +++ b/lib/client/components/PostListItem.vue
 @@ -1,7 +1,7 @@
@@ -117,17 +123,22 @@ index f04a8e45b48f171405be374abca3e11b3f37798c..ebaa24aa19e0d5fcbadfcc3b5eea0a08
  import type { PropType } from "vue";
  import type { GungnirThemePostData } from "../../shared";
  import { formateDateString } from "../utils";
-@@ -36,6 +35,17 @@ defineProps({
+@@ -36,6 +35,22 @@ defineProps({
    }
  });
  
++let lastIndex = 0;
++
 +function triggerUri(url: string) {
 +  if (((url || "").split("?")).length >= 2) {
 +    const cdn = (url || "").split("?")[0]
 +    let index: string;
 +    index = (url || "").split("?")[1].split("=")[1];
 +    const max = Math.floor(Math.random() * parseInt(index, 10) + 1);
-+    return cdn + "/" + max + ".jpg";
++    if (lastIndex == 0) {
++      lastIndex = max
++    }
++    return cdn + "/" + lastIndex + ".jpg";
 +  }
 +  return url;
 +}

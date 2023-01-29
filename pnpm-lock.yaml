@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  vuepress-theme-gungnir@2.0.0-alpha.26:
+    hash: uaxl5y2iydks7nanwifzk5zsza
+    path: patches/vuepress-theme-gungnir@2.0.0-alpha.26.patch
+
 importers:
 
   .:
