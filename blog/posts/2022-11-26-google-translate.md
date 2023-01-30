@@ -10,7 +10,7 @@ catalog: true
 headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 tags:
-- Y2022
+ - Y2022
 ---
 
 :::tip 2022-12-26 更新

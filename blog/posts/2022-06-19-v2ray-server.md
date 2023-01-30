@@ -11,8 +11,8 @@ headerMask: rgba(40, 57, 101, .5)
 headerImageCredit: pixiv
 headerImageCreditLink: https://www.pixiv.net/
 tags:
-- Y2022
-- V2ray
+ - Y2022
+ - V2ray
 ---
 
 ## 安装环境

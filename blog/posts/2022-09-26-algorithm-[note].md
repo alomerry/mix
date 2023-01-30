@@ -6,14 +6,6 @@ date: 2022-10-03
 update: 2022-09-26
 ---
 
-<!-- 
-meta:
-  - name: keywords
-    content: 
-  - name: description
-    content: 
- -->
-
 ## 树
 
 - 二叉树的先序、中序、后序、层次遍历

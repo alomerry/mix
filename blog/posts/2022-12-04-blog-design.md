@@ -10,7 +10,7 @@ catalog: true
 headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 tags:
-- Y2022
+ - Y2022
 ---
 
 ## 静态文件 Push 前上传到 OSS 中

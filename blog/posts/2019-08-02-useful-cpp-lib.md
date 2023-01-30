@@ -9,16 +9,6 @@ useHeaderImage: true
 headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 catalog: true
-tags:
-- Y2019
-- U2022
-- IOI
-- Algorithm
-- STL
-- C++
----
-
-<!-- 
 head:
   - - meta
     - name: keywords
@@ -27,7 +17,14 @@ head:
       content: C++ 常用的函数
     - name: author
       content: Alomerry 清欢
- -->
+tags:
+  - Y2019
+  - U2022
+  - IOI
+  - Algorithm
+  - STL
+  - C++
+---
 
 在做一些算法的时候会用到一些好用的库函数、STL 函数，总结整理一下
 

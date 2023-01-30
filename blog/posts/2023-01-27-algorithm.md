@@ -9,11 +9,6 @@ useHeaderImage: true
 catalog: true
 headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
-tags:
-- Y2023
----
-
-<!-- 
 head:
   - - meta
     - name: keywords
@@ -22,7 +17,9 @@ head:
       content: KMP 算法解析
     - name: author
       content: Alomerry 清欢
- -->
+tags:
+ - Y2023
+---
 
 ## KMP（Knuth-Morris-Pratt）
 
