@@ -123,6 +123,28 @@ for i := range s {
 **前缀** 和 **后缀**：**前缀** 指除了最后一个字符以外，一个字符串的全部头部组合；**后缀** 指除了第一个字符以外，一个字符串的全部尾部组合。
 :::
 
+例如对于串 `abcdcba` 前后缀
+
+- `a`：无；无
+- `ab`：`a`；`b`
+- `abc`：`a`、`ab`；`c`、`cb`
+- `abcd`：`a`、`ab`、`abc`；`d`、`dc`、`dcb`
+- `abcdc`：`a`、`ab`、`abc`、`abcd`；`c`、`cd`、`cdc`、`cdcb`
+- `abcdcb`：`a`、`ab`、`abc`、`abcd`、`abcdc`；`b`、`bc`、`bcd`、`bcdc`、`bcdcb`
+- `abcdcba`：`a`、`ab`、`abc`、`abcd`、`abcdc`、`abcdcb`；`a`、`ab`、`abc`、`abcd`、`abcdc`、`abcdcb`
+
+这样就能计算出部分匹配表
+
+```diff
+  0 1 2 3 4 5 6
++ a b c d c b a
+- 0 0 0 0 0 0 4
+```
+
+那么如何以算法的形式计算出来呢？可以使用动态规划：
+
+获取当前位前一位的串的部分匹配值，移动到匹配值的位置，如果匹配值的位置的下一位和当前位一致，则当前位的匹配值加一，否则为 0
+
 ### Reference
 
 - [字符串匹配的 KMP 算法（阮一峰）](https://www.ruanyifeng.com/blog/2013/05/Knuth–Morris–Pratt_algorithm.html)
