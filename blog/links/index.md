@@ -60,6 +60,10 @@ links:
     url: https://vuepress-theme-hope.github.io/v2/components/zh/
     img: https://cdn.alomerry.com/blog/img/links/resume.svg
     desc: Markdown 增强
+  - sitename: Icon font
+    url: https://www.iconfont.cn/
+    img: https://cdn.alomerry.com/blog/img/links/iconfont.svg
+    desc: Icon font
 
 - title: One day
   items:
