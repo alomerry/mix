@@ -88,10 +88,11 @@ const themeConfig: Partial<GungnirThemeOptions> = {
     search: false // use @vuepress/plugin-docsearch instead
   },
   footer: `
-      &copy; <a href="https://github.com/Alomerry" target="_blank">Alomerry Wu</a> 2018-2022
+      &copy; <a href="https://github.com/Alomerry" target="_blank">Alomerry Wu</a> 2018-2023
       <br>
-      Powered by <a href="https://v2.vuepress.vuejs.org" target="_blank">VuePress</a> &
-      <a href="https://github.com/Renovamen/vuepress-theme-gungnir" target="_blank">Gungnir</a>
+      Powered by <a href="https://v2.vuepress.vuejs.org" target="_blank">VuePress</a> & Theme by <a href="https://github.com/Renovamen/vuepress-theme-gungnir" target="_blank">Gungnir</a>
+      <br>
+      CDN by <a href="https://s.qiniu.com/FZnEze" target="_blank">七牛云</a> &nbsp; CVM by <a href="https://url.cn/fBO4QBaH" target="_blank">腾讯云</a>
     `
 }
 

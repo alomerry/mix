@@ -33,12 +33,16 @@ img/in-post/header-image/61.jpg[@]70d3e99edf32ad693643923afa741244
 img/in-post/header-image/62.jpg[@]efdcc5af411c35b7101c3404b434f634
 img/in-post/header-image/63.jpg[@]1e774943acceaceca679435ec5eec4f2
 img/in-post/header-image/64.jpg[@]5ba804e260be45da62d4daa7666230ee
+img/links/GitHub.svg[@]56e828398961b74f997cdc8e368cefe2
+img/links/PowerPoint.svg[@]1232d6cdd098ff5585264bb2c3b2781a
 img/links/acm.svg[@]914689aaeed9ca8927660fa530a4bd79
 img/links/cube.svg[@]b465fac19efe5a81866b7a39181c91c0
+img/links/doc.svg[@]2477672b028cfa87d7878397221678ec
 img/links/fishmail.svg[@]c876538dce4e5275f5e3719375611d47
 img/links/flint.svg[@]0cdde86998f50cc17012323f4c5f3eef
 img/links/game.svg[@]6adc7aefa2bd9e66ccd75beaa6c68572
 img/links/gungnir.svg[@]e7b29b89b03642036e47e4a02f39e58c
+img/links/hot-sale.svg[@]858ba3bdcdcc8c1fb287c96e85658f0b
 img/links/icon.svg[@]a8085a0a88008e778bc0311d8a5d3a09
 img/links/leetcode.svg[@]dfd9ab8c24e4276c8aabc397559b5b12
 img/links/me.svg[@]74dc94d036cf45362750b55b219e5c7f
@@ -48,6 +52,7 @@ img/links/portfolio.png[@]2d251268d4929b1ae05dcc020950ab55
 img/links/resume.svg[@]59b221fd36f20e54e2f6dbded074acbe
 img/links/torchmasked.svg[@]27ea0cc0db2965f20c30b336a72f286c
 img/links/torchop.svg[@]db947d8ca539df569adba97dea308400
+img/links/vscode.svg[@]1806a09085215ba67d3f54c477e8e5a3
 img/links/vuepress.svg[@]78aefcf969d05f504c436ba0617b65d1
 img/links/wordle.jpg[@]cffea3f090470ae6242d65a26f530b43
 img/links/zelda.jpg[@]704953ccfc442f7b0bcb5df12c01bc36
@@ -104,6 +109,7 @@ img/wait-to-use/童年/米老师.svg[@]97845b3156c44a5d02ef476d78f95665
 manifest.webmanifest[@]5be4e3aa3e2879a4e9cef7712013ba83
 md/cv.md.todo[@]a2fa7daf64c2196244de72fcba795388
 md/study.md.todo[@]7daa5b38ea3ac6fe0306894f2dbc96ae
+robots.txt[@]7b232284470e3f7dbc3d4de95c13b971
 styles/about.scss[@]e6bbcd826552c3e37261e607394b596e
 styles/giscus-dark.css[@]dda6a00df146e1be5536cb491268e706
 styles/index.scss[@]169c9e1ea13b57940f9773bb193a6054
