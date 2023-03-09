@@ -1486,6 +1486,8 @@ case stdFracSecond9: // Take any number of digits, even more than asked for, bec
 zsh < <(curl -s -S -L https://cdn.alomerry.com/packages/gvm/gvm-installer.sh)
 ```
 
+need bison gcc make
+
 ```shell
 gvm install go1.4 -B
 gvm use go1.4 [--default]
