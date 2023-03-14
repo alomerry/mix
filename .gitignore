@@ -1,2 +1,4 @@
+.fleet
+**/*.DS_Store
 **/*.local.ini
 **/*.local.env
