@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package leet_code
 
 import (
@@ -45,3 +46,10 @@ func dp(n int) {
 }
 
 // dp + 剪枝（但是没剪已经 0ms）
+=======
+package main
+
+func generateParenthesis(n int) []string {
+	return nil
+}
+>>>>>>> Stashed changes
