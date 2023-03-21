@@ -2,3 +2,6 @@
 	path = frpc/docker-flarum
 	url = git@gitlab.com:alomerry/docker-flarum.git
 	branch = develop
+[submodule "frpc/dozzle"]
+	path = frpc/dozzle
+	url = git@gitlab.com:alomerry/dozzle.git
