@@ -1,0 +1,3 @@
+[submodule "frpc/docker-flarum"]
+	path = frpc/docker-flarum
+	url = git@gitlab.com:alomerry/docker-flarum.git

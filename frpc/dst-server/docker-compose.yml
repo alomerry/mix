@@ -1,0 +1,11 @@
+version: '3'
+services:
+  dozzle:
+    image: 'dzzhyk/dst-admin:latest'
+    container_name: dst-admin
+    restart: always
+    ports:
+      - '50888:10888'
+      - '50999:10999'
+      - '50998:10998'
+      - '51898:8080'

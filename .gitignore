@@ -1,4 +1,6 @@
 .fleet
+frpc/algolia/.env
+frpc/space-on-premises/config
 **/*.DS_Store
 **/*.local.ini
 **/*.local.env

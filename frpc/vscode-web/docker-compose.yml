@@ -1,13 +1,14 @@
 version: '3'
 services:
   vscode-web:
-    image: 'registry.cn-hangzhou.aliyuncs.com/alomerry/vscode-web:latest'
+    build:
+      context: .
+      dockerfile: /home/alomerry-home/workspace/vps-home/frpc/vscode-web/Dockerfile
+    # image: 'registry.cn-hangzhou.aliyuncs.com/alomerry/vscode-web:latest'
     container_name: vscode-web
     restart: always
     ports: 
-      - '4000:8000' # 8000/8080/4000 vscode-web、blog、algorithm
-      - '8080:8080'
-      - '8081:4000'
+      - '4000:8000' # 8000/8080/4000 vscode-web
     volumes:
-      - '/home/alomerry-home/workspace:/root/workspace'
+      - '/media/alomerry-home/local-ssd/docker/vscode-web/workspace:/root/workspace'
       - '/home/alomerry-home/apps/vscode-web/extensions:/root/.vscode-server/extensions'
