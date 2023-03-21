@@ -18,3 +18,7 @@
 	path = frpc/dst-admin
 	url = git@gitlab.com:alomerry/dst-admin.git
     branch = develop
+[submodule "frpc/vscode-web"]
+	path = frpc/vscode-web
+	url = git@gitlab.com:alomerry/vscode-web.git
+	branch = master
