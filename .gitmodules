@@ -5,3 +5,6 @@
 [submodule "frpc/dozzle"]
 	path = frpc/dozzle
 	url = git@gitlab.com:alomerry/dozzle.git
+[submodule "frpc/chatgpt-web"]
+	path = frpc/chatgpt-web
+	url = git@gitlab.com:alomerry/chatgpt-web.git
