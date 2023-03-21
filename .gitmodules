@@ -5,6 +5,16 @@
 [submodule "frpc/dozzle"]
 	path = frpc/dozzle
 	url = git@gitlab.com:alomerry/dozzle.git
+	branch = develop
 [submodule "frpc/chatgpt-web"]
 	path = frpc/chatgpt-web
 	url = git@gitlab.com:alomerry/chatgpt-web.git
+	branch = develop
+[submodule "frpc/bark-server"]
+	path = frpc/bark-server
+	url = git@gitlab.com:alomerry/bark-server
+	branch = develop
+[submodule "frpc/dst-admin"]
+	path = frpc/dst-admin
+	url = git@gitlab.com:alomerry/dst-admin.git
+    branch = develop

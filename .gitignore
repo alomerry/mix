@@ -1,6 +1,8 @@
 .fleet
+.idea
 frpc/algolia/.env
 frpc/space-on-premises/config
+vps-home.iml
 **/*.DS_Store
 **/*.local.ini
 **/*.local.env
