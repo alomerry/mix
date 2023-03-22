@@ -1,0 +1,11 @@
+version: '2'
+services:
+  web:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/app/data
+    ports:
+      - "0.0.0.0:3002:3001"
+    restart: always

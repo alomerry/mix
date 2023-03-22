@@ -1,12 +1,15 @@
 version: '3'
 services:
   jenkins:
-    image: 'jenkinsci/blueocean:1.25.7'
-    container_name: jenkins-blueocean
+    image: 'jenkins/jenkins:2.396'
+    container_name: jenkins
     user: root
     restart: always
     ports: 
       - '880:8080'
+      - '50000:50000'
     volumes:
-      - '/home/alomerry-home/apps/jenkins:/var/jenkins_home'
+      - './data/jenkins_home:/var/jenkins_home'
       - '/var/run/docker.sock:/var/run/docker.sock'
+
+#docker run -p 8080:8080 -p 50000:50000 --restart=on-failure -v /home/alomerry-home/workspace/vps-home/frpc/jenkins/data/jenkins_home:/var/jenkins_home:rw jenkins/jenkins:2.396

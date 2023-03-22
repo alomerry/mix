@@ -2,8 +2,12 @@
 .idea
 frpc/algolia/.env
 frpc/space-on-premises/config
-frpc/jenkins/
-!frpc/jenkins//docker-compose.yml
+frpc/jenkins/data
+frpc/uptime-kuma/data
+frpc/umami/db-data
+frpc/umami/sql
+frpc/mysql/*
+!frpc/mysql/docker-compose.yml
 vps-home.iml
 **/*.DS_Store
 **/*.local.ini

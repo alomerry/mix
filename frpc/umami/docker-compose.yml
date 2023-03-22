@@ -22,4 +22,3 @@ services:
       - ./sql/schema.postgresql.sql:/docker-entrypoint-initdb.d/schema.postgresql.sql:ro
       - ./db-data:/var/lib/postgresql/data
     restart: always
-```
