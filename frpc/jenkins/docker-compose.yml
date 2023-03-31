@@ -1,15 +1,15 @@
-version: '3'
+version: '3.8'
 services:
   jenkins:
-    image: 'jenkins/jenkins:2.396'
+    build: .
     container_name: jenkins
     user: root
-    restart: always
+    privileged: true
+    restart: on-failure
     ports: 
       - '880:8080'
       - '50000:50000'
     volumes:
       - './data/jenkins_home:/var/jenkins_home'
+      - '/etc/localtime:/etc/localtime'
       - '/var/run/docker.sock:/var/run/docker.sock'
-
-#docker run -p 8080:8080 -p 50000:50000 --restart=on-failure -v /home/alomerry-home/workspace/vps-home/frpc/jenkins/data/jenkins_home:/var/jenkins_home:rw jenkins/jenkins:2.396

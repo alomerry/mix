@@ -3,7 +3,7 @@ volumes:
 
 services:
   rocketchat:
-    image: rocketchat/rocket.chat:5.0.4
+    image: rocketchat/rocket.chat:6.0.0
     restart: on-failure
     labels:
       traefik.enable: "true"
@@ -22,6 +22,8 @@ services:
       PORT: ${PORT:-3000}
       DEPLOY_METHOD: docker
       DEPLOY_PLATFORM: amd64
+    volumes:
+      - ./rocket.chat/uploads:/app/uploads
     depends_on:
       - mongodb
     expose:
