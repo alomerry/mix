@@ -1,0 +1,18 @@
+{
+  "name": "ppts",
+  "private": true,
+  "scripts": {
+    "todo-prestart": "node prestart.ts",
+    "todo-start": "nodeppt build adapter-pattern.md && nodeppt build go-mutex-and-rwmutex.md && nodeppt build grpc.md",
+    "todo-serve": "nodeppt serve go-mutex-and-rwmutex.md",
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "author": "Alomerry Wu",
+  "dependencies": {
+    "@slidev/cli": "^0.40.6",
+    "@slidev/theme-default": "*",
+    "slidev-theme-academic": "^1.1.3"
+  }
+}

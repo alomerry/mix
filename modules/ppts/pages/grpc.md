@@ -1,3 +1,9 @@
+---
+theme: academic
+layout: cover
+transition: slide-left
+---
+
 title: gRPC 服务注册发现及负载均衡的实现方案 TODO
 speaker: Alomerry
 url: https://alomerry.com
