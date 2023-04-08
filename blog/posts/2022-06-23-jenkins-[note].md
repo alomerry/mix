@@ -8,13 +8,17 @@ update: 2022-07-25
 
 ## TODO
 
-- 构建 docker 镜像并推送到仓库
-- 集成 k8s
-- Jenkins 升级 https://mirrors.jenkins.io/war
-- Others
-- https://www.mafeifan.com/DevOps/Jenkins/Jenkins2-%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9727----pipeline-%E4%B8%AD-Docker-%E6%93%8D%E4%BD%9C.html
-- https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow
-- https://www.jenkins.io/zh/doc/book/pipeline/docker/
+- [ ] 构建 docker 镜像并推送到仓库
+- [ ]集成 k8s
+- [ ] Jenkins 升级 https://mirrors.jenkins.io/war
+- [ ] Others
+- [ ] https://www.mafeifan.com/DevOps/Jenkins/Jenkins2-%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9727----pipeline-%E4%B8%AD-Docker-%E6%93%8D%E4%BD%9C.html
+- [ ] https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow
+- [ ] https://www.jenkins.io/zh/doc/book/pipeline/docker/
+
+## Docker 安装 Jenkins
+
+
 
 ## Pipeline
 
@@ -362,7 +366,13 @@ pipeline {
 
 ## Plugs
 
-### docker
+### SSH
+
+- [ssh pipeline](https://plugins.jenkins.io/ssh-steps)
+### Docker
+
+- [docker](https://plugins.jenkins.io/docker-plugin/)
+- [docker pipeline](https://plugins.jenkins.io/docker-workflow)
 
 ### Generic Webhook Trigger[^generic-webhook-trigger]
 
