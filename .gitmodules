@@ -22,3 +22,7 @@
 	path = frpc/vscode-web
 	url = git@gitlab.com:alomerry/vscode-web.git
 	branch = master
+[submodule "frpc/waline"]
+	path = frpc/waline
+	url = git@gitlab.com:alomerry/waline.git
+	branch = develop
