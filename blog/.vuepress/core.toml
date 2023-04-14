@@ -1,8 +1,0 @@
-oss-provider = ["qiniu"]
-oss-object-prefix = "blog"
-local-directory = "/Users/alomerry/workspace/blog/blog/.vuepress/public"
-
-[oss-qiniu]
-bucket = "alomerry"
-access-key = "********"
-sercet-key = "********"

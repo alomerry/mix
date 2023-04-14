@@ -1,6 +1,0 @@
-#!/bin/sh
-
-PROJECT_PATH=$(cd `dirname ${0}`; cd ../; pwd)
-COMMAND="${PROJECT_PATH}/blog/.vuepress/ossPusher --configPath ${PROJECT_PATH}/blog/.vuepress/core.toml"
-${COMMAND}
-exit 0

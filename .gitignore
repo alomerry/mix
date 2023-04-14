@@ -3,26 +3,17 @@
 .fleet
 .vscode
 
-# npm install
-**/*node_modules
-**/*.tsbuildinfo
-
 # macos cache
 **/*.DS_Store
 
-# vuepress cache
-blog/.vuepress/.temp
-blog/.vuepress/.cache
-blog/.vuepress/dist
-blog/posts/codes/*
-
-# lib(groovy)
-lib/
-
-# backup
-bk/vuepress-theme-gungnir@2.0.0-alpha.26-patch
-**/*.bk
-
 # obsidian
-
 obsidian/.obsidian
+
+# npm install
+!codes/*.md
+node_modules
+blog/src/.vuepress/.cache
+blog/src/.vuepress/.temp
+blog/src/.vuepress/ossPusher
+blog/src/.vuepress/config.ts
+blog/src/.vuepress/public
