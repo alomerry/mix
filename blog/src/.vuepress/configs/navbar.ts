@@ -4,7 +4,7 @@ export const zhNavbar = navbar([
   { text: "Home", link: "/", icon: "fa-fort-awesome" },
   {
     text: "Blog",
-    icon: "fa-brands:microblog",
+    icon: "svg-spinners:blocks-scale",
     children: [
       {
         text: "Mine",
@@ -13,7 +13,7 @@ export const zhNavbar = navbar([
           { text: "Site", link: "/about/site.md", icon: "maki:picnic-site" },
           { text: "Timeline", link: "/timeline/", icon: "mdi:timeline-clock" },
           { text: "Tags", link: "/tag/", icon: "fa-solid:tags" },
-          { text: "Intro", link: "/about/intro.md", icon: "svg-spinners:blocks-scale" },
+          { text: "Intro", link: "/about/intro.md", icon: "fa-brands:microblog" },
           { text: "IOI", link: "https://io.alomerry.com", icon: "cib:leetcode" },
         ]
       },

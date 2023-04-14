@@ -41,7 +41,7 @@ plugins=(
 
 ::: details
 
-@[code dockerfile:no-line-numbers](./codes/algorithm/.jenkins/docker/dev/dockerfile)
+<!-- @[code dockerfile:no-line-numbers](./codes/algorithm/.jenkins/docker/dev/dockerfile) -->
 
 :::
 

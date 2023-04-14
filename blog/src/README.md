@@ -3,7 +3,7 @@ home: true
 layout: BlogHome
 icon: home
 title: 主页
-heroImage: /avatar.png
+heroImage: https://cdn.alomerry.com/blog/avatar.png
 heroImageStyle: "border-radius: 50%;"
 heroText: 时日无多
 tagline: Keep Working And Never Give Up！
@@ -35,8 +35,8 @@ projects:
     desc: 伙伴详细介绍
     link: https://你的伙伴链接
 
-  - icon: /logo.svg
-    name: 自定义项目
+  - icon: friend
+    name: 自定义项目/logo.svg
     desc: 自定义详细介绍
     link: https://你的自定义链接
 

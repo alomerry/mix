@@ -10,7 +10,7 @@ export default hopeTheme({
     email: "alomerry.wu@gmail.com",
     url: "https://github.com/alomerry",
   },
-  favicon: "/favicon.ico",
+  favicon: "https://cdn.alomerry.com/blog/favicon.ico",
 
   iconAssets: "iconify",
 
@@ -31,7 +31,7 @@ export default hopeTheme({
   },
 
   blog: {
-    avatar: "/avatar.png",
+    avatar: "https://cdn.alomerry.com/blog/avatar.png",
     roundAvatar: true,
     articlePerPage: 10,
     articleInfo: ["Author", "Original", "Date", "PageView", "Category", "Tag", "ReadingTime"],

@@ -1,11 +1,11 @@
 // place your custom styles here
-@use '@sass-palette/hope-config';
+// @use '@sass-palette/hope-config';
 
 // 缩小文章内列表行间距
 div.theme-hope-content ul.task-list-container p,
 div.theme-hope-content ul.task-list-container ul,
 div.theme-hope-content ul.task-list-container ol {
-  line-height: 1;
+  line-height: 1.6;
 }
 
 // bavbar
@@ -13,19 +13,19 @@ nav.nav-links>div.nav-item>a.nav-link {
   margin-right:5px
 }
 
-div.links {
-  .site-info {
-    width: calc(33% - 24px);
+// div.links {
+//   .site-info {
+//     width: calc(33% - 24px);
 
-    @media (max-width: hope-config.$pad) {
-      width: calc(50% - 24px);
+//     @media (max-width: hope-config.$pad) {
+//       width: calc(50% - 24px);
 
-      .site-info-name {
-        font-size: 14px;
-      }
-    }
-  }
-}
+//       .site-info-name {
+//         font-size: 14px;
+//       }
+//     }
+//   }
+// }
 
 // site
 div.project-panel .language-yaml {

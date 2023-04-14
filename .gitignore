@@ -15,5 +15,6 @@ node_modules
 blog/src/.vuepress/.cache
 blog/src/.vuepress/.temp
 blog/src/.vuepress/ossPusher
-blog/src/.vuepress/config.ts
+blog/src/.vuepress/core.toml
 blog/src/.vuepress/public
+blog/src/.vuepress/dist

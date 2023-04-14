@@ -2,7 +2,7 @@
 home: true
 title: Link
 icon: home
-heroImage: /logo.svg
+# heroImage: /logo.svg
 heroText: vuepress-plugin-md-enhance
 tagline: Enhancement for Markdown in VuePress
 containerClass: links

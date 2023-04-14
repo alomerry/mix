@@ -2,7 +2,7 @@
 home: true
 title: Link
 icon: home
-heroImage: /logo.svg
+# heroImage: /logo.svg
 heroText: Link
 tagline: Link
 containerClass: links

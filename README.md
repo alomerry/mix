@@ -1,6 +1,6 @@
 # Alomerry Wu's Blog
 
-[![Build Status](https://ci.alomerry.com/buildStatus/icon?job=vuepress-blog&style=flat)](https://ci.alomerry.com/job/vuepress-blog/)
+[![Build Status](https://ci.alomerry.com/buildStatus/icon?job=vuepress-blog)](https://ci.alomerry.com/job/vuepress-blog/)
 [![vuepress-theme-gungnir](https://img.shields.io/badge/Vuepress--theme-Gungnir--V2-lightgrey?logo=vuedotjs&color=blue)](https://github.com/Renovamen/vuepress-theme-gungnir)
 [![Build](https://uptime.alomerry.com/api/badge/7/ping/24?color=pink)](https://uptime.alomerry.com/status/dashboard)
 [![Build](https://uptime.alomerry.com/api/badge/7/upTime/24h?color=green)](https://uptime.alomerry.com/status/dashboard)
