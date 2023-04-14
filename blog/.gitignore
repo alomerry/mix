@@ -1,4 +1,8 @@
-!posts/codes/*.md
-.vuepress/public/img
-.vuepress/public/files
-.vuepress/ossPusher
+!codes/*.md
+**.*.DS_Store
+node_modules
+src/.vuepress/.cache
+src/.vuepress/.temp
+src/.vuepress/ossPusher
+src/.vuepress/config.ts
+src/.vuepress/public

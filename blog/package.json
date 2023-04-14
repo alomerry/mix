@@ -1,40 +1,25 @@
 {
   "name": "blog",
+  "version": "1.0.0",
+  "description": "Alomerry Wu's blog",
   "license": "MIT",
-  "keywords": [
-    "blog"
-  ],
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "blog:build": "vuepress-cli build --clean-cache",
-    "clean": "rimraf .vuepress/.temp .vuepress/.cache .vuepress/dist",
-    "blog:purge": "pnpm clean && rimraf ./node_modules",
-    "blog:dev": "vuepress-cli dev --clean-cache",
-    "blog:serve": "serve .vuepress/dist",
+    "blog:build": "vuepress build src",
+    "blog:clean-dev": "vuepress dev src --clean-cache",
+    "blog:dev": "vuepress dev src",
+    "blog:update-package": "pnpm dlx vp-update",
     "blog:oss": "./.vuepress/ossPusher --configPath core.toml"
   },
-  "dependencies": {
-    "@vuepress/bundler-vite": "2.0.0-beta.49",
-    "@vuepress/cli": "2.0.0-beta.49",
-    "@vuepress/client": "2.0.0-beta.49",
-    "@vuepress/plugin-container": "2.0.0-beta.49",
-    "@vuepress/plugin-docsearch": "2.0.0-beta.49",
-    "@vuepress/plugin-register-components": "2.0.0-beta.49",
-    "vuepress-plugin-components": "2.0.0-beta.91",
-    "vuepress-plugin-md-enhance": "2.0.0-beta.91",
-    "vuepress-plugin-sitemap2": "2.0.0-beta.91",
-    "@vuepress/utils": "2.0.0-beta.49",
-    "markdown-it-container": "3.0.0",
-    "oh-vue-icons": "^1.0.0-rc3",
-    "serve": "^14.0.1",
-    "vue": "^3.2.39",
-    "vuepress": "2.0.0-beta.49",
-    "vuepress-plugin-code-copy": "workspace:*",
-    "vuepress-plugin-umami-analytics": "0.1.0",
-    "vuepress-theme-gungnir": "2.0.0-alpha.26"
-  },
   "devDependencies": {
-    "@types/markdown-it": "^12.2.3",
-    "markdown-it": "^13.0.1"
+    "@vuepress/client": "2.0.0-beta.61",
+    "@vuepress/plugin-container": "2.0.0-beta.61",
+    "markdown-it": "^13.0.1",
+    "vue": "^3.2.47",
+    "js-yaml": "^4.1.0",
+    "vuepress": "2.0.0-beta.61",
+    "vuepress-plugin-components": "2.0.0-beta.202",
+    "vuepress-plugin-search-pro": "2.0.0-beta.202",
+    "vuepress-theme-hope": "2.0.0-beta.202"
   }
 }
