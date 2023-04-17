@@ -1,15 +1,22 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "Alomerry Wu's blog",
+  "private": true,
+  "author": "Alomerry Wu <alomerry.wu@gmail.com>",
+  "description": "Alomerry Wu's blog, powered by VuePress 2, themed by VuePress-Theme-Hope.",
   "license": "MIT",
   "type": "module",
+  "repository": "https://github.com/alomerry/blog.git",
   "scripts": {
-    "blog:build": "vuepress build src",
-    "blog:clean-dev": "vuepress dev src --clean-cache",
-    "blog:dev": "vuepress dev src",
-    "blog:update-package": "pnpm dlx vp-update",
-    "blog:oss": "./.vuepress/ossPusher --configPath core.toml"
+    "build": "vuepress build src",
+    "clean-dev": "vuepress dev src --clean-cache",
+    "dev": "vuepress dev src",
+    "update-package": "pnpm dlx vp-update",
+    "oss": "./src/.vuepress/ossPusher --configPath core.toml"
+  },
+  "engines": {
+    "node": ">=19",
+    "pnpm": ">=8"
   },
   "dependencies": {
     "@vuepress/client": "2.0.0-beta.61",

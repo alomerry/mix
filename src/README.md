@@ -7,7 +7,7 @@ heroImage: https://cdn.alomerry.com/blog/avatar.png
 heroImageStyle: "border-radius: 50%;"
 heroText: 时日无多
 tagline: Keep Working And Never Give Up！
-bgImage: http://file.mo7.cc/api/public/bz
+bgImage: https://file.mo7.cc/api/public/bz
 heroFullScreen: false
 projects:
   - icon: project
@@ -40,5 +40,5 @@ projects:
     desc: 自定义详细介绍
     link: https://你的自定义链接
 
-footer: '<a href="http://beian.miit.gov.cn/" rel="noopener noreferrer" target="_blank">备案号: 苏 ICP 备 19037502 号 -3</a> | <a href="/about/">关于网站</a>'
+footer: '<a href="http://beian.miit.gov.cn/" rel="noopener noreferrer" target="_blank">备案号: 苏ICP备19037502号-3</a> | <a href="/about/">关于网站</a>'
 ---

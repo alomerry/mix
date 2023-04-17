@@ -1,15 +1,13 @@
 # Alomerry Wu's Blog
 
 [![Build Status](https://ci.alomerry.com/buildStatus/icon?job=vuepress-blog)](https://ci.alomerry.com/job/vuepress-blog/)
-[![vuepress-theme-gungnir](https://img.shields.io/badge/Vuepress--theme-Gungnir--V2-lightgrey?logo=vuedotjs&color=blue)](https://github.com/Renovamen/vuepress-theme-gungnir)
+[![License](https://img.shields.io/static/v1?label=License&message=MIT&color=red)](./LICENSE)
 [![Build](https://uptime.alomerry.com/api/badge/7/ping/24?color=pink)](https://uptime.alomerry.com/status/dashboard)
 [![Build](https://uptime.alomerry.com/api/badge/7/upTime/24h?color=green)](https://uptime.alomerry.com/status/dashboard)
 
-## 插件
+[![VuePress2](https://img.shields.io/static/v1?logo=vuedotjs&color=blue&label=VuePress2&message=2.0.0-beta.61)](https://v2.vuepress.vuejs.org/zh/)
+[![VuePress-Theme-Hope](https://img.shields.io/static/v1?logo=appveyor&color=blue&label=VuePress-Theme-Hope&message=2.0.0-beta.202)](https://theme-hope.vuejs.press/zh/)
 
-- Base vuepress-next
-- Theme vuepress-theme-gungnir
-- Vuepress-plugin-md-enhance
 
 ## local git hook && oss pusher
 
@@ -18,7 +16,3 @@ cd blog/.vuepress
 
 ## import code
 
-## patch vuepress-Gungnir
-
-- `pnpm patch vuepress-theme-gungnir@2.0.0-alpha.26 --edit-dir /Users/alomerry/workspace/blog/bk/vuepress-theme-gungnir@2.0.0-alpha.26-patch`
-- `pnpm patch-commit  /Users/alomerry/workspace/blog/bk/vuepress-theme-gungnir@2.0.0-alpha.26-patch`

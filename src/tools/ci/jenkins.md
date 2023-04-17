@@ -24,7 +24,7 @@ tag:
 
 ## Pipeline
 
-:::tip Something
+::: tip Something
 
 Why Pipeline?[^why-pipeline]
 
