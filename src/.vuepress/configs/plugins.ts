@@ -22,5 +22,5 @@ export const configPlugins: PluginConfig = [
     render: (tokens, idx) => {
       return renderProjects(tokens, idx)
     }
-  })
+  }),
 ]

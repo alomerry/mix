@@ -42,6 +42,14 @@
 
 :::
 
+```card
+title: Cloudflare
+desc: 提供免费的 CDN 服务。
+logo: https://image.liubing.me/2023/02/11/7f17f3cf426c3.png
+link: https://www.cloudflare.com/
+color: rgba(253, 230, 138, 0.15)
+```
+
 ## 仓库连接
 
 本站所有内容及代码均开源，可通过下面 👇 的链接访问
