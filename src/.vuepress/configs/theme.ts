@@ -77,7 +77,7 @@ export default hopeTheme({
 
     comment: {
       provider: "Waline",
-      serverURL: "http://hk.alomerry.com",
+      serverURL: "https://waline.alomerry.com",
       dark: "auto",
       meta: ['nick', 'mail', 'link'],
       requiredMeta: [],
