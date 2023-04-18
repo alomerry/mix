@@ -23,7 +23,7 @@ services:
       DEPLOY_METHOD: docker
       DEPLOY_PLATFORM: amd64
     volumes:
-      - ./rocket.chat/uploads:/app/uploads
+      - /alomerry/docker/rocket.chat/uploads:/app/uploads
     depends_on:
       - mongodb
     expose:

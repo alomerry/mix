@@ -9,4 +9,4 @@ services:
     ports:
       - "1935:1935"
     volumes:
-      - './data/nginx.conf:/etc/nginx/nginx.conf'
+      - '/alomerry/docker/vps-proxy/nginx.conf:/etc/nginx/nginx.conf'
