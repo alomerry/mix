@@ -1,6 +1,13 @@
 // place your custom styles here
 // @use '@sass-palette/hope-config';
 
+
+// split-font-css-start
+
+@import "../public/assets/fonts/lxgw-wenkai-gb-regular/result.css";
+
+// split-font-css-end
+
 // 缩小文章内列表行间距
 div.theme-hope-content ul.task-list-container p,
 div.theme-hope-content ul.task-list-container ul,
@@ -10,7 +17,7 @@ div.theme-hope-content ul.task-list-container ol {
 
 // bavbar
 nav.nav-links>div.nav-item>a.nav-link {
-  margin-right:5px
+  margin-right: 5px
 }
 
 // div.links {

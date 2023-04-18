@@ -1,6 +1,6 @@
 import {readFile, writeFile} from "fs";
 
-run()
+// run()
 
 function run() {
     // umami 访问监测脚本

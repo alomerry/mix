@@ -4,7 +4,7 @@ const CDN_BLOG_URL = "https://cdn.alomerry.com/blog"
 const CDN_BLOG_HEADER_URL = "https://cdn.alomerry.com/blog/img/in-post/header-image?max="
 const CDN_BLOG_HEADER_IMAGE_COUNT = 64
 
-run()
+// run()
 
 function run() {
     console.log("prepare")

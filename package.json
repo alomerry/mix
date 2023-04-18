@@ -12,19 +12,27 @@
     "clean-dev": "vuepress dev src --clean-cache",
     "dev": "vuepress dev src",
     "update-package": "pnpm dlx vp-update",
-    "oss": "./src/.vuepress/ossPusher --configPath core.toml"
+    "postinstall": "node scripts/postinstall.js",
+    "oss": "./src/.vuepress/ossPusher --configPath core.toml",
+    "download-import": "node scripts/download-import.js",
+    "split-fonts": "node scripts/split-fonts.js",
+    "modify-fonts-css": "node scripts/modify-split-fonts-css.js"
   },
   "engines": {
     "node": ">=19",
     "pnpm": ">=8"
   },
+  "devDependencies": {
+    "@konghayao/cn-font-split": "^3.0.4",
+    "request": "^2.88.2"
+  },
   "dependencies": {
     "@vuepress/client": "2.0.0-beta.61",
     "@vuepress/plugin-container": "2.0.0-beta.61",
-    "markdown-it": "^13.0.1",
-    "vue": "^3.2.47",
     "js-yaml": "^4.1.0",
+    "markdown-it": "^13.0.1",
     "sass-loader": "13.2.2",
+    "vue": "^3.2.47",
     "vuepress": "2.0.0-beta.61",
     "vuepress-plugin-components": "2.0.0-beta.202",
     "vuepress-plugin-search-pro": "2.0.0-beta.202",

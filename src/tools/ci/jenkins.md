@@ -267,12 +267,12 @@ pipeline
 :::: code-group
 ::: code-group-item blog
 
-<!-- @[code groovy:no-line-numbers](./codes/vps-home/pipeline/blog/pipeline.groovy) -->
+@[code groovy:no-line-numbers](../_codes/vps-home/pipeline/blog.groovy)
 
 :::
 ::: code-group-item algorithm
 
-<!-- @[code groovy:no-line-numbers](./codes/vps-home/pipeline/algorithm/pipeline.groovy) -->
+@[code groovy:no-line-numbers](../_codes/vps-home/pipeline/algorithm.groovy)
 
 :::
 ::::

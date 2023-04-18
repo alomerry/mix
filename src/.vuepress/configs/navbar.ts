@@ -14,7 +14,7 @@ export const zhNavbar = navbar([
           { text: "Timeline", link: "/timeline/", icon: "mdi:timeline-clock" },
           { text: "Tags", link: "/tag/", icon: "fa-solid:tags" },
           { text: "Intro", link: "/about/intro.md", icon: "fa-brands:microblog" },
-          { text: "IOI", link: "https://io.alomerry.com", icon: "cib:leetcode" },
+          { text: "LeetCode", link: "/ioi/leetcode/", icon: "cib:leetcode" },
         ]
       },
       {
