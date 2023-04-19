@@ -83,7 +83,7 @@ function prepareDownloadDir(relatePath) {
     console.warn(`can't resolve file [${relatePath}]`)
     return false
   }
-  utils.makeDir(importCodePrefix + outputDir)
+  utils.mkdirRecursions(importCodePrefix + outputDir)
   return true
 }
 

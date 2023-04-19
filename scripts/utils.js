@@ -1,6 +1,8 @@
 import fs from "fs"
+import { tmpdir } from "os";
 import path from "path"
 
+// 获取路径里的全部文件相对地址
 function getAllFilesPath(filePath) {
   let allFilePaths = [];
   if (fs.existsSync(filePath)) {
@@ -21,6 +23,48 @@ function getAllFilesPath(filePath) {
   return allFilePaths;
 }
 
+// 获取当前目录的全部文件地址
+function getDirFilesPath(dirPath) {
+  let allFilePaths = [];
+  if (fs.existsSync(dirPath)) {
+    const files = fs.readdirSync(dirPath);
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i]; // 文件名称（不包含文件路径）
+      let currentFilePath = dirPath + '/' + file;
+      let stats = fs.lstatSync(currentFilePath);
+      if (stats.isDirectory()) {
+        // empty
+      } else {
+        allFilePaths.push(currentFilePath);
+      }
+    }
+  } else {
+    // console.warn(`指定的目录${dirPath}不存在！`);
+  }
+  return allFilePaths;
+}
+
+// 获取路径里的全部目录相对地址
+function getAllDirPath(filePath) {
+  let allFilePaths = [];
+  if (fs.existsSync(filePath)) {
+    const files = fs.readdirSync(filePath);
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i]; // 文件名称（不包含文件路径）
+      let currentFilePath = filePath + '/' + file;
+      let stats = fs.lstatSync(currentFilePath);
+      if (stats.isDirectory()) {
+        allFilePaths.push(currentFilePath);
+        allFilePaths = allFilePaths.concat(getAllDirPath(currentFilePath));
+      }
+    }
+  } else {
+    // console.warn(`指定的目录${filePath}不存在！`);
+  }
+  return allFilePaths;
+}
+
+// 获取下级目录列表
 function getChildDir(filePath) {
   let allChildDirPaths = [];
   if (fs.existsSync(filePath)) {
@@ -37,6 +81,26 @@ function getChildDir(filePath) {
     console.error(`指定的目录 ${filePath} 不存在！`);
   }
   return allChildDirPaths;
+}
+
+function getFileType(filePath) {
+  if (fs.existsSync(filePath)) {
+    let stats = fs.lstatSync(filePath);
+    if (!stats.isDirectory()) {
+      return filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length)
+    }
+  }
+  return null
+}
+
+function getFileName(filePath) {
+  if (fs.existsSync(filePath)) {
+    let stats = fs.lstatSync(filePath);
+    if (!stats.isDirectory()) {
+      return filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length)
+    }
+  }
+  return null
 }
 
 function existsPath(filePath) {
@@ -83,6 +147,7 @@ function clearDir(dirPath) {
   }
 }
 
+// need delete
 function makeDir(dirpath) {
   if (!fs.existsSync(dirpath)) {
     var pathtmp;
@@ -106,6 +171,27 @@ function makeDir(dirpath) {
   return true;
 }
 
+// 路径是否存在，不存在则创建
+function mkdirRecursions(dir) {
+  //如果该路径且不是文件，返回true
+  if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
+    return true
+  }
+  else if (fs.existsSync(dir)) {
+    return false;
+  }
+  // 如果该路径不存在，拿到上级路径
+  let tempDir = path.parse(dir).dir;
+  console.log(tempDir)
+  // 递归判断，如果上级目录也不存在，则会代码会在此处继续循环执行，直到目录存在
+  let status = mkdirRecursions(tempDir);
+  let mkdirStatus;
+  if (status) {
+    mkdirStatus = fs.mkdirSync(dir);
+  }
+  return mkdirStatus;
+}
+
 function removeDir(dir) {
   if (!fs.existsSync(dir)) {
     return;
@@ -125,6 +211,24 @@ function removeDir(dir) {
   fs.rmdirSync(dir)//如果文件夹是空的，就将自己删除掉
 }
 
+// 仅拷贝文件
+function copy(from, to) {
+  if (fs.existsSync(from)) {
+    // console.log(`from [${from}] to [${to}]`)
+    let input = fs.createReadStream(from)
+
+    let dir = path.parse(to).dir
+    fs.mkdir(dir, { recursive: true }, function (err, path) {
+      if (err != null) {
+        console.error(err)
+      }
+    })
+    let output = fs.createWriteStream(to)
+    // https://www.runoob.com/nodejs/nodejs-stream.html
+    input.pipe(output)
+  }
+}
+
 export default {
-  getAllFilesPath, getChildDir, existsPath, deleteDir, clearDir, existsPath, makeDir
+  getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy
 }

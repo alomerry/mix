@@ -10,7 +10,6 @@ let destPath = path + "/" + fontName
 utils.clearDir(destPath)
 run()
 
-
 function run() {
     fontSplit({
         FontPath: path + "/" + fontName + fontType,
