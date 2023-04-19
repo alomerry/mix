@@ -10,8 +10,8 @@ headerMask: rgba(40, 57, 101, .5)
 catalog: true
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 tag:
- - Y2022
- - Mac
+  - Y2022
+  - Mac
 ---
 
 ## 激活后必被操作

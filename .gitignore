@@ -23,3 +23,8 @@ src/.vuepress/public/assets/icon
 src/.vuepress/public/assets/fonts/**/*.ttf
 
 src/_codes
+
+src/.vuepress/public/assets/pdf
+src/.vuepress/public/assets/img
+src/posts/assets
+src/books/assets

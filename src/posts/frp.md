@@ -3,8 +3,8 @@ title: 远控局域网搭建
 description: frp、rustDesk
 date: 2022-06-17
 tag:
- - Y2022
- - frp
+  - Y2022
+  - frp
 ---
 
 ## 起因

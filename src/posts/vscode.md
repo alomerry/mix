@@ -11,9 +11,9 @@ headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 hide: false
 tag:
- - Y2022
- - VSCode
- - Doing
+  - Y2022
+  - VSCode
+  - Doing
 ---
 
 ## VSCode Web 搭建

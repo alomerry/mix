@@ -20,21 +20,4 @@ nav.nav-links>div.nav-item>a.nav-link {
   margin-right: 5px
 }
 
-// div.links {
-//   .site-info {
-//     width: calc(33% - 24px);
-
-//     @media (max-width: hope-config.$pad) {
-//       width: calc(50% - 24px);
-
-//       .site-info-name {
-//         font-size: 14px;
-//       }
-//     }
-//   }
-// }
-
-// site
-div.project-panel .language-yaml {
-  display: none;
-}
+@import './project-pannel.scss';

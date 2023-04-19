@@ -5,9 +5,9 @@ excerpt: false
 description: Jenkins 的安装和使用
 isOriginal: true
 tag:
- - Y2023
- - U2023
- - Jenkins
+  - Y2023
+  - U2023
+  - Jenkins
 ---
 
 最初：来自公司

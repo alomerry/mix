@@ -130,7 +130,9 @@ export default hopeTheme({
     },
     components: {
       components: ["SiteInfo", "BiliBili", "PDF"],
-    }
+    },
+
+    // readingTime: false,
     // uncomment these if you want a PWA
     // pwa: {
     //   favicon: "/favicon.ico",

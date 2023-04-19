@@ -18,8 +18,8 @@ head:
     - name: author
       content: Alomerry 清欢
 tag:
- - Y2020
- - Typecho
+  - Y2020
+  - Typecho
 ---
 
 <!-- Description. -->

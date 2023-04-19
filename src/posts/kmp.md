@@ -5,10 +5,10 @@ description: KMP 算法 字符串匹配
 excerpt: false
 isOriginal: true
 tag:
- - Y2023
- - U2023
- - Algorithm
- - KMP
+  - Y2023
+  - U2023
+  - Algorithm
+  - KMP
 ---
 
 ## KMP（Knuth-Morris-Pratt）

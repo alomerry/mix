@@ -9,8 +9,8 @@ catalog: true
 headerMask: rgba(40, 57, 101, .5)
 headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 tag:
- - Y2022
- - Golang
+  - Y2022
+  - Golang
 ---
 
 https://developer.kaiheila.cn/doc/intro
