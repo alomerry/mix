@@ -82,17 +82,12 @@ function getOutputFilePrefix(fromPath) {
 }
 
 function getFileBelongByType(fileType) {
-  switch (fileType) {
-    case "png" || "jpg" || "jpeg":
-      return "img"
-    case "mp3":
-      return "audio"
-    case "pdf":
-      return "pdf"
-    case "md":
-      return "markdown"
-    default: return null
+  if (!constant.FileTypeBelongToMapper.has(fileType)) {
+    console.error(`unsupport file type [${fileType}]`)
+    return null
   }
+
+  return constant.FileTypeBelongToMapper.get(fileType)
 }
 
 function replaceCDN(markdownPath, fileName2BelongMap) {

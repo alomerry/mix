@@ -21,6 +21,16 @@ let MD_DIR_LIST = [
   "./src/tools",
 ]
 
+const FileTypeBelongToMapper = new Map([
+  ["png", "img"],
+  ["jpg", "img"],
+  ["jpeg", "img"],
+  ["svg", "img"],
+  ["pdf", "pdf"],
+  ["mp3", "audio"],
+  ["md", "markdown"],
+])
+
 export default {
-  CDN_BLOG_URL, ORIGIN_FONT_PATH, VUEPRESS_PATH, MD_DIR_LIST, ASSETS_PATH, PUBLIC_PATH
+  CDN_BLOG_URL, ORIGIN_FONT_PATH, VUEPRESS_PATH, MD_DIR_LIST, ASSETS_PATH, PUBLIC_PATH, FileTypeBelongToMapper
 }

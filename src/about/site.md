@@ -1,7 +1,7 @@
 
 # 关于本站
 
-一个基于 VuePress 的个人博客，主要记录日常开发问题和一些代码笔记。
+一个基于 VuePress 的博客，主要记录开发笔记。
 
 ## 服务提供
 
@@ -10,13 +10,13 @@
 ::: projects
 
 ```yaml
-- icon: https://image.liubing.me/2023/02/11/7f17f3cf426c3.png
-  name: Cloudflare
-  desc: 提供免费的 CDN 服务。
+- icon: https://cdn.alomerry.com/blog/assets/img/about/qiniu-cdn.svg
+  name: 七牛云
+  desc: 提供 CDN 服务。
   link: https://www.cloudflare.com/
-- icon: https://image.liubing.me/2023/02/11/a6de6381e4ae6.png
-  name: Contabo
-  desc: VPS 所属供应商。
+- icon: https://cdn.alomerry.com/blog/assets/img/about/tencent-cvm.svg
+  name: 腾讯云
+  desc: CVM 供应商。
   link: https://contabo.com/
 - icon: https://image.liubing.me/2023/02/11/50994f9710667.ico
   name: 宝塔 Linux 面板
@@ -30,9 +30,9 @@
   name: VuePress Theme Hope
   desc: 本站博客所用主题
   link: https://theme-hope.vuejs.press/zh/
-- icon: https://image.liubing.me/2023/02/11/a7643dcbbc234.png
-  name: Buddy
-  desc: 本站自动化打包构建发布工具。
+- icon: https://cdn.alomerry.com/blog/assets/img/about/jenkins-ci.svg
+  name: Jenkins
+  desc: 自动化构建发布工具。
   link: https://buddy.works
 - icon: https://image.liubing.me/2023/02/05/834597e9e927e.png
   name: Waline
@@ -43,15 +43,15 @@
 :::
 
 ```card
-title: Cloudflare
-desc: 提供免费的 CDN 服务。
-logo: https://image.liubing.me/2023/02/11/7f17f3cf426c3.png
+title: 七牛云
+desc: 提供 CDN 服务。
+logo: https://cdn.alomerry.com/blog/assets/img/about/qiniu-cdn.svg
 link: https://www.cloudflare.com/
 color: rgba(253, 230, 138, 0.15)
 ```
 
 ## 仓库连接
 
-本站所有内容及代码均开源，可通过下面 👇 的链接访问
+本站所有内容及代码均开源，可通过下面以下链接访问
 
-[Bing🐣 个人博客](https://github.com/liub1934/liubing.me)
+[Alomerry Wu](https://github.com/alomerry)
