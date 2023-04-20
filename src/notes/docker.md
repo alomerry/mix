@@ -155,7 +155,7 @@ EXPOSE 8000
 
 </details>
 
-![multi-run-create-new-layer](https://cdn.alomerry.com/blog/img/in-post/2022-04-27/multi-run-create-new-layer.gif)
+![multi-run-create-new-layer](https://cdn.alomerry.com/blog/assets/img/notes/multi-run-create-new-layer.gif)
 
 dockerfile 中的每层代表了一个操作，除了最后一层其它层都是只读的。对镜像的配置，例如设置 ENV、LABEL、CMD 等，如果命令没有使镜像的数据产生变动，是不创建新的层的，新生成的层是对上一层的变更，有点类似 git 中的 diff。创建一个容器时，实际上是在镜像上层添加了新的可写层（容器层）。
 
@@ -354,9 +354,9 @@ a081952496e3   11 months ago   CMD ["/sbin/my_init"]                           0
 
 </details>
 
-![container-layers](https://cdn.alomerry.com/blog/img/in-post/2022-04-27/container-layers.jpg)
+![container-layers](https://cdn.alomerry.com/blog/assets/img/notes/container-layers.jpg)
 
-![sharing-layers](https://cdn.alomerry.com/blog/img/in-post/2022-04-27/sharing-layers.jpg)
+![sharing-layers](https://cdn.alomerry.com/blog/assets/img/notes/sharing-layers.jpg)
 
 修改时复制策略 copy-on-write (CoW)：
 
@@ -383,7 +383,7 @@ RUN apt-get update && apt-get install vim
 ```
 当有多个容器依赖同一个镜像时，底部层实际上使用的都是同一个只读的镜像层，各个容器拥有自己的可写容器层。
 
-![merge-layer](https://cdn.alomerry.com/blog/img/in-post/2022-04-27/merge-layer.gif)
+![merge-layer](https://cdn.alomerry.com/blog/assets/img/notes/merge-layer.gif)
 
 ### Best Prictice
 

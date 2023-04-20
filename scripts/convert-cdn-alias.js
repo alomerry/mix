@@ -2,6 +2,8 @@ import fs from "fs";
 import utils from "./utils.js"
 import constant from "./constant.js";
 
+run()
+
 function run() {
   convertCDNAlias2URL()
 }
@@ -17,7 +19,7 @@ function convertCDNAlias2URL() {
     convertQueue.push(p)
   })
   Promise.all(convertQueue).then(res => {
-    console.log("convert cdn alias success")
+    console.log("convert cdn alias complete")
   })
 }
 
@@ -93,6 +95,7 @@ function getFileBelongByType(fileType) {
 function replaceCDN(markdownPath, fileName2BelongMap) {
   let mdContent = fs.readFileSync(markdownPath, 'utf8');
   fileName2BelongMap.forEach(function (belongTo, fileName) {
+    console.log(fileName)
     if (mdContent.match("@CDN/" + fileName) != null) {
       let url = constant.CDN_BLOG_URL + "/assets/" + belongTo + "/" + getOutputFilePrefix(markdownPath) + "/" + fileName
       mdContent = mdContent.replace("@CDN/" + fileName, url)

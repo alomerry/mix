@@ -14,7 +14,7 @@ tag:
 
 Jetbrains IDE 工具，可以统一下载更新旗下的 IDE、参与测试等
 
-![jetbrains-tools-01](https://cdn.alomerry.com/blog/img/in-post/2022-06-01/app-intro-jetbrains-tools-01.jpg)
+![jetbrains-tools-01](https://cdn.alomerry.com/blog/assets/img/posts/apps-intro-jetbrains-tools-01.jpg)
 
 ## Karabiner
 

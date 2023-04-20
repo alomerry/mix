@@ -14,7 +14,7 @@
     "update-package": "pnpm dlx vp-update",
     "postinstall": "node scripts/postinstall.js",
     "postbuild": "node scripts/postbuild.js",
-    "prepare": "node scripts/prepare.js",
+    "convert-cdn": "node scripts/convert-cdn-alias.js",
     "oss": "./src/.vuepress/ossPusher --configPath core.toml",
     "split-fonts": "node scripts/split-fonts.js"
   },

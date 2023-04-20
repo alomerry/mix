@@ -17,11 +17,11 @@ tag:
 
 ### Environments
 
-![Environments](https://cdn.alomerry.com/blog/img/in-post/2021-03-15/postman-globals.png)
+![Environments](https://cdn.alomerry.com/blog/assets/img/posts/postman-globals.png)
 
 ### Pre-request Script
 
-![pre-request](https://cdn.alomerry.com/blog/img/in-post/2021-03-15/postman-pre-request.png)
+![pre-request](https://cdn.alomerry.com/blog/assets/img/posts/postman-pre-request.png)
 
 ```js
 var lastResponseStatus = pm.environment.get("lastResponseStatus");
@@ -63,7 +63,7 @@ pm.environment.set('lastResponseStatus', pm.response.code);
 
 ### 请求 API
 
-![pre-request](https://cdn.alomerry.com/blog/img/in-post/2021-03-15/postman-variable-value.png)
+![pre-request](https://cdn.alomerry.com/blog/assets/img/posts/postman-variable-value.png)
 
 ## Case 
 

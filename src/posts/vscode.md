@@ -64,7 +64,7 @@ proxy_set_header Connection "Upgrade";
 
 ### preview
 
-![matepad 效果](https://cdn.alomerry.com/blog/img/in-post/2022-07-18/vscode-matepad-preview.jpg)
+![matepad 效果](https://cdn.alomerry.com/blog/assets/img/posts/vscode-matepad-preview.jpg)
 
 ## 常用设置
 
