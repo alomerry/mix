@@ -1,5 +1,5 @@
 import fs from "fs"
-import { tmpdir } from "os";
+import { createHash } from 'node:crypto'
 import path from "path"
 
 // 获取路径里的全部文件相对地址
@@ -147,6 +147,14 @@ function clearDir(dirPath) {
   }
 }
 
+function getMD5(filePath) {
+  return createHash('md5').update(fs.readFileSync(filePath, 'utf8')).digest('hex')
+}
+
+function checkMD5(sourcePath, targetPath) {
+  return getMD5(sourcePath) == getMD5(targetPath)
+}
+
 // need delete
 function makeDir(dirpath) {
   if (!fs.existsSync(dirpath)) {
@@ -230,5 +238,5 @@ function copy(from, to) {
 }
 
 export default {
-  getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy
+  getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5
 }

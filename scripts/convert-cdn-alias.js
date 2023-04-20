@@ -45,7 +45,12 @@ function copySourceFile(mdPath) {
             console.error(`${assetPath} copy to public dir failed`)
             return
           }
-          utils.copy(assetPath, toPath)
+          // TODO md5 判断是否发生变化，没变化就不 copy 了
+          if (!utils.checkMD5(assetPath, toPath)) {
+            utils.copy(assetPath, toPath)
+          }else{
+            // console.log(`${utils.getFileName(assetPath)} not change.`)
+          }
         })
         utils.getDirFilesPath(dirPath + "/..").forEach(function (markdownPath) {
           replaceCDN(markdownPath, fileName2BelongMap)
@@ -95,7 +100,6 @@ function getFileBelongByType(fileType) {
 function replaceCDN(markdownPath, fileName2BelongMap) {
   let mdContent = fs.readFileSync(markdownPath, 'utf8');
   fileName2BelongMap.forEach(function (belongTo, fileName) {
-    console.log(fileName)
     if (mdContent.match("@CDN/" + fileName) != null) {
       let url = constant.CDN_BLOG_URL + "/assets/" + belongTo + "/" + getOutputFilePrefix(markdownPath) + "/" + fileName
       mdContent = mdContent.replace("@CDN/" + fileName, url)
