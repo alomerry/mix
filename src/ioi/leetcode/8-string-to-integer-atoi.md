@@ -1,7 +1,9 @@
 ---
-title: 字符串转换整数 (atoi)
+title: 8. 字符串转换整数 (atoi)
 problem_no: 8
 date: 2020-07-26
+description: 
+timeline: false
 category:
   - LeetCode
   - LeetCode Medium

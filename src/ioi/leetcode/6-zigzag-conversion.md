@@ -1,7 +1,9 @@
 ---
-title: Z 字形变换
+title: 6. Z 字形变换
 date: 2020-07-25
 problem_no: 6
+description: 
+timeline: false
 category:
   - LeetCode
   - LeetCode Medium

@@ -1,0 +1,53 @@
+---
+title:
+problem_no:
+date: 2018-06-12
+description: 
+timeline: false
+category:
+  - PAT
+tag:
+  - PAT-A
+  - Y2019
+---
+
+<!--more-->
+
+## Problem
+
+Source: [PAT ](){target="_blank"}
+
+### Description
+
+
+
+### Input Specification
+
+
+
+### Output Specification
+
+
+
+### Sample Input
+
+```text
+
+```
+
+### Sample Output
+
+```text
+
+```
+
+## Solution
+
+## Code
+
+[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
+
+```cpp
+
+```

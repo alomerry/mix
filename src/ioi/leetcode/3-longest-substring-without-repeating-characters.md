@@ -1,7 +1,9 @@
 ---
-title: 无重复字符的最长子串
+title: 3. 无重复字符的最长子串
 problem_no: 3
 date: 2020-07-22
+description: 
+timeline: false
 category:
   - LeetCode
   - LeetCode Medium

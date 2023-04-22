@@ -1,12 +1,14 @@
 ---
-title: 整数反转
+title: 7. 整数反转
 problem_no: 7
 date: 2020-07-25
+description: 
+timeline: false
 category:
   - LeetCode
+  - LeetCode Easy
 tag:
   - Y2020
-  - Easy
   - LeetCode
 ---
 

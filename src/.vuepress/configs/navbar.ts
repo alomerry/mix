@@ -21,7 +21,12 @@ export const zhNavbar = navbar([
         text: "Space",
         prefix: "/space/",
         children: [
-          { text: "美文文摘", link: "digest.md", icon: "emojione:books" },
+          { 
+            text: "美文文摘", 
+            link: "digest/", 
+            icon: "emojione:books" ,
+            activeMatch: "^/space/digest/$",
+          },
           { text: "代办", link: "todo.md", icon: "flat-color-icons:approval" },
           { text: "算法笔记", link: "algorithm.md", icon: "cryptocurrency-color:algo" },
           { text: "VPS Backup", link: "vps-home.md", icon: "bi:pc-display" },
@@ -35,7 +40,7 @@ export const zhNavbar = navbar([
     icon: "material-symbols:note-alt-rounded",
     children: [
       { text: "redis", link: "redis.md", icon: "vscode-icons:folder-type-redis" },
-      { text: "git", link: "git.md", icon: "mdi:git" },
+      { text: "git", link: "git/", icon: "mdi:git" },
       { text: "html", link: "html.md", icon: "logos:html-5" },
       { text: "nodejs", link: "nodejs.md", icon: "logos:nodejs-icon" },
       { text: "golang", link: "golang.md", icon: "skill-icons:golang" },

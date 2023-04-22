@@ -1,25 +1,12 @@
 import { sidebar } from "vuepress-theme-hope";
+import { digest } from "./siderbar/digest.js"
+import { git } from "./siderbar/git.js"
 
 export const enSidebar = sidebar({
   "/en/": [],
 });
 
 export const zhSidebar = sidebar({
-  "/": [
-    {
-      text: "如何使用",
-      icon: "creative",
-      prefix: "demo/",
-      link: "demo/",
-      children: "structure",
-    },
-    {
-      text: "文章",
-      icon: "note",
-      prefix: "posts/",
-      children: "structure",
-    },
-    "intro",
-    "slides",
-  ],
+  "/notes/git/": git,
+  "/space/digest/": digest,
 });

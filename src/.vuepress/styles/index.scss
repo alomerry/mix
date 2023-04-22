@@ -20,4 +20,9 @@ nav.nav-links>div.nav-item>a.nav-link {
   margin-right: 5px
 }
 
+// fix sider group font, remove at next vuepress-theme-hoper version
+ul.sidebar-links > li > section.sidebar-group > button.sidebar-heading > span.title{
+  font-family: "LXGW WenKai GB";
+}
+
 @import './project-pannel.scss';

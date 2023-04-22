@@ -51,7 +51,7 @@ export default hopeTheme({
   locales: {
     "/": {
       navbar: zhNavbar,
-      sidebar: false,
+      sidebar: zhSidebar,
       blog: {
         name: "清欢",
         description: "一个后端开发者",

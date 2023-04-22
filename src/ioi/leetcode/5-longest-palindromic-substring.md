@@ -1,7 +1,9 @@
 ---
-title: 最长回文子串
+title: 5. 最长回文子串
 problem_no: 5
 date: 2020-07-23
+description: 
+timeline: false
 category:
   - LeetCode
   - LeetCode Medium
