@@ -5,6 +5,8 @@ import { enNavbar, zhNavbar } from "./navbar.js";
 export default hopeTheme({
   hostname: "https://blog.alomerry.com",
 
+  hotReload: false,
+
   author: {
     name: "清欢",
     email: "alomerry.wu@gmail.com",

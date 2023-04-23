@@ -1,14 +1,9 @@
 ---
 layout: Post
 title: System Note
-subtitle: macOS 使用过程中的一些经验、技巧、笔记
+description: macOS 使用过程中的一些经验、技巧、笔记
 author: Alomerry Wu
 date: 2022-02-26
-update: 2023-04-04
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-catalog: true
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 tag:
   - Y2022
   - Mac

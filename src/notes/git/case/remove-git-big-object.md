@@ -1,6 +1,7 @@
 ---
 title: 清理 git 仓库中废弃的大文件
 excerpt: false
+article: false
 description: Git 笔记、技巧
 isOriginal: true
 date: 2020-07-06

@@ -1,6 +1,7 @@
 ---
 title: 删除 Git 中的历史文件或敏感信息
 excerpt: false
+article: false
 description: Git 笔记、技巧
 isOriginal: true
 date: 2020-07-06

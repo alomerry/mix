@@ -9,12 +9,10 @@ export const zhNavbar = navbar([
       {
         text: "Mine",
         children: [
-          { text: "Link", link: "/links/", icon: "mdi:link-box-variant" },
           { text: "Site", link: "/about/site.md", icon: "maki:picnic-site" },
           { text: "Timeline", link: "/timeline/", icon: "mdi:timeline-clock" },
           { text: "Tags", link: "/tag/", icon: "fa-solid:tags" },
           { text: "Intro", link: "/about/intro.md", icon: "fa-brands:microblog" },
-          { text: "LeetCode", link: "/ioi/leetcode/", icon: "cib:leetcode" },
         ]
       },
       {

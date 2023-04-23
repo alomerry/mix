@@ -1,14 +1,8 @@
 ---
 layout: Post
 title: 消息队列
-subtitle:
 author: Alomerry Wu
 date: 2021-08-12
-update: 2022-07-02
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-catalog: true
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
 tag:
   - Y2021
   - U2022

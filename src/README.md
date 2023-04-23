@@ -10,31 +10,26 @@ tagline: Keep Working And Never Give Up！
 bgImage: https://api.kdcc.cn/
 heroFullScreen: false
 projects:
-  - icon: project
-    name: algorithm
+  - icon: cib:leetcode
+    name: 算法题解
     desc: PAT、LeetCode 题解
-    link: https://github.com/alomerry/algorithm
-
+    link: /ioi/
   - icon: link
-    name: Link
+    name: 链接、工具
     desc: 链接详细描述
     link: /links
-
   - icon: book
-    name: 书籍名称
-    desc: 书籍详细描述
-    link: https://你的书籍链接
-
+    name: 美文文摘
+    desc: 读者、文苑、知乎、微博等
+    link: /space/digest
   - icon: article
     name: 文章名称
     desc: 文章详细描述
     link: https://你的文章链接
-
-  - icon: friend
+  - icon: project
     name: 伙伴名称
     desc: 伙伴详细介绍
     link: https://你的伙伴链接
-
   - icon: friend
     name: 自定义项目/logo.svg
     desc: 自定义详细介绍

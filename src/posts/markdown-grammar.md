@@ -1,13 +1,9 @@
 ---
 layout: Post
 title: Markdown Syntax
-subtitle:
 author: Alomerry Wu
 date: 2022-03-08
-update: 2022-12-05
-useHeaderImage: true
-catalog: true
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
+description: 
 tag:
   - Y2022
   - Markdown

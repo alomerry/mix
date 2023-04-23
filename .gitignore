@@ -31,3 +31,5 @@ src/posts/assets
 src/books/assets
 src/about/assets
 src/notes/assets
+
+scripts/test.js

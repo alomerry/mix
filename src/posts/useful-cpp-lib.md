@@ -1,14 +1,9 @@
 ---
 layout: Post
 title: C++ 常用的函数
-subtitle: algorithm/stdlib/string/STL 库函数
+description: algorithm/stdlib/string/STL 库函数
 author: Alomerry Wu
 date: 2019-07-21
-update: 2022-07-03
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
-catalog: true
 head:
   - - meta
     - name: keywords

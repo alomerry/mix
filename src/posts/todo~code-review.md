@@ -1,14 +1,9 @@
 ---
 layout: Post
 title: Code Review 注意事项
-subtitle: 在公司中学习到一些规范和流程
+description: 在公司中学习到一些规范和流程
 author: Alomerry Wu
 date: 2020-07-06
-update: 2022-07-02
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
-catalog: true
 tag:
   - Y2020
   - U2022

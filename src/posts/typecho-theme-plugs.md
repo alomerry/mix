@@ -1,14 +1,9 @@
 ---
 layout: Post
 title: typecho 主题 handsome 美化插件 Skymo
-subtitle: 已停更
+description: 已停更
 author: Alomerry Wu
 date: 2020-01-17
-update: 2022-07-02
-useHeaderImage: true
-headerMask: rgba(40, 57, 101, .5)
-headerImage: https://cdn.alomerry.com/blog/img/in-post/header-image?max=64
-catalog: true
 head:
   - - meta
     - name: keywords

@@ -237,6 +237,17 @@ function copy(from, to) {
   }
 }
 
+function tools_IOI_SiderBar_Children_Generator(path, prefix) {
+  var res = [];
+  getDirFilesPath(path).forEach(function (filePath) {
+    res.push(filePath.replace(prefix, ""))
+  })
+  console.log(res)
+}
+
 export default {
-  getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5
+  getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
+
+
+  tools_IOI_SiderBar_Children_Generator,
 }
