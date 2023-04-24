@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: 消息队列
 author: Alomerry Wu
 date: 2021-08-12

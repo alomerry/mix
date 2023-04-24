@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: Markdown Syntax
 author: Alomerry Wu
 date: 2022-03-08

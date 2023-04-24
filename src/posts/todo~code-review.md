@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: Code Review 注意事项
 description: 在公司中学习到一些规范和流程
 author: Alomerry Wu

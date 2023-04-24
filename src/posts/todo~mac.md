@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: System Note
 description: macOS 使用过程中的一些经验、技巧、笔记
 author: Alomerry Wu

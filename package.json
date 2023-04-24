@@ -29,6 +29,7 @@
   "dependencies": {
     "@vuepress/client": "2.0.0-beta.61",
     "@vuepress/plugin-container": "2.0.0-beta.61",
+    "@vuepress/utils": "2.0.0-beta.61",
     "js-yaml": "^4.1.0",
     "markdown-it": "^13.0.1",
     "sass-loader": "13.2.2",

@@ -10,12 +10,15 @@ export const configPlugins: PluginConfig = [
   searchProPlugin({
     indexContent: true
   }),
+  
   // 谷歌统计插件
   // googleAnalyticsPlugin({
   //  id: ''
   // }),
+
   // 重定向插件
   // redirectPlugin(),
+
   // 自定义容器插件
   containerPlugin({
     type: 'projects',

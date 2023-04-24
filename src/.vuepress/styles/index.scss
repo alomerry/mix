@@ -1,5 +1,5 @@
 // place your custom styles here
-// @use '@sass-palette/hope-config';
+@use '@sass-palette/hope-config';
 
 
 // split-font-css-start
@@ -26,3 +26,14 @@ ul.sidebar-links > li > section.sidebar-group > button.sidebar-heading > span.ti
 }
 
 @import './project-pannel.scss';
+
+.site-info {
+  width: calc(25% - 24px);
+}
+
+
+@media (max-width: 959px){
+  .site-info {
+    width: calc(50% - 24px);
+  }
+}

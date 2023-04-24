@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: typecho 主题 handsome 美化插件 Skymo
 description: 已停更
 author: Alomerry Wu

@@ -25,7 +25,6 @@ export default hopeTheme({
   editLink: true,
   lastUpdated: true,
   contributors: true,
-
   navbarLayout: {
     start: ["Brand"],
     center: ["Links"],
@@ -47,7 +46,9 @@ export default hopeTheme({
     },
   },
   encrypt: {
-    config: {}
+    config: {
+      "/about/resume.html": "alomerry",
+    }
   },
   // 主题的多语言配置 https://theme-hope.vuejs.press/zh/config/theme/i18n.html
   locales: {
@@ -65,10 +66,10 @@ export default hopeTheme({
         editLink: "在 GitHub 上编辑此页",
       },
     },
-    "/en/": {
-      navbar: enNavbar,
-      sidebar: enSidebar,
-    },
+    // "/en/": {
+    //   navbar: enNavbar,
+    //   sidebar: enSidebar,
+    // },
   },
   footer: `
     Powered by <a href="https://v2.vuepress.vuejs.org" target="_blank">VuePress</a> & Theme by <a href="https://theme-hope.vuejs.press/zh/" target="_blank">Hope</a><br> 

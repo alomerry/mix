@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: Linux Note
 description: Linux 
 author: Alomerry Wu

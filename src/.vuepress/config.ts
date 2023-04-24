@@ -1,6 +1,9 @@
 import { defineUserConfig } from "vuepress";
+import { getDirname, path } from "@vuepress/utils";
 import { configPlugins } from './configs/plugins'
 import theme from "./configs/theme.js";
+
+const __dirname = getDirname(import.meta.url);
 
 export default defineUserConfig({
   base: "/",
@@ -16,9 +19,12 @@ export default defineUserConfig({
     "!.vuepress",
     "!node_modules"
   ],
-  markdown: {},
+  // markdown: {},
   theme,
   // Enable it with pwa
   // shouldPrefetch: false,
   plugins: configPlugins,
+  alias: {
+    "@github-contributions": path.resolve(__dirname, "components/github-contributions.vue"),
+  },
 });

@@ -7,6 +7,9 @@ dependencies:
   '@vuepress/plugin-container':
     specifier: 2.0.0-beta.61
     version: registry.npmmirror.com/@vuepress/plugin-container@2.0.0-beta.61
+  '@vuepress/utils':
+    specifier: 2.0.0-beta.61
+    version: registry.npmmirror.com/@vuepress/utils@2.0.0-beta.61
   js-yaml:
     specifier: ^4.1.0
     version: registry.npmmirror.com/js-yaml@4.1.0

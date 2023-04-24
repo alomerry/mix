@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: Kaiheila Bot
 description: 开黑啦 Bot[欢欢] 开发笔记
 author: Alomerry Wu

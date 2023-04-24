@@ -1,41 +1,44 @@
 import { navbar } from "vuepress-theme-hope";
 
 export const zhNavbar = navbar([
-  { text: "Home", link: "/", icon: "fa-fort-awesome" },
+  { 
+    text: "Home", 
+    link: "/", 
+    // icon: "fa-fort-awesome" 
+    icon: "svg-spinners:blocks-scale" 
+  },
   {
     text: "Blog",
-    icon: "svg-spinners:blocks-scale",
+    icon: "line-md:star-pulsating-twotone-loop",
     children: [
-      {
-        text: "Mine",
-        children: [
-          { text: "Site", link: "/about/site.md", icon: "maki:picnic-site" },
-          { text: "Timeline", link: "/timeline/", icon: "mdi:timeline-clock" },
-          { text: "Tags", link: "/tag/", icon: "fa-solid:tags" },
-          { text: "Intro", link: "/about/intro.md", icon: "fa-brands:microblog" },
-        ]
-      },
-      {
-        text: "Space",
-        prefix: "/space/",
-        children: [
-          { 
-            text: "美文文摘", 
-            link: "digest/", 
-            icon: "emojione:books" ,
-            activeMatch: "^/space/digest/$",
-          },
-          { text: "代办", link: "todo.md", icon: "flat-color-icons:approval" },
-          { text: "算法笔记", link: "algorithm.md", icon: "cryptocurrency-color:algo" },
-          { text: "VPS Backup", link: "vps-home.md", icon: "bi:pc-display" },
-        ],
-      },
+      { text: "Site", link: "/about/site.md", icon: "maki:picnic-site" },
+      { text: "Intro", link: "/about/intro.md", icon: "fa-brands:microblog" },
+      { text: "Timeline", link: "/timeline/", icon: "mdi:timeline-clock" },
+      { text: "Tags", link: "/tag/", icon: "fa-solid:tags" },
+      { text: "Resume", link: "/about/resume/", icon: "material-symbols:note-alt-rounded" },
+      { text: "Something", link: "/links/stars/", icon: "material-symbols:award-star-outline" },
     ]
+  },
+  {
+    text: "Space",
+    icon: "line-md:sunny-filled-loop",
+    prefix: "/space/",
+    children: [
+      { 
+        text: "美文文摘", 
+        link: "digest/", 
+        icon: "emojione:books" ,
+        activeMatch: "^/space/digest/$",
+      },
+      { text: "代办", link: "todo.md", icon: "flat-color-icons:approval" },
+      { text: "算法笔记", link: "algorithm.md", icon: "cryptocurrency-color:algo" },
+      { text: "VPS Backup", link: "vps-home.md", icon: "bi:pc-display" },
+    ],
   },
   {
     text: "Note",
     prefix: "/notes/",
-    icon: "material-symbols:note-alt-rounded",
+    icon: "svg-spinners:clock",
     children: [
       { text: "redis", link: "redis.md", icon: "vscode-icons:folder-type-redis" },
       { text: "git", link: "git/", icon: "mdi:git" },
@@ -50,7 +53,7 @@ export const zhNavbar = navbar([
   {
     text: `Tools`,
     prefix: "/tools",
-    icon: "simple-icons:spacemacs",
+    icon: "line-md:coffee-half-empty-twotone-loop",
     children: [
       {
         text: "markdown",

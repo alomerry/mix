@@ -1,10 +1,8 @@
 ---
-layout: Post
 title: VSCode
 description:
 author: Alomerry Wu
 date: 2022-07-18
-hide: false
 tag:
   - Y2022
   - VSCode

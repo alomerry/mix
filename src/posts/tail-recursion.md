@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: Tail Recursion
 description: 尾递归
 author: Alomerry Wu

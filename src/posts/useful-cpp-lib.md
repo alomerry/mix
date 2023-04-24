@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: C++ 常用的函数
 description: algorithm/stdlib/string/STL 库函数
 author: Alomerry Wu

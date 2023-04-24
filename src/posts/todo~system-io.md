@@ -1,5 +1,4 @@
 ---
-layout: Post
 title: System IO
 description:
 author: Alomerry Wu

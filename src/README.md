@@ -17,7 +17,7 @@ projects:
   - icon: link
     name: 链接、工具
     desc: 链接详细描述
-    link: /links
+    link: /links/friends/
   - icon: book
     name: 美文文摘
     desc: 读者、文苑、知乎、微博等
