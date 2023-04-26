@@ -43,32 +43,4 @@ Source: [LeetCode 83](https://leetcode-cn.com/problems/remove-duplicates-from-so
 
 ## Code
 
-```cpp
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
-class Solution {
-public:
-    ListNode* deleteDuplicates(ListNode* head) {
-    ListNode *now = head, *next = head;
-    while(next != NULL) {
-        if (next->val != now->val) {
-            now->next = next;
-            now = next;
-        }
-        next = next->next;
-    }
-    if (now != NULL && now->next != NULL && now->next->val == now->val) {
-        now->next = NULL;
-    }
-    return head;
-}
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/83-main.cpp)

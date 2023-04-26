@@ -1,10 +1,6 @@
 ---
 title: Todo
-date: 2022-09-17
 isOriginal: true
-tag:
-  - Y2022
-  - U2022
 ---
 
 ## TODO

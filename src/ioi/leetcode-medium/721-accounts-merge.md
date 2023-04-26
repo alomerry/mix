@@ -52,4 +52,4 @@ Related Topics: [深度优先搜索](https://leetcode.cn/tag/depth-first-search/
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../_codes/algorithm/code/leet-code/721-main.cpp)
+@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/721-main.cpp)

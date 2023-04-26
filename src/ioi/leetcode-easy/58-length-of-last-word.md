@@ -52,22 +52,6 @@ Source: [LeetCode 58](https://leetcode-cn.com/problems/length-of-last-word/){tar
 
 ## Code
 
-```cpp
-class Solution {
-public:
-    int lengthOfLastWord(string s) {
-        int len = 0;
-        for (int i = 0; i < s.size(); i++) {
-            if (s[i] == ' ') {
-                len = -abs(len);
-                continue;
-            }
-            if (len < 0 ){
-                len = 0;
-            }
-            len++;
-        }
-        return abs(len);
-    }
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/58-main.cpp)
+
+@[code cpp](../../_codes/algorithm/code/leet-code/58-index.cpp)

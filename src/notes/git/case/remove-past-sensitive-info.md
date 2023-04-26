@@ -1,15 +1,11 @@
 ---
-title: 删除 Git 中的历史文件或敏感信息
 excerpt: false
 article: false
 description: Git 笔记、技巧
 isOriginal: true
-date: 2020-07-06
-tag: 
-  - git
-  - Y2020
-  - U2022
 ---
+
+# 删除 Git 中的历史文件或敏感信息
 
 Git 仓库中每一个修改都会保存记录，所以如果仅仅是删除敏感信息，然后 commit，那么那个敏感信息至少会在两个历史 commit 里面出现，也就是出现和删除的两次 commit，可以使用以下命令搜索：
 

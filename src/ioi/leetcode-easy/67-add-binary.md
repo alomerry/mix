@@ -46,43 +46,4 @@ Source: [LeetCode 67](https://leetcode-cn.com/problems/add-binary/){target="_bla
 
 ## Code
 
-```cpp
-class Solution {
-public:
-    string addBinary(string a, string b) {
-        stack<char> s;
-        int i = a.size()-1, j = b.size()-1, inc = 0;
-        while(i>=0 && j>=0) {
-            inc += a[i]-'0'+b[j]-'0';
-            s.push(inc%2+'0');
-            inc /= 2;
-            i--,j--;
-        }
-
-        while (i >= 0) {
-            inc += a[i]-'0';
-            s.push(inc%2+'0');
-            inc /= 2;
-            i--;
-        }
-
-        while (j >= 0) {
-            inc += b[j]-'0';
-            s.push(inc%2+'0');
-            inc /= 2;
-            j--;
-        }
-
-        if (inc != 0){
-            s.push(inc+'0');
-        }
-
-        string result = "";
-        while(!s.empty()) {
-            result+= s.top();
-            s.pop();
-        }
-        return result;
-    }
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/67-main.cpp)

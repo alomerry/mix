@@ -1,10 +1,7 @@
 ---
-title: 
-excerpt: false
-description: 
-date: 2019-07-02
 timeline: false
 article: false
+date: 2019-07-02
 ---
 
 部分来源于网络，侵删
@@ -17,7 +14,6 @@ article: false
 
 
 ## History
-
 
 
 ### 《千万不要自己感动自己》

@@ -34,3 +34,4 @@ Related Topics: [字符串](https://leetcode.cn/tag/string/), [动态规划](htt
 
 *   `1 <= n <= 8`
 
+@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/22-main.go)

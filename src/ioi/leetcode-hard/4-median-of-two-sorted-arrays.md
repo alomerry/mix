@@ -74,74 +74,12 @@ Source: [LeetCode 4](https://leetcode-cn.com/problems/median-of-two-sorted-array
 
 `algorithm` 库中默认排序，底层是红黑树实现。
 
- ```cpp
-double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2)
-{
-    for (int i = 0; i < nums2.size(); i++)
-        nums1.push_back(nums2[i]);
-    sort(nums1.begin(), nums1.end());
-    if (nums1.size() % 2 == 0)
-        return 1.0 * (nums1[nums1.size() / 2 - 1] + nums1[nums1.size() / 2]) / 2.0;
-    else
-        return 1.0 * nums1[nums1.size() / 2];
-}
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/4-main.cpp)
 
 #### 冒泡排序
 
- ```cpp
-void bubbleSort(vector<int> &nums)
-{
-    int temp = 0;
-    for (int i = 0; i < nums.size() - 1; i++)
-    {
-        for (int j = 0; j < nums.size() - 1-i; j++)
-        {
-            if (nums[j] > nums[j + 1])
-            {
-                temp = nums[j];
-                nums[j] = nums[j + 1];
-                nums[j + 1] = temp;
-            }
-        }
-    }
-}
-double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2)
-{
-    for (int i = 0; i < nums2.size(); i++)
-        nums1.push_back(nums2[i]);
-    bubbleSort(nums1);
-    if (nums1.size() % 2 == 0)
-        return 1.0 * (nums1[nums1.size() / 2 - 1] + nums1[nums1.size() / 2]) / 2.0;
-    else
-        return 1.0 * nums1[nums1.size() / 2];
-}
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/4-bubbleSort.cpp)
 
 ### 快速排序
 
- ```cpp
-void quickSort(vector<int> &nums, int left, int right) {
-    if (left >= right)
-        return;
-    int i = left + 1, j = right, z, tmp = nums[left];
-    while (i != j) {
-        while (nums[j] >= tmp && i < j) {
-            j--;
-        }
-        while (nums[i] <= tmp && i < j) {
-            i++;
-        }
-        z = nums[i];
-        nums[i] = nums[j];
-        nums[j] = z;
-    }
-    if (tmp > nums[i]) {
-        z = nums[i];
-        nums[i] = tmp;
-        nums[left] = z;
-    }
-    quickSort(nums, left, i - 1);
-    quickSort(nums, j , right);
-}
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/4-quickSort.cpp)

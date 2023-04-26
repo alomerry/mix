@@ -1,13 +1,10 @@
 ---
-title: 1001 A+B Format
 problem_no: 1001
-date: 2019-09-06
-description: 
 timeline: false
 article: false
 ---
 
-<!--more-->
+# 1001 A+B Format
 
 ## Problem
 

@@ -68,32 +68,4 @@ for (int i = 0; i < len; i++) {
 
 ## Code
 
-```cpp
-class Solution {
-public:
-    int removeElement(vector<int>& nums, int val) {
-        if (nums.size() == 0) {
-            return 0;
-        }
-        int begin = 0, end = nums.size()-1;
-        while (begin!=end) {
-            if (nums[begin] != val) {
-                begin++;
-                continue;
-            }
-            if (nums[end] == val) {
-                end--;
-                continue;
-            }
-
-            swap(nums[begin], nums[end]);
-        }
-
-        if (nums[begin] == val) {
-            return begin;
-        }
-
-        return begin+1;
-    }
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/27-main.cpp)

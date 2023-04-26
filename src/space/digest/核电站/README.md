@@ -1,11 +1,9 @@
 ---
-title: 核电站
-excerpt: false
-description: 
-date: 2019-07-02
 timeline: false
 article: false
 ---
+
+# 核电站
 
 部分来源于网络，侵删
 

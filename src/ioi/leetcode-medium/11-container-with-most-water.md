@@ -60,33 +60,4 @@ Source: [LeetCode 11](https://leetcode-cn.com/problems/container-with-most-water
 
 ## Code
 
- ```cpp
-class Solution {
-public:
-    bool isPalindrome(int x) {
-      if (x < 0) {
-          return false;
-      }
-      if (x == 0) {
-          return true;
-      }
-
-      string str = convertToStr(x);
-      for (int i = 0, j = str.size() - 1; i <= j; i++, j--) {
-          if (str[i] != str[j]) {
-              return false;
-          }
-      }
-      return true;
-    }
-
-    string convertToStr(int x) {
-      string str = "";
-      while (x > 0) {
-          str += ('0' + x % 10);
-          x /= 10;
-      }
-      return str;
-    }
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/11-main.cpp)

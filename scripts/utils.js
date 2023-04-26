@@ -152,6 +152,13 @@ function getMD5(filePath) {
 }
 
 function checkMD5(sourcePath, targetPath) {
+  if (!fs.existsSync(sourcePath)) {
+    return false
+  }
+
+  if (!fs.existsSync(targetPath)) {
+    return false
+  }
   return getMD5(sourcePath) == getMD5(targetPath)
 }
 
@@ -225,12 +232,17 @@ function copy(from, to) {
     // console.log(`from [${from}] to [${to}]`)
     let input = fs.createReadStream(from)
 
+    console.log("666", path.parse(to), path.parse(to).dir)
+    // 上层文件夹不存在则创建
     let dir = path.parse(to).dir
-    fs.mkdir(dir, { recursive: true }, function (err, path) {
-      if (err != null) {
-        console.error(err)
-      }
-    })
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true }, function (err, path) {
+        if (err != null) {
+          console.error(err)
+        }
+      })
+    }
+
     let output = fs.createWriteStream(to)
     // https://www.runoob.com/nodejs/nodejs-stream.html
     input.pipe(output)

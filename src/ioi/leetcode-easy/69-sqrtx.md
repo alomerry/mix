@@ -46,29 +46,4 @@ Source: [LeetCode 69](https://leetcode-cn.com/problems/sqrtx/){target="_blank"}
 
 ## Code
 
-```cpp
-class Solution {
-public:
-int binarySearch(int x, int left, int right) {
-    if (left == right){
-        return left;
-    }
-    int half = left+(right-left) / 2;
-    if (half <= x/half && (half+1)>x/(half+1)) {
-        return half;
-    }
-    if (x/half <= half){
-        return binarySearch(x, left, half);
-    } else {
-        return binarySearch(x, half+1, right);
-    }
-}
-
-int mySqrt(int x) {
-    if (x <= 1){
-        return x;
-    }
-    return binarySearch(x, 1, x);
-}
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/69-main.cpp)

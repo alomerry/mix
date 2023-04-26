@@ -1,7 +1,5 @@
 ---
-title: typecho 主题 handsome 美化插件 Skymo
 description: 已停更
-author: Alomerry Wu
 date: 2020-01-17
 head:
   - - meta
@@ -12,13 +10,10 @@ head:
     - name: author
       content: Alomerry 清欢
 tag:
-  - Y2020
   - Typecho
 ---
 
-<!-- Description. -->
-
-<!-- more -->
+# typecho 主题 handsome 美化插件 Skymo
 
 ::: danger Attention
 第一次搭博客使用的 typecho，并且使用了很久，装上 [handsome](https://www.ihewro.com/archives/489/) 主题，折腾了很多花里胡哨的特效和装饰。一直持续到 2021

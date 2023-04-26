@@ -10,7 +10,7 @@ export const configPlugins: PluginConfig = [
   searchProPlugin({
     indexContent: true
   }),
-  
+
   // 谷歌统计插件
   // googleAnalyticsPlugin({
   //  id: ''

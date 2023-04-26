@@ -1,11 +1,8 @@
 ---
 title: Code Review 注意事项
 description: 在公司中学习到一些规范和流程
-author: Alomerry Wu
 date: 2020-07-06
 tag:
-  - Y2020
-  - U2022
   - TODO
 ---
 

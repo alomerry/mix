@@ -69,29 +69,4 @@ Source: [LeetCode 35](https://leetcode-cn.com/problems/search-insert-position/){
 
 ### Code
 
-```cpp
-int binarySearch(vector<int> nums, int left, int right, int target) {
-    if (target < nums[left])
-        return left;
-    if (target > nums[right])
-        return right + 1;
-    if (left >= right) {
-        if (target <= nums[left]) {
-            return left;
-        } else {
-            return left + 1;
-        }
-    }
-    int middle = left + (right - left) / 2;
-    if (target == nums[middle])return middle;
-    else if (target < nums[middle]) {
-        return binarySearch(nums, left, middle, target);
-    } else {
-        return binarySearch(nums, middle + 1, right, target);
-    }
-}
-
-int searchInsert(vector<int> &nums, int target) {
-     return binarySearch(nums, 0, nums.size() - 1, target);
-}
-```
+@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/35-main.go)

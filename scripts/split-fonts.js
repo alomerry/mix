@@ -7,10 +7,12 @@ let fontType = ".ttf"
 let path = constant.ORIGIN_FONT_PATH
 let destPath = path + "/" + fontName
 
-utils.clearDir(destPath)
-run()
-
 function run() {
+    utils.clearDir(destPath)
+    split()
+}
+
+function split() {
     fontSplit({
         FontPath: path + "/" + fontName + fontType,
         destFold: destPath,
@@ -23,4 +25,8 @@ function run() {
         testHTML: false, // 输出一份 html 报告文件
         reporter: false, // 输出 json 报告
     });
+}
+
+export default {
+    run
 }

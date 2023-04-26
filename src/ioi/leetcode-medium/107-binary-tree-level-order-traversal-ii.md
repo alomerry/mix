@@ -49,4 +49,4 @@ Related Topics: [树](https://leetcode.cn/tag/tree/), [广度优先搜索](https
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../_codes/algorithm/code/leet-code/107-main.cpp)
+@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/107-main.cpp)

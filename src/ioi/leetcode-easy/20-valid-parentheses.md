@@ -68,37 +68,4 @@ Source: [LeetCode 20](https://leetcode-cn.com/problems/valid-parentheses/){targe
 
 ## Code
 
-```cpp
-class Solution {
-public:
-    bool isValid(string s) {
-        set<char> left;
-        string ls = "({[",rs = ")}]";
-        map<char,char> m;
-
-        for (int i = 0; i < ls.size(); i++){
-            left.insert(ls[i]);
-            m[ls[i]] = rs[i];
-        }
-
-        stack<char> st;
-        set<char>::iterator it;
-        for (int i = 0; i < s.size(); i++){
-            it = left.find(s[i]);
-            if (it != left.end()){
-                st.push(s[i]);
-                continue;
-            }
-            if (st.empty()){
-                return false;
-            }
-            char top = st.top();
-            st.pop();
-            if (m[top] != s[i]){
-                return false;
-            }
-        }
-    return st.empty();
-}
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/20-stack.cpp)

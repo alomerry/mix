@@ -60,4 +60,4 @@ https://leetcode.cn/problems/regular-expression-matching/solution/ji-yu-guan-fan
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../_codes/algorithm/code/leet-code/10-main.cpp)
+@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/10-main.cpp)

@@ -2,7 +2,7 @@ import fs from "fs";
 import utils from "./utils.js"
 import constant from "./constant.js";
 
-run()
+// TODO 检查 public 下的 assets 能否对应文章目录下的 assets
 
 function run() {
   convertCDNAlias2URL()

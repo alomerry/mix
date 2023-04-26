@@ -1,10 +1,8 @@
 ---
 title: System Note
 description: macOS 使用过程中的一些经验、技巧、笔记
-author: Alomerry Wu
 date: 2022-02-26
 tag:
-  - Y2022
   - Mac
 ---
 

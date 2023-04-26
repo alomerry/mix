@@ -1,13 +1,9 @@
 ---
-title: 1002 A+B for Polynomials
-problem_no: 1002
-date: 2019-09-06
-description: 
 timeline: false
 article: false
 ---
 
-<!--more-->
+# 1002 A+B for Polynomials
 
 ## Problem
 

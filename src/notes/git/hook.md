@@ -1,15 +1,11 @@
 ---
-title: git hook
-excerpt: false
+timeline: false
 description: Git 笔记、技巧
 isOriginal: true
 article: false
-date: 2020-07-06
-tag: 
-  - git
-  - Y2020
-  - U2022
 ---
+
+# git hook
 
 ## 客户端钩子
 

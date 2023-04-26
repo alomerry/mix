@@ -1,14 +1,10 @@
 ---
-title: 合并两个不同的仓库
 excerpt: false
 article: false
-description: 
 isOriginal: true
-date: 2023-04-21
-tag: 
-  - git
-  - Y2023
 ---
+
+# 合并两个不同的仓库
 
 - 拉取 A 库的代码，切换到 master 分支
 

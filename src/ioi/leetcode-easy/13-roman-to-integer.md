@@ -87,4 +87,4 @@ M             1000
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../_codes/algorithm/code/leet-code/13-main.cpp)
+@[code cpp](../../_codes/algorithm/code/leet-code/13-main.cpp)

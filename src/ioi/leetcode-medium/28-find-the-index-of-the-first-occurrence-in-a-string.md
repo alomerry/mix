@@ -43,4 +43,4 @@ Related Topics: [双指针](https://leetcode.cn/tag/two-pointers/), [字符串](
 
 Language: **Go**
 
-@[code go:no-line-numbers](../_codes/algorithm/code/leet-code/28-main.go)
+@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/28-main.go)

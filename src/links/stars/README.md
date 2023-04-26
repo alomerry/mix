@@ -33,3 +33,7 @@
 :::
 
 https://webgradients.com/
+
+- REAMD 徽标网站
+  - https://badgen.net/
+  - https://shields.io/

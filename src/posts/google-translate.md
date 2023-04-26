@@ -1,12 +1,8 @@
 ---
 title: 谷歌翻译服务退出中国后使用全文翻译的方法
-excerpt: false
 description: Proxifier + clash
 isOriginal: true
 date: 2022-11-26
-tag:
-  - Y2022
-  - U2023
 ---
 
 :::tip 2022-12-26 更新

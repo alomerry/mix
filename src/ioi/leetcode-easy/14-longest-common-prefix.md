@@ -48,31 +48,4 @@ Source: [LeetCode 14](https://leetcode-cn.com/problems/longest-common-prefix/){t
 
 ## Code
 
- ```cpp
-string getMaxPrefix(string a, string b) {
-    int i;
-    for (i = 0; i < a.size() && i < b.size(); ++i) {
-        if (a[i] != b[i]) {
-            break;
-        }
-    }
-    return a.substr(0, i);
-}
-
-string dp(vector<string> strs, int left, int right) {
-    if (left >= right) {
-        return strs[left];
-    }
-    int middle = left + (right - left) / 2;
-    string leftStr = dp(strs, left, middle);
-    string rightStr = dp(strs, middle + 1, right);
-    return getMaxPrefix(leftStr, rightStr);
-}
-
-string longestCommonPrefix(vector<string> &strs) {
-    if (strs.size() > 0) {
-        return dp(strs, 0, strs.size() - 1);
-    }
-    return "";
-}
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/14-main.cpp)

@@ -66,21 +66,4 @@ for (int i = 0; i < len; i++) {
 
 ## Code
 
-```cpp
-class Solution {
-public:
-    int removeDuplicates(vector<int>& nums) {
-        if (nums.size() <= 1) {
-            return nums.size();
-        }
-
-        int left = 0, right = 1;
-        for (; right < nums.size(); right++) {
-            if (nums[left] != nums[right]) {
-                nums[++left] = nums[right];
-            }
-        }
-        return left+1;
-    }
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/26-main.cpp)

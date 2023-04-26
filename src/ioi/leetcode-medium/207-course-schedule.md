@@ -50,5 +50,4 @@ Source: [LeetCode 207](https://leetcode-cn.com/problems/course-schedule/){target
 
 ## Code
 
-```cpp
-```
+@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/207-topo.go)

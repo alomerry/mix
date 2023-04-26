@@ -44,4 +44,4 @@ Related Topics: [数组](https://leetcode.cn/tag/array/), [双指针](https://le
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../_codes/algorithm/code/leet-code/16-main.cpp)
+@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/16-main.cpp)

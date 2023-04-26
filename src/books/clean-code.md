@@ -1,17 +1,10 @@
 ---
-title: Clean Code
 date: 2020-10-03
 description: 《代码整洁之道》读书笔记和日常写代码、读代码对于代码风格的总结
-excerpt: false
 isOriginal: true
-tag:
-  - Y2022
-  - U2022
 ---
 
-<!-- Description. -->
-
-<!-- more -->
+# Clean Code
 
 ## 《代码整洁之道》笔记
 

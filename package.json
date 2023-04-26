@@ -12,11 +12,11 @@
     "clean-dev": "vuepress dev src --clean-cache",
     "dev": "vuepress dev src",
     "update-package": "pnpm dlx vp-update",
-    "postinstall": "node scripts/postinstall.js",
-    "postbuild": "node scripts/postbuild.js",
-    "convert-cdn": "node scripts/convert-cdn-alias.js",
+    "postinstall": "node scripts/cmd.js modifySplitFontsCss downloadImportCode",
+    "postbuild": "node scripts/cmd.js addUmamiTrace",
+    "convert-cdn": "node scripts/cmd.js convertCDN",
     "oss": "./src/.vuepress/ossPusher --configPath core.toml",
-    "split-fonts": "node scripts/split-fonts.js"
+    "split-fonts": "node scripts/cmd splitFonts modifySplitFontsCss"
   },
   "engines": {
     "node": ">=19",

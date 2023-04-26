@@ -47,4 +47,4 @@ Related Topics: [树](https://leetcode.cn/tag/tree/), [数组](https://leetcode.
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../_codes/algorithm/code/leet-code/106-main.cpp)
+@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/106-main.cpp)

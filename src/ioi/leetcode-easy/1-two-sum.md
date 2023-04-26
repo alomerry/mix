@@ -83,32 +83,7 @@ public:
 
 ### 暴力剪枝法
 
- ```cpp
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-    vector<int> res;
-    int tmp=10e8;
-    for(int i = 0;i<nums.size();i++){
-        for (int j = i+1;j< nums.size();j++){
-            if(abs(nums[j]+nums[i]-target)>tmp){
-                break;
-            }else{
-                tmp = abs(tmp-target);
-            }
-            if(nums[j]+nums[i]!=target){
-                continue;
-            }else{
-                res.push_back(i);
-                res.push_back(j);
-                break;
-            }
-        }
-    }
-    return res;
-    }
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/1-pruning.cpp)
 
 可以看到时间复杂度得到了很好的优化.
 
@@ -116,33 +91,4 @@ public:
 
 ### 哈希法
 
- ```cpp
-vector<int> twoSum(vector<int> &nums, int target)
-{
-    vector<int> result;
-    map<int, int> tmp, count;
-    for (int i = 0; i < nums.size(); i++)
-    {
-        tmp[nums[i]] = i;
-        ++count[nums[i]];
-    }
-    for (int i = 0; i < nums.size(); i++)
-    {
-        map<int, int>::iterator res = tmp.find(target - nums[i]);
-        if (res != tmp.end())
-        {
-            if (res->first == nums[i] && count[nums[i]] <= 1)
-            {
-                continue;
-            }
-            else
-            {
-                result.push_back(i);
-                result.push_back(res->second);
-                break;
-            }
-        }
-    }
-    return result;
-}
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/1-map.cpp)

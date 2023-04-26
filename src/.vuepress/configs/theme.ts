@@ -132,7 +132,28 @@ export default hopeTheme({
       vuePlayground: true,
     },
     components: {
-      components: ["SiteInfo", "BiliBili", "PDF"],
+      components: ["SiteInfo", "BiliBili", "PDF", "AudioPlayer"],
+      rootComponents: {
+        notice: [
+          {
+            path: "/",
+            title: "欢迎",
+            content: "这里是清欢。",
+            showOnce: true,
+            confirm: false,
+            actions: [
+              {
+                text: "关于本站",
+                link: "/about/site",
+              },
+              {
+                text: "关于我",
+                link: "/about/intro",
+              },
+            ],
+          }
+        ],
+      }
     },
 
     // readingTime: false,

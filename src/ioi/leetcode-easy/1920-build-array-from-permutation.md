@@ -53,4 +53,4 @@ ans = [nums[nums[0]], nums[nums[1]], nums[nums[2]], nums[nums[3]], nums[nums[4]]
 
 ## Code
 
-@[code cpp:no-line-numbers](../_codes/algorithm/code/leet-code/1920-main.cpp)
+@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/1920-main.cpp)

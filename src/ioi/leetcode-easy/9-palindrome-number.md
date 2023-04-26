@@ -59,33 +59,6 @@ Source: [LeetCode 9](https://leetcode-cn.com/problems/palindrome-number/){target
 
 ## Code
 
- ```cpp
-class Solution {
-public:
-    bool isPalindrome(int x) {
-      if (x < 0) {
-          return false;
-      }
-      if (x == 0) {
-          return true;
-      }
+@[code cpp](../../_codes/algorithm/code/leet-code/9-map.cpp)
 
-      string str = convertToStr(x);
-      for (int i = 0, j = str.size() - 1; i <= j; i++, j--) {
-          if (str[i] != str[j]) {
-              return false;
-          }
-      }
-      return true;
-    }
-
-    string convertToStr(int x) {
-      string str = "";
-      while (x > 0) {
-          str += ('0' + x % 10);
-          x /= 10;
-      }
-      return str;
-    }
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/9-string.cpp)

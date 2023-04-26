@@ -1,12 +1,8 @@
 ---
 title: Twitch API
 date: 2023-02-21
-excerpt: false
-description: xxxx
 isOriginal: true
 tag:
-  - Y2023
-  - U2023
   - Twitch
 ---
 

@@ -66,48 +66,4 @@ set 中不存在元素时所有链表取完。
 
 ### 代码
 
- ```cpp
-struct ListNode {
-    int val;
-    ListNode *next;
-
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
-set<int> miniSet;
-map<int, queue<int>> valueIndexMapper;
-
-ListNode *mergeKLists(vector<ListNode *> &lists) {
-    ListNode *head = new ListNode(0), *tmp = head;
-    for (int i = 0; i < lists.size(); ++i) {
-        if (lists[i] != nullptr) {
-            valueIndexMapper[lists[i]->val].push(i);
-            miniSet.insert(lists[i]->val);
-        }
-    }
-    while (miniSet.size() > 0) {
-        int miniNow = *miniSet.begin();
-        queue<int> q = valueIndexMapper[miniNow];
-        while (!q.empty()) {
-            int index = q.front();
-            ListNode *item = lists[index];
-            lists[index] = lists[index]->next;
-            tmp->next = item;
-            tmp = tmp->next;
-            while (item->next != NULL && item->next->val == miniNow) {
-                item = lists[index];
-                lists[index] = lists[index]->next;
-                tmp->next = item;
-                tmp = tmp->next;
-            }
-            if(item->next != NULL){
-                miniSet.insert(item->next->val);
-                valueIndexMapper[item->next->val].push(q.front());
-            }
-            q.pop();
-        }
-        miniSet.erase(miniNow);
-    }
-    return head->next;
-}
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/23-main.cpp)

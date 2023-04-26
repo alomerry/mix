@@ -61,25 +61,4 @@ Source: [LeetCode 33](https://leetcode-cn.com/problems/search-in-rotated-sorted-
 
 ## Code
 
- ```cpp
-int result = -1;
-
-void binarySearch(vector<int> &nums, int left, int right, int target) {
-    if (left >= right) {
-        if (target == nums[left]) {
-            result = left;
-        }
-        return;
-    }
-    int middle = left + (right - left) / 2;
-    binarySearch(nums, left, middle, target);
-    binarySearch(nums, middle + 1, right, target);
-}
-
-int search(vector<int> &nums, int target) {
-    if(nums.size()==0)
-        return -1;
-    binarySearch(nums, 0, nums.size() - 1, target);
-    return result;
-}
-```
+@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/33-main.go)

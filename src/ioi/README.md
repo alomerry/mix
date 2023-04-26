@@ -1,13 +1,9 @@
 ---
-title: 算法题解
-excerpt: false
 description: Share personal leetcode, pat and csp solution and make not for learning algorithm.
 isOriginal: true
-date: 2018-06-13
-tag:
-  - Y2018
-  - U2023
 ---
+
+# 算法题解
 
 编程比赛三大赛制介绍（ACM赛制、OI赛制、IOI赛制）
 

@@ -1,11 +1,11 @@
 import { navbar } from "vuepress-theme-hope";
 
 export const zhNavbar = navbar([
-  { 
-    text: "Home", 
-    link: "/", 
+  {
+    text: "Home",
+    link: "/",
     // icon: "fa-fort-awesome" 
-    icon: "svg-spinners:blocks-scale" 
+    icon: "svg-spinners:blocks-scale"
   },
   {
     text: "Blog",
@@ -24,15 +24,15 @@ export const zhNavbar = navbar([
     icon: "line-md:sunny-filled-loop",
     prefix: "/space/",
     children: [
-      { 
-        text: "美文文摘", 
-        link: "digest/", 
-        icon: "emojione:books" ,
+      {
+        text: "美文文摘",
+        link: "digest/",
+        icon: "emojione:books",
         activeMatch: "^/space/digest/$",
       },
       { text: "代办", link: "todo.md", icon: "flat-color-icons:approval" },
-      { text: "算法笔记", link: "algorithm.md", icon: "cryptocurrency-color:algo" },
-      { text: "VPS Backup", link: "vps-home.md", icon: "bi:pc-display" },
+      { text: "算法笔记", link: "algorithm/", icon: "cryptocurrency-color:algo" },
+      { text: "VPS Backup", link: "vps-home/", icon: "bi:pc-display" },
     ],
   },
   {
@@ -40,49 +40,52 @@ export const zhNavbar = navbar([
     prefix: "/notes/",
     icon: "svg-spinners:clock",
     children: [
-      { text: "redis", link: "redis.md", icon: "vscode-icons:folder-type-redis" },
-      { text: "git", link: "git/", icon: "mdi:git" },
-      { text: "html", link: "html.md", icon: "logos:html-5" },
-      { text: "nodejs", link: "nodejs.md", icon: "logos:nodejs-icon" },
-      { text: "golang", link: "golang.md", icon: "skill-icons:golang" },
-      { text: "mongodb", link: "mongodb.md", icon: "vscode-icons:folder-type-mongodb" },
-      { text: "nginx", link: "nginx.md", icon: "vscode-icons:folder-type-nginx" },
-      { text: "docker", link: "docker.md", icon: "logos:docker-icon" },
-    ]
-  },
-  {
-    text: `Tools`,
-    prefix: "/tools",
-    icon: "line-md:coffee-half-empty-twotone-loop",
-    children: [
       {
-        text: "markdown",
-        prefix: "/markdown/",
+        text: "Container",
+        prefix: "container/",
         children: [
-          { text: "MD 语法", link: "markdown-grammar.md", icon: "vscode-icons:file-type-markdown" }
+          { text: "docker", link: "docker/", icon: "logos:docker-icon" },
+          { text: "k8s", link: "k8s/", icon: "logos:docker-icon" },
         ]
       },
       {
-        text: "Golang",
-        prefix: "/golang/",
+        text: "Database",
+        prefix: "database/",
         children: [
-          { text: "grpc", link: "grpc.md", icon: "bi:hypnotize" },
-          { text: "gin", link: "gin.md", icon: "simple-icons:coronaengine" },
+          { text: "nosql", link: "nosql/", icon: "vscode-icons:folder-type-mongodb" },
+          { text: "sql", link: "sql/", icon: "vscode-icons:folder-type-redis" },
+        ]
+      },
+      { text: "Frontend", link: "frontend/", icon: "vscode-icons:folder-type-mongodb" },
+      { text: "Git", link: "git/", icon: "mdi:git" },
+      { text: "Golang", link: "golang/", icon: "skill-icons:golang" },
+      { text: "Nginx", link: "nginx/", icon: "vscode-icons:folder-type-nginx" },
+      { text: "Linux", link: "linux/", icon: "vscode-icons:folder-type-nginx" },
+      {
+        text: "CI/CD",
+        prefix: "ci/",
+        children: [
+          { text: "jenkins", link: "jenkins", icon: "vscode-icons:file-type-jenkins" },
         ]
       },
       {
         text: "Message Queue",
-        prefix: "/message-queue/",
+        prefix: "message-queue/",
         children: [
-          { text: "rocketmq", link: "grpc.md", icon: "mdi:mq" },
+          { text: "base", link: "", icon: "mdi:mq" },
         ]
       },
-      {
-        text: "CI/CD",
-        children: [
-          { text: "jenkins", link: "/ci/jenkins.md", icon: "vscode-icons:file-type-jenkins" },
-        ]
-      },
+    ]
+  },
+  {
+    text: `Tools`,
+    prefix: "/tools/",
+    icon: "line-md:coffee-half-empty-twotone-loop",
+    children: [
+      { text: "Markdown", link: "markdown/", icon: "vscode-icons:file-type-markdown" },
+      { text: "Proxy", link: "proxy/", icon: "vscode-icons:file-type-markdown" },
+      { text: "Apps", link: "apps-intro.md", icon: "vscode-icons:file-type-markdown" },
+      { text: "Postman", link: "postman.md", icon: "vscode-icons:file-type-markdown" },
     ]
   },
   {

@@ -50,20 +50,4 @@ Source: [LeetCode 70](https://leetcode-cn.com/problems/climbing-stairs/){target=
 
 ## Code
 
-```cpp
-class Solution {
-public:
-    int climbStairs(int n) {
-    if (n <= 2) {
-        return n;
-    }
-    int p = 1, q = 2, j = 0;
-    for (int i = 3; i<=n; i++) {
-        j = p + q;
-        p = q;
-        q = j;
-    }
-    return j;
-}
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/70-main.cpp)

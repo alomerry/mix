@@ -1,9 +1,6 @@
 ---
 title: Install Manual
-subtitle: 
-author: Alomerry Wu
 date: 2022-04-26
-update: 2023-04-03
 ---
 
 ## mac

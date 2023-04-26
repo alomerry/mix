@@ -55,34 +55,4 @@ Source: [LeetCode 66](https://leetcode-cn.com/problems/plus-one/){target="_blank
 
 ## Code
 
-```cpp
-class Solution {
-public:
-    vector<int> plusOne(vector<int>& digits) {
-        stack<int> s;
-        int needAdd = 1;
-        for (int i = digits.size()-1; i >=0; i--) {
-            if (needAdd > 0) {
-                if (digits[i] + needAdd > 9) {
-                    s.push(digits[i] + needAdd - 10);
-                    needAdd = 1;
-                    continue;
-                }
-            }
-            s.push(digits[i] + needAdd);
-            needAdd = 0;
-        }
-        if (needAdd > 0) {
-            s.push(needAdd);
-        }
-
-        vector<int> result;
-        while (!s.empty()) {
-            int i = s.top();
-            s.pop();
-            result.push_back(i);
-        }
-        return result;
-    }
-};
-```
+@[code cpp](../../_codes/algorithm/code/leet-code/66-main.cpp)
