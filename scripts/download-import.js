@@ -4,8 +4,20 @@ import constant from "./constant.js"
 import request from "request"
 
 function run() {
+  downloadGithubYearlyControbution()
   // 导入 gitee 代码
   downloadFromGitee()
+}
+
+// 下载 github 瓷砖图 https://github.com/alomerry/github-yearly-contributions
+function downloadGithubYearlyControbution() {
+  let tmp = fs.createWriteStream(constant.PUBLIC_PATH+"/github-contributions-snake.svg");
+  let svg = "https://gitee.com/alomerry/github-yearly-contributions/raw/output/github-contribution-grid-snake.svg"
+        request(svg).pipe(tmp).on("close", function (err) {
+          if (err) {
+            console.log("download github yearly contributions svg failed.")
+          }
+        });
 }
 
 function downloadFromGitee() {

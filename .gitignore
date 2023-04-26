@@ -18,6 +18,7 @@ src/.vuepress/ossPusher
 src/.vuepress/core.toml
 src/.vuepress/dist
 
+src/.vuepress/public/github-contributions-snake.svg
 src/.vuepress/public/files
 src/.vuepress/public/assets/icon
 src/.vuepress/public/assets/fonts/**/*.ttf

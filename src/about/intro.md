@@ -6,4 +6,4 @@ icon: info
 
 将你的个人介绍和档案放置在此处。
 
-<img src="https://raw.githubusercontent.com/alomerry/github-yearly-contributions/output/github-contribution-grid-snake.svg" />
+<img src="https://cdn.alomerry.com/blog/github-contributions-snake.svg" />

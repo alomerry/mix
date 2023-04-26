@@ -232,7 +232,6 @@ function copy(from, to) {
     // console.log(`from [${from}] to [${to}]`)
     let input = fs.createReadStream(from)
 
-    console.log("666", path.parse(to), path.parse(to).dir)
     // 上层文件夹不存在则创建
     let dir = path.parse(to).dir
     if (!fs.existsSync(dir)) {
