@@ -22,17 +22,16 @@ export const zhNavbar = navbar([
   {
     text: "Space",
     icon: "line-md:sunny-filled-loop",
-    prefix: "/space/",
     children: [
       {
         text: "美文文摘",
-        link: "digest/",
+        link: "/space/digest/",
         icon: "emojione:books",
         activeMatch: "^/space/digest/$",
       },
-      { text: "代办", link: "todo.md", icon: "flat-color-icons:approval" },
-      { text: "算法笔记", link: "algorithm/", icon: "cryptocurrency-color:algo" },
-      { text: "VPS Backup", link: "vps-home/", icon: "bi:pc-display" },
+      { text: "代办", link: "/space/todo.md", icon: "flat-color-icons:approval" },
+      { text: "算法笔记", link: "/ioi/algorithm/", icon: "cryptocurrency-color:algo" },
+      { text: "VPS Backup", link: "/space/vps-home/", icon: "bi:pc-display" },
     ],
   },
   {

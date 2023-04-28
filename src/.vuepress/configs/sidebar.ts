@@ -1,6 +1,5 @@
 import { sidebar } from "vuepress-theme-hope";
 import { digest } from "./sidebar/space/digest.js"
-import { algorithm } from "./sidebar/space/algorithm.js"
 import { vspHome } from "./sidebar/space/vps-home.js"
 import { docker } from "./sidebar/notes/container/docker.js"
 import { nosql } from "./sidebar/notes/database/nosql.js"
@@ -35,6 +34,5 @@ export const zhSidebar = sidebar({
   "/notes/container/docker/": docker,
 
   "/space/digest/": digest,
-  "/space/algorithm/": algorithm,
   "/space/vps-home/": vspHome,
 });

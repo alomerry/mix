@@ -3,6 +3,16 @@ import { arraySidebar } from "vuepress-theme-hope";
 export const ioi = arraySidebar([
   "",
   {
+    text: "算法笔记",
+    collapsible: true,
+    prefix: "algorithm/",
+    children: [
+      "kmp",
+      "tail-recursion",
+      "useful-cpp-lib",
+    ],
+  },
+  {
     text: "PAT 甲级",
     collapsible: true,
     prefix: "pat-a/",
