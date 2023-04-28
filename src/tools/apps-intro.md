@@ -1,8 +1,10 @@
 ---
-title: Apps Introduction
 description: App 介绍
 isOriginal: true
+date: 2022-04-26
 ---
+
+# Apps Introduction
 
 几次重装下来的干货，基本算是个人必备，仅供参考
 

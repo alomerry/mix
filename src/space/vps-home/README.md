@@ -1,9 +1,9 @@
 ---
-title: VPS Note
-excerpt: false
 description: 记录家庭服务器和云服务器的服务笔记，用于迁移或者恢复
 date: 2022-02-26
 ---
+
+# VPS Note
 
 :::tip 2022.12.09
 

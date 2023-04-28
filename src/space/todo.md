@@ -382,6 +382,8 @@ https://riris.cn/archives/page/2/#board
 - bash shell -e 是？ https://stackoverflow.com/questions/9952177/whats-the-meaning-of-the-parameter-e-for-bash-shell-command-line
 - https://github.com/chai2010
 - go-daily-lib https://github.com/darjun/go-daily-lib
+- [双拼](https://digua.moe/posts/20220514-shuangpin.html) https://github.com/BlueSky-07/Shuang
+- [五笔输入法](https://www.xiebruce.top/1261.html)
 
 ## Reference
 

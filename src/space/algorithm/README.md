@@ -6,6 +6,8 @@ tag:
 
 # 数据结构知识点总结和罗列
 
+## 栈、队列、链表、线性表
+
 ## 树
 
 - 二叉树的先序、中序、后序、层次遍历
@@ -28,9 +30,12 @@ tag:
 - [ ] bst、avl、并查集（路径压缩）
 - [ ] 堆排序
 - [ ] 哈夫曼树
-- [ ] 领接矩阵、邻接表（图存储）
-- [ ] bfs、dfs（图遍历）
-- [ ] 最短路径问题（dijkstra、bellman-ford、spfa、floyd）
+
+## 图
+
+- 领接矩阵、邻接表（图存储）
+- 图遍历 DFS BFS
+- 最短路径问题（dijkstra、bellman-ford、spfa、floyd）
 - [ ] 最小生成树（prim、kruskal）
 - [ ] 拓扑排序、有向无环图
 - [ ] 关键路径问题（aov、aoe）

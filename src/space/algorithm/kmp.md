@@ -1,5 +1,4 @@
 ---
-title: KMP
 date: 2023-01-27
 description: KMP 算法 字符串匹配
 isOriginal: true
@@ -8,13 +7,13 @@ tag:
   - KMP
 ---
 
-## KMP（Knuth-Morris-Pratt）
+# KMP（Knuth-Morris-Pratt）
 
-### Question
+## Question
 
 如果有 s 串 `abcazdabcabc` 和 P 串 `abcab` 两个字符串，求 p 串第一次出现在 s 串的位置。
 
-#### 暴力法
+### 暴力法
 
 以朴素或者说暴力的方式解决上面的问题，应该是使用双重循环：
 
@@ -37,7 +36,7 @@ for i := range s {
 
 不过当 s、p 串的长度变长之后，该算法的复杂度最坏会上升到 `len(s)*len(p)`，即 n^2^，那么可以减小时间复杂度吗？
 
-### 尝试优化
+## 尝试优化
 
 想要减小时间复杂度，那就要找出该算法中，是否有无效的计算。
 
@@ -87,7 +86,7 @@ for i := range s {
 
 所以我们就找到了 s 串的下一个 `a`，直接跳过 **轮次 2、3**，进入 **轮次 4**。
 
-### 分析
+## 分析
 
 匹配失败后，获得了一个 s、p 串部分匹配的前缀，如何利用这个前缀将 p 串尽可能最大化移动到 s 串的末端是优化的关键。
 
@@ -104,7 +103,7 @@ for i := range s {
 
 如果此时匹配到 p~8~（ 第一个 `?`）不相同，此时公共前缀为 `abcascab`，那么要移动的距离就是串 p~0~~-~~8~ 的公共前后缀，即 `ab`。所以最后问题的关键就落在了如何求出 p 的子串对应的公共前后缀长度问题。
 
-### 部分匹配表（Partial Match Table）
+## 部分匹配表（Partial Match Table）
 
 :::tip 概念
 **前缀** 和 **后缀**：**前缀** 指除了最后一个字符以外，一个字符串的全部头部组合；**后缀** 指除了第一个字符以外，一个字符串的全部尾部组合。
@@ -132,7 +131,7 @@ for i := range s {
 
 获取当前位前一位的串的部分匹配值，移动到匹配值的位置，如果匹配值的位置的下一位和当前位一致，则当前位的匹配值加一，否则为 0
 
-### Reference
+## Reference
 
 - [字符串匹配的 KMP 算法（阮一峰）](https://www.ruanyifeng.com/blog/2013/05/Knuth–Morris–Pratt_algorithm.html)
 - [如何更好地理解和掌握 KMP 算法？](https://www.zhihu.com/question/21923021)

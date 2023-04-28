@@ -1,6 +1,7 @@
 ---
 description: 记录 2019 年 alomerry.com 腾讯云备案流程和细节
 isOriginal: true
+date: 2019-07-18
 ---
 
 # 国内网站备案细节

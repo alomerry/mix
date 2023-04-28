@@ -38,5 +38,10 @@
     "vuepress-plugin-components": "2.0.0-beta.205",
     "vuepress-plugin-search-pro": "2.0.0-beta.205",
     "vuepress-theme-hope": "2.0.0-beta.205"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "vuepress-theme-hope@2.0.0-beta.205": "patches/vuepress-theme-hope@2.0.0-beta.205.patch"
+    }
   }
 }

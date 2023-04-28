@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+patchedDependencies:
+  vuepress-theme-hope@2.0.0-beta.205:
+    hash: dvvpcferqaycb577bwio6qinum
+    path: patches/vuepress-theme-hope@2.0.0-beta.205.patch
+
 dependencies:
   '@vuepress/client':
     specifier: 2.0.0-beta.61
@@ -33,7 +38,7 @@ dependencies:
     version: registry.npmmirror.com/vuepress-plugin-search-pro@2.0.0-beta.205(sass-loader@13.2.2)(vuepress@2.0.0-beta.61)
   vuepress-theme-hope:
     specifier: 2.0.0-beta.205
-    version: registry.npmmirror.com/vuepress-theme-hope@2.0.0-beta.205(react-dom@16.14.0)(react@16.14.0)(sass-loader@13.2.2)(vuepress@2.0.0-beta.61)
+    version: registry.npmmirror.com/vuepress-theme-hope@2.0.0-beta.205(patch_hash=dvvpcferqaycb577bwio6qinum)(react-dom@16.14.0)(react@16.14.0)(sass-loader@13.2.2)(vuepress@2.0.0-beta.61)
 
 devDependencies:
   '@konghayao/cn-font-split':
@@ -8197,7 +8202,7 @@ packages:
       - supports-color
     dev: false
 
-  registry.npmmirror.com/vuepress-theme-hope@2.0.0-beta.205(react-dom@16.14.0)(react@16.14.0)(sass-loader@13.2.2)(vuepress@2.0.0-beta.61):
+  registry.npmmirror.com/vuepress-theme-hope@2.0.0-beta.205(patch_hash=dvvpcferqaycb577bwio6qinum)(react-dom@16.14.0)(react@16.14.0)(sass-loader@13.2.2)(vuepress@2.0.0-beta.61):
     resolution: {integrity: sha512-4UQazopjd9Kxltus2QEpbfYpYYq1+P2w9Q01z22Kh0la/I87sqmxUz4sPI4eImAU7De/wbcynoPk0QTzJQYRrA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuepress-theme-hope/-/vuepress-theme-hope-2.0.0-beta.205.tgz}
     id: registry.npmmirror.com/vuepress-theme-hope/2.0.0-beta.205
     name: vuepress-theme-hope
@@ -8264,6 +8269,7 @@ packages:
       - react-dom
       - supports-color
     dev: false
+    patched: true
 
   registry.npmmirror.com/vuepress-vite@2.0.0-beta.61(@vuepress/client@2.0.0-beta.61)(sass-loader@13.2.2)(vue@3.2.47):
     resolution: {integrity: sha512-4mcR8XSY5b36CYkPqF80WvoeGAEjTw6Cr9bMPHrPVSjG4qqyfVpdSdyRtXD+/5aLJB7r/L60J7PI1pKTci1+3w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuepress-vite/-/vuepress-vite-2.0.0-beta.61.tgz}
