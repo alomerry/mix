@@ -1,6 +1,7 @@
 ---
 description: Share personal leetcode, pat and csp solution and make not for learning algorithm.
-isOriginal: true
+timeline: false
+article: false
 ---
 
 # 算法题解
@@ -21,42 +22,3 @@ IOI赛制的比赛：PAT、团体程序设计天梯赛、CCF CCSP、洛谷月赛
 
 - [PTA](https://pintia.cn/problem-sets/dashboard)
 - [LeetCode]()
-
-## 数据结构知识点总结和罗列
-
-### 栈、队列、链表、线性表
-
-### 树
-
-- 二叉树的先序、中序、后序、层次遍历
-- 给定两种遍历构建二叉树
-- 广度、深度优先搜索
-- 二叉树静态实现
-- 二叉搜索树
-- AVL（LL/LR、RR/RL 型旋转）
-- 并查集、路径压缩
-- 堆、堆排序
-
-- [ ] 红黑树特点，和二叉查找树区别
-- [ ] B+ 树和 B 树
-- [ ] 冒泡排序、选择排序、插入排序、
-- [ ] 散列
-- [ ] 递归、分治
-- [ ] 二分查找、快速幂
-- [ ] 归并排序
-- [ ] 快速排序
-- [ ] bst、avl、并查集（路径压缩）
-- [ ] 堆排序
-- [ ] 哈夫曼树
-
-### 图
-
-- 领接矩阵、邻接表（图存储）
-- 图遍历 DFS BFS
-- 最短路径问题（dijkstra、bellman-ford、spfa、floyd）
-- [ ] 最小生成树（prim、kruskal）
-- [ ] 拓扑排序、有向无环图
-- [ ] 关键路径问题（aov、aoe）
-- [ ] 最长路径
-
-动态规划（递归、递推）、背包问题、多阶段动态规划、DAG 最长路、KMP、树状数组

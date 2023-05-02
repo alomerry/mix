@@ -13,6 +13,15 @@ export const ioi = arraySidebar([
     ],
   },
   {
+    text: "数据结构",
+    collapsible: true,
+    prefix: "data-struct/",
+    children: [
+      "",
+      "sort",
+    ],
+  },
+  {
     text: "PAT 甲级",
     collapsible: true,
     prefix: "pat-a/",
