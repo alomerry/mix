@@ -1,5 +1,6 @@
 ---
 icon: info
+article: false
 ---
 
 # 介绍页
