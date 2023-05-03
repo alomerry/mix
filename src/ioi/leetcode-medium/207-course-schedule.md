@@ -50,4 +50,4 @@ Source: [LeetCode 207](https://leetcode-cn.com/problems/course-schedule/){target
 
 ## Code
 
-@[code golang](../../_codes/algorithm/code/leet-code/207-topo.go)
+@[code](../../_codes/algorithm/code/leet-code/207-topo.go)

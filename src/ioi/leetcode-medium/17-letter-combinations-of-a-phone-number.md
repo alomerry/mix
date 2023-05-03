@@ -53,4 +53,4 @@ Language: **Golang**
 
 递归遍历
 
-@[code golang](../../_codes/algorithm/code/leet-code/17-main.go)
+@[code](../../_codes/algorithm/code/leet-code/17-main.go)

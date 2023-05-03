@@ -14,7 +14,7 @@ function addTraceScript(traces) {
     traceScript += "\r\n    " + trace
   })
 
-  readFile('./blog/.vuepress/dist/index.html', 'utf-8', function (err, contents) {
+  readFile('./src/.vuepress/dist/index.html', 'utf-8', function (err, contents) {
     if (err) {
       console.log(err);
       return;
@@ -22,7 +22,7 @@ function addTraceScript(traces) {
 
     const replaced = contents.replace(/<head>/g, '<head>' + traceScript);
 
-    writeFile('./blog/.vuepress/dist/index.html', replaced, 'utf-8', function (err) {
+    writeFile('./src/.vuepress/dist/index.html', replaced, 'utf-8', function (err) {
       if (err) {
         console.log(err);
         return;

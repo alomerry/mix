@@ -2,7 +2,6 @@
 title: 11. 盛最多水的容器
 date: 2020-08-05
 problem_no: 11
-description: 
 timeline: false
 article: false
 ---
