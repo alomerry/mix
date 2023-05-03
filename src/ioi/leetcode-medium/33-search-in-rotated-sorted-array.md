@@ -61,4 +61,4 @@ Source: [LeetCode 33](https://leetcode-cn.com/problems/search-in-rotated-sorted-
 
 ## Code
 
-@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/33-main.go)
+@[code golang](../../_codes/algorithm/code/leet-code/33-main.go)

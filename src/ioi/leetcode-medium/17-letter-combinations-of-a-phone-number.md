@@ -53,4 +53,4 @@ Language: **Golang**
 
 递归遍历
 
-@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/17-main.go)
+@[code golang](../../_codes/algorithm/code/leet-code/17-main.go)

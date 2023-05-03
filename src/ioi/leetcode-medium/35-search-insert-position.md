@@ -69,4 +69,4 @@ Source: [LeetCode 35](https://leetcode-cn.com/problems/search-insert-position/){
 
 ### Code
 
-@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/35-main.go)
+@[code golang](../../_codes/algorithm/code/leet-code/35-main.go)

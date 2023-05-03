@@ -99,7 +99,7 @@ https://blog.csdn.net/xiangxianghehe/article/details/122856771
 
 ### umami
 
-@[code yml:no-line-numbers](../_codes/vps-home/frpc/umami/docker-compose.yml)
+@[code yml:no-line-numbers](../../_codes/vps-home/frpc/umami/docker-compose.yml)
 
 #### 挂载新硬盘作为存储策略
 
@@ -121,25 +121,25 @@ https://blog.csdn.net/xiangxianghehe/article/details/122856771
 - `docker compose up -d flarum`
 - 安装中文包 `docker exec -ti flarum extension require flarum-lang/chinese-simplified`
 
-@[code yml:no-line-numbers](../_codes/docker-flarum/docker-compose.yml)
+@[code yml:no-line-numbers](../../_codes/docker-flarum/docker-compose.yml)
 
 ### vscode web
 
-@[code yml:no-line-numbers](../_codes/vscode-web/docker-compose.yml)
+@[code yml:no-line-numbers](../../_codes/vscode-web/docker-compose.yml)
 
 ### jenkins
 
 vps-home/frpc/jenkins/docker-compose.yml
 
-@[code yml:no-line-numbers](../_codes/vps-home/frpc/jenkins/docker-compose.yml)
+@[code yml:no-line-numbers](../../_codes/vps-home/frpc/jenkins/docker-compose.yml)
 
 ### dozzle
 
-@[code yml:no-line-numbers](../_codes/dozzle/docker-compose.yml)
+@[code yml:no-line-numbers](../../_codes/dozzle/docker-compose.yml)
 
 ### rocket.chat
 
-@[code yml:no-line-numbers](../_codes/vps-home/frpc/rocket.chat/docker-compose.yml)
+@[code yml:no-line-numbers](../../_codes/vps-home/frpc/rocket.chat/docker-compose.yml)
 
 https://docs.rocket.chat/quick-start/installing-and-updating/rapid-deployment-methods/docker-and-docker-compose
 https://support.websoft9.com/docs/rocketchat/zh/solution-smtp.html

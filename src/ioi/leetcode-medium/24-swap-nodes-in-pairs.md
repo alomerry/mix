@@ -49,4 +49,4 @@ Related Topics: [递归](https://leetcode.cn/tag/recursion/), [链表](https://l
 
 Language: **Golang**
 
-@[code go:no-line-numbers](../../_codes/algorithm/code/leet-code/24-main.go)
+@[code golang](../../_codes/algorithm/code/leet-code/24-main.go)

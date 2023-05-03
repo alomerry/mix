@@ -1,6 +1,7 @@
 import fs from "fs"
 import { createHash } from 'node:crypto'
 import path from "path"
+import { resolve } from 'path';
 
 // 获取路径里的全部文件相对地址
 function getAllFilesPath(filePath) {
@@ -226,6 +227,10 @@ function removeDir(dir) {
   fs.rmdirSync(dir)//如果文件夹是空的，就将自己删除掉
 }
 
+function getAbsoluteIOIPath() {
+  return resolve('./src/ioi/');
+}
+
 // 仅拷贝文件
 function copy(from, to) {
   if (fs.existsSync(from)) {
@@ -249,16 +254,29 @@ function copy(from, to) {
 }
 
 function tools_IOI_SiderBar_Children_Generator(path, prefix) {
-  var res = [];
+  var mapper = new Map();
+  var indexSet = new Set()
+  var str = ""
   getDirFilesPath(path).forEach(function (filePath) {
-    res.push(filePath.replace(prefix, ""))
+    var sidebarItem = filePath.replace(prefix, "")
+    var indexes = sidebarItem.split("-")
+    if (indexes.length >= 1) {
+      indexSet.add(parseInt(indexes[0]))
+      mapper.set(parseInt(indexes[0]), sidebarItem)
+    }
   })
-  console.log(res)
+  Array.from(indexSet).sort((a, b) => a - b).forEach(function (index) {
+    if (str != ""){
+      str += "\n"
+    }
+    str += `      '${mapper.get(index)}',`
+  })
+  return str
 }
 
 export default {
   getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
 
 
-  tools_IOI_SiderBar_Children_Generator,
+  tools_IOI_SiderBar_Children_Generator, getAbsoluteIOIPath,
 }
