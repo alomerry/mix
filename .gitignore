@@ -6,6 +6,5 @@ cmake-build-debug
 algorithm.xcodeproj/
 docs/_site
 main.cpp
-main.go
 main
 main.dSYM/
