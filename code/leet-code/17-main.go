@@ -1,4 +1,4 @@
-package leet_code
+package main
 
 var (
 	phoneMapper = map[uint8][]string{

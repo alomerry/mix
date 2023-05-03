@@ -1,4 +1,4 @@
-package leet_code
+package main
 
 type ListNode struct {
 	Val  int
