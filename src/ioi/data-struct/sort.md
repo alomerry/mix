@@ -13,28 +13,29 @@ category:
 - [x] 堆排序
 - [ ] 拓扑排序
 
+<Replit user="alomerry" repl="algorithm" file="data-struct/sort/" />
+
 ## 冒泡排序
 
-<Replit user="alomerry" repl="algorithm" file="data-struct/sort/bubbleSort/main.go" />
+@[code go](../../_codes/algorithm/data-struct/sort/bubbleSort/main.go)
 
 ## 插入排序
 
-<Replit user="alomerry" repl="algorithm" file="data-struct/sort/insertSort/main.go" />
+@[code go](../../_codes/algorithm/data-struct/sort/insertionSort/main.go)
 
 ## 选择排序
 
-<Replit user="alomerry" repl="algorithm" file="data-struct/sort/selectSort/main.go" />
-
+@[code go](../../_codes/algorithm/data-struct/sort/selectSort/main.go)
 ## 归并排序
 
-<Replit user="alomerry" repl="algorithm" file="data-struct/sort/mergeSort/main.go" />
+@[code go](../../_codes/algorithm/data-struct/sort/mergeSort/main.go)
 
 ## 快速排序
 
-<Replit user="alomerry" repl="algorithm" file="data-struct/sort/quickSort/main.go" />
+@[code go](../../_codes/algorithm/data-struct/sort/quickSort/main.go)
 
 ## 堆排序
 
-<Replit user="alomerry" repl="algorithm" file="data-struct/sort/heapSort/main.go" />
+@[code go](../../_codes/algorithm/data-struct/sort/heapSort/main.go)
 
 ## 拓扑排序
