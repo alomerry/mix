@@ -132,7 +132,7 @@ export default hopeTheme({
       vuePlayground: true,
     },
     components: {
-      components: ["SiteInfo", "BiliBili", "PDF", "AudioPlayer"],
+      components: ["SiteInfo", "BiliBili", "PDF", "AudioPlayer", "Replit"],
       rootComponents: {
         notice: [
           {
