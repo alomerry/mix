@@ -194,3 +194,7 @@ vcore 配置
 - [V2Fly.org](https://www.v2fly.org/config/protocols/vless.html)
 - [xray 教程](https://v2xtls.org/xray教程)
 - [V2ray的 VLESS 协议介绍和使用教程](https://www.chinagfw.org/2020/11/v2rayvless.html)
+
+https://github.com/Dreamacro/clash/issues/401
+https://guide.v2fly.org/advanced/wss_and_web.html#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE
+https://guide.v2fly.org/advanced/tls_routing_with_nginx.html#vmessping-%E5%BB%B6%E8%BF%9F%E6%B5%8B%E8%AF%95
