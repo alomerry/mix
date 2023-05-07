@@ -1,12 +1,12 @@
 version: "3.3"
 services:
   web:
-    build:
-      context: .
-      args:
-        ENABLED_MODULES: rtmp
-    image: nginx-with-rtmp
+    # build:
+    #   context: .
+    #   args:
+    #     ENABLED_MODULES: rtmp
+    image: registry.cn-hangzhou.aliyuncs.com/alomerry/nginx-with-rtmp
     ports:
       - "1935:1935"
     volumes:
-      - '/alomerry/docker/vps-proxy/nginx.conf:/etc/nginx/nginx.conf'
+      - './data/nginx.conf:/etc/nginx/nginx.conf'
