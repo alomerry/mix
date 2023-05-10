@@ -31,10 +31,10 @@ function getSiderBarChildren(changeType) {
 `+ newSideBarChildren + `
     ],`
   const ioiSideBarConfig = "./src/.vuepress/configs/sidebar/ioi-test.ts"
-  replaceIOISideBar(ioiSideBarConfig, changeType, newContent)
+  replaceSideBar(ioiSideBarConfig, changeType, newContent)
 }
 
-function replaceIOISideBar(config, changeType, newContent) {
+function replaceSideBar(config, changeType, newContent) {
   if (utils.existsPath(config)) {
     let reg;
     switch (changeType) {

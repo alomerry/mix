@@ -19,6 +19,7 @@ export const ioi = arraySidebar([
     children: [
       "",
       "sort",
+      "graph",
     ],
   },
   {

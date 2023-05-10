@@ -16,7 +16,7 @@ export const zhNavbar = navbar([
       { text: "Timeline", link: "/timeline/", icon: "mdi:timeline-clock" },
       { text: "Tags", link: "/tag/", icon: "fa-solid:tags" },
       { text: "Resume", link: "/about/resume/", icon: "material-symbols:note-alt-rounded" },
-      { text: "Something", link: "/links/stars/", icon: "material-symbols:award-star-outline" },
+      { text: "Stars", link: "/links/stars/", icon: "material-symbols:award-star-outline" },
     ]
   },
   {
