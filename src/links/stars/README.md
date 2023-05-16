@@ -33,6 +33,8 @@
 
 :::
 
+- https://blognas.hwb0307.com/
+
 - 音乐解锁 https://demo.unlock-music.dev/
 
 ## Something
@@ -102,3 +104,12 @@ https://webgradients.com/
 ## 指南 
 
 https://github.com/byoungd/English-level-up-tips https://www.v2ex.com/t/425450
+
+## gpt
+
+- https://chat2.aichatos.com
+- https://github.com/pengzhile/pandora
+- https://github.com/xx025/carrot
+- http://chat.talktop.top/
+- https://weexai.com/
+- https://www.v2ex.com/t/936590#reply11
