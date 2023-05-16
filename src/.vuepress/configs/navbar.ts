@@ -82,7 +82,7 @@ export const zhNavbar = navbar([
     icon: "line-md:coffee-half-empty-twotone-loop",
     children: [
       { text: "Markdown", link: "markdown/", icon: "vscode-icons:file-type-markdown" },
-      { text: "Proxy", link: "proxy/", icon: "vscode-icons:file-type-markdown" },
+      { text: "Proxy", link: "proxy/", icon: "tabler:webhook" },
       { text: "Apps", link: "apps-intro.md", icon: "vscode-icons:file-type-markdown" },
       { text: "Postman", link: "postman.md", icon: "vscode-icons:file-type-markdown" },
     ]
