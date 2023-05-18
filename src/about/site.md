@@ -145,3 +145,5 @@ https://v2.vuepress.vuejs.org/zh/reference/plugin/docsearch.html#docsearch
 
 
 ## 2020 前，使用 typecho
+
+https://taoshu.in/web/self-host-font.html#fnref2

@@ -13,7 +13,7 @@ export default defineUserConfig({
   },
   pagePatterns: [
     "**/*.md",
-    // "!ioi/",
+    "!about/resume/2023.md",
     "!spaces/digest/**/*.md",
     "!*.snippet.md",
     "!.vuepress",

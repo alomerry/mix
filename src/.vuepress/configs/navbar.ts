@@ -29,7 +29,6 @@ export const zhNavbar = navbar([
         icon: "emojione:books",
         activeMatch: "^/space/digest/$",
       },
-      { text: "代办", link: "/space/todo.md", icon: "flat-color-icons:approval" },
       { text: "算法笔记", link: "/ioi/algorithm/", icon: "cryptocurrency-color:algo" },
       { text: "VPS Backup", link: "/space/vps-home/", icon: "bi:pc-display" },
     ],
@@ -83,7 +82,7 @@ export const zhNavbar = navbar([
     children: [
       { text: "Markdown", link: "markdown/", icon: "vscode-icons:file-type-markdown" },
       { text: "Proxy", link: "proxy/", icon: "tabler:webhook" },
-      { text: "Apps", link: "apps-intro.md", icon: "vscode-icons:file-type-markdown" },
+      { text: "Apps", link: "apps-intro.md", icon: "flat-color-icons:approval" },
       { text: "Postman", link: "postman.md", icon: "vscode-icons:file-type-markdown" },
     ]
   },

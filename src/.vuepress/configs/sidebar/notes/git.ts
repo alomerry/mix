@@ -12,7 +12,8 @@ export const git = arraySidebar([
       "change-past-commit",
       "remove-git-big-object",
       "remove-past-sensitive-info",
-      "merge-two-repository"
+      "merge-two-repository",
+      "git-submodules"
     ],
   },
 ]);

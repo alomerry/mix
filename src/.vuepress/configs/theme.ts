@@ -48,6 +48,7 @@ export default hopeTheme({
   encrypt: {
     config: {
       "/about/resume.html": "alomerry",
+      "/notes/golang/go-interview.html": "alomerry",
     }
   },
   // 主题的多语言配置 https://theme-hope.vuejs.press/zh/config/theme/i18n.html

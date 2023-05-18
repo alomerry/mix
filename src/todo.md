@@ -1,9 +1,4 @@
----
-title: Todo
-isOriginal: true
----
-
-## TODO
+# TODO
 
 - vps-tencent 迁移 uptime，waline 再考虑一下
 - [ ] https://colobu.com/2020/12/27/go-with-os-exec/

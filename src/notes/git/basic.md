@@ -1,11 +1,10 @@
 ---
-description: Git 笔记、技巧
 isOriginal: true
-article: false
 timeline: false
+date: 2020-07-06
 ---
 
-# 基础
+# git 基础
 
 ## 操作
 
