@@ -2,6 +2,10 @@
 excerpt: false
 isOriginal: true
 date: 2020-07-06
+category:
+  - git
+tag: 
+  - git
 ---
 
 # 删除 Git 中的历史文件或敏感信息

@@ -2,7 +2,9 @@
 date: 2022-06-17
 description: 记录学习 Jenkins 过程的一些心得、笔记
 isOriginal: true
-tag: 
+category:
+  - Jenkins
+tag:
   - Jenkins
 ---
 

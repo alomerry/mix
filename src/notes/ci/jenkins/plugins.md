@@ -1,10 +1,13 @@
 ---
 date: 2022-06-21
 timeline: false
-article: false
+category:
+  - Jenkins
+tag:
+  - Jenkins
 ---
 
-# 插件
+# Jenkins 插件
 
 ## SSH
 

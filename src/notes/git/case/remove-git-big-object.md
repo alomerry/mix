@@ -2,6 +2,10 @@
 excerpt: false
 isOriginal: true
 date: 2020-07-06
+category:
+  - git
+tag: 
+  - git
 ---
 
 # 清理 git 仓库中废弃的大文件

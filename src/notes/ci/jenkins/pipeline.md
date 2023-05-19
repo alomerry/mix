@@ -1,10 +1,13 @@
 ---
 date: 2022-06-21
 timeline: false
-article: false
+category:
+  - jenkins
+tag:
+  - jenkins
 ---
 
-# Pipeline
+# Jenkins Pipeline
 
 ::: tip 为什么使用 pipeline?
 

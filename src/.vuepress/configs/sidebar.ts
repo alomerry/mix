@@ -9,6 +9,7 @@ import { nginx } from "./sidebar/notes/nginx.js"
 import { git } from "./sidebar/notes/git.js"
 import { ioi } from "./sidebar/ioi.js"
 import { md } from "./sidebar/tools/md.js"
+import { bookGoDesign } from "./sidebar/books/go-design.js";
 import { jenkins } from "./sidebar/notes/ci/jenkins.js"
 import { proxy } from "./sidebar/tools/proxy.js";
 import { resume } from "./sidebar/about/resume.js"
@@ -24,6 +25,8 @@ export const zhSidebar = sidebar({
   "/tools/proxy/": proxy,
 
   "/ioi/": ioi,
+
+  "/books/go-design": bookGoDesign,
 
   "/notes/ci/jenkins/": jenkins,
   "/notes/nginx/": nginx,

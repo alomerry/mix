@@ -1,10 +1,13 @@
 ---
 date: 2023-03-22
 timeline: false
-article: false
+category:
+  - Jenkins
+tag:
+  - Jenkins
 ---
 
-# 安装和使用
+# Jenkins 安装和使用
 
 ::: tip 
 
