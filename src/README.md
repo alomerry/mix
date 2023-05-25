@@ -3,7 +3,7 @@ home: true
 layout: BlogHome
 icon: home
 title: 主页
-heroImage: https://cdn.alomerry.com/blog/avatar.png
+# heroImage: https://cdn.alomerry.com/blog/avatar.png
 heroImageStyle: "border-radius: 50%;"
 heroText: 时日无多
 tagline: Keep Working And Never Give Up！

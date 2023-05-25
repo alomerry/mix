@@ -25,6 +25,7 @@ export default defineUserConfig({
   // shouldPrefetch: false,
   plugins: configPlugins,
   alias: {
-    "@github-contributions": path.resolve(__dirname, "components/github-contributions.vue"),
+    '@components': path.resolve(__dirname, './components'),
+    "@theme-hope/modules/blog/components/InfoPanel": path.resolve(__dirname, './components/infoPanel/index.vue'),
   },
 });
