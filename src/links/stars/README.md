@@ -13,6 +13,14 @@
   name: 小林
   desc: 图解计算机基础
   link: https://xiaolincoding.com
+- icon: https://avatars.githubusercontent.com/u/230646?v=4?v=3&s=88
+  name: Yukang
+  desc: 程序员的喵
+  link: https://catcoding.me/
+- icon: https://avatars.githubusercontent.com/u/230646?v=4?v=3&s=88
+  name: 陈皓
+  desc: 酷壳
+  link: https://coolshell.cn/
 - icon: https://cdn.alomerry.com/blog/img/links/me.svg
   name: Xiaohan Zou
   desc: 邹笑寒
@@ -66,6 +74,10 @@
   name: GitHub Proxy
   desc: GitHub 文件代理免费加速下载服务
   link: https://ghproxy.com/
+- icon: https://files.codelife.cc/icons/zhongguose.com.svg
+  name: Excalidraw
+  desc: 虚拟白板，用于绘制手绘风格的图表。
+  link: https://excalidraw.com/
 ```
 
 :::
