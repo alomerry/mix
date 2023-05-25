@@ -254,20 +254,17 @@ pipeline {
 
 pipeline
 
-:::: code-group
-::: code-group-item blog
+::: code-tabs
+
+@tab blog
 
 @[code groovy:no-line-numbers](../../../_codes/vps-home/pipeline/blog.groovy)
 
-:::
-::: code-group-item algorithm
+@tab algorithm
 
 @[code groovy:no-line-numbers](../../../_codes/vps-home/pipeline/algorithm.groovy)
 
 :::
-::::
-
-
 
 ### 部署 bot-huan
 

@@ -82,8 +82,10 @@ numbers.
 [Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
 
 
-:::: code-group
-::: code-group-item 优先队列
+::: code-tabs
+
+@tab 优先队列
+
 ```cpp
 #include <iostream>
 #include <algorithm>
@@ -179,8 +181,9 @@ int main()
     return 0;
 }
 ```
-:::
-::: code-group-item 常规方法
+
+@tab 常规方法
+
 ```cpp
 #include <iostream>
 #include <algorithm>
@@ -249,5 +252,5 @@ int main()
     return 0;
 }
 ```
+
 :::
-::::

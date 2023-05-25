@@ -19,7 +19,7 @@ Each input file contains one test case. Each case occupies 2 lines, and each lin
 
 $K\ N_1\ a_{N1}\ N_2\ a_{N2}\ ..\ N_K\ a_{NK}$
 
-where $K$ is the number of nonzero terms in the polynomial, $N_i$ and $a_{Ni}$ ($i=1,2,⋯,K$) are the exponents and coefficients, respectively. It is given that $1≤K≤10，0≤N_K<⋯<N_2<N_1≤1000$.
+where $K$ is the number of nonzero terms in the polynomial, $N_i$ and $a_{Ni}$ ($i=1,2,⋯,K$) are the exponents and coefficients, respectively. It is given that $1≤K≤10,0≤N_K<⋯<N_2<N_1≤1000$.
 
 ### Output Specification
 

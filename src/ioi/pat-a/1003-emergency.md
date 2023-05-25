@@ -63,9 +63,10 @@ one space, and there is no extra space allowed at the end of a line.
 
 [Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/1003){button.button--outline-info.button--rounded}{target="_blank"}
 
+::: code-tabs
 
-:::: code-group
-::: code-group-item basic
+@tab basic
+
 ```cpp
 #include <iostream>
 #include <vector>
@@ -157,8 +158,9 @@ int main()
     return 0;
 }
 ```
-:::
-::: code-group-item bellman-ford
+
+@tab bellman-ford
+
 ```cpp
 // 处于练习，给出 `bellman-ford` 算法的代码
 
@@ -231,8 +233,9 @@ int main()
 	return 0;
 }
 ```
-:::
-::: code-group-item spfa
+
+@tab spfa
+
 ```cpp
 // 还有 `spfa` 算法的代码，队列优化 `bellman-ford`，应该队列优化过最大救援数不能按照之前那样算要进行 `dfs`
 
@@ -324,5 +327,5 @@ int main()
 	return 0;
 }
 ```
+
 :::
-::::

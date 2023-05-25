@@ -60,9 +60,9 @@ be no extra space at the end of output.
 
 [Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
 
+::: code-tabs
 
-:::: code-group
-::: code-group-item dijkstra+dfs
+@tab dijkstra+dfs
 
 ```cpp
 #include <iostream>
@@ -150,8 +150,7 @@ int main()
 }
 ```
 
-:::
-::: code-group-item spfa
+@tab spfa
 
 ```cpp
 // spfa 版本 晴神宝典说 spfa 没负环的时候优化的好效率高 对比了下好像是这样
@@ -271,4 +270,3 @@ int main()
 ```
 
 :::
-::::

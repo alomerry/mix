@@ -9,8 +9,9 @@ date: 2022-04-26
 
 #### 安装
 
-:::: code-group
-::: code-group-item install
+::: code-tabs
+
+@tab install
 
 ```shell
 # 使用中科大镜像源
@@ -20,8 +21,7 @@ export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-:::
-::: code-group-item output
+@tab output
 
 ```shell
 ==> Checking for `sudo` access (which may request your password)...
@@ -155,7 +155,6 @@ No analytics data has been sent yet (nor will any be during this install run).
 ```
 
 :::
-::::
 
 ## linux
 
