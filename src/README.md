@@ -23,9 +23,9 @@ projects:
     desc: 读者、文苑、知乎、微博等
     link: /space/digest
   - icon: article
-    name: 文章名称
-    desc: 文章详细描述
-    link: https://你的文章链接
+    name: Projects
+    desc: 项目
+    link: /projects
   - icon: project
     name: 伙伴名称
     desc: 伙伴详细介绍
