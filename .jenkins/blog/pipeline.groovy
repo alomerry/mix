@@ -84,7 +84,7 @@ pipeline {
     stage('check and trigger resume') {
       steps {
         script {
-          def resumeChanged = 'git --no-pager diff --name-only HEAD^ HEAD | grep -q "src/about/resume/"'
+          def resumeChanged = 'git --no-pager diff --name-only HEAD^ HEAD | grep "src/about/resume/"'
           if (resumeChanged != "") {
             build job: 'resume', wait: true
           }
