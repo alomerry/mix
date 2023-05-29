@@ -1,5 +1,5 @@
 <template>
-  <aside class="blog-info-wrapper">
+  <aside class="vp-blog-info-wrapper">
     <DropTransition>
       <BloggerInfo />
     </DropTransition>
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import DropTransition from '@theme-hope/components/transitions/DropTransition'
 import BloggerInfo from '@theme-hope/modules/blog/components/BloggerInfo'
-import InfoList from "@theme-hope/modules/blog/components/InfoList"
+import InfoList from '@theme-hope/modules/blog/components/InfoList'
 import BlogClock from '../blogClock/index.vue'
 import './info-panel.scss'
 </script>

@@ -1,13 +1,12 @@
-// Code From: https://github.com/vuepress-theme-hope/vuepress-theme-hope/blob/main/packages/theme/src/client/modules/blog/styles/info-panel.scss
-.blog-info-wrapper {
+.vp-blog-info-wrapper {
   .sidebar & {
     // hide blogger info in sidebar
-    .blogger-info {
+    .vp-blogger-info {
       display: none;
     }
   }
 
-  .page & {
+  .vp-page & {
     position: sticky;
     top: calc(var(--navbar-height) + 0.75rem);
 
@@ -26,7 +25,7 @@
       display: none;
     }
 
-    .blogger-info {
+    .vp-blogger-info {
       margin-bottom: 16px;
       padding: 8px 0;
       border-radius: 8px;

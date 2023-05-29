@@ -27,5 +27,6 @@ export default defineUserConfig({
   alias: {
     '@components': path.resolve(__dirname, './components'),
     "@theme-hope/modules/blog/components/InfoPanel": path.resolve(__dirname, './components/infoPanel/index.vue'),
+    "@theme-hope/modules/blog/components/ProjectPanel": path.resolve(__dirname, './components/projectPanel/index.vue'),
   },
 });
