@@ -4,7 +4,7 @@ import { vspHome } from "./sidebar/space/vps-home.js"
 import { docker } from "./sidebar/notes/container/docker.js"
 import { nosql } from "./sidebar/notes/database/nosql.js"
 import { frontend } from "./sidebar/notes/frontend.js"
-import { golang } from "./sidebar/notes/golang.js"
+import { golang } from "./sidebar/notes/golang/golang.js"
 import { nginx } from "./sidebar/notes/nginx.js"
 import { git } from "./sidebar/notes/git.js"
 import { ioi } from "./sidebar/ioi.js"
@@ -30,7 +30,7 @@ export const zhSidebar = sidebar({
 
   "/notes/ci/jenkins/": jenkins,
   "/notes/nginx/": nginx,
-  "/notes/golang/": golang,
+  "/notes/golang/golang": golang,
   "/notes/frontend/": frontend,
   "/notes/database/nosql": nosql,
   "/notes/git/": git,

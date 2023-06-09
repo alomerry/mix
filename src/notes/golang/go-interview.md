@@ -4,6 +4,216 @@ date: 2023-02-21
 
 # Go Interview
 
+go1.20.2 编译过程
+
+```go
+func Main(archInit func(*ssagen.ArchInfo)) {
+  // 初始化一些信息
+
+  // Parse and typecheck input.
+	noder.LoadPackage(flag.Args())
+}
+// 函数 LoadPackage 接收一个字符串数组 filenames 作为参数。
+// 在函数开始时，通过 base.Timer.Start("fe", "parse") 开始一个计时器，计算语法解析的时间。
+// 然后创建一个有缓冲的通道 sem，用于限制同时打开的文件数量。通道的缓冲大小为当前计算机 CPU 核心数加上 10。
+// 接下来创建一个 noder 类型的指针数组 noders，数组长度为 filenames 的长度。然后遍历 noders 数组，对于每个元素，创建一个 noder 类型的变量 p，并将其指针赋值给 noders[i]。同时为 p 的 err 字段创建一个无缓冲的通道，用于接收语法解析过程中可能产生的错误信息。
+// 接下来将语法解析的逻辑放到一个新的 goroutine 中，以避免在 sem 上阻塞。在 goroutine 中遍历 filenames 数组，对于每个文件名，创建一个 FileBase 类型的变量 fbase，并通过 os.Open 打开对应的文件。如果打开文件失败，通过 p.error 发送一个包含错误信息的 syntax.Error 类型的值到 p.err 通道中。否则，通过 syntax.Parse 方法解析文件内容，并将解析结果保存到 p.file 字段中。在 goroutine 结束时，通过 defer 关键字释放 sem 的一个缓存位置，并关闭 p.err 通道。
+// 回到主 goroutine，遍历 noders 数组，对于每个 p，遍历其 err 通道，将错误信息通过 p.errorAt 方法输出。如果 p.file 为 nil，则调用 base.ErrorExit() 方法，结束程序。同时统计所有文件的行数，并通过 base.Timer.AddEvent 方法记录到计时器中。
+// 如果 base.Debug.Unified 不为 0，则调用 unified 方法处理 noders 数组。否则，调用 check2 方法进行类型检查和 IR 代码生成。
+func LoadPackage(filenames []string) {
+	base.Timer.Start("fe", "parse")
+
+	// Limit the number of simultaneously open files.
+	sem := make(chan struct{}, runtime.GOMAXPROCS(0)+10)
+
+	noders := make([]*noder, len(filenames))
+	for i := range noders {
+		p := noder{
+			err: make(chan syntax.Error),
+		}
+		noders[i] = &p
+	}
+
+	// Move the entire syntax processing logic into a separate goroutine to avoid blocking on the "sem".
+	go func() {
+		for i, filename := range filenames {
+			filename := filename
+			p := noders[i]
+			sem <- struct{}{}
+			go func() {
+				defer func() { <-sem }()
+				defer close(p.err)
+				fbase := syntax.NewFileBase(filename)
+
+				f, err := os.Open(filename)
+				if err != nil {
+					p.error(syntax.Error{Msg: err.Error()})
+					return
+				}
+				defer f.Close()
+
+				p.file, _ = syntax.Parse(fbase, f, p.error, p.pragma, syntax.CheckBranches) // errors are tracked via p.error
+			}()
+		}
+	}()
+
+	var lines uint
+	for _, p := range noders {
+		for e := range p.err {
+			p.errorAt(e.Pos, "%s", e.Msg)
+		}
+		if p.file == nil {
+			base.ErrorExit()
+		}
+		lines += p.file.EOF.Line()
+	}
+	base.Timer.AddEvent(int64(lines), "lines")
+
+	if base.Debug.Unified != 0 {
+		unified(noders)
+		return
+	}
+
+	// Use types2 to type-check and generate IR.
+	check2(noders)
+}
+
+
+// Parse parses a single Go source file from src and returns the corresponding
+// syntax tree. If there are errors, Parse will return the first error found,
+// and a possibly partially constructed syntax tree, or nil.
+//
+// If errh != nil, it is called with each error encountered, and Parse will
+// process as much source as possible. In this case, the returned syntax tree
+// is only nil if no correct package clause was found.
+// If errh is nil, Parse will terminate immediately upon encountering the first
+// error, and the returned syntax tree is nil.
+//
+// If pragh != nil, it is called with each pragma encountered.
+// 这段代码是 Go 语言编译器的源码，主要实现了对单个 Go 源文件的解析，生成对应的语法树。具体来说，代码中的 Parse 函数接受一个 io.Reader 类型的输入流，将其解析成语法树并返回。如果解析过程中出现错误，Parse 函数会返回第一个错误和可能部分构造的语法树，或者返回 nil。Parse 函数还接受一个 ErrorHandler 类型的参数，用于处理解析过程中遇到的错误；以及一个 PragmaHandler 类型的参数，用于处理解析过程中遇到的指示语句。
+// Parse 函数内部实现了一个 parser 结构体，用于完成具体的解析工作。parser 结构体包含了一个 scanner 结构体，用于将输入流转换为一个个 token。parser 结构体还包含了一些状态变量，用于处理解析过程中的上下文信息。
+// parser 结构体中的 init 函数用于初始化解析器的状态变量和 scanner 对象。next 函数用于从输入流中获取下一个 token，并根据 token 的类型进行相应的处理。fileOrNil 函数用于解析整个源文件，生成对应的语法树。fileOrNil 函数以 PackageClause 开头，随后依次解析 ImportDecl、TopLevelDecl 等声明，直到遇到文件末尾。如果解析过程中出现错误，fileOrNil 函数会返回 nil。
+func Parse(base *PosBase, src io.Reader, errh ErrorHandler, pragh PragmaHandler, mode Mode) (_ *File, first error) {
+	defer func() {
+		if p := recover(); p != nil {
+			if err, ok := p.(Error); ok {
+				first = err
+				return
+			}
+			panic(p)
+		}
+	}()
+
+	var p parser
+	p.init(base, src, errh, pragh, mode)
+  // next advances the scanner by reading the next token.
+  //
+  // If a read, source encoding, or lexical error occurs, next calls
+  // the installed error handler with the respective error position
+  // and message. The error message is guaranteed to be non-empty and
+  // never starts with a '/'. The error handler must exist.
+  //
+  // If the scanner mode includes the comments flag and a comment
+  // (including comments containing directives) is encountered, the
+  // error handler is also called with each comment position and text
+  // (including opening /* or // and closing */, but without a newline
+  // at the end of line comments). Comment text always starts with a /
+  // which can be used to distinguish these handler calls from errors.
+  //
+  // If the scanner mode includes the directives (but not the comments)
+  // flag, only comments containing a //line, /*line, or //go: directive
+  // are reported, in the same way as regular comments.
+  // next() 函数是 Go 语言编译器中的一个方法，用于读取下一个 token。在编译器中，源代码会被分解为一个个 token，每个 token 表示一个语法元素，如关键字、标识符、运算符等。next() 函数的作用就是从源代码中读取下一个 token，并将其返回。
+
+  // 具体来说，next() 函数会读取源代码中的一个字符，并根据该字符的类型来判断下一个 token 的类型。如果该字符是字母或下划线，那么下一个 token 就是标识符或关键字；如果该字符是数字，那么下一个 token 就是数字字面量；如果该字符是符号，那么下一个 token 就是运算符或分隔符等。
+
+  // 除了读取下一个 token 外，next() 函数还会更新 scanner 对象的状态，包括当前位置、行号、列号等。这些状态信息在编译器的后续阶段会被用来生成语法树或中间代码。
+	p.next()
+	return p.fileOrNil(), p.first
+}
+
+// 这段代码定义了一个结构体类型 noder，用于将 syntax 包中的 AST（抽象语法树）转换为 Node 树。该结构体包含以下字段：
+// posMap：位置映射表，用于将语法节点的位置映射到源代码中的位置。
+// file：语法树对应的文件。
+// linknames：链接名称列表，用于标识需要链接的名称。
+// pragcgobuf：指令缓冲区，用于存储指令。
+// err：语法错误通道，用于传递语法错误。
+// importedUnsafe：是否导入了 unsafe 包。
+// importedEmbed：是否导入了 embed 包
+// noder transforms package syntax's AST into a Node tree.
+type noder struct {
+	posMap
+
+	file           *syntax.File
+	linknames      []linkname
+	pragcgobuf     [][]string
+	err            chan syntax.Error
+	importedUnsafe bool
+	importedEmbed  bool
+}
+// 这段代码定义了一个名为 parser 的结构体，它包含了多个字段：
+// file：文件位置信息的基础对象。
+// errh：错误处理程序。
+// mode：编译模式。
+// pragh：编译器指令处理程序。
+// scanner：词法分析器。
+// 除此之外，还有以下字段：
+
+// base：当前位置信息的基础对象。
+// first：第一个遇到的错误。
+// errcnt：遇到的错误数量。
+// pragma：编译器指令。
+// fnest：函数嵌套层数（用于错误处理）。
+// xnest：表达式嵌套层数（用于完成度歧义解析）。
+// indent：跟踪支持。
+type parser struct {
+	file  *PosBase
+	errh  ErrorHandler
+	mode  Mode
+	pragh PragmaHandler
+	scanner
+
+	base   *PosBase // current position base
+	first  error    // first error encountered
+	errcnt int      // number of errors encountered
+	pragma Pragma   // pragmas
+
+	fnest  int    // function nesting level (for error handling)
+	xnest  int    // expression nesting level (for complit ambiguity resolution)
+	indent []byte // tracing support
+}
+// 这段代码定义了一个名为 scanner 的结构体，它包含了多个字段：
+// source：源代码的输入流。
+// mode：词法分析器的模式。
+// nlsemi：如果设置为 true，则 \n 和 EOF 会被转换为分号 ;。
+// 除此之外，还有以下字段：
+
+// line：当前标记所在的行号。
+// col：当前标记所在的列号。
+// blank：标记所在的行是否为空行。
+// tok：当前标记的类型。
+// lit：当前标记的字符串值，如果标记是 _Name、_Literal 或 _Semi（分号、换行或 EOF）类型的，则该字段有效；如果存在语法错误，则该字段可能是不规范的。
+// bad：标记是否存在语法错误，如果标记是 _Literal 类型的，则该字段有效。
+// kind：标记是什么类型的字面量，如果标记是 _Literal 类型的，则该字段有效。
+// op：标记是哪种运算符，如果标记是 _Operator、_Star、_AssignOp 或 _IncOp 类型的，则该字段有效。
+// prec：标记运算符的优先级，如果标记是 _Operator、_Star、_AssignOp 或 _IncOp 类型的，则该字段有效。
+type scanner struct {
+	source
+	mode   uint
+	nlsemi bool // if set '\n' and EOF translate to ';'
+
+	// current token, valid after calling next()
+	line, col uint
+	blank     bool // line is blank up to col
+	tok       token
+	lit       string   // valid if tok is _Name, _Literal, or _Semi ("semicolon", "newline", or "EOF"); may be malformed if bad is true
+	bad       bool     // valid if tok is _Literal, true if a syntax error occurred, lit may be malformed
+	kind      LitKind  // valid if tok is _Literal
+	op        Operator // valid if tok is _Operator, _Star, _AssignOp, or _IncOp
+	prec      int      // valid if tok is _Operator, _Star, _AssignOp, or _IncOp
+}
+```
+
 - nil 切片和空切片是否一样
 - 字符串转成 byte 数组，会发生内存拷贝吗
 

@@ -4,6 +4,8 @@ article: false
 
 # 王国之泪攻略
 
+https://gamemap.app/Zelda-TOTK
+
 - 特里：
   - 按驿站分类：https://www.bilibili.com/read/cv23813098?from=search
     - 河畔驿站：海拉鲁米 酥麻凤蝶 酥麻蜻蜓 毅力青蛙
