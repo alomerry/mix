@@ -2,5 +2,7 @@ import { arraySidebar } from "vuepress-theme-hope";
 
 export const golang = arraySidebar([
   "",
-  "map"
+  "map",
+  "sync/mutex",
+  "sync/rwmutex"
 ]);
