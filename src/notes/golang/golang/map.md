@@ -6,7 +6,7 @@ tag:
 
 # 字典（go1.20）
 
-Todo
+::: details Todo
 
 ```go
 // mapaccess1 returns a pointer to h[key].  Never returns nil, instead
@@ -58,9 +58,13 @@ if !h.growing() && (overLoadFactor(h.count+1, h.B) || tooManyOverflowBuckets(h.n
 
 - map 只有在写入时才会发生扩容和迁移，并且在完全迁移后才会 gc 释放旧桶的内存。如果 map 写入不频繁，是否就会让 map 在一段时间内始终占用了两倍内存呢？
 
+:::
+
 对于海量小对象，应直接用字典存储键值数据拷贝，而非指针。这有助于减少需要扫描的对象数量，缩短垃圾回收时间。字典不会收缩内存，适当替换新对象是有必要的。
 
-结构：
+## 结构
+
+::: details 
 
 ```go
 var (
@@ -130,18 +134,30 @@ type bmap struct {
 }
 ```
 
-初始化：
+:::
+
+## 初始化：
 
 - 字面量创建时的处理 [maplit](https://github.com/golang/go/blob/release-branch.go1.20/src/cmd/compile/internal/walk/complit.go#L417)
 
-  形如以下方式创建 map 会在编译期优化
-  ```go
+	<CodePopup>
+
+	形如 ==此方式== 创建 map 会在编译期优化
+
+	<template v-slot:code>
+
+	```go
 	hash := map[string]int{
 		"1": 2,
 		"3": 4,
 		"5": 6,
 	}
 	```
+
+	</template>
+
+	</CodePopup>
+  
 
 	如果 map 中的元素[小于 25 个](https://github.com/golang/go/blob/release-branch.go1.20/src/cmd/compile/internal/walk/complit.go#L503)时，会将上述代码[转换](https://github.com/golang/go/blob/release-branch.go1.20/src/cmd/compile/internal/walk/complit.go#L507)成以下形式：
 
@@ -309,27 +325,109 @@ func makemap(t *maptype, hint int, h *hmap) *hmap {
 }
 ```
 
-访问：计算 key 的 hash 值，通过和 B 位与计算出所在桶，遍历桶中的元素，如果有溢出桶，遍历溢出桶
+## 访问
 
-- for range 的方式
-- 通过 `_ = hash[key]` 的方式：
-  - 编译阶段将词法、语法分析器生成的抽象语法树中 op 为 OINDEXMAP 的节点（形如 `X[Index] (index of map)`）作转换，如果是赋值语句，则会转换成 mapassign 方法，如果非赋值语句，否则会转换成 mapaccess1：
-  - mapaccess1 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
-  - // TODO 和 mapaccess2 类似 
-- 通过 `_, _ = hash[key]` 的方式：
-  - 编译阶段将词法、语法分析器生成的抽象语法树中 op 为 OAS2MAPR 的节点（形如 `a, b = m[i]`）转换成 mapaccess2：
+计算 key 的 hash 值，通过和 B 位与计算出所在桶，遍历桶中的元素，如果有溢出桶，遍历溢出桶
 
-	
-	```go
-	a,b = m[i]
-	```
+### `for range` 形式
 
-	```go
-	var,b = mapaccess2*(t, m, i)
-	a = *var
-	```
 
-	- mapaccess2 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
+```go
+test
+```
+
+
+### `_ = hash[key]` 的形式
+
+- 编译阶段将词法、语法分析器生成的抽象语法树中 op 为 OINDEXMAP 的节点（形如 `X[Index] (index of map)`）作转换，如果是赋值语句，则会转换成 mapassign 方法，如果非赋值语句，否则会转换成 mapaccess1：
+- mapaccess1 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
+- // TODO 和 mapaccess2 类似 
+
+### `_, _ = hash[key]` 的形式
+
+<CodePopup>
+
+编译阶段将词法、语法分析器生成的抽象语法树中 op 为 `OAS2MAPR` 的节点（形如 `a, b = m[i]`）==转换==成 [mapaccess2](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go#L456)
+
+<template v-slot:code>
+
+::: tabs#fruit
+
+@tab 转换前
+
+```go
+a,b = m[i]
+```
+
+@tab 转换后
+
+```go
+var,b = mapaccess2*(t, m, i)
+a = *var
+```
+
+:::
+
+::: details 关键代码
+
+```go
+func mapaccess2(t *maptype, h *hmap, key unsafe.Pointer) (unsafe.Pointer, bool) {
+	if h == nil || h.count == 0 {
+		if t.hashMightPanic() {
+			t.hasher(key, 0) // see issue 23734
+		}
+		return unsafe.Pointer(&zeroVal[0]), false
+	}
+	if h.flags&hashWriting != 0 {
+		fatal("concurrent map read and map write")
+	}
+	hash := t.hasher(key, uintptr(h.hash0))
+	m := bucketMask(h.B)
+	b := (*bmap)(add(h.buckets, (hash&m)*uintptr(t.bucketsize)))
+	if c := h.oldbuckets; c != nil {
+		if !h.sameSizeGrow() {
+			// There used to be half as many buckets; mask down one more power of two.
+			m >>= 1
+		}
+		oldb := (*bmap)(add(c, (hash&m)*uintptr(t.bucketsize)))
+		if !evacuated(oldb) {
+			b = oldb
+		}
+	}
+	top := tophash(hash)
+bucketloop:
+	for ; b != nil; b = b.overflow(t) {
+		for i := uintptr(0); i < bucketCnt; i++ {
+			if b.tophash[i] != top {
+				if b.tophash[i] == emptyRest {
+					break bucketloop
+				}
+				continue
+			}
+			k := add(unsafe.Pointer(b), dataOffset+i*uintptr(t.keysize))
+			if t.indirectkey() {
+				k = *((*unsafe.Pointer)(k))
+			}
+			if t.key.equal(key, k) {
+				e := add(unsafe.Pointer(b), dataOffset+bucketCnt*uintptr(t.keysize)+i*uintptr(t.elemsize))
+				if t.indirectelem() {
+					e = *((*unsafe.Pointer)(e))
+				}
+				return e, true
+			}
+		}
+	}
+	return unsafe.Pointer(&zeroVal[0]), false
+}
+```
+
+:::
+
+</template>
+
+</CodePopup>
+
+- mapaccess2 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
 	- 计算 key 的 hash，并计算出 key 所在的正常桶编号，额外检查 map 的旧桶是否为空
   	- 如果 map 旧桶非空，则定位到当前 key 对应的旧桶位，检查旧桶位是否迁移，如果未迁移则从老桶中获取数据
 
@@ -357,7 +455,7 @@ func makemap(t *maptype, hint int, h *hmap) *hmap {
   	- 遍历定位到桶的每个单元，如果 tophash 不一致且 tophash 的值为 emptyReset 则说明桶中无该 key，遍历桶的溢出桶（如果存在）继续判断
   	- 如果 tophash 一致，则对比单元中元素的 key 和所需的 key 是否一致，如果一致则返回元素的地址，否则返回 zeroVal
 
-	::: tips
+	::: tip
 	mapaccess1/2 如果 key 不存在，不会返回 nil，会返回一个元素类型零值的指针
 	:::
 
@@ -522,7 +620,7 @@ bucketloop:
 }
 ```
 
-删除：
+## 删除：
 
 - 检查 map 是否在写入，有写入会直接终止程序
 - 通过种子和 key 通过对应的类型的 hash 函数计算出 hash 值，并更新 flags 标记 map 正在写入
@@ -720,7 +818,7 @@ func hashGrow(t *maptype, h *hmap) {
 }
 ```
 
-写入：xxxx
+## 写入：xxxx
 
 在 #访问 中
 
@@ -732,11 +830,17 @@ func hashGrow(t *maptype, h *hmap) {
 // Like mapaccess, but allocates a slot for the key if it is not present in the map.
 :::
 
-- 修改
-- 扩容
-  - 等量扩容
-  - 翻倍扩容
+## 扩容
+
+- 等量扩容
+- 翻倍扩容
 
 - [map 实践以及实现原理](https://blog.csdn.net/u010853261/article/details/99699350)
 - [哈希表](https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap)
 - [map 缩容](https://eddycjy.com/posts/go/map-reset/)
+
+
+
+<script setup lang="ts">
+import CodePopup from "@CodePopup";
+</script>

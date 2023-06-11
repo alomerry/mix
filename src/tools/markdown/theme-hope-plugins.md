@@ -29,6 +29,26 @@ Orange
 
 :::
 
+````md
+::: tabs#fruit
+
+@tab apple
+
+```
+apple
+```
+
+@tab banana
+
+Banana
+
+@tab orange
+
+Orange
+
+:::
+````
+
 :::: info 使用代码块分组一起切换并保持选择
 
 安装 VuePress Theme Hope:
