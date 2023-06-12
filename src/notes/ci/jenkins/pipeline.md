@@ -2,9 +2,9 @@
 date: 2022-06-21
 timeline: false
 category:
-  - jenkins
+  - Jenkins
 tag:
-  - jenkins
+  - Jenkins
 ---
 
 # Jenkins Pipeline

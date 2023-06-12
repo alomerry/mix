@@ -451,8 +451,6 @@ Go 是一门强类型静态语言。强类型意味着类型一旦定义了就�
 
 ## 空 interface type
 
-## map
-
 ## 常见坑
 
 [go 圣经](https://chai2010.cn/advanced-go-programming-book/appendix/appendix-a-trap.html)

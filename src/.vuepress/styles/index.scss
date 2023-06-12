@@ -21,7 +21,7 @@ nav.nav-links>div.nav-item>a.nav-link {
 }
 
 // fix sider group font, remove at next vuepress-theme-hoper version
-ul.sidebar-links > li > section.sidebar-group > button.sidebar-heading > span.title{
+ul.sidebar-links>li>section.sidebar-group>button.sidebar-heading>span.title {
   font-family: "LXGW WenKai GB";
 }
 
@@ -32,8 +32,15 @@ ul.sidebar-links > li > section.sidebar-group > button.sidebar-heading > span.ti
 }
 
 
-@media (max-width: 959px){
+@media (max-width: 959px) {
   .site-info {
     width: calc(50% - 24px);
   }
+}
+
+@import './footnote-popup.scss';
+
+.theme-hope-content li>p {
+  margin-block-end: 0px;
+  margin-block-start: 0px;
 }
