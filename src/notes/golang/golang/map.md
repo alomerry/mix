@@ -7,10 +7,12 @@ tag:
 
 # [字典](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)
 
-::: tip 本文基于 Golang 1.20
+::: tip 本文基于 Golang 1.20.3
 :::
 
 ## 结构
+
+![map 结构](https://img.draveness.me/2020-10-18-16030322432679/hmap-and-buckets.png)
 
 map 在运行时对应的结构是 `hmap`：
 
@@ -101,7 +103,6 @@ Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的
 
 - 元素小于 25 个时会转成此形式[^init-map-within-25]
 - 元素超过 25 个时会转成此形式[^init-map-outof-25]
-- xxxxx
 
 ### 运行时的处理
 
@@ -109,7 +110,7 @@ Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的
 
 - 根据 hit 计算出 map 需要申请的内存大小，检测内存是否溢出或申请的内存超过限制
 - 初始化 h 并引入随机种子[^fastrand]
-- 默认桶容量为 1，元素需要超过一个桶容量（8）时计算 map 的装载因子（元素数量 / 桶数量），超过 6.5 则将桶容量翻倍[^overLoadFactor]
+- 默认桶容量为 1，元素需要超过一个桶容量（8）时计算 map 的装载因子（元素数量 / 桶数量），超过 6.5[^overLoadFactor] 则将桶容量翻倍
   - 如果 map 的桶数量超过 1 时，会在 `makemap` 中立即分配内存，否则将在 `mapassign` 中分配
   - 通过 `makeBucketArray`[^makeBucketArray] 分配内存：
     - 如果桶的数量超过 $2^4$，会增加一些额外 $2^B-4$ 个溢出桶
@@ -130,9 +131,26 @@ Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的
 
 TODO
 
+::: code-tabs#before
+
+@tab before
+
+```go
+a,b = m[i]
+```
+
+@tab after
+
+```go
+var,b = mapaccess2*(t, m, i)
+a = *var
+```
+
+:::
+
 ### `_ = hash[key]` 的形式
 
-- 编译阶段将词法、语法分析器生成的抽象语法树中 op 为 `OINDEXMAP` 的节点（形如 `X[Index] (index of map)`）作转换[^access-oindex-map]，如果是赋值语句，则会转换成 mapassign[^mapassign] 方法，如果非赋值语句，否则会转换成 `mapaccess1`[^mapaccess1]
+- 编译阶段将词法、语法分析器生成的抽象语法树中 op 为 `OINDEXMAP` 的节点（形如 `X[Index] (index of map)`）作转换[^access-oindex-map]，如果是赋值语句，则会转换成 `mapassign`[^mapassign] 方法，如果非赋值语句，否则会转换成 `mapaccess1`[^mapaccess1]
 - `mapaccess1` 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
 - // TODO 和 `mapaccess2` 类似 
 
@@ -147,7 +165,7 @@ TODO
     - 如果 tophash 一致，则对比单元中元素的 key 和所需的 key 是否一致，如果一致则返回元素的地址，否则返回 zeroVal
 
   ::: tip
-  mapaccess1/2 如果 key 不存在，不会返回 nil，会返回一个元素类型零值的指针
+  `mapaccess1/2` 如果 key 不存在，不会返回 `nil`，会返回一个元素类型零值的指针
   :::
 
 ## 删除
