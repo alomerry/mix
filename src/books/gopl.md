@@ -476,7 +476,5 @@ func main() {
 
 0.0480443
 
-### 
-
 ## Reference
 
