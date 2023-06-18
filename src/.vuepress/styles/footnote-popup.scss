@@ -32,11 +32,27 @@
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  // $pc
+  // $laptop
+  // $pad
+  // $tablet
+  // $mobile
+
+  @media (min-width: hope-config.$mobile) {
+    width: calc(100% - 10px);
+    left: 45%;
+  }
+
+  @media (max-width: hope-config.$mobile) {
+    width: calc(100%);
+    left: 47%;
+  }
 }
 
-li .code-popup {
-  top: 10%;
-}
+// li > .code-popup {
+//   top: 10%;
+// }
 
 ol.footnotes-list-popup {
   list-style: none;

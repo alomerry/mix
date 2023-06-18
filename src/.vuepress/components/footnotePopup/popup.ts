@@ -34,7 +34,7 @@ export const setupFootnotePopup = () => {
 
   const clickFootnote = (event: any) => {
     event.preventDefault()
-    showFootnotePopup(event.currentTarget?.nextSibling)
+    showFootnotePopup((event.currentTarget?.parentNode as HTMLElement).lastChild)
   }
 
   const isFootLink = (ref: HTMLElement) => {
