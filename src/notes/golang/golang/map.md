@@ -59,7 +59,9 @@ type hmap struct {
 以上看起来可能晦涩、难以理解。那就先让我们分析需要如何实现 map。map 通常被翻译成**字典**或者是**映射**，它表达了一种一对一的关系，即使用任意 key 通过 _某种方式_ 可以获得对应的 value。
 
 ![完美映射函数](https://img.draveness.me/2019-12-30-15777168478768-perfect-hash-function.png)
+
 ![不均匀的映射函数](https://img.draveness.me/2019-12-30-15777168478778-bad-hash-function.png)
+
 所以要实现 map 就需要实现这个**某种方式**。假定有一组 int 类型、不重复且有序的 key，例如 `[0, 1, 2, 3]`，我们尝试使用简单的方式来实现：
 
 - 定义一个数组存储 values
@@ -150,7 +152,7 @@ a = *var
 
 ### `_ = hash[key]` 的形式
 
-- 编译阶段将词法、语法分析器生成的抽象语法树中 op 为 `OINDEXMAP` 的节点（形如 `X[Index] (index of map)`）作转换[^access-oindex-map]，如果是赋值语句，则会转换成 `mapassign`[^mapassign] 方法，如果非赋值语句，否则会转换成 `mapaccess1`[^mapaccess1]
+- 编译阶段将词法、语法分析器生成的抽象语法树中 op 为 `OINDEXMAP` 的节点（形如 `X[Index] (index of map)`）作转换[^access-oindex-map]，如果是赋值语句，则会转换成 `mapassign` 方法，如果非赋值语句，否则会转换成 `mapaccess1`[^mapaccess1]
 - `mapaccess1` 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
 - // TODO 和 `mapaccess2` 类似 
 
@@ -168,33 +170,37 @@ a = *var
   `mapaccess1/2` 如果 key 不存在，不会返回 `nil`，会返回一个元素类型零值的指针
   :::
 
+## 写入
+
+在 [访问](./map.md#访问) 中可以知道，在赋值时会转为 `mapassign`[^mapassign] 方法
+
+
+
 ## 删除
 
-mapdelete[^mapdelete]
+map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
 
 - 检查 map 是否在写入，有写入会直接终止程序
 - 通过种子和 key 通过对应的类型的 hash 函数计算出 hash 值，并更新 flags 标记 map 正在写入
 - 将 hash 和 `1<<b-1` 执行与操作来获得 bucket 桶号
   - 如果 map 正在执行扩容，则对该 bucket 执行一次扩容迁移
 - 将 bucket 序号和每个 bucket 的 size 相乘的结果从 map 桶起始地址做偏移，获得 bucket 序号桶的地址
-- 获取 hash 的高八位值 top，如果 top 小于 minTopHash，则 top+= minTopHash
+- 获取 hash 的高八位值 top，如果 top 小于 `minTopHash`，则执行 `top+= minTopHash`
 - 首先遍历该桶，如果该桶有溢出桶，则持续遍历溢出桶；对于每个桶，遍历其中的八个单元
   - 如果当前单元的 tophash 值和 待查 key 的 tophash 不一致
-    - 如果当前单元为 emptyRest，表明后续都未空，则停止对此桶的继续搜索
-    - 如果当前单元不为 emptyRest，继续查询后续单元
+    - 如果当前单元为 `emptyRest`，表明后续都未空，则停止对此桶的继续搜索
+    - 如果当前单元不为 `emptyRest`，继续查询后续单元
   - 当查找到 tophash 一致的单元，会通过 `add(unsafe.Pointer(b), dataOffset+i*uintptr(t.keysize))` 从桶起始地址偏移 tophash 数组和未匹配的 keySize 来获得当前单元对应的 key 地址，如果 key 存的是间址，还会继续获取对应的地址
   - 判断该单元 key 的值和所需删除的 key 是否一致，不一致则继续遍历下一个单元
-    - 查找到一致的单元后会将该单元的 tophash 设置成 emptyOne，接下来会执行一段逻辑处理 emptyReset
-      - 如果当前单元是该桶的最后一个元素，检查是否有溢出桶，如果有则检查溢出桶的首个单元的 tophash 不是 emptyReset 则执行 notLast 逻辑
-      - 如果当前单元不是该桶的最后一个元素，且当前单元后一单元的 tophash 不是 emptyReset 则执行 notLast 逻辑
-      - notLast 逻辑：如果溢出桶首个单元的 tophash 不是 emptyReset 则将 map 的 count 数减一，如果当前 map 已无元素（即 count 为 0），则重置 map 的 hash0（种子）
-      - 如果当前单元是桶的最后一个单元，则执行设置 emptyReset 的逻辑（Last 逻辑）
-        - 从当前单元向低位循环设置 tophash 为 emptyReset，如果循环位不是 0（非桶起始位），则判断该位是否是 emptyOne，如果是则继续更新为 emptyReset，否则跳出循环
+    - 查找到一致的单元后会将该单元的 tophash 设置成 `emptyOne`，接下来会执行一段逻辑处理 `emptyReset`
+      - 如果当前单元是该桶的最后一个元素，检查是否有溢出桶，如果有则检查溢出桶的首个单元的 tophash 不是 `emptyReset` 则执行 `notLast` 逻辑
+      - 如果当前单元不是该桶的最后一个元素，且当前单元后一单元的 tophash 不是 `emptyReset` 则执行 `notLast` 逻辑
+      - `notLast` 逻辑：如果溢出桶首个单元的 tophash 不是 `emptyReset` 则将 map 的 count 数减一，如果当前 map 已无元素（即 count 为 0），则重置 map 的 hash0（种子）
+      - 如果当前单元是桶的最后一个单元，则执行设置 `emptyReset` 的逻辑（Last 逻辑）
+        - 从当前单元向低位循环设置 tophash 为 `emptyReset`，如果循环位不是 0（非桶起始位），则判断该位是否是 `emptyOne`，如果是则继续更新为 `emptyReset`，否则跳出循环
         - 如果遍历位为桶的起始位，判断当前遍历的桶是否是删除元素的所在桶（非溢出桶），如果是，说明删除元素的所在桶（从原始桶至该桶的溢出桶）已全部处理完成，跳出循环
         - 获取删除元素所在桶（可能为溢出桶）的前一个桶（可能为原始桶也可能为溢出桶），继续从第八位开始循环设置 tophash
-- 检查当前 map flags 的 hashWriting 是否被取反，是则说明有其他协程正在写入，直接终止程序，否则清除写入位
-
-## 写入：xxxx
+- 检查当前 map flags 的 `hashWriting` 是否被取反，是则说明有其他协程正在写入，直接终止程序，否则清除写入位
 
 在 #访问 中
 

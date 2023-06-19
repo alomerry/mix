@@ -493,18 +493,7 @@
       if h == nil {
         panic(plainError("assignment to entry in nil map"))
       }
-      if raceenabled {
-        callerpc := getcallerpc()
-        pc := abi.FuncPCABIInternal(mapassign)
-        racewritepc(unsafe.Pointer(h), callerpc, pc)
-        raceReadObjectPC(t.key, key, callerpc, pc)
-      }
-      if msanenabled {
-        msanread(key, t.key.size)
-      }
-      if asanenabled {
-        asanread(key, t.key.size)
-      }
+      ...
       if h.flags&hashWriting != 0 {
         fatal("concurrent map writes")
       }

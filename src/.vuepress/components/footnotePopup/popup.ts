@@ -34,7 +34,7 @@ export const setupFootnotePopup = () => {
 
   const clickFootnote = (event: any) => {
     event.preventDefault()
-    showFootnotePopup((event.currentTarget?.parentNode as HTMLElement).lastChild)
+    showFootnotePopup(event.currentTarget?.nextElementSibling as HTMLElement)
   }
 
   const isFootLink = (ref: HTMLElement) => {
@@ -78,7 +78,7 @@ export const setupFootnotePopup = () => {
     // 在 footnote link 下方插入 footer
     let popup = document.createElement("div") as HTMLElement;
     popup.classList.add(...["code-popup", "code-popup-no-backref", "code-popup-hidden"])
-    ref.parentNode?.appendChild(popup);
+    ref.parentNode?.insertBefore(popup, ref.nextElementSibling)
 
     // 将 pop 插入到 link 下
     let underInsert = document.getElementById(getFooterId(ref))?.childNodes as NodeListOf<ChildNode>
