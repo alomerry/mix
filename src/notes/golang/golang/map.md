@@ -204,9 +204,8 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
         - 获取删除元素所在桶（可能为溢出桶）的前一个桶（可能为原始桶也可能为溢出桶），继续从第八位开始循环设置 tophash
 - 检查当前 map flags 的 `hashWriting` 是否被取反，是则说明有其他协程正在写入，直接终止程序，否则清除写入位
 
-在 #访问 中
 
-::: tips
+::: tip
 // Like mapaccess, but allocates a slot for the key if it is not present in the map.
 :::
 
@@ -227,15 +226,37 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 在 `hashGrow` 主要处理了 xxxx，具体迁移的逻辑在方法 `growWork` 和 `evacuate` 中
 
 - 计算当前 map 的元素数增加 1 后装载因子是否超过 6.5，未超过则将 flag 标记为等量扩容，否则则是增量扩容
-- 将当前 map 桶放置到 oldbuckets 字段
+- 将当前 map 桶放置到 oldbuckets 字段，如果当前在遍历 map 新桶或旧桶，一律标记遍历旧桶
+- （这个操作需要考虑垃圾回收机制的影响，同时保证操作的原子性）修改 hmap 的 B、flags、oldbuckets、buckets 等，同时将 extra 中记录的溢出桶转移的 oldoverflow 字段，如果申请了新的溢出桶内存，也一并设置到 `extra.nextOverflow` 上
 
-### 等量扩容
+每次调用 `growWork`[^growWork] 时，会调用一次 `evacuate`[^evacuate] 对当前删除或写入桶对应的旧桶执行一次扩容搬迁，如果搬迁完仍未扩容完毕，则会额外执行一次扩容搬迁，不过两次搬迁的对象不同，一次是搬迁 oldbuckets 中的元素，；；；；我们来看 `evacuate` 内部的实现
 
-### 翻倍扩容
+- 通过偏移计算需要迁移的旧桶位置，盘点该桶是否迁移[^evacuated]
+- 迁移是按照桶为单位，只要判断该桶的首个单元是否迁移即可，迁移过后单元的 tophash 根据扩容方式会被更新成 `evacuatedX`、`evacuatedY`、`evacuatedEmpty` 中的一种，分别表示？？？如果不是这三种表示未迁移
+  - 搬迁桶根据扩容方式的不同会采用两种方式：
+    - 等量扩容时会将旧桶中的元素迁移至 map 对应位置的新桶
+    - 翻倍扩容时会将旧桶中的元素分流迁移至 map 中对应两个位置新桶
+  - 搬迁桶的过程中会使用 `evacDst`[^evacDst] 结构的、长度为 2 的数组 `xy`，`xy[0]` 用于记录 map 中对应旧桶的位置新桶，`xy[1]` 在翻倍扩容时用于记录 map 中对应老桶新位置的新桶
+  - 通过偏移计算 `xy[0]` 的值，如果是翻倍扩容则计算 `xy[1]` 的值
+  - 遍历旧桶及旧桶链接的所有溢出桶
+    - 遍历每个桶中的八个单元
+      - 如果当前单元的 tophash 是 `emptyRest`，则说明该单元无需搬迁，直接修改单元 tophash 为 `evacuatedEmpty`
+      - 如果当前单元有数据，则需要根据扩容方式来决定当前元素需要搬迁到的桶。如果是翻倍扩容，通过计算 `hash&newbit` 来判断是否迁移到 map 的额外容量部分。确定之后表单元的 tophash 为 `evacuatedX` 或 `evacuatedY`，并修改 buckets 中对应元素的 key、value、tophash
+
+        ::: tip
+        newbit 是一个掩码，计算方式是将 1 左移旧桶对应的 B 数（`bucketShift`），而计算 key 的 hash 在旧桶位置时使用的是 `bucketMask`[^bucketMask]，所以当 `hash&newbit` 为 0 表示该 key 的 hash 无论是扩容前还是扩容后，计算的 bucket 都是一致的，因此如果 `hash&newbit` 非 0 时就迁移到扩容部分的新桶中
+        :::
+
+      - 当向 map 对应 oldbucket 相同位置的新桶或扩容部分对应的新桶插入第八个单元时，需要添加溢出桶，从 map 的扩容后新的溢出桶申请一个桶，继续迁移
+  - 遍历完成后，释放该旧桶的相关指针，辅助 GC
+  - 如果当前迁移完成的桶刚好是 map 中下一位待迁移的桶，更新 `h.nevacuate`
+    - 将 `h.nevacuate` 后移到下一个桶序号，遍历后续的桶是否已经搬迁过[^bucketEvacuated]，如果全部搬迁过后将 map 对应的旧桶的引用删除，如果是等量扩容需要清除 flags
 
 ## 其它
 
 快速随机数[^fastrand] bucketShift[^bucketShift] t.hashMightPanic() 
+
+tophash
 
 // incrnoverflow()
 // newoverflow(t *maptype, b *bmap) *bmap
@@ -256,6 +277,23 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 
 - makemap 参数中 h *hmap 哪来的，hit 是否是 cap
 - 是否存在在扩容时 map 满了/需要新扩容
+- hashGrow `// commit the grow (atomic wrt gc)` 为什么要注意垃圾回收机制？
+- hashGrow 中如何保证上次扩容结束了才扩容的？
+- 搬迁过程中 `if h.flags&iterator != 0 && !t.reflexivekey() && !t.key.equal(k2, k2) {` 是什么意思
+  
+  ::: info
+  // If key != key (NaNs), then the hash could be (and probably
+	// will be) entirely different from the old hash. Moreover,
+	// it isn't reproducible. Reproducibility is required in the
+	// presence of iterators, as our evacuation decision must
+	// match whatever decision the iterator made.
+	// Fortunately, we have the freedom to send these keys either
+	// way. Also, tophash is meaningless for these kinds of keys.
+	// We let the low bit of tophash drive the evacuation decision.
+	// We recompute a new random tophash for the next level so
+	// these keys will get evenly distributed across all buckets
+	// after multiple grows.
+  :::
 
 ::: details Todo
 
