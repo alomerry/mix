@@ -1,50 +1,64 @@
-[^bmap]:
+[^growing]:
 
     ```go
-    const (
-      // Maximum number of key/elem pairs a bucket can hold.
-      bucketCntBits = 3
-      bucketCnt     = 1 << bucketCntBits
-    )
-    // A bucket for a Go map.
-    type bmap struct {
-        // tophash generally contains the top byte of the hash value
-        // for each key in this bucket. If tophash[0] < minTopHash,
-        // tophash[0] is a bucket evacuation state instead.
-        topbits  [bucketCnt]uint8
-        // Followed by bucketCnt keys and then bucketCnt elems.
-        // NOTE: packing all the keys together and then all the elems together makes the
-        // code a bit more complicated than alternating key/elem/key/elem/... but it allows
-        // us to eliminate padding which would be needed for, e.g., map[int64]int8.
-        // Followed by an overflow pointer.
-        keys     [bucketCnt]keytype
-        values   [bucketCnt]valuetype
-        pad      uintptr
-        overflow uintptr
+    // growing reports whether h is growing. The growth may be to the same size or bigger.
+    func (h *hmap) growing() bool {
+      return h.oldbuckets != nil
     }
     ```
 
-[^mapextra]:
+[^newoverflow]:
 
     ```go
-    type mapextra struct {
-      // If both key and elem do not contain pointers and are inline, then we mark bucket
-      // type as containing no pointers. This avoids scanning such maps.
-      // However, bmap.overflow is a pointer. In order to keep overflow buckets
-      // alive, we store pointers to all overflow buckets in hmap.extra.overflow and hmap.extra.oldoverflow.
-      // overflow and oldoverflow are only used if key and elem do not contain pointers.
-      // overflow contains overflow buckets for hmap.buckets.
-      // oldoverflow contains overflow buckets for hmap.oldbuckets.
-      // The indirection allows to store a pointer to the slice in hiter.
-      overflow    *[]*bmap
-      oldoverflow *[]*bmap
-
-      // nextOverflow holds a pointer to a free overflow bucket.
-      nextOverflow *bmap
+    func (h *hmap) newoverflow(t *maptype, b *bmap) *bmap {
+      var ovf *bmap
+      if h.extra != nil && h.extra.nextOverflow != nil {
+        // We have preallocated overflow buckets available.
+        // See makeBucketArray for more details.
+        ovf = h.extra.nextOverflow
+        if ovf.overflow(t) == nil {
+          // We're not at the end of the preallocated overflow buckets. Bump the pointer.
+          h.extra.nextOverflow = (*bmap)(add(unsafe.Pointer(ovf), uintptr(t.bucketsize)))
+        } else {
+          // This is the last preallocated overflow bucket.
+          // Reset the overflow pointer on this bucket,
+          // which was set to a non-nil sentinel value.
+          ovf.setoverflow(t, nil)
+          h.extra.nextOverflow = nil
+        }
+      } else {
+        ovf = (*bmap)(newobject(t.bucket))
+      }
+      h.incrnoverflow()
+      if t.bucket.ptrdata == 0 {
+        h.createOverflow()
+        *h.extra.overflow = append(*h.extra.overflow, ovf)
+      }
+      b.setoverflow(t, ovf)
+      return ovf
     }
     ```
 
-[^hasGrowth]:
+[^tooManyOverflowBuckets]:
+
+    ```go
+    // tooManyOverflowBuckets reports whether noverflow buckets is too many for a map with 1<<B buckets.
+    // Note that most of these overflow buckets must be in sparse use;
+    // if use was dense, then we'd have already triggered regular map growth.
+    func tooManyOverflowBuckets(noverflow uint16, B uint8) bool {
+      // If the threshold is too low, we do extraneous work.
+      // If the threshold is too high, maps that grow and shrink can hold on to lots of unused memory.
+      // "too many" means (approximately) as many overflow buckets as regular buckets.
+      // See incrnoverflow for more details.
+      if B > 15 {
+        B = 15
+      }
+      // The compiler doesn't see here that B < 16; mask B to generate shorter shift code.
+      return noverflow >= uint16(1)<<(B&15)
+    }
+    ```
+
+[^hashGrow]:
 
     ```go
     func hashGrow(t *maptype, h *hmap) {
@@ -88,6 +102,52 @@
 
       // the actual copying of the hash table data is done incrementally
       // by growWork() and evacuate().
+    }
+    ```
+
+[^bmap]:
+
+    ```go
+    const (
+      // Maximum number of key/elem pairs a bucket can hold.
+      bucketCntBits = 3
+      bucketCnt     = 1 << bucketCntBits
+    )
+    // A bucket for a Go map.
+    type bmap struct {
+        // tophash generally contains the top byte of the hash value
+        // for each key in this bucket. If tophash[0] < minTopHash,
+        // tophash[0] is a bucket evacuation state instead.
+        topbits  [bucketCnt]uint8
+        // Followed by bucketCnt keys and then bucketCnt elems.
+        // NOTE: packing all the keys together and then all the elems together makes the
+        // code a bit more complicated than alternating key/elem/key/elem/... but it allows
+        // us to eliminate padding which would be needed for, e.g., map[int64]int8.
+        // Followed by an overflow pointer.
+        keys     [bucketCnt]keytype
+        values   [bucketCnt]valuetype
+        pad      uintptr
+        overflow uintptr
+    }
+    ```
+
+[^mapextra]:
+
+    ```go
+    type mapextra struct {
+      // If both key and elem do not contain pointers and are inline, then we mark bucket
+      // type as containing no pointers. This avoids scanning such maps.
+      // However, bmap.overflow is a pointer. In order to keep overflow buckets
+      // alive, we store pointers to all overflow buckets in hmap.extra.overflow and hmap.extra.oldoverflow.
+      // overflow and oldoverflow are only used if key and elem do not contain pointers.
+      // overflow contains overflow buckets for hmap.buckets.
+      // oldoverflow contains overflow buckets for hmap.oldbuckets.
+      // The indirection allows to store a pointer to the slice in hiter.
+      overflow    *[]*bmap
+      oldoverflow *[]*bmap
+
+      // nextOverflow holds a pointer to a free overflow bucket.
+      nextOverflow *bmap
     }
     ```
 
@@ -776,9 +836,33 @@
 
     :::
 
-[^access-oindex-map]:
+[^walkExpr1]:
 
-    xxx
+    ```go
+    func walkExpr1(n ir.Node, init *ir.Nodes) ir.Node {
+      switch n.Op() {
+      default:
+        ir.Dump("walk", n)
+        base.Fatalf("walkExpr: switch 1 unknown op %+v", n.Op())
+        panic("unreachable")
+
+      ...
+      // a,b = m[i]
+      case ir.OAS2MAPR:
+        n := n.(*ir.AssignListStmt)
+        return walkAssignMapRead(init, n)
+
+      ...
+      case ir.OINDEXMAP:
+        n := n.(*ir.IndexExpr)
+        return walkIndexMap(n, init)
+      }
+
+      // No return! Each case must return (or panic),
+      // to avoid confusion about what gets returned
+      // in the presence of type assertions.
+    }
+    ```
 
 [^map-const]:
 

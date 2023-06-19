@@ -129,38 +129,24 @@ Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的
 
 计算 key 的 hash 值，通过和 B 位与计算出所在桶，遍历桶中的元素，如果有溢出桶，遍历溢出桶
 
-### `for range` 的形式
+编译阶段将词法、语法分析器生成的抽象语法树根据 op 不同转换成不同的运行时方法[^walkExpr1]
 
-TODO
+- `OINDEXMAP` 的节点（形如 `X[Index]`）根据是否是赋值语句转换[^walkIndexMap]成 `mapassign` 和 `mapaccess1`
+- `OAS2MAPR` 的节点（形如 `a, b = m[i]`）会转换[^walkAssignMapRead]成 `mapaccess2`
+- `for range` TODO
 
-::: code-tabs#before
 
-@tab before
+### `mapaccsee1`
 
-```go
-a,b = m[i]
-```
+[^mapaccess1]
 
-@tab after
+- xxxx
 
-```go
-var,b = mapaccess2*(t, m, i)
-a = *var
-```
+### `mapaccsee2`
 
-:::
+[^mapaccess2]
 
-### `_ = hash[key]` 的形式
-
-- 编译阶段将词法、语法分析器生成的抽象语法树中 op 为 `OINDEXMAP` 的节点（形如 `X[Index] (index of map)`）作转换[^access-oindex-map]，如果是赋值语句，则会转换成 `mapassign` 方法，如果非赋值语句，否则会转换成 `mapaccess1`[^mapaccess1]
-- `mapaccess1` 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
-- // TODO 和 `mapaccess2` 类似 
-
-### `_, _ = hash[key]` 的形式
-
-编译阶段将词法、语法分析器生成的抽象语法树中 op 为 `OAS2MAPR` 的节点（形如 `a, b = m[i]`）会按照以此方式转换[^access-oas2mapr]成 `mapaccess2`[^mapaccess2]
-
-- `mapaccess2` 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
+- 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
   - 计算 key 的 hash，并计算出 key 所在的正常桶编号，额外检查 map 的旧桶是否为空
     - 如果 map 旧桶非空，则定位到当前 key 对应的旧桶位，检查旧桶位是否迁移，如果未迁移则从老桶中获取数据
     - 遍历定位到桶的每个单元，如果 tophash 不一致且 tophash 的值为 emptyReset 则说明桶中无该 key，遍历桶的溢出桶（如果存在）继续判断
@@ -174,7 +160,23 @@ a = *var
 
 在 [访问](./map.md#访问) 中可以知道，在赋值时会转为 `mapassign`[^mapassign] 方法
 
-
+- 检查 map 是否在写入，有写入会直接终止程序
+- 通过种子和 key 通过对应的类型的 hash 函数计算出 hash 值，并更新 flags 标记 map 正在写入
+- 如果 bucket 为空则初始化 bucket（对应着[运行时的处理](./map.md#运行时的处理)中的逻辑，map 初始化阶段如无元素，则会在写入阶段初始化）
+- 将 hash 和 `1<<b-1` 执行与操作来获得 bucket 桶号
+  - 如果 map 正在执行扩容，则对该 bucket 执行一次扩容迁移
+- 将 bucket 序号和每个 bucket 的 size 相乘的结果从 map 桶起始地址做偏移，获得 bucket 序号桶的地址
+- 获取 hash 的高八位值 top，如果 top 小于 `minTopHash`，则执行 `top+= minTopHash`
+- 首先遍历该桶，如果该桶有溢出桶，则持续遍历溢出桶；对于每个桶，遍历其中的八个单元
+  - 如果当前单元的 tophash 值和 待查 key 的 tophash 不一致
+    - 如果当前单元为 `emptyRest` 或者 `emptyOne` 并且尚未找到元素，则将当前单元地址标记为所查元素
+    - 如果当前单元为 `emptyRest`，表明后续都未空，则停止对此桶的继续搜索
+    - 如果当前单元不为 `emptyRest`，继续查询后续单元
+  - 当查找到 tophash 一致的单元，会通过 `add(unsafe.Pointer(b), dataOffset+i*uintptr(t.keysize))` 从桶起始地址偏移 tophash 数组和未匹配的 keySize 来获得当前单元对应的 key 地址，如果 key 存的是间址，还会继续获取对应的地址，返回查询到的地址
+  - 遍历完所有后续溢出桶后，会执行一次扩容检查
+    - 当前桶未在扩容[^growing]且当前桶的装在因子超过 6.5 或者当前 map 溢出桶过多[^tooManyOverflowBuckets]，则触发一次扩容[^hashGrow]，并回到 `again` 中重复执行一次
+  - 如果遍历完后仍未找到对应 key，表示当前桶全部满了，且 key 不存在，需要申请在当前桶后继续链上新的溢出桶[^newoverflow]，并将新桶首地址作为查询到的地址返回
+  - count 增加 1
 
 ## 删除
 
@@ -211,8 +213,25 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
 
 ## 扩容
 
+在触发扩容的方法 `hashGrow`[^hashGrow] 中有一段注释：
+
+::: info
+If we've hit the load factor, get bigger. Otherwise, there are too many overflow buckets, so keep the same number of buckets and "grow" laterally.
+:::
+
+说明有两种扩容方式
+
 - 等量扩容
 - 翻倍扩容
+
+在 `hashGrow` 主要处理了 xxxx，具体迁移的逻辑在方法 `growWork` 和 `evacuate` 中
+
+- 计算当前 map 的元素数增加 1 后装载因子是否超过 6.5，未超过则将 flag 标记为等量扩容，否则则是增量扩容
+- 将当前 map 桶放置到 oldbuckets 字段
+
+### 等量扩容
+
+### 翻倍扩容
 
 ## 其它
 
@@ -225,6 +244,7 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
 // sameSizeGrow() bool
 // noldbuckets() uintptr
 // oldbucketmask() uintptr
+
 ## Reference
 
 - [map 实践以及实现原理](https://blog.csdn.net/u010853261/article/details/99699350)
@@ -235,6 +255,7 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
 ## Todo
 
 - makemap 参数中 h *hmap 哪来的，hit 是否是 cap
+- 是否存在在扩容时 map 满了/需要新扩容
 
 ::: details Todo
 

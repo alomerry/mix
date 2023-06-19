@@ -74,13 +74,26 @@ export const setupFootnotePopup = () => {
   //   return ids
   // }
 
-  const createPopup = (ref: HTMLElement) => {
+  const createPopup = (ref: HTMLElement, hasMulti: boolean) => {
     // 在 footnote link 下方插入 footer
     let popup = document.createElement("div") as HTMLElement;
     popup.classList.add(...["code-popup", "code-popup-no-backref", "code-popup-hidden"])
     ref.parentNode?.insertBefore(popup, ref.nextElementSibling)
 
     // 将 pop 插入到 link 下
+    // 获取到 footer
+    if (hasMulti) {
+      (document.querySelectorAll('.footnote-ref') as NodeListOf<HTMLElement>).forEach((link: HTMLElement) => {
+        if (isCodePopUp(link.nextElementSibling as HTMLElement)) {
+          let firstALink = (link.firstChild as HTMLElement)
+          let currentALink = (ref.firstChild as HTMLElement)
+          if (firstALink.getAttribute("href") === currentALink.getAttribute("href") && firstALink.innerHTML.trim() !== currentALink.innerHTML.trim()) {
+            popup.innerHTML = (link.nextElementSibling as HTMLElement).innerHTML
+          }
+        }
+      })
+      return
+    }
     let underInsert = document.getElementById(getFooterId(ref))?.childNodes as NodeListOf<ChildNode>
     while (underInsert.length > 0) {
       if (isFootLink(underInsert[0] as HTMLElement)) {
@@ -103,8 +116,9 @@ export const setupFootnotePopup = () => {
 
         // 设置 popup 闪烁样式
         link.classList.add('footnote-ref-popup-source')
-
-        createPopup(link)
+        // 是否被多处引用
+        let hasMulti = (link.firstChild as HTMLElement).innerHTML.indexOf(":") > -1
+        createPopup(link, hasMulti)
         // 给 link 设置点击事件
         link.addEventListener("click", clickFootnote, false)
       }
@@ -125,13 +139,22 @@ export const setupFootnotePopup = () => {
     }
     (document.querySelectorAll('.footnote-ref') as NodeListOf<HTMLElement>).forEach((link: HTMLElement) => {
       if (isCodePopUp(link.nextElementSibling as HTMLElement)) {
+        // 是否被多处引用
+        let hasMulti = (link.firstChild as HTMLElement).innerHTML.indexOf(":") > -1
         let foot = document.getElementById(getCodePopupFootId(link as HTMLElement)) as HTMLElement
         if (foot) {
-          let underMove = (link.nextElementSibling as HTMLElement).childNodes
-          while (underMove.length > 0) {
-            foot.appendChild(underMove[0])
+          if (hasMulti) {
+            // link.nextElementSibling?.remove()
+          } else {
+            let underMove = (link.nextElementSibling as HTMLElement).childNodes
+            while (underMove.length > 0) {
+              foot.appendChild(underMove[0])
+            }
           }
-          foot.appendChild(foot.firstChild as HTMLElement)
+          let inner = foot.children
+          while (inner[0].nodeName === "A") {
+            foot.appendChild(inner[0])
+          }
         }
       }
       link.removeEventListener("click", clickFootnote)
@@ -164,6 +187,7 @@ export const setupFootnotePopup = () => {
     router.beforeEach((to, from) => {
       if (frontmatter.value.enableFootnotePopup && to.path.indexOf(from.path) == -1) { // leave page 需要清理
         cleanFootnotePopup();
+        // return false;
       }
     });
   });
