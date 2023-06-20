@@ -19,6 +19,10 @@
   transition: visibility 1s, opacity 0.5s ease-out;
 }
 
+.code-popup-warp {
+  position: relative;
+}
+
 .code-popup {
   z-index: 3;
   border-radius: 10px;

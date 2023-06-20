@@ -9,7 +9,7 @@ export const setupFootnotePopup = () => {
 
   const documentEventHandler = (event) => {
     // 如果点击弹窗自身时，不触发隐藏逻辑
-    if (!(document.querySelectorAll('.code-popup.code-popup-hover')[0].contains(event.target) || event.target.nodeName === 'A' && event.target.getAttribute('href')?.startsWith("#footnote"))) {
+    if (!(document.querySelectorAll('.code-popup.code-popup-hover')[0]?.contains(event.target) || event.target.nodeName === 'A' && event.target.getAttribute('href')?.startsWith("#footnote"))) {
       hiddenFootnotePopup()
     }
   }
@@ -23,10 +23,11 @@ export const setupFootnotePopup = () => {
     }
   };
 
-  const showFootnotePopup = (item: any) => {
-    hiddenFootnotePopup()
-    item.classList.remove("code-popup-hidden")
-    item.classList.add("code-popup-hover")
+  const showFootnotePopup = (item: HTMLElement) => {
+    hiddenFootnotePopup();
+
+    (item.firstChild as HTMLElement).classList.remove("code-popup-hidden");
+    (item.firstChild as HTMLElement).classList.add("code-popup-hover");
     nextTick(() => {
       document.addEventListener('click', documentEventHandler);
     });
@@ -76,9 +77,12 @@ export const setupFootnotePopup = () => {
 
   const createPopup = (ref: HTMLElement, hasMulti: boolean) => {
     // 在 footnote link 下方插入 footer
+    let warp = document.createElement("div") as HTMLElement;
     let popup = document.createElement("div") as HTMLElement;
     popup.classList.add(...["code-popup", "code-popup-no-backref", "code-popup-hidden"])
-    ref.parentNode?.insertBefore(popup, ref.nextElementSibling)
+    warp.classList.add(...["code-popup-warp"])
+    warp.appendChild(popup)
+    ref.parentNode?.insertBefore(warp, ref.nextElementSibling)
 
     // 将 pop 插入到 link 下
     // 获取到 footer
@@ -110,9 +114,9 @@ export const setupFootnotePopup = () => {
     (document.querySelectorAll(".footnote-ref") as NodeListOf<HTMLElement>).forEach((link) => {
       if (isFirstNodeFootLink(link)) {
         // 设置父标签的 position 用于生成 div 显示在下方
-        if (link.parentNode) {
-          (link.parentNode as HTMLElement).style.position = "relative"
-        }
+        // if (link.parentNode) {
+        //   (link.parentNode as HTMLElement).style.position = "relative"
+        // }
 
         // 设置 popup 闪烁样式
         link.classList.add('footnote-ref-popup-source')
@@ -143,14 +147,13 @@ export const setupFootnotePopup = () => {
         let hasMulti = (link.firstChild as HTMLElement).innerHTML.indexOf(":") > -1
         let foot = document.getElementById(getCodePopupFootId(link as HTMLElement)) as HTMLElement
         if (foot) {
-          if (hasMulti) {
-            // link.nextElementSibling?.remove()
-          } else {
+          if (!hasMulti) {
             let underMove = (link.nextElementSibling as HTMLElement).childNodes
-            while (underMove.length > 0) {
-              foot.appendChild(underMove[0])
+            if (underMove.length > 0 && (underMove[0] as HTMLElement).childElementCount > 0) {
+              foot.append(...underMove[0].childNodes)
             }
           }
+          link.nextElementSibling?.remove()
           let inner = foot.children
           while (inner[0].nodeName === "A") {
             foot.appendChild(inner[0])
@@ -181,7 +184,7 @@ export const setupFootnotePopup = () => {
       if (needFootnotePopup()) {
         setTimeout(() => {
           footnotePopup()
-        }, 1000)
+        }, 500)
       }
     });
     router.beforeEach((to, from) => {
