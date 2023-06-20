@@ -125,6 +125,37 @@ Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的
 
   - 此时桶内存已经分配完成，将桶的地址设置到 hmap 上，如果在 `makeBucketArray` 中生成溢出桶，则初始化 hmap 的 extra 字段，并设置 `nextOverflow`
 
+## 删除
+
+map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
+
+- 检查 map 是否在写入，有写入会直接终止程序
+- 通过种子和 key 通过对应的类型的 hash 函数计算出 hash 值，并更新 flags 标记 map 正在写入
+- 将 hash 和 `1<<b-1` 执行与操作来获得 bucket 桶号
+  - 如果 map 正在执行扩容，则对该 bucket 执行一次扩容迁移
+- 将 bucket 序号和每个 bucket 的 size 相乘的结果从 map 桶起始地址做偏移，获得 bucket 序号桶的地址
+- 获取 hash 的高八位值 top，如果 top 小于 `minTopHash`，则执行 `top+= minTopHash`
+- 首先遍历该桶，如果该桶有溢出桶，则持续遍历溢出桶；对于每个桶，遍历其中的八个单元
+  - 如果当前单元的 tophash 值和 待查 key 的 tophash 不一致
+    - 如果当前单元为 `emptyRest`，表明后续都未空，则停止对此桶的继续搜索
+    - 如果当前单元不为 `emptyRest`，继续查询后续单元
+  - 当查找到 tophash 一致的单元，会通过 `add(unsafe.Pointer(b), dataOffset+i*uintptr(t.keysize))` 从桶起始地址偏移 tophash 数组和未匹配的 keySize 来获得当前单元对应的 key 地址，如果 key 存的是间址，还会继续获取对应的地址
+  - 判断该单元 key 的值和所需删除的 key 是否一致，不一致则继续遍历下一个单元
+    - 查找到一致的单元后会将该单元的 tophash 设置成 `emptyOne`，接下来会执行一段逻辑处理 `emptyReset`
+      - 如果当前单元是该桶的最后一个元素，检查是否有溢出桶，如果有则检查溢出桶的首个单元的 tophash 不是 `emptyReset` 则执行 `notLast` 逻辑
+      - 如果当前单元不是该桶的最后一个元素，且当前单元后一单元的 tophash 不是 `emptyReset` 则执行 `notLast` 逻辑
+      - `notLast` 逻辑：如果溢出桶首个单元的 tophash 不是 `emptyReset` 则将 map 的 count 数减一，如果当前 map 已无元素（即 count 为 0），则重置 map 的 hash0（种子）
+      - 如果当前单元是桶的最后一个单元，则执行设置 `emptyReset` 的逻辑（Last 逻辑）
+        - 从当前单元向低位循环设置 tophash 为 `emptyReset`，如果循环位不是 0（非桶起始位），则判断该位是否是 `emptyOne`，如果是则继续更新为 `emptyReset`，否则跳出循环
+        - 如果遍历位为桶的起始位，判断当前遍历的桶是否是删除元素的所在桶（非溢出桶），如果是，说明删除元素的所在桶（从原始桶至该桶的溢出桶）已全部处理完成，跳出循环
+        - 获取删除元素所在桶（可能为溢出桶）的前一个桶（可能为原始桶也可能为溢出桶），继续从第八位开始循环设置 tophash
+- 检查当前 map flags 的 `hashWriting` 是否被取反，是则说明有其他协程正在写入，直接终止程序，否则清除写入位
+
+
+::: tip
+// Like mapaccess, but allocates a slot for the key if it is not present in the map.
+:::
+
 ## 访问
 
 计算 key 的 hash 值，通过和 B 位与计算出所在桶，遍历桶中的元素，如果有溢出桶，遍历溢出桶
@@ -136,15 +167,9 @@ Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的
 - `for range` TODO
 
 
-### `mapaccsee1`
+### `mapaccsee1/mapaccsee2`
 
-[^mapaccess1]
-
-- xxxx
-
-### `mapaccsee2`
-
-[^mapaccess2]
+[^mapaccess1][^mapaccess2]
 
 - 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
   - 计算 key 的 hash，并计算出 key 所在的正常桶编号，额外检查 map 的旧桶是否为空
@@ -177,38 +202,6 @@ Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的
     - 当前桶未在扩容[^growing]且当前桶的装在因子超过 6.5 或者当前 map 溢出桶过多[^tooManyOverflowBuckets]，则触发一次扩容[^hashGrow]，并回到 `again` 中重复执行一次
   - 如果遍历完后仍未找到对应 key，表示当前桶全部满了，且 key 不存在，需要申请在当前桶后继续链上新的溢出桶[^newoverflow]，并将新桶首地址作为查询到的地址返回
   - count 增加 1
-
-## 删除
-
-map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
-
-- 检查 map 是否在写入，有写入会直接终止程序
-- 通过种子和 key 通过对应的类型的 hash 函数计算出 hash 值，并更新 flags 标记 map 正在写入
-- 将 hash 和 `1<<b-1` 执行与操作来获得 bucket 桶号
-  - 如果 map 正在执行扩容，则对该 bucket 执行一次扩容迁移
-- 将 bucket 序号和每个 bucket 的 size 相乘的结果从 map 桶起始地址做偏移，获得 bucket 序号桶的地址
-- 获取 hash 的高八位值 top，如果 top 小于 `minTopHash`，则执行 `top+= minTopHash`
-- 首先遍历该桶，如果该桶有溢出桶，则持续遍历溢出桶；对于每个桶，遍历其中的八个单元
-  - 如果当前单元的 tophash 值和 待查 key 的 tophash 不一致
-    - 如果当前单元为 `emptyRest`，表明后续都未空，则停止对此桶的继续搜索
-    - 如果当前单元不为 `emptyRest`，继续查询后续单元
-  - 当查找到 tophash 一致的单元，会通过 `add(unsafe.Pointer(b), dataOffset+i*uintptr(t.keysize))` 从桶起始地址偏移 tophash 数组和未匹配的 keySize 来获得当前单元对应的 key 地址，如果 key 存的是间址，还会继续获取对应的地址
-  - 判断该单元 key 的值和所需删除的 key 是否一致，不一致则继续遍历下一个单元
-    - 查找到一致的单元后会将该单元的 tophash 设置成 `emptyOne`，接下来会执行一段逻辑处理 `emptyReset`
-      - 如果当前单元是该桶的最后一个元素，检查是否有溢出桶，如果有则检查溢出桶的首个单元的 tophash 不是 `emptyReset` 则执行 `notLast` 逻辑
-      - 如果当前单元不是该桶的最后一个元素，且当前单元后一单元的 tophash 不是 `emptyReset` 则执行 `notLast` 逻辑
-      - `notLast` 逻辑：如果溢出桶首个单元的 tophash 不是 `emptyReset` 则将 map 的 count 数减一，如果当前 map 已无元素（即 count 为 0），则重置 map 的 hash0（种子）
-      - 如果当前单元是桶的最后一个单元，则执行设置 `emptyReset` 的逻辑（Last 逻辑）
-        - 从当前单元向低位循环设置 tophash 为 `emptyReset`，如果循环位不是 0（非桶起始位），则判断该位是否是 `emptyOne`，如果是则继续更新为 `emptyReset`，否则跳出循环
-        - 如果遍历位为桶的起始位，判断当前遍历的桶是否是删除元素的所在桶（非溢出桶），如果是，说明删除元素的所在桶（从原始桶至该桶的溢出桶）已全部处理完成，跳出循环
-        - 获取删除元素所在桶（可能为溢出桶）的前一个桶（可能为原始桶也可能为溢出桶），继续从第八位开始循环设置 tophash
-- 检查当前 map flags 的 `hashWriting` 是否被取反，是则说明有其他协程正在写入，直接终止程序，否则清除写入位
-
-
-::: tip
-// Like mapaccess, but allocates a slot for the key if it is not present in the map.
-:::
-
 
 ## 扩容
 
@@ -257,6 +250,8 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 快速随机数[^fastrand] bucketShift[^bucketShift] t.hashMightPanic() 
 
 tophash
+
+newoverflow[^newoverflow]
 
 // incrnoverflow()
 // newoverflow(t *maptype, b *bmap) *bmap
