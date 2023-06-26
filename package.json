@@ -15,6 +15,7 @@
     "postinstall": "node scripts/cmd.js modifySplitFontsCss downloadImportCode autoGenIOISidebar",
     "postbuild": "node scripts/cmd.js addUmamiTrace",
     "convert-cdn": "node scripts/cmd.js convertCDN",
+    "download-import": "node scripts/cmd.js downloadImportCode",
     "oss": "./src/.vuepress/ossPusher --configPath core.toml",
     "split-fonts": "node scripts/cmd splitFonts modifySplitFontsCss"
   },
@@ -37,9 +38,9 @@
     "vue": "3.3.4",
     "vue-router": "^4.2.2",
     "vuepress": "2.0.0-beta.63",
-    "vuepress-plugin-components": "2.0.0-beta.226",
-    "vuepress-plugin-search-pro": "2.0.0-beta.226",
-    "vuepress-shared": "2.0.0-beta.226",
-    "vuepress-theme-hope": "2.0.0-beta.226"
+    "vuepress-plugin-components": "2.0.0-beta.228",
+    "vuepress-plugin-search-pro": "2.0.0-beta.228",
+    "vuepress-shared": "2.0.0-beta.228",
+    "vuepress-theme-hope": "2.0.0-beta.228"
   }
 }
