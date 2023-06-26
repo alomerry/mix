@@ -59,4 +59,4 @@ Source: [LeetCode 7](https://leetcode-cn.com/problems/reverse-integer/){target="
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/7-map.cpp)
+@[code cpp](../../_codes/algorithm/code/leet-code/7-main.cpp)

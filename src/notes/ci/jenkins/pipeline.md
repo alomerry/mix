@@ -258,7 +258,7 @@ pipeline
 
 @tab blog
 
-@[code groovy:no-line-numbers](../../../_codes/vps-home/pipeline/blog.groovy)
+@[code groovy:no-line-numbers](../../../_codes/blog/.jenkins/blog/pipeline.groovy)
 
 @tab algorithm
 
