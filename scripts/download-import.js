@@ -11,22 +11,23 @@ function run() {
 
 // 下载 github 瓷砖图 https://github.com/alomerry/github-yearly-contributions
 function downloadGithubYearlyControbution() {
-  let tmp = fs.createWriteStream(constant.PUBLIC_PATH+"/github-contributions-snake.svg");
+  let tmp = fs.createWriteStream(constant.PUBLIC_PATH + "/github-contributions-snake.svg");
   let svg = "https://gitee.com/alomerry/github-yearly-contributions/raw/output/github-contribution-grid-snake.svg"
-        request(svg).pipe(tmp).on("close", function (err) {
-          if (err) {
-            console.log("download github yearly contributions svg failed.")
-          }
-        });
+  request(svg).pipe(tmp).on("close", function (err) {
+    if (err) {
+      console.log("download github yearly contributions svg failed.")
+    }
+  });
 }
 
 function downloadFromGitee() {
+  removeLastFailedDownload();
   let downloadQueue = [];
   constant.MD_DIR_LIST.forEach(function (blogDir) {
     var mds = utils.getAllFilesPath(blogDir)
     mds.forEach(function (mdPath) {
       let mdContent = fs.readFileSync(mdPath, 'utf8');
-      let importFiles = mdContent.match(/@\[code [\w:\w-]+\]\((.*)\)/g)
+      let importFiles = mdContent.match(/@\[code[ ]?[\w]*:?[\w-]*\]\((.*)\)/g)
       if (importFiles != null) {
         importFiles.forEach(function (relatePath) {
           let p = new Promise((resolve, reject) => {
@@ -42,6 +43,26 @@ function downloadFromGitee() {
   Promise.all(downloadQueue).then(res => {
     console.info("import codes download completed");
     checkfile()
+  })
+}
+
+// 删除上次下载失败的文件
+function removeLastFailedDownload() {
+  let checkQueue = [];
+
+  utils.getAllFilesPath("./src/_codes").forEach(function (filePath) {
+    let p = new Promise((resolve, reject) => {
+      let codeContent = fs.readFileSync(filePath, 'utf8');
+      if (codeContent.match(/Repository or file not found/g) != null) {
+        utils.deleteFile(filePath)
+      }
+      resolve();
+    })
+    checkQueue.push(p)
+  })
+
+  Promise.all(checkQueue).then(res => {
+    console.info("clear last download completed");
   })
 }
 
@@ -67,19 +88,19 @@ function checkfile() {
 
 function getOutputFilePath(relatePath) {
   // '@[code yml:no-line-numbers](../_codes/vps-home/frpc/umami/docker-compose.yml)' => ../src/_codes/vps-home/frpc/umami/docker-compose.yml
-  let outputFilePath = relatePath.replace(/@\[code [\w:\w-]+\]\((.*)\/_codes\//gm, "")
+  let outputFilePath = relatePath.replace(/@\[code[ ]?[\w]*:?[\w-]*\]\((.*)\/_codes\//gm, "")
   outputFilePath = "./src/_codes/" + outputFilePath.substring(0, outputFilePath.lastIndexOf(")"))
   return outputFilePath
 }
 
 function getOutputDir(relatePath) {
   // '@[code yml:no-line-numbers](../_codes/vps-home/frpc/umami/docker-compose.yml)' => vps-home/frpc/umami/
-  let outputDir = relatePath.replace(/@\[code [\w:\w-]+\]\((.*)\/_codes\//gm, "")
+  let outputDir = relatePath.replace(/@\[code[ ]?[\w]*:?[\w-]*\]\((.*)\/_codes\//gm, "")
   return outputDir.substring(0, outputDir.lastIndexOf("/"))
 }
 
 function needDownload(relatePath) {
-  if (!relatePath.match(/@\[code [\w:\w-]+\]\((.*)\/_codes\//gm)) {
+  if (!relatePath.match(/@\[code[ ]?[\w]*:?[\w-]*\]\((.*)\/_codes\//gm)) {
     return false
   }
   return true
@@ -101,7 +122,7 @@ function prepareDownloadDir(relatePath) {
 
 function getUrlFileByBranch(relatePath, branch) {
   // '@[code yml:no-line-numbers](./codes/vps-home/frpc/umami/docker-compose.yml)' => https://gitee.com/alomerry/algorithm/raw/master/code/leet-code/105-main.cpp
-  let webUrl = relatePath.replace(/@\[code [\w:\w-]+\]\((.*)\/_codes\//gm, "")
+  let webUrl = relatePath.replace(/@\[code[ ]?[\w]*:?[\w-]*\]\((.*)\/_codes\//gm, "")
   webUrl = webUrl.substring(0, webUrl.lastIndexOf(")"))
   let reponsitory = webUrl.split("/")[0]
   return "https://gitee.com/alomerry/" + reponsitory + "/raw/" + branch + webUrl.replace(reponsitory, "")

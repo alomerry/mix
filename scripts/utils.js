@@ -111,6 +111,12 @@ function existsPath(filePath) {
   return false
 }
 
+function deleteFile(filePath) {
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath)
+  }
+}
+
 function deleteDir(dirPath) {
   if (fs.existsSync(dirPath)) {
     var filesPath = getAllFilesPath(dirPath)
@@ -266,7 +272,7 @@ function tools_IOI_SiderBar_Children_Generator(path, prefix) {
     }
   })
   Array.from(indexSet).sort((a, b) => a - b).forEach(function (index) {
-    if (str != ""){
+    if (str != "") {
       str += "\n"
     }
     str += `      '${mapper.get(index)}',`
@@ -275,7 +281,7 @@ function tools_IOI_SiderBar_Children_Generator(path, prefix) {
 }
 
 export default {
-  getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
+  getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteFile, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
 
 
   tools_IOI_SiderBar_Children_Generator, getAbsoluteIOIPath,

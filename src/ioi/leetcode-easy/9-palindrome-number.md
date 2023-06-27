@@ -59,6 +59,6 @@ Source: [LeetCode 9](https://leetcode-cn.com/problems/palindrome-number/){target
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/9-map.cpp)
+@[code cpp](../../_codes/algorithm/code/leet-code/9-main.cpp)
 
 @[code cpp](../../_codes/algorithm/code/leet-code/9-string.cpp)
