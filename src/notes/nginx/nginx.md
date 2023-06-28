@@ -1,6 +1,5 @@
 ---
 date: 2022-02-26
-isOriginal: true
 tag: 
   - nginx
 ---

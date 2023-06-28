@@ -37,6 +37,10 @@
   name: VuePress Theme Hope
   desc: 一个具有强大功能的 vuepress 主题✨
   link: https://theme-hope.vuejs.press/zh/
+- icon: https://theme-hope.vuejs.press/logo.png
+  name: 幼麟实验室
+  desc: 做点儿形象通透的编程教程。
+  link: https://www.zhihu.com/people/kylin-lab/
 ```
 
 :::
@@ -119,6 +123,8 @@ https://github.com/byoungd/English-level-up-tips https://www.v2ex.com/t/425450
 
 ## gpt
 
+- https://openai.apifox.cn/api-67883981
+- https://openai.alomerry.com/#/chat
 - https://chat2.aichatos.com
 - https://github.com/pengzhile/pandora
 - https://github.com/xx025/carrot

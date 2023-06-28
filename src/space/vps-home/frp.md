@@ -90,6 +90,8 @@ WantedBy=multi-user.target
              └─3909 /home/alomerry-home/Applications/frp_0.43/frpc -c /home/alomerry-home/Applications/frp_0.43/frpc.ini
 ```
 
+### 配置 xtcp
+
 ### 断连邮件提醒
 
 ## RustDesk

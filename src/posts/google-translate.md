@@ -1,7 +1,6 @@
 ---
 title: 谷歌翻译服务退出中国后使用全文翻译的方法
 description: Proxifier + clash
-isOriginal: true
 date: 2022-11-26
 ---
 

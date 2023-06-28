@@ -1,7 +1,7 @@
 ---
 containerClass: home
 home: true
-title: 主页
+title: gopusher
 icon: home
 heroImage: /logo.svg
 bgImage: https://theme-hope-assets.vuejs.press/bg/6-light.svg

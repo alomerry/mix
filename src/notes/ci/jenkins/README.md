@@ -1,7 +1,6 @@
 ---
 date: 2022-06-17
 description: 记录学习 Jenkins 过程的一些心得、笔记
-isOriginal: true
 category:
   - Jenkins
 tag:
@@ -10,7 +9,7 @@ tag:
 
 # Jenkins 学习笔记
 
-## TODO
+<!-- ## TODO
 
 - [ ] 构建 docker 镜像并推送到仓库
 - [ ] 集成 k8s
@@ -18,7 +17,7 @@ tag:
 - [ ] Others
 - [ ] https://www.mafeifan.com/DevOps/Jenkins/Jenkins2-%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9727----pipeline-%E4%B8%AD-Docker-%E6%93%8D%E4%BD%9C.html
 - [ ] https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow
-- [ ] https://www.jenkins.io/zh/doc/book/pipeline/docker/
+- [ ] https://www.jenkins.io/zh/doc/book/pipeline/docker/ -->
 
 
 ## 升级 Jenkins

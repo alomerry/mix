@@ -1,6 +1,6 @@
 ---
+article: false
 title: Gin Web Framework
-isOriginal: true
 ---
 
 ## Model

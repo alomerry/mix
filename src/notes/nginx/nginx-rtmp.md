@@ -1,5 +1,4 @@
 ---
-isOriginal: true
 tag:
   - Nginx
   - Rtmp

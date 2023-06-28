@@ -47,6 +47,7 @@ export default hopeTheme({
   },
   encrypt: {
     config: {
+      "/about/resume": "alomerry",
       "/about/resume.html": "alomerry",
       "/notes/golang/go-interview.html": "alomerry",
     }
@@ -110,9 +111,7 @@ export default hopeTheme({
       playground: {
         presets: ["ts", "vue"],
       },
-      presentation: {
-        plugins: ["highlight", "math", "search", "notes", "zoom"],
-      },
+      presentation: ["highlight", "math", "search", "notes", "zoom"],
       stylize: [
         {
           matcher: "Recommended",
@@ -135,25 +134,25 @@ export default hopeTheme({
     components: {
       components: ["SiteInfo", "BiliBili", "PDF", "AudioPlayer", "Replit"],
       rootComponents: {
-        notice: [
-          {
-            path: "/",
-            title: "欢迎",
-            content: "这里是清欢。",
-            showOnce: true,
-            confirm: false,
-            actions: [
-              {
-                text: "关于本站",
-                link: "/about/site",
-              },
-              {
-                text: "关于我",
-                link: "/about/intro",
-              },
-            ],
-          }
-        ],
+        // notice: [
+        //   {
+        //     path: "/",
+        //     title: "欢迎",
+        //     content: "这里是清欢。",
+        //     showOnce: true,
+        //     confirm: false,
+        //     actions: [
+        //       {
+        //         text: "关于本站",
+        //         link: "/about/site",
+        //       },
+        //       {
+        //         text: "关于我",
+        //         link: "/about/intro",
+        //       },
+        //     ],
+        //   }
+        // ],
       }
     },
 

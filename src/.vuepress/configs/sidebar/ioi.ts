@@ -181,6 +181,8 @@ export const ioi = arraySidebar([
     text: "LeetCode 周赛",
     collapsible: true,
     prefix: "leetcode-weekly-contest/",
-    children: ['weekly-contest-83.md'],
+    children: [
+      '83-weekly-contest.md',
+    ],
   },
 ]);

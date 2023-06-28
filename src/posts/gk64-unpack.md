@@ -1,7 +1,6 @@
 ---
 title: GK64 键盘客制化
 description: 键盘客户化组装记录
-isOriginal: true
 date: 2020-01-18
 ---
 

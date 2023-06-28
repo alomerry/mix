@@ -12,9 +12,9 @@ function run() {
     "leetcode-weekly-contest" // 4
   ]
 
-  getSiderBarChildren(types[1])
-  getSiderBarChildren(types[2])
-  getSiderBarChildren(types[3])
+  // getSiderBarChildren(types[1])
+  // getSiderBarChildren(types[2])
+  // getSiderBarChildren(types[3])
   getSiderBarChildren(types[4])
 }
 
@@ -30,7 +30,7 @@ function getSiderBarChildren(changeType) {
     children: [
 `+ newSideBarChildren + `
     ],`
-  const ioiSideBarConfig = "./src/.vuepress/configs/sidebar/ioi-test.ts"
+  const ioiSideBarConfig = "./src/.vuepress/configs/sidebar/ioi.ts"
   replaceSideBar(ioiSideBarConfig, changeType, newContent)
 }
 
@@ -59,6 +59,7 @@ function replaceSideBar(config, changeType, newContent) {
     // children: [
     //   ...
     // ]
+
     let result = content.replace(reg, newContent)
     fs.writeFileSync(config, result, 'utf8')
   }

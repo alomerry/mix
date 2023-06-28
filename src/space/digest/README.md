@@ -1,6 +1,5 @@
 ---
 description: 美文文摘（来源：读者、网易云、文苑、知乎、微博等）
-isOriginal: true
 date: 2019-07-02
 tag:
   - 文摘

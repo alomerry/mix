@@ -1,7 +1,6 @@
 ---
 excerpt: false
 article: false
-isOriginal: true
 category:
   - git
 tag: 

@@ -1,14 +1,17 @@
 ---
 description: 记录 Golang 学习过程中的经验、遇到的坑点等
 date: 2020-08-10
-isOriginal: true
 tag: 
   - golang
 ---
 
+https://go.dev/ref/spec#Source_file_organization
+https://go.dev/ref/spec#Statement
+https://github.com/golang-design
+
 # Golang Note
 
-## 测试
+<!-- ## 测试
 
 [汇编](https://mp.weixin.qq.com/s/Sk9m7_gk9xJpklzGpEay0A)
 
@@ -767,11 +770,11 @@ context 只读
 
 [Go Context 的踩坑经历](https://studygolang.com/articles/12566)
 
-[gRPC and Deadlines](https://gitlab.********.com//********/issues/24)
+[gRPC and Deadlines](https://gitlab.********.com//********/issues/24) -->
 
 ### Context 接口
 
-```go
+<!-- ```go
 type Context interface {
 // Deadline returns the time when work done on behalf of this context
 // should be canceled. Deadline returns ok==false when no deadline is
@@ -1019,15 +1022,15 @@ fmt.Println("LongTimeWork timeout")
 }
 ```
 
-## 空 interface type
+## 空 interface type -->
 
 ## map
 
-## 常见坑
+<!-- ## 常见坑
 
-[go 圣经](https://chai2010.cn/advanced-go-programming-book/appendix/appendix-a-trap.html)
+[go 圣经](https://chai2010.cn/advanced-go-programming-book/appendix/appendix-a-trap.html) -->
 
-### 数组和切片作为参数分别是值传递和引用传递
+<!-- ### 数组和切片作为参数分别是值传递和引用传递
 
 ```go
 type Member struct {
@@ -1165,12 +1168,12 @@ case stdFracSecond9: // Take any number of digits, even more than asked for, bec
 
 `.9` 可以适配任意长度的毫秒，`.0` 需要保持位数一致。
 
-## golang 读取文件性能对比
+## golang 读取文件性能对比 -->
 
 ## GVM 安装 Golang
 
 ```shell
-zsh < <(curl -s -S -L https://cdn.alomerry.com/packages/gvm/gvm-installer.sh)
+curl -s -S -L https://cdn.alomerry.com/packages/gvm/gvm-installer.sh)
 ```
 
 need bison gcc make
@@ -1186,7 +1189,7 @@ gvm use go1.4 [--default]
 
 http://c.biancheng.net/view/122.html
 
-## Golang 大杀器之性能剖析 PProf
+<!-- ## Golang 大杀器之性能剖析 PProf
 
 https://segmentfault.com/a/1190000016412013
 
@@ -1372,4 +1375,4 @@ func main() {
 
 time ticker https://github.com/golang/go/issues/17601
 
-定时器 https://www.dazhuanlan.com/kantfollower/topics/1650624
+定时器 https://www.dazhuanlan.com/kantfollower/topics/1650624 -->

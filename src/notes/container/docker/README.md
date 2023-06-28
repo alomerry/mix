@@ -1,6 +1,5 @@
 ---
 date: 2022-04-26
-isOriginal: true
 tag: 
   - docker
 ---

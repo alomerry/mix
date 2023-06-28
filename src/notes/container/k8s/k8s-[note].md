@@ -1,3 +1,7 @@
+---
+article: false
+---
+
 minikube start --image-mirror-country='cn' --docker-env no_proxy=localhost,127.0.0.1,192.168.59.0/24,192.168.39.0/24,192.168.49.0/24,10.96.0.0/12 --cpus 6 --memory 8192 --driver=docker
 
 

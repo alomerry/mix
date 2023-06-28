@@ -164,12 +164,14 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
 
 - `OINDEXMAP` 的节点（形如 `X[Index]`）根据是否是赋值语句转换[^walkIndexMap]成 `mapassign` 和 `mapaccess1`
 - `OAS2MAPR` 的节点（形如 `a, b = m[i]`）会转换[^walkAssignMapRead]成 `mapaccess2`
-- `for range` TODO
+<!-- - `for range` TODO -->
 
+![hashmap-mapaccess](https://img.draveness.me/2020-10-18-16030322432560/hashmap-mapaccess.png)
 
 ### `mapaccsee1/mapaccsee2`
 
-[^mapaccess1][^mapaccess2]
+- `mapaccess1`[^mapaccess1]
+- `mapaccess2`[^mapaccess2]
 
 - 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
   - 计算 key 的 hash，并计算出 key 所在的正常桶编号，额外检查 map 的旧桶是否为空
@@ -203,6 +205,8 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
   - 如果遍历完后仍未找到对应 key，表示当前桶全部满了，且 key 不存在，需要申请在当前桶后继续链上新的溢出桶[^newoverflow]，并将新桶首地址作为查询到的地址返回
   - count 增加 1
 
+![hashmap-overflow-bucket](https://img.draveness.me/2020-10-18-16030322432567/hashmap-overflow-bucket.png)
+
 ## 扩容
 
 在触发扩容的方法 `hashGrow`[^hashGrow] 中有一段注释：
@@ -216,7 +220,9 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 - 等量扩容
 - 翻倍扩容
 
-在 `hashGrow` 主要处理了 xxxx，具体迁移的逻辑在方法 `growWork` 和 `evacuate` 中
+![hashmap-hashgrow](https://img.draveness.me/2020-10-18-16030322432573/hashmap-hashgrow.png)
+
+在 `hashGrow` 主要处理 hmap 的 flag、移动桶等工作，具体迁移的逻辑在方法 `growWork` 和 `evacuate` 中
 
 - 计算当前 map 的元素数增加 1 后装载因子是否超过 6.5，未超过则将 flag 标记为等量扩容，否则则是增量扩容
 - 将当前 map 桶放置到 oldbuckets 字段，如果当前在遍历 map 新桶或旧桶，一律标记遍历旧桶
@@ -245,30 +251,24 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
   - 如果当前迁移完成的桶刚好是 map 中下一位待迁移的桶，更新 `h.nevacuate`
     - 将 `h.nevacuate` 后移到下一个桶序号，遍历后续的桶是否已经搬迁过[^bucketEvacuated]，如果全部搬迁过后将 map 对应的旧桶的引用删除，如果是等量扩容需要清除 flags
 
+![hashmap-evacuate-destination](https://img.draveness.me/2020-10-18-16030322432579/hashmap-evacuate-destination.png)
+
 ## 其它
 
-快速随机数[^fastrand] bucketShift[^bucketShift] t.hashMightPanic() 
+- 快速随机数[^fastrand]
+- bucketShift[^bucketShift] 
+- t.hashMightPanic 
+- tophash
+- newoverflow[^newoverflow]
+- incrnoverflow
+- newoverflow
+- createOverflow
+- growing
+- sameSizeGrow
+- noldbuckets
+- oldbucketmask 
 
-tophash
-
-newoverflow[^newoverflow]
-
-// incrnoverflow()
-// newoverflow(t *maptype, b *bmap) *bmap
-// createOverflow()
-// growing() bool
-// sameSizeGrow() bool
-// noldbuckets() uintptr
-// oldbucketmask() uintptr
-
-## Reference
-
-- [map 实践以及实现原理](https://blog.csdn.net/u010853261/article/details/99699350)
-- [Go 语言设计与实现 哈希表](https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap)
-- [map 缩容](https://eddycjy.com/posts/go/map-reset/)
-- https://segmentfault.com/a/1190000022514909
-
-## Todo
+## 思考
 
 - makemap 参数中 h *hmap 哪来的，hit 是否是 cap
 - 是否存在在扩容时 map 满了/需要新扩容
@@ -277,62 +277,22 @@ newoverflow[^newoverflow]
 - 搬迁过程中 `if h.flags&iterator != 0 && !t.reflexivekey() && !t.key.equal(k2, k2) {` 是什么意思
   
   ::: info
-  // If key != key (NaNs), then the hash could be (and probably
-	// will be) entirely different from the old hash. Moreover,
-	// it isn't reproducible. Reproducibility is required in the
-	// presence of iterators, as our evacuation decision must
-	// match whatever decision the iterator made.
-	// Fortunately, we have the freedom to send these keys either
-	// way. Also, tophash is meaningless for these kinds of keys.
-	// We let the low bit of tophash drive the evacuation decision.
-	// We recompute a new random tophash for the next level so
-	// these keys will get evenly distributed across all buckets
-	// after multiple grows.
+  If key != key (NaNs), then the hash could be (and probably will be) entirely different from the old hash. Moreover, it isn't reproducible. Reproducibility is required in the presence of iterators, as our evacuation decision must match whatever decision the iterator made. Fortunately, we have the freedom to send these keys eitherway. Also, tophash is meaningless for these kinds of keys. We let the low bit of tophash drive the evacuation decision. We recompute a new random tophash for the next level so these keys will get evenly distributed across all buckets after multiple grows.
   :::
 
-::: details Todo
-
-```todo
-请教下，map扩容是在写入或者删除的时候才拷贝数据的，那会不会有一种情况，某个bucket一直没写入，但是又触发了第二次扩容，这种情况会怎样
-
-触发第二次扩容就是一片新的区域，不理解会有什么问题
-
-某个oldbucket里的数据没有迁移
-
-应该是不会出现这种情况的。
-
-就比如写入mapassign函数来说，在写入前会有判断map是否在扩容的状态，因此每调用一次growWork函数就会有一个oldbucket搬运完成。
-
-if h.growing() {
-    growWork(t, h, bucket)
-}
-func growWork(t *maptype, h *hmap, bucket uintptr) {
-  // 搬运尝试写入的那个bucket
-  evacuate(t, h, bucket&h.oldbucketmask())
-  if h.growing() {
-    // 搬运第一个未搬运的bucket
-    evacuate(t, h, h.nevacuate)
-  }
-}
-
-再看触发条件有两种情况：
-
-元素数量>6.5*2^B，对于这个情况，我们假设每次的写入操作都落入前2^B-1个bucket中，即最后一个bucket一直不被写入，那么当你写入2^B个新元素时，就一定会触发到最后一个最后一个bucket，这时整个oldbucket都扩容完成了，此时元素数量为​2*2^B < 6.5*2^B，并不会触发二次扩容
-溢出桶过多，对于这个情况，我们假设每次的写入操作都落入一个bucket上，而一个bucket中有8个cell，因此扩容的进度肯定是大于overflowbucket溢出桶的增长速度的。
-综上所述，在扩容的状态下，持续的对map进行写入或者删除操作，都会在到达第二次扩容条件前就完成了扩容的整个搬运过程。
-
-并且mapassign函数中，写了只有在非扩容状态下，并且达到两个扩容条件之一，才会有新的扩容hashGrow。
-
-if !h.growing() && (overLoadFactor(h.count+1, h.B) || tooManyOverflowBuckets(h.noverflow, h.B)) {
-    hashGrow(t, h)
-    goto again // Growing the table invalidates everything, so try again
-}
-```
-
 - map 只有在写入时才会发生扩容和迁移，并且在完全迁移后才会 gc 释放旧桶的内存。如果 map 写入不频繁，是否就会让 map 在一段时间内始终占用了两倍内存呢？
+- map 缩容？
 
-:::
+## Reference
 
-对于海量小对象，应直接用字典存储键值数据拷贝，而非指针。这有助于减少需要扫描的对象数量，缩短垃圾回收时间。字典不会收缩内存，适当替换新对象是有必要的。
+- [map 实践以及实现原理](https://blog.csdn.net/u010853261/article/details/99699350)
+- [Go 语言设计与实现 哈希表](https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap)
+- [map 缩容](https://eddycjy.com/posts/go/map-reset/)
+- https://segmentfault.com/a/1190000022514909
+- https://zhuanlan.zhihu.com/p/364904972
+- https://zhuanlan.zhihu.com/p/271145056
+- https://www.bilibili.com/video/BV1Sp4y1U7dJ
+
+<!-- 对于海量小对象，应直接用字典存储键值数据拷贝，而非指针。这有助于减少需要扫描的对象数量，缩短垃圾回收时间。字典不会收缩内存，适当替换新对象是有必要的。 -->
 
 <!-- @include: ./map.code.snippet.md -->

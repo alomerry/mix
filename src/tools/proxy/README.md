@@ -1,6 +1,5 @@
 ---
 date: 2020-02-14
-isOriginal: true
 tag:
   - SSR
   - V2ray

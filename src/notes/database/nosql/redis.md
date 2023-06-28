@@ -1,8 +1,8 @@
 ---
+article: false
 date: 2020-07-06
-isOriginal: true
 tag: 
-  - nodejs
+  - redis
 ---
 
 # Redis Note

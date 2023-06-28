@@ -15,6 +15,7 @@
     "postinstall": "node scripts/cmd.js modifySplitFontsCss downloadImportCode autoGenIOISidebar",
     "postbuild": "node scripts/cmd.js addUmamiTrace",
     "convert-cdn": "node scripts/cmd.js convertCDN",
+    "auto-add-ioi": "node scripts/cmd.js autoGenIOISidebar",
     "download-import": "node scripts/cmd.js downloadImportCode",
     "oss": "./src/.vuepress/ossPusher --configPath core.toml",
     "split-fonts": "node scripts/cmd splitFonts modifySplitFontsCss"

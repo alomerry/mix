@@ -3,7 +3,7 @@ import { readFile, writeFile } from "fs";
 function run() {
   // umami 访问监测脚本
   let traces = [
-    '<script async defer data-website-id="8f9a338f-b2d4-47d9-ab92-f46d6e054d0e" src="https://umami.alomerry.com/umami.js"></script>'
+    '<script async src="https://umami.alomerry.com/script.js" data-website-id="a8bf962b-84f3-4ad7-9231-a76361e264c1"></script>'
   ]
   addTraceScript(traces)
 }

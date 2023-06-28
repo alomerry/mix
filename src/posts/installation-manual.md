@@ -1,4 +1,5 @@
 ---
+article: false
 title: Install Manual
 date: 2022-04-26
 ---

@@ -1,7 +1,6 @@
 ---
 description: 《Go 语言设计与实现》读书笔记
 date: 2022-02-14
-isOriginal: true
 ---
 
 # 《Go 语言设计与实现》读书笔记

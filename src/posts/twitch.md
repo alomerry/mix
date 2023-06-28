@@ -1,7 +1,6 @@
 ---
 title: Twitch API
 date: 2023-02-21
-isOriginal: true
 tag:
   - Twitch
 ---

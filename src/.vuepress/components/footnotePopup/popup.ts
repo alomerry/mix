@@ -3,6 +3,8 @@ import { useRouter, useRoute } from 'vue-router';
 import { type ThemeBlogHomePageFrontmatter } from "@theme-hope/shared/index.js";
 import { usePageFrontmatter } from "@vuepress/client";
 
+// TODO div.foot-note-warp 会导致换行 
+
 export const setupFootnotePopup = () => {
   const router = useRouter();
   const frontmatter = usePageFrontmatter<ThemeBlogHomePageFrontmatter>();
@@ -91,8 +93,9 @@ export const setupFootnotePopup = () => {
         if (isCodePopUp(link.nextElementSibling as HTMLElement)) {
           let firstALink = (link.firstChild as HTMLElement)
           let currentALink = (ref.firstChild as HTMLElement)
+
           if (firstALink.getAttribute("href") === currentALink.getAttribute("href") && firstALink.innerHTML.trim() !== currentALink.innerHTML.trim()) {
-            popup.innerHTML = (link.nextElementSibling as HTMLElement).innerHTML
+            warp.innerHTML = ((link.nextElementSibling as HTMLElement)).innerHTML
           }
         }
       })
