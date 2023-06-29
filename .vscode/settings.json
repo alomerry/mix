@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.idea": true,
+    "**/.DS_Store": true,
+    "frpc/navidrome/music/*.mp3": true,
+    "frpc/navidrome/music/*.flac": true,
+  },
+}
