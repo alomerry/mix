@@ -13,7 +13,7 @@
     "dev": "vuepress dev src",
     "update-package": "pnpm dlx vp-update",
     "postinstall": "node scripts/cmd.js modifySplitFontsCss downloadImportCode autoGenIOISidebar",
-    "postbuild": "node scripts/cmd.js addUmamiTrace",
+    "postbuild": "node scripts/cmd.js addUmamiTrace convertCDN",
     "convert-cdn": "node scripts/cmd.js convertCDN",
     "auto-add-ioi": "node scripts/cmd.js autoGenIOISidebar",
     "download-import": "node scripts/cmd.js downloadImportCode",

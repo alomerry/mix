@@ -1,13 +1,12 @@
 ---
-title: 1. 两数之和
 problem_no: 1
 date: 2020-07-17
-description: 
+description:
 timeline: false
 article: false
 ---
 
-<!-- more -->
+# 1. 两数之和
 
 ## Problem
 
@@ -20,7 +19,6 @@ Source: [LeetCode 1](https://leetcode-cn.com/problems/two-sum/){target="_blank"}
 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
 
 你可以按任意顺序返回答案。
-
 
 示例 1：
 
@@ -52,8 +50,6 @@ Source: [LeetCode 1](https://leetcode-cn.com/problems/two-sum/){target="_blank"}
 
 进阶：你可以想出一个时间复杂度小于 O(n^2) 的算法吗？
 
-## Solution
-
 ## Code
 
 ### 暴力法
@@ -83,7 +79,7 @@ public:
 
 ### 暴力剪枝法
 
-@[code cpp](../../_codes/algorithm/code/leet-code/1-pruning.cpp)
+@[code cpp](../../_codes/algorithm/code/leet-code/easy/1-pruning.cpp)
 
 可以看到时间复杂度得到了很好的优化.
 
@@ -91,4 +87,4 @@ public:
 
 ### 哈希法
 
-@[code cpp](../../_codes/algorithm/code/leet-code/1-map.cpp)
+@[code cpp](../../_codes/algorithm/code/leet-code/easy/1-map.go)

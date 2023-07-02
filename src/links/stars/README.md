@@ -45,6 +45,11 @@
 
 :::
 
+https://xargin.com/page/4/
+为什么要旗帜鲜明地反对 orm 和 sql builder
+https://xargin.com/you-should-avoid-orm-and-sql-builder/
+
+
 - https://blognas.hwb0307.com/
 
 - 音乐解锁 https://demo.unlock-music.dev/
@@ -82,22 +87,6 @@
   name: Excalidraw
   desc: 虚拟白板，用于绘制手绘风格的图表。
   link: https://excalidraw.com/
-```
-
-:::
-
-## 文档
-
-- 约定式提交 https://www.conventionalcommits.org/zh-hans/v1.0.0/#约定式提交规范
-- hope https://theme-hope.vuejs.press/zh/
-
-::: projects
-
-```yaml
-- icon: https://cdn.alomerry.com/blog/img/links/hot-sale.svg
-  name: Pure Admin 文档
-  desc: Pure Admin 文档
-  link: https://yiming_chang.gitee.io/pure-admin-doc/
 ```
 
 :::

@@ -1,6 +1,6 @@
 import { PluginConfig } from 'vuepress'
+import { App, renderPageContent } from "@vuepress/core";
 // import { redirectPlugin } from 'vuepress-plugin-redirect'
-import { PluginsOptions } from 'vuepress-theme-hope'
 // import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { containerPlugin } from '@vuepress/plugin-container'
 import { searchProPlugin } from "vuepress-plugin-search-pro";
@@ -26,4 +26,24 @@ export const configPlugins: PluginConfig = [
       return renderProjects(tokens, idx)
     }
   }),
+  // {
+  //   name: "cdnConvert",
+  //   async extendsMarkdown(md) {
+  //     const defaultRender = md.renderer.rules.image;
+  //     md.renderer.rules.image = (tokens, idx, options, env, self) => {
+  //       const token = tokens[idx];
+  //       if (token.attrs) {
+  //         const src = token.attrs[token.attrIndex('src')][1];
+  //         // 替换图片链接中的 @CDN
+  //         const modifiedSrc = src.replace(/@CDN/g, "x");
+  //         token.attrs[token.attrIndex('src')][1] = modifiedSrc;
+  //         // 调用默认的渲染方法继续处理
+  //         if (defaultRender) {
+  //           return defaultRender(tokens, idx, options, env, self);
+  //         }
+  //       }
+  //       return '';
+  //     };
+  //   },
+  // }
 ]

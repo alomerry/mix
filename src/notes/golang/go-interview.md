@@ -5,6 +5,30 @@ date: 2023-02-21
 
 # Go Interview
 
+- [ ] Go 语言面试题 100 讲 https://iswbm.com/golang-interview-qa
+- [ ] Go语言充电站 Go面试题：并发 https://lessisbetter.site/2019/05/03/go-concurrent-problems1/
+- [ ] golang 语言面试题总结 https://www.jishuchi.com/read/go-interview/3435
+- [ ] Golang 关于 channel 的必问面试题  https://fahsa.cn/post/go/golang-interview/golang-chan1/
+- [ ] Go 经典面试题 部分二 https://www.jiyik.com/q/eeZjs9s16432
+- [ ] Go 程序员面试笔试宝典 https://golang.design/go-questions/memgc/impl/
+- [ ] 超全golang面试题合集 https://learnku.com/articles/56078
+- [ ] 大厂GO开发工程师面试题集锦 https://chegva.com/4420.html
+- [ ] Go面试题 http://www.nfangbian.com/go/question/index.html
+- [ ] 175道2021新版Go语言面试题（含大厂面试题、常见问题解析等等）https://www.kandaoni.com/news/3553.html
+- [ ] Golang来啦 面试题 http://mian.topgoer.com/
+- [ ] 码神之路 https://www.mszlu.com/go/gin/07/07.html#_1-%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BD%BF%E7%94%A8
+- [ ] RPC篇:理解标准库HTTP的hander实现逻辑 http://www.junes.tech/2022/09/18/go-study/go-rpc-1/
+  - [ ] http://www.junes.tech/tags/Go-Study/
+  - [ ] http://www.junes.tech/tags/
+  - [ ] https://www.junes.tech/2022/08/07/readings/go-digest-5/#mores
+  - [ ] https://www.junes.tech/2022/06/04/readings/go-digest-4/
+- [ ] v2ex
+  - [ ] Go 是协作式调度，还是抢占式调度？ https://www.v2ex.com/t/927783#reply21
+  - [ ] 标准库中 http.Request 中 WithContext 方法为什么要浅拷贝一次而不是直接赋值? https://www.v2ex.com/t/921599#reply9
+- [ ] https://eddycjy.com/tags/面试题/
+- [ ] 面试官：为什么 Go 的负载因子是 6.5？ https://eddycjy.com/posts/go/map-65/
+
+
 go1.20.2 编译过程
 
 ```go

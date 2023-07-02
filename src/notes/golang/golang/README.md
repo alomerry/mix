@@ -9,7 +9,7 @@ https://go.dev/ref/spec#Source_file_organization
 https://go.dev/ref/spec#Statement
 https://github.com/golang-design
 
-# Golang Note
+# Golang 笔记
 
 <!-- ## 测试
 
@@ -1376,3 +1376,7 @@ func main() {
 time ticker https://github.com/golang/go/issues/17601
 
 定时器 https://www.dazhuanlan.com/kantfollower/topics/1650624 -->
+
+## Reference
+
+- [Git repostiories on go](https://go.googlesource.com/)

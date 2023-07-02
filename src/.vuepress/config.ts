@@ -19,7 +19,7 @@ export default defineUserConfig({
     "!.vuepress",
     "!node_modules"
   ],
-  // markdown: {},
+  markdown: {},
   theme,
   // Enable it with pwa
   // shouldPrefetch: false,

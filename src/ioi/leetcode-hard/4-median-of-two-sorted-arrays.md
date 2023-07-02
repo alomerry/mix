@@ -1,15 +1,11 @@
 ---
-title: 4. 寻找两个正序数组的中位数
 problem_no: 4
 date: 2020-07-22
-description: 
 timeline: false
 article: false
 ---
 
-<!-- Description. -->
-
-<!-- more -->
+# 4. 寻找两个正序数组的中位数
 
 ## Problem
 
@@ -17,7 +13,8 @@ Source: [LeetCode 4](https://leetcode-cn.com/problems/median-of-two-sorted-array
 
 ### Description
 
-给定两个大小为 `m` 和 `n` 的正序（从小到大）数组 `nums1` 和 `nums2`。请你找出这两个正序数组的 **中位数**。算法的时间复杂度为 `O(log(m + n))`。
+给定两个大小为 `m` 和 `n` 的正序（从小到大）数组 `nums1` 和 `nums2`。请你找出这两个正序数组的 **中位数**
+。算法的时间复杂度为 `O(log(m + n))`。
 
 示例 1：
 
@@ -64,7 +61,6 @@ Source: [LeetCode 4](https://leetcode-cn.com/problems/median-of-two-sorted-array
 - `0 <= n <= 1000`
 - `1 <= m + n <= 2000`
 - `-10^6 <= nums1[i], nums2[i] <= 10^6`
-
 
 ## Solution
 

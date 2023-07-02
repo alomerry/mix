@@ -7,7 +7,7 @@ export default hopeTheme({
 
   hotReload: false,
 
-  author: {
+  author: { //https://umami.alomerry.com/websites/a8bf962b-84f3-4ad7-9231-a76361e264c1
     name: "清欢",
     email: "alomerry.wu@gmail.com",
     url: "https://github.com/alomerry",
@@ -16,10 +16,13 @@ export default hopeTheme({
 
   iconAssets: "iconify",
 
+  repo: "https://github.com/alomerry/blog",
+  repoDisplay: true,
+
   docsRepo: "https://github.com/alomerry/blog",
   docsBranch: "master",
   docsDir: "blog",
-  repo: "https://github.com/alomerry/blog",
+
   fullscreen: true,
 
   editLink: true,
@@ -28,7 +31,7 @@ export default hopeTheme({
   navbarLayout: {
     start: ["Brand"],
     center: ["Links"],
-    end: ["Language", "Repo", "Outlook", "Search"],
+    end: ["Language", "Repo", "UmamiLink", "Outlook", "Search"],
   },
 
   blog: {
@@ -73,13 +76,11 @@ export default hopeTheme({
     //   sidebar: enSidebar,
     // },
   },
-  footer: `
-    Powered by <a href="https://v2.vuepress.vuejs.org" target="_blank">VuePress</a> & Theme by <a href="https://theme-hope.vuejs.press/zh/" target="_blank">Hope</a><br> 
-    CDN by <a href="https://s.qiniu.com/FZnEze" target="_blank">七牛云</a> & CVM by <a href="https://url.cn/fBO4QBaH" target="_blank">腾讯云</a>`,
+  footer: `Powered by <a href="https://v2.vuepress.vuejs.org" target="_blank">VuePress</a> & Theme by <a href="https://theme-hope.vuejs.press/zh/" target="_blank">Hope</a><br> CDN by <a href="https://s.qiniu.com/FZnEze" target="_blank">七牛云</a> & CVM by <a href="https://url.cn/fBO4QBaH" target="_blank">腾讯云</a>`,
   displayFooter: true,
   plugins: {
     blog: true,
-
+    // autoCatalog: false,
     comment: {
       provider: "Waline",
       serverURL: "https://waline.alomerry.com",
@@ -132,7 +133,7 @@ export default hopeTheme({
       vuePlayground: true,
     },
     components: {
-      components: ["SiteInfo", "BiliBili", "PDF", "AudioPlayer", "Replit"],
+      components: ["SiteInfo", "BiliBili", "PDF", "AudioPlayer", "Replit", "Badge"],
       rootComponents: {
         // notice: [
         //   {
@@ -157,64 +158,5 @@ export default hopeTheme({
     },
 
     // readingTime: false,
-    // uncomment these if you want a PWA
-    // pwa: {
-    //   favicon: "/favicon.ico",
-    //   cacheHTML: true,
-    //   cachePic: true,
-    //   appendBase: true,
-    //   apple: {
-    //     icon: "/assets/icon/apple-icon-152.png",
-    //     statusBarColor: "black",
-    //   },
-    //   msTile: {
-    //     image: "/assets/icon/ms-icon-144.png",
-    //     color: "#ffffff",
-    //   },
-    //   manifest: {
-    //     icons: [
-    //       {
-    //         src: "/assets/icon/chrome-mask-512.png",
-    //         sizes: "512x512",
-    //         purpose: "maskable",
-    //         type: "image/png",
-    //       },
-    //       {
-    //         src: "/assets/icon/chrome-mask-192.png",
-    //         sizes: "192x192",
-    //         purpose: "maskable",
-    //         type: "image/png",
-    //       },
-    //       {
-    //         src: "/assets/icon/chrome-512.png",
-    //         sizes: "512x512",
-    //         type: "image/png",
-    //       },
-    //       {
-    //         src: "/assets/icon/chrome-192.png",
-    //         sizes: "192x192",
-    //         type: "image/png",
-    //       },
-    //     ],
-    //     shortcuts: [
-    //       {
-    //         name: "Demo",
-    //         short_name: "Demo",
-    //         url: "/demo/",
-    //         icons: [
-    //           {
-    //             src: "/assets/icon/guide-maskable.png",
-    //             sizes: "192x192",
-    //             purpose: "maskable",
-    //             type: "image/png",
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   },
-    // },
   },
-}, {
-  custom: true,
-  check: true,
-});
+}, { custom: true, check: true });

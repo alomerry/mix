@@ -12,9 +12,9 @@ Difficulty: **中等**
 Related Topics: [链表](https://leetcode.cn/tag/linked-list/), [排序](https://leetcode.cn/tag/sorting/)
 
 
-给定单个链表的头 `head` ，使用 **插入排序** 对链表进行排序，并返回 _排序后链表的头_ 。
+给定单个链表的头 `head` ，使用 **插入排序** 对链表进行排序，并返回  _排序后链表的头_ 。
 
-**插入排序** 算法的步骤:
+**插入排序**  算法的步骤:
 
 1.  插入排序是迭代的，每次只移动一个元素，直到所有元素可以形成一个有序的输出列表。
 2.  每次迭代中，插入排序只从输入数据中移除一个待排序的元素，找到它在序列中适当的位置，并将其插入。
@@ -35,7 +35,7 @@ Related Topics: [链表](https://leetcode.cn/tag/linked-list/), [排序](https:/
 输出: [1,2,3,4]
 ```
 
-**示例 2：**
+**示例 2：**
 
 ![](https://assets.leetcode.com/uploads/2021/03/04/sort2linked-list.jpg)
 
@@ -46,7 +46,7 @@ Related Topics: [链表](https://leetcode.cn/tag/linked-list/), [排序](https:/
 
 **提示：**
 
-*   列表中的节点数在 `[1, 5000]`范围内
+*   列表中的节点数在 `[1, 5000]`范围内
 *   `-5000 <= Node.val <= 5000`
 
 

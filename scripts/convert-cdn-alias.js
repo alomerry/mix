@@ -1,3 +1,4 @@
+// 导入 .assets 中文件时仅需 ![xxx](@CDN/fileName) 即可，本脚本会解析并修改到对应目录
 import fs from "fs";
 import utils from "./utils.js"
 import constant from "./constant.js";
@@ -48,7 +49,7 @@ function copySourceFile(mdPath) {
           // TODO md5 判断是否发生变化，没变化就不 copy 了
           if (!utils.checkMD5(assetPath, toPath)) {
             utils.copy(assetPath, toPath)
-          }else{
+          } else {
             // console.log(`${utils.getFileName(assetPath)} not change.`)
           }
         })

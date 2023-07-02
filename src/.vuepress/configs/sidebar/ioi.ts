@@ -1,4 +1,4 @@
-import { arraySidebar } from "vuepress-theme-hope";
+import {arraySidebar} from "vuepress-theme-hope";
 
 export const ioi = arraySidebar([
   "",
@@ -175,6 +175,7 @@ export const ioi = arraySidebar([
       '4-median-of-two-sorted-arrays.md',
       '10-regular-expression-matching.md',
       '23-merge-k-sorted-lists.md',
+      '25-reverse-nodes-in-k-group.md',
     ],
   },
   {
@@ -185,4 +186,5 @@ export const ioi = arraySidebar([
       '83-weekly-contest.md',
     ],
   },
+  "leet-code-tag",
 ]);

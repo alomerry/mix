@@ -12,9 +12,9 @@ function run() {
     "leetcode-weekly-contest" // 4
   ]
 
-  // getSiderBarChildren(types[1])
-  // getSiderBarChildren(types[2])
-  // getSiderBarChildren(types[3])
+  getSiderBarChildren(types[1])
+  getSiderBarChildren(types[2])
+  getSiderBarChildren(types[3])
   getSiderBarChildren(types[4])
 }
 
@@ -28,7 +28,7 @@ function getSiderBarChildren(changeType) {
 
   let newContent = `prefix: "` + changeType + `/",
     children: [
-`+ newSideBarChildren + `
+` + newSideBarChildren + `
     ],`
   const ioiSideBarConfig = "./src/.vuepress/configs/sidebar/ioi.ts"
   replaceSideBar(ioiSideBarConfig, changeType, newContent)

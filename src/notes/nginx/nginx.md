@@ -10,6 +10,7 @@ tag:
 
 - [blog](https://xuexb.github.io/learn-nginx/guide/#nginx%E7%9A%84%E7%89%B9%E7%82%B9-2)
 - [配置 Nginx auth_basic 身份验证](https://hyperzsb.io/posts/nginx-auth-basic/)
+- 深入 Nginx 之事件驱动核心架构篇 https://juejin.cn/post/6988294138667991070
 
 
 ## 特点

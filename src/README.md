@@ -15,17 +15,17 @@ projects:
     desc: PAT、LeetCode 题解
     link: /ioi/
   - icon: link
-    name: 链接、工具
-    desc: 链接详细描述
+    name: 收藏
+    desc: 一些博客、工具
     link: /links/stars/
   - icon: book
     name: 美文文摘
     desc: 读者、文苑、知乎、微博等
     link: /space/digest
-  # - icon: article
-  #   name: Projects
-  #   desc: 项目
-  # #   link: /projects
+  - icon: article
+    name: 文档
+    desc: 常用文档汇总
+    link: /links/docs/
   # - icon: project
   #   name: 伙伴名称
   #   desc: 伙伴详细介绍
