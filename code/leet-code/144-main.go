@@ -8,25 +8,25 @@ package main
  *     Right *TreeNode
  * }
  */
-var result []int
+var result_144 []int
 
 func preorderTraversal(root *TreeNode) []int {
-	result = []int{}
-	doTraversal(root)
-	return result
+	result_144 = []int{}
+	doTraversal_144(root)
+	return result_144
 }
 
-func doTraversal(root *TreeNode) {
+func doTraversal_144(root *TreeNode) {
 	if root == nil {
 		return
 	}
 
-	result = append(result, root.Val)
+	result_144 = append(result_144, root.Val)
 	if root.Left != nil {
-		doTraversal(root.Left)
+		doTraversal_144(root.Left)
 	}
 
 	if root.Right != nil {
-		doTraversal(root.Right)
+		doTraversal_144(root.Right)
 	}
 }

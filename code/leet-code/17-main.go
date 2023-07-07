@@ -1,7 +1,7 @@
 package main
 
 var (
-	phoneMapper = map[uint8][]string{
+	phoneMapper_17 = map[uint8][]string{
 		'2': {"a", "b", "c"},
 		'3': {"d", "e", "f"},
 		'4': {"g", "h", "i"},
@@ -11,27 +11,27 @@ var (
 		'8': {"t", "u", "v"},
 		'9': {"w", "x", "y", "z"},
 	}
-	now    string
-	result []string
+	now_17    string
+	result_17 []string
 )
 
 func letterCombinations(digits string) []string {
-	now = ""
-	result = []string{}
+	now_17 = ""
+	result_17 = []string{}
 	if len(digits) > 0 {
-		dfs(digits)
+		dfs_17(digits)
 	}
-	return result
+	return result_17
 }
 
-func dfs(digits string) {
+func dfs_17(digits string) {
 	if len(digits) == 0 {
-		result = append(result, now)
+		result_17 = append(result_17, now_17)
 	} else {
-		for j := range phoneMapper[digits[0]] {
-			now += phoneMapper[digits[0]][j]
-			dfs(digits[1:])
-			now = now[:len(now)-1]
+		for j := range phoneMapper_17[digits[0]] {
+			now_17 += phoneMapper_17[digits[0]][j]
+			dfs_17(digits[1:])
+			now_17 = now_17[:len(now_17)-1]
 		}
 	}
 }

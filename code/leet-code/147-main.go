@@ -1,15 +1,10 @@
 package main
 
-type ListNode147 struct {
-	Val  int
-	Next *ListNode147
-}
-
-func insertionSortList(head *ListNode147) *ListNode147 {
+func insertionSortList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	dummyHead := &ListNode147{Next: head}
+	dummyHead := &ListNode{Next: head}
 	lastSort, cur := head, head.Next
 	for cur != nil {
 		if lastSort.Val <= cur.Val {

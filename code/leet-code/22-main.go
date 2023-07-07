@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-package leet_code
+package main
 
 import (
 	"github.com/emirpasic/gods/stacks/arraystack"
@@ -7,49 +6,42 @@ import (
 )
 
 var (
-	result      []string
-	left, right = 0, 0
-	stack       = arraystack.New()
-	now         = make([]string, 0, 8)
+	result_22      []string
+	left_22, right_22 = 0, 0
+	stack_22       = arraystack.New()
+	now_22         = make([]string, 0, 8)
 )
 
 func generateParenthesis(n int) []string {
 	// 每有一个左括号才能有一个右括号
 	// 总边界栈中元素满足 2n
-	result = nil
-	left = 0
-	right = 0
-	now = []string{}
+	result_22 = nil
+	left_22 = 0
+	right_22 = 0
+	now_22 = []string{}
 	dp(n)
-	return result
+	return result_22
 }
 
 func dp(n int) {
-	if right == n {
-		result = append(result, strings.Join(now, ""))
+	if right_22 == n {
+		result_22 = append(result_22, strings.Join(now_22, ""))
 	}
 
-	if left < n {
-		left++
-		now = append(now, "(")
+	if left_22 < n {
+		left_22++
+		now_22 = append(now_22, "(")
 		dp(n)
-		now = now[:len(now)-1]
-		left--
+		now_22 = now_22[:len(now_22)-1]
+		left_22--
 	}
-	if right < left {
-		right++
-		now = append(now, ")")
+	if right_22 < left_22 {
+		right_22++
+		now_22 = append(now_22, ")")
 		dp(n)
-		now = now[:len(now)-1]
-		right--
+		now_22 = now_22[:len(now_22)-1]
+		right_22--
 	}
 }
 
 // dp + 剪枝（但是没剪已经 0ms）
-=======
-package main
-
-func generateParenthesis(n int) []string {
-	return nil
-}
->>>>>>> Stashed changes
