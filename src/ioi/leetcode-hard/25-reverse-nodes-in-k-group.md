@@ -42,17 +42,8 @@ Related Topics: [递归](https://leetcode.cn/tag/recursion/), [链表](https://l
 
 ## Solution
 
+遍历链表，每遍历 `k` 个，则将 `[i-k, k]` 节点执行一次翻转。翻转时需要持有 `i-k` 的前驱节点即可，可以使用栈
+
 Language: **Go**
 
-```go
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func reverseKGroup(head *ListNode, k int) *ListNode {
-
-}
-```
+[@code go](../../_codes/algorithm/code/leet-code/hard/25-main.go)
