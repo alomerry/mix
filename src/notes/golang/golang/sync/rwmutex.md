@@ -1,5 +1,5 @@
 
-# 同步原语 读写锁
+# 读写锁
 
 读写互斥锁 [sync.RWMutex](https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/sync/rwmutex.go#L28) 是细粒度的互斥锁，它不限制资源的并发读，但是读写、写写操作无法并行执行。
 

@@ -33,48 +33,48 @@ export const zhNavbar = navbar([
       { text: "VPS Backup", link: "/space/vps-home/", icon: "bi:pc-display" },
     ],
   },
-  // {
-  //   text: "Note",
-  //   prefix: "/notes/",
-  //   icon: "svg-spinners:clock",
-  //   children: [
-  //     {
-  //       text: "Container",
-  //       prefix: "container/",
-  //       children: [
-  //         { text: "docker", link: "docker/", icon: "logos:docker-icon" },
-  //         { text: "k8s", link: "k8s/", icon: "logos:docker-icon" },
-  //       ]
-  //     },
-  //     {
-  //       text: "Database",
-  //       prefix: "database/",
-  //       children: [
-  //         { text: "nosql", link: "nosql/", icon: "vscode-icons:folder-type-mongodb" },
-  //         { text: "sql", link: "sql/", icon: "vscode-icons:folder-type-redis" },
-  //       ]
-  //     },
-  //     { text: "Frontend", link: "frontend/", icon: "vscode-icons:folder-type-mongodb" },
-  //     { text: "Git", link: "git/", icon: "mdi:git" },
-  //     { text: "Golang", link: "golang/", icon: "skill-icons:golang" },
-  //     { text: "Nginx", link: "nginx/", icon: "vscode-icons:folder-type-nginx" },
-  //     { text: "Linux", link: "linux/", icon: "vscode-icons:folder-type-nginx" },
-  //     {
-  //       text: "CI/CD",
-  //       prefix: "ci/",
-  //       children: [
-  //         { text: "jenkins", link: "jenkins", icon: "vscode-icons:file-type-jenkins" },
-  //       ]
-  //     },
-  //     {
-  //       text: "Message Queue",
-  //       prefix: "message-queue/",
-  //       children: [
-  //         { text: "base", link: "", icon: "mdi:mq" },
-  //       ]
-  //     },
-  //   ]
-  // },
+  {
+    text: "Note",
+    prefix: "/notes/",
+    icon: "svg-spinners:clock",
+    children: [
+      // {
+      //   text: "Container",
+      //   prefix: "container/",
+      //   children: [
+      //     { text: "docker", link: "docker/", icon: "logos:docker-icon" },
+      //     { text: "k8s", link: "k8s/", icon: "logos:docker-icon" },
+      //   ]
+      // },
+      // {
+      //   text: "Database",
+      //   prefix: "database/",
+      //   children: [
+      //     { text: "nosql", link: "nosql/", icon: "vscode-icons:folder-type-mongodb" },
+      //     { text: "sql", link: "sql/", icon: "vscode-icons:folder-type-redis" },
+      //   ]
+      // },
+      // { text: "Frontend", link: "frontend/", icon: "vscode-icons:folder-type-mongodb" },
+      // { text: "Git", link: "git/", icon: "mdi:git" },
+      { text: "Golang", link: "golang/", icon: "skill-icons:golang" },
+      // { text: "Nginx", link: "nginx/", icon: "vscode-icons:folder-type-nginx" },
+      // { text: "Linux", link: "linux/", icon: "vscode-icons:folder-type-nginx" },
+      {
+        text: "CI/CD",
+        prefix: "ci/",
+        children: [
+          { text: "jenkins", link: "jenkins", icon: "vscode-icons:file-type-jenkins" },
+        ]
+      },
+      // {
+      //   text: "Message Queue",
+      //   prefix: "message-queue/",
+      //   children: [
+      //     { text: "base", link: "", icon: "mdi:mq" },
+      //   ]
+      // },
+    ]
+  },
   // {
   //   text: `Tools`,
   //   prefix: "/tools/",

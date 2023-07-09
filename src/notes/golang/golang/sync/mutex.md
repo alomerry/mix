@@ -5,7 +5,7 @@ tag:
   - golang
 ---
 
-# 同步原语 互斥锁
+# 互斥锁
 
 ```go
 type Mutex struct {

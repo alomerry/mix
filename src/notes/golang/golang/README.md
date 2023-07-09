@@ -9,11 +9,10 @@ https://go.dev/ref/spec#Source_file_organization
 https://go.dev/ref/spec#Statement
 https://github.com/golang-design
 
+::: tip 本系列基于 Golang 1.20.3
+:::
+
 # Golang 笔记
-
-<!-- ## 测试
-
-[汇编](https://mp.weixin.qq.com/s/Sk9m7_gk9xJpklzGpEay0A)
 
 ## 内联
 
@@ -47,6 +46,10 @@ func main() {
 ```
 
 由于 defer 在上例中循环结束后才执行，所以在所有循环结束前都不会关闭任何文件流
+
+<!-- ## 测试
+
+[汇编](https://mp.weixin.qq.com/s/Sk9m7_gk9xJpklzGpEay0A)
 
 ## 方法
 
