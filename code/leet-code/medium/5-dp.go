@@ -1,6 +1,8 @@
-//
-// Created by Alomerry Wu on 2020/7/22.
-//
+package main
+
+func longestPalindrome(s string) string {
+
+}
 
 #include <iostream>
 #include <algorithm>

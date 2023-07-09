@@ -1,6 +1,6 @@
 # ioi solution
 
-[![Build Status](https://ci.alomerry.com/buildStatus/icon?job=algorithm&style=flat)](https://ci.alomerry.com/job/algorithm/)
+**This repository is move to [blog/algorithm](https://github.com/alomerry/blog/algorithm)**
 
 ## install
 
