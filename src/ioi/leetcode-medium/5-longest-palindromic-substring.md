@@ -1,68 +1,45 @@
 ---
-title: 5. 最长回文子串
 problem_no: 5
 date: 2020-07-23
-description: 
 timeline: false
 article: false
 ---
 
-<!-- Description. -->
+# [5\. 最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/)
 
-<!-- more -->
+## Description
 
-## Problem
+Difficulty: **中等**  
 
-Source: [LeetCode 5](https://leetcode-cn.com/problems/longest-palindromic-substring/){target="_blank"}
-
-### Description
+Related Topics: [字符串](https://leetcode.cn/tag/string/), [动态规划](https://leetcode.cn/tag/dynamic-programming/)
 
 给你一个字符串 `s`，找到 `s` 中最长的回文子串。
 
-示例 1：
+如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
 
-```text
-输入: "babad"
-输出: "bab"
-注意: "aba" 也是一个有效答案。
+**示例 1：**
+
+```
+输入：s = "babad"
+输出："bab"
+解释："aba" 同样是符合题意的答案。
 ```
 
-示例 2：
+**示例 2：**
 
-```text
-输入: "cbbd"
-输出: "bb"
+```
+输入：s = "cbbd"
+输出："bb"
 ```
 
-示例 3：
+**提示：**
 
-```text
-输入：s = "a"
-输出："a"
-```
+*   `1 <= s.length <= 1000`
+*   `s` 仅由数字和英文字母组成
 
-示例 4：
-
-```text
-输入：s = "ac"
-输出："a"
-```
-
-提示：
-
-- `1 <= s.length <= 1000`
-- `s` 仅由数字和英文字母（大写和/或小写）组成
 
 ## Solution
 
-## Code
-
 ### 动态规划
 
-### 快速排序
-
 @[code cpp](../../_codes/algorithm/code/leet-code/5-dp.cpp)
-
-### 中心拓展法
-
-### 马拉车法
