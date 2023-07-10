@@ -14,3 +14,13 @@ tag:
 「如果说我看得比別人远，那是因为我站在巨人的肩上。」 – 牛顿
 
 :::
+
+<!--
+
+Troubleshooting any problem without the error log is like driving with your eyes closesd.
+
+在没有错误日志的情况诊断任何问题无异于闭眼开车
+
+-- Apache 官方文档 Getting Started 篇章
+
+ -->

@@ -1,14 +1,23 @@
 ---
 article: false
+date: 2023-07-04
 ---
 
+<!-- TODO 将表格改成图的形式 -->
+
 # 函数调用
+
+::: tip 本文基于 Golang 1.19.3
+:::
 
 ::: info
 
 函数参数皆是值拷贝，只是区别是拷贝目标对象还是拷贝指针，函数调用前就会为形参和返回值分配内存空间，并将实参拷贝到形参中
 
 :::
+
+了解 go 的函数调用底层逻辑，能更清晰的理解 defer、recover、panic 的工作方式，以及函数执行时的xxx
+
 ## 基于栈 <Badge text="1.16" type="tip"/>
 
 ![golang-function-stack-frame](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/golang-function-stack-frame.png)
@@ -306,27 +315,18 @@ func create() func()int {
 func main() {
   f1 := create()
   f2 := create()
-  fmt.Println(f1())
-  fmt.Println(f2())
+  fmt.Println(f1(), f2())
   // 2, 2
 }
 ```
 
-以上代码来查看闭包函数栈帧
-
-|栈帧||
-|:--:|:--|
-|局部变量 f1 = nil|^BP^ ^of^ ^main^|
-|局部变量 f2 = nil|
-|返回地址|^SP^ ^of^ ^main^|
-|BP of main|
-
-创建
+执行 main 时会在栈上分配局部变量 `f1`、`f2` 和 `create` 返回值。执行第一个 create 时，会在 create 栈上分配局部变量 c，并在堆上分配一个指向代码段中 create 中匿名函数的 `funcValue` 变量，并将局部变量 c 复制到捕获列表中，最后将返回值赋给 f1；执行第二个 create 也是同样的。最后执行 f1、f2 输出皆为 `2`。
 
 ||栈帧||
 |--:|:--:|:--|
 ||局部变量 f1 = nil|^BP^ ^of^ ^main^|
 ||局部变量 f2 = nil|
+||create 返回值|
 ||返回地址|^SP^ ^of^ ^main^|
 ||BP of main|
 ||c = 2|^BP^ ^of^ ^create^|
@@ -341,9 +341,8 @@ func main() {
 ||...|代码段|
 |^addr1^|create 中的匿名函数||
 
-闭包中仅捕获一个初始化过的局部变量，后续没有修改，则会将值拷贝到捕获列表中
 
-如果函数中修改了被捕获的局部变量，则会将变量分配到堆上，并将地址存到 [funcval](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/runtime2.go#L197) 的捕获列表中
+以上代码中由于 c 初始化后没有其他修改，所以在返回闭包函数时，会直接将变量拷贝到 funcValue 的捕获列表中，执行时通过偏移来获取变量的值，如果函数中修改了被捕获的局部变量，或者变量逃逸了则会将变量分配到堆上，并将地址存到 [funcval](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/runtime2.go#L197) 的捕获列表中
 
 ```go
 func create() (fs [2]func()) {
@@ -363,11 +362,36 @@ func main() {
 }
 ```
 
+||栈帧||
+|--:|:--:|:--|
+||局部变量 fs[0] = nil|^BP^ ^of^ ^main^|
+||局部变量 fs[1] = nil|
+||create 返回值 [0]|
+||create 返回值 [1]|
+||返回地址|^SP^ ^of^ ^main^|
+||BP of main|
+||&i|^BP^ ^of^ ^create^|
+||...|
+||...|堆|
+||i = 0|
+||...|
+||&i|
+|^addr3^|fn = addr1|
+||...|
+||&i|
+|^addr2^|fn = addr1|
+||...|数据段|
+||...|代码段|
+|^addr1^|create 中的匿名函数||
+
+
 如果闭包捕获了函数参数或者返回值呢？
 
 - 编译器会将分配到栈上的参数和返回值拷贝到堆上，外层调用函数和闭包中都使用堆中的变量，在返回返回值之前，会将堆上的返回值赋值到栈上
 
-## defer
+TODO
+
+https://www.bilibili.com/video/BV1ma4y1e7R5/?spm_id_from=333.999.0.0&vd_source=ddc8289a36a2bf501f48ca984dc0b3c1
 
 ## Reference
 

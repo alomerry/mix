@@ -1,7 +1,7 @@
 ---
 article: false
 title: Linux Note
-description: Linux 
+description: Linux
 date: 2022-04-26
 ---
 
@@ -96,6 +96,12 @@ nodejs  26993 root  10u   IPv4 37999514      0t0  TCP *:8000 (LISTEN)
 </details>
 
 ## SSH
+
+### 隧道
+
+`ssh user@domain -p 60022 -L 127.0.0.1:8080:0.0.0.0:8080 -f -N`
+
+https://wangdoc.com/ssh/port-forwarding
 
 ### SSH key 登录
 
