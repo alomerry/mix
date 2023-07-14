@@ -1,7 +1,7 @@
 ---
 description: 记录 Golang 学习过程中的经验、遇到的坑点等
 date: 2020-08-10
-tag: 
+tag:
   - golang
 ---
 
@@ -1381,5 +1381,7 @@ time ticker https://github.com/golang/go/issues/17601
 定时器 https://www.dazhuanlan.com/kantfollower/topics/1650624 -->
 
 ## Reference
+
+感谢以下文章的帮助
 
 - [Git repostiories on go](https://go.googlesource.com/)

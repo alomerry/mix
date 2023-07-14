@@ -1,7 +1,8 @@
 ---
-article: false
 enableFootnotePopup: true
 date: 2023-07-11
+tag:
+  - golang
 ---
 
 # 延迟调用
@@ -80,19 +81,40 @@ SSA 阶段 state.call[^state.call.stack] 中调用 deferstruct[^deferstruct] 在
 
 延迟比特：
 
-如果满足了启用开放编码的前提，则会构建中间代码 buildssa[^buildssa] 时在栈上初始化 8 bit 的 deferBits 变量，并在 [^openDeferRecord] 中构建 openDeferInfo [^openDeferInfo] 结构体存储着调用的函数等，如果在编译器能确定 defer 可以执行，则在 [^state.exit] 中调用 [^openDeferExit]，判断并生成 deferBits
+如果满足了启用开放编码的前提，则会构建中间代码 buildssa[^buildssa] 时在栈上初始化 8 bit 的 deferBits 变量，并在 [^openDeferRecord] 中构建 openDeferInfo [^openDeferInfo] 结构体存储着调用的函数等，如果在编译器能确定 defer 可以执行，则在 [^state.exit] 中调用 [^openDeferExit]，判断并生成 deferBits，不过当程序遇到运行时才能判断的条件语句时，我们仍然需要由运行时的 runtime.deferreturn 决定是否执行 defer 关键字（== 何处可以看出来 ==），在 `deferreturn` 中调用 `runOpenDeferFrame`[^runOpenDeferFrame]，获取 deferbits 按位倒序检查并调用 `deferCallSave`[^deferCallSave] 执行对应的 defer
 
-
-[^state.exit] 中会根据是否为开放编码插入不同代码，开放编码会使用 [^openDeferExit]
 
 ![golang-defer-bits](https://img.draveness.me/2020-10-31-16041438704362/golang-defer-bits.png)
 
 - defer1.13和1.14的优化策略 https://www.bilibili.com/video/BV1b5411W7ih/?spm_id_from=333.999.0.0&vd_source=ddc8289a36a2bf501f48ca984dc0b3c1
 - https://www.bilibili.com/video/BV155411Y7XT/?spm_id_from=333.999.0.0
 
-
+[^freedefer]
 [^emitOpenDeferInfo]
 [^runOpenDeferFrame]
+
+##
+
+我们最后来总结一下 defer 的基本工作原理以及三种 defer 的性能取舍，见图 3.4.2。
+
+对于开放编码式 defer 而言：
+
+- 编译器会直接将所需的参数进行存储，并在返回语句的末尾插入被延迟的调用；
+- 当整个调用中逻辑上会执行的 defer 不超过 15 个（例如七个 defer 作用在两个返回语句）、总 defer 数量不超过 8 个、且没有出现在循环语句中时，会激活使用此类 defer；
+- 此类 defer 的唯一的运行时成本就是存储参与延迟调用的相关信息，运行时性能最好。
+
+对于栈上分配的 defer 而言：
+
+- 编译器会直接在栈上记录一个 _defer 记录，该记录不涉及内存分配，并将其作为参数，传入被翻译为 deferprocStack 的延迟语句，在延迟调用的位置将 _defer 压入 Goroutine 对应的延迟调用链表中；
+- 在函数末尾处，通过编译器的配合，在调用被 defer 的函数前，调用 deferreturn，将被延迟的调用出栈并执行；
+- 此类 defer 的唯一运行时成本是从 _defer 记录中将参数复制出，以及从延迟调用记录链表出栈的成本，运行时性能其次。
+
+对于堆上分配的 defer 而言：
+
+- 编译器首先会将延迟语句翻译为一个 deferproc 调用，进而从运行时分配一个用于记录被延迟调用的 _defer 记录，并将被延迟的调用的入口地址及其参数复制保存，入栈到 Goroutine 对应的延迟调用链表中；
+- 在函数末尾处，通过编译器的配合，在调用被 defer 的函数前，调用 deferreturn，从而将 _defer 实例归还到资源池，而后通过模拟尾递归的方式来对需要 defer 的函数进行调用。
+- 此类 defer 的主要性能问题存在于每个 defer 语句产生记录时的内存分配，记录参数和完成调用时的参数移动时的系统调用，运行时性能最差。
+
 
 ## deferpool
 
@@ -113,7 +135,6 @@ https://blog.csdn.net/qq_42956653/article/details/121057714
 
 <!-- @include: ./defer.code.snippet.md -->
 
-
-https://eddycjy.gitbook.io/golang/di-1-ke-za-tan/go1.13-defer
+- [under the hood/defer](https://golang.design/under-the-hood/zh-cn/part1basic/ch03lang/defer/#343--defer1)
 
 https://eddycjy.gitbook.io/golang/di-1-ke-za-tan/go1.13-defer
