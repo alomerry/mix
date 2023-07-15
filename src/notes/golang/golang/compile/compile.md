@@ -2,6 +2,8 @@
 article: false
 ---
 
+https://ask.qcloudimg.com/developer-images/article/6550629/nn1q6mewym.png?imageView2/2/w/1200
+
 Go 程序编译流程
 
 第一阶段：词法和语法分析
@@ -70,3 +72,22 @@ func (s *state) stmtList(l Nodes) {
 
 
 https://img.draveness.me/2019-02-05-golang-keyword-and-builtin-mapping.png
+
+
+---
+
+1）编译器入口在cmd/compile/internal/gc/main.go包的gc.Main()方法；
+
+2）gc.Main() 调用cmd/compile/internal/noder/noder.go 的 noder.LoadPackage() 进行词法分析、语法分析和类型检查，并生成抽象语法树 AST；
+
+3）Main() 调用 cmd/compile/internal/gc/compile.go的gc.enqueueFunc()，后者调用gc.prepareFunc()，最终调用cmd/compile/internal/walk/walk.go包的walk.Walk()方法，遍历并改写代码中的AST节点，为生成最终的抽象语法树AST做好准备；需要注意的是：walk.Walk()方法里会将一些关键字和内建函数转换成运行时的函数调用，比如，会将 panic、recover 两个内建函数转换成 runtime.gopanic 和 runtime.gorecover 两个真正运行时函数，关键字 new 也会被转换成调用 runtime.newobject 函数，还会将Channel、map、make、new 以及 select 等关键字转换成相应运行时函数；而defer关键字的主要处理逻辑却不在这里；
+
+4）然后，Main() 方法调用 cmd/compile/internal/gc/compile.go 的 gc.compileFunctions()方法，将抽象语法树AST生成SSA中间代码，其中具体调用的是cmd/compile/internal/ssagen/pgen.go 的 ssagen.Compile()方法，该方法调用cmd/compile/internal/ssagen/ssa.go 的ssagen.buildssa()；
+
+5）ssagen.buildssa()调用同文件的state.stmtList()，state.stmtList()会为传入的每个节点调用state.stmt()方法，state.stmt()根据节点操作符的不同将当前AST节点转换成对应的中间代码；注意：defer关键字的处理在state.stmt()方法这里；
+
+6）ssagen.buildssa() 调用 cmd/compile/internal/ssa/compile.go 的 ssa.Compile() 方法，经过50多轮处理优化，包括去掉无用代码、根据目标CPU架构对代码进行改写等，提高中间代码执行效率，得到最终的SSA中间代码；
+
+7）通过命令 GOSSAFUNC=main GOOS=linux GOARCH=amd64 go build main.go可以打印并查看源代码、对应的抽象语法树AST、几十个版本的中间代码、最终生成的 SSA以及机器码。
+
+这整个编译过程中，涉及到defer关键字处理的逻辑在cmd/compile/internal/ssagen/ssa.go包的state.stmtList()调用的state.stmt()方法，下面会多次用到。

@@ -1,3 +1,135 @@
+[^fatalpanic]:
+
+    ```go
+    // fatalpanic implements an unrecoverable panic. It is like fatalthrow, except
+    // that if msgs != nil, fatalpanic also prints panic messages and decrements
+    // runningPanicDefers once main is blocked from exiting.
+    //
+    //go:nosplit
+    func fatalpanic(msgs *_panic) {
+      pc := getcallerpc()
+      sp := getcallersp()
+      gp := getg()
+      var docrash bool
+      // Switch to the system stack to avoid any stack growth, which
+      // may make things worse if the runtime is in a bad state.
+      systemstack(func() {
+        if startpanic_m() && msgs != nil {
+          // There were panic messages and startpanic_m
+          // says it's okay to try to print them.
+
+          // startpanic_m set panicking, which will
+          // block main from exiting, so now OK to
+          // decrement runningPanicDefers.
+          runningPanicDefers.Add(-1)
+
+          printpanics(msgs)
+        }
+
+        docrash = dopanic_m(gp, pc, sp)
+      })
+
+      if docrash {
+        // By crashing outside the above systemstack call, debuggers
+        // will not be confused when generating a backtrace.
+        // Function crash is marked nosplit to avoid stack growth.
+        crash()
+      }
+
+      systemstack(func() {
+        exit(2)
+      })
+
+      *(*int)(nil) = 0 // not reached
+    }
+    ```
+
+[^addOneOpenDeferFrame]:
+
+```go
+func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
+  var prevDefer *_defer
+  if sp == nil {
+    prevDefer = gp._defer
+    pc = prevDefer.framepc
+    sp = unsafe.Pointer(prevDefer.sp)
+  }
+  systemstack(func() {
+    gentraceback(pc, uintptr(sp), 0, gp, 0, nil, 0x7fffffff,
+      func(frame *stkframe, unused unsafe.Pointer) bool {
+        if prevDefer != nil && prevDefer.sp == frame.sp {
+          // Skip the frame for the previous defer that
+          // we just finished (and was used to set
+          // where we restarted the stack scan)
+          return true
+        }
+        f := frame.fn
+        fd := funcdata(f, _FUNCDATA_OpenCodedDeferInfo)
+        if fd == nil {
+          return true
+        }
+        // Insert the open defer record in the
+        // chain, in order sorted by sp.
+        d := gp._defer
+        var prev *_defer
+        for d != nil {
+          dsp := d.sp
+          if frame.sp < dsp {
+            break
+          }
+          if frame.sp == dsp {
+            if !d.openDefer {
+              throw("duplicated defer entry")
+            }
+            // Don't add any record past an
+            // in-progress defer entry. We don't
+            // need it, and more importantly, we
+            // want to keep the invariant that
+            // there is no open defer entry
+            // passed an in-progress entry (see
+            // header comment).
+            if d.started {
+              return false
+            }
+            return true
+          }
+          prev = d
+          d = d.link
+        }
+        if frame.fn.deferreturn == 0 {
+          throw("missing deferreturn")
+        }
+
+        d1 := newdefer()
+        d1.openDefer = true
+        d1._panic = nil
+        // These are the pc/sp to set after we've
+        // run a defer in this frame that did a
+        // recover. We return to a special
+        // deferreturn that runs any remaining
+        // defers and then returns from the
+        // function.
+        d1.pc = frame.fn.entry() + uintptr(frame.fn.deferreturn)
+        d1.varp = frame.varp
+        d1.fd = fd
+        // Save the SP/PC associated with current frame,
+        // so we can continue stack trace later if needed.
+        d1.framepc = frame.pc
+        d1.sp = frame.sp
+        d1.link = d
+        if prev == nil {
+          gp._defer = d1
+        } else {
+          prev.link = d1
+        }
+        // Stop stack scanning after adding one open defer record
+        return false
+      },
+      nil, 0)
+  })
+}
+```
+
 [^gorecover.all]:
 
     ```go

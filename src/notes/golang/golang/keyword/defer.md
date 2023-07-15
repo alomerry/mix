@@ -7,6 +7,7 @@ tag:
 
 # 延迟调用
 
+&^ 按位置零
 ## 结构
 
 ![golang-defer-link](https://img.draveness.me/2020-01-19-15794017184603-golang-defer-link.png)
@@ -83,6 +84,13 @@ SSA 阶段 state.call[^state.call.stack] 中调用 deferstruct[^deferstruct] 在
 
 如果满足了启用开放编码的前提，则会构建中间代码 buildssa[^buildssa] 时在栈上初始化 8 bit 的 deferBits 变量，并在 [^openDeferRecord] 中构建 openDeferInfo [^openDeferInfo] 结构体存储着调用的函数等，如果在编译器能确定 defer 可以执行，则在 [^state.exit] 中调用 [^openDeferExit]，判断并生成 deferBits，不过当程序遇到运行时才能判断的条件语句时，我们仍然需要由运行时的 runtime.deferreturn 决定是否执行 defer 关键字（== 何处可以看出来 ==），在 `deferreturn` 中调用 `runOpenDeferFrame`[^runOpenDeferFrame]，获取 deferbits 按位倒序检查并调用 `deferCallSave`[^deferCallSave] 执行对应的 defer
 
+openDeferRecord：
+
+### `runOpenDeferFrame`
+
+runOpenDeferFrame 会在函数正常执行完成后被调用或者是函数发生 panic，runOpenDeferFrame 会处理这两种情况，此处我们先介绍正常函数执行完毕后调用的情况：
+
+函数执行结束后通过 defer
 
 ![golang-defer-bits](https://img.draveness.me/2020-10-31-16041438704362/golang-defer-bits.png)
 
@@ -122,7 +130,10 @@ TODO
 
 ## 疑问
 
-- 1.18 的 deferproc 为什么没有参数了
+- 1.18 的 deferproc 为什么没有参数了???
+  - go 在 1.17 增强了函数调用，会同时使用栈和寄存器 https://github.com/golang/go/issues/40724，[commit](https://github.com/golang/go/commit/06ad41642c6e06ddb6faa8575fcc3cfafa6a13d1) 中对 defer/go 后的函数（如果有参数或者接受者）进行了包装，因此不用在 deferproc 再拷贝函数参数，在执行函数构建 defer 结构时就可以分配捕获列表并拷贝参数地址 https://github.com/golang/go/commit/12b37b713fddcee366d286a858c452f3bfdfa794（因为 defer 转为 deferproc(func)，所以构建函数栈是就会分配好 func 闭包函数的对应参数等？？？）
+- runOpenDeferFrame 如何根据 _defer.fd（funcdata）获取计算并获取每个 deferBit 对应的信息
+- d.varp 是什么
 
 ## Reference
 
@@ -138,3 +149,4 @@ https://blog.csdn.net/qq_42956653/article/details/121057714
 - [under the hood/defer](https://golang.design/under-the-hood/zh-cn/part1basic/ch03lang/defer/#343--defer1)
 
 https://eddycjy.gitbook.io/golang/di-1-ke-za-tan/go1.13-defer
+https://cloud.tencent.com/developer/article/2137023?from=article.detail.1874653&areaSource=106000.16&traceId=Wj7H-xJmm9b0YNzcOAat8
