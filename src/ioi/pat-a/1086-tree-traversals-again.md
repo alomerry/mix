@@ -78,7 +78,7 @@ struct node
 {
     int v;
     node *left;
-	node*right;
+  node*right;
 };
 
 void init()
@@ -97,7 +97,7 @@ void init()
         }
         else // push
         {
-			cin>>num;
+      cin>>num;
             pre[a++] = num;
             s.push(num);
         }
@@ -138,7 +138,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
     init();
-	node *root = make(0, n - 1, 0, n - 1);
+  node *root = make(0, n - 1, 0, n - 1);
     postOrder(root);
     return 0;
 }

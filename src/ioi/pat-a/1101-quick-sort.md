@@ -64,44 +64,44 @@ For each test case, output in the first line the number of pivot candidates. The
 using namespace std;
 
 struct Arr {
-	int value = 0;
-	int max = 0;
+  int value = 0;
+  int max = 0;
 };
 Arr an[MAX_SIZE];
 int main()
 {
-	int i, N, temp = -1, ans = 0;
-	while (cin >> N) {
-		memset(an, 0, sizeof(an));
-		for (i = 0; i < N; i++) {
-			cin >> an[i].value;
-			if (temp < an[i].value) {
-				an[i].max = an[i].value;
-				temp = an[i].max;
-			}
-		}
+  int i, N, temp = -1, ans = 0;
+  while (cin >> N) {
+    memset(an, 0, sizeof(an));
+    for (i = 0; i < N; i++) {
+      cin >> an[i].value;
+      if (temp < an[i].value) {
+        an[i].max = an[i].value;
+        temp = an[i].max;
+      }
+    }
 
-		int right = an[N - 1].value;
-		for (i = N - 1; i >= 0; i--) {
-			if (an[i].value < right) {
-				right = an[i].value;
-			}
-			if (an[i].max == an[i].value && right >= an[i].value) {
-				ans++;
-				an[i].max = -1;
-			}
-		}
-		cout << ans << endl;
-		bool spaceIndex = false;
-		for (i = 0; i < N; i++) {
-			if (an[i].max == -1) {
-				if (spaceIndex) cout << " ";
-				cout << an[i].value;
-				spaceIndex = true;
-			}
-		}
-		cout << endl;
-	}
-	return 0;
+    int right = an[N - 1].value;
+    for (i = N - 1; i >= 0; i--) {
+      if (an[i].value < right) {
+        right = an[i].value;
+      }
+      if (an[i].max == an[i].value && right >= an[i].value) {
+        ans++;
+        an[i].max = -1;
+      }
+    }
+    cout << ans << endl;
+    bool spaceIndex = false;
+    for (i = 0; i < N; i++) {
+      if (an[i].max == -1) {
+        if (spaceIndex) cout << " ";
+        cout << an[i].value;
+        spaceIndex = true;
+      }
+    }
+    cout << endl;
+  }
+  return 0;
 }
 ```

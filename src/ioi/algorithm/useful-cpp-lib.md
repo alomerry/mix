@@ -218,7 +218,7 @@ int main()
     for (int i = 0;i < 7;i++)
         cout << *p++ <<endl;
 
-	//for_each(a,a+9,print<int>) ;
+  //for_each(a,a+9,print<int>) ;
 }
 ```
 

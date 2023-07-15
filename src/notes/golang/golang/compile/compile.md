@@ -58,13 +58,13 @@ Go 语言的语句在执行 buildssa 阶段中，会由 state.stmt 完成函数�
 ```go
 // src/cmd/compile/internal/gc/ssa.go
 func buildssa(fn *Node, worker int) *ssa.Func {
-	var s state
-	...
-	s.stmtList(fn.Nbody)
-	...
+  var s state
+  ...
+  s.stmtList(fn.Nbody)
+  ...
 }
 func (s *state) stmtList(l Nodes) {
-	for _, n := range l.Slice() { s.stmt(n) }
+  for _, n := range l.Slice() { s.stmt(n) }
 }
 ```
 

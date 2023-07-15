@@ -88,7 +88,7 @@ void post(Node *root)
         return;
     post(root->left);
     post(root->right);
-	out.push_back( root->val);
+  out.push_back( root->val);
 }
 int main()
 {

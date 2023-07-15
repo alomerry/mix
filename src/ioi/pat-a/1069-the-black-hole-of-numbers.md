@@ -79,74 +79,74 @@ If all the 4 digits of $N$ are the same, print in one line the equation `N - N =
 using namespace std;
 int up[4],down[4];
 bool cmp(int a, int b) {
-	return a > b;
+  return a > b;
 }
 int toInt(int ans[]) {
-	return ans[0] * 1000 + ans[1] * 100 + ans[2] * 10 + ans[3];
+  return ans[0] * 1000 + ans[1] * 100 + ans[2] * 10 + ans[3];
 }
 int getup(int a) {
-	up[3] = a % 10;
-	up[2] = a / 10 % 10;
-	up[1] = a / 100 % 10;
-	up[0] = a / 1000;
-	sort(up, up + 4);
-	for (int i = 0; i < 4; i++) {
-		cout << up[i];
-	}
-	cout << " = ";
-	return toInt(up);
+  up[3] = a % 10;
+  up[2] = a / 10 % 10;
+  up[1] = a / 100 % 10;
+  up[0] = a / 1000;
+  sort(up, up + 4);
+  for (int i = 0; i < 4; i++) {
+    cout << up[i];
+  }
+  cout << " = ";
+  return toInt(up);
 }
 int getdown(int a) {
-	down[3] = a % 10;
-	down[2] = a / 10 % 10;
-	down[1] = a / 100 % 10;
-	down[0] = a / 1000;
-	sort(down, down + 4, cmp);
-	for (int i = 0; i < 4; i++) {
-		cout << down[i];
-	}
-	cout << " - ";
-	return toInt(down);
+  down[3] = a % 10;
+  down[2] = a / 10 % 10;
+  down[1] = a / 100 % 10;
+  down[0] = a / 1000;
+  sort(down, down + 4, cmp);
+  for (int i = 0; i < 4; i++) {
+    cout << down[i];
+  }
+  cout << " - ";
+  return toInt(down);
 }
 int subscribe(int n) {
-	int a = getdown(n),b =  getup(n);
-	int temp = a - b;
-	up[3] = temp % 10;
-	up[2] = temp / 10 % 10;
-	up[1] = temp / 100 % 10;
-	up[0] = temp / 1000;
-	for (int i = 0; i < 4; i++) {
-		cout << up[i];
-	}
-	cout << endl;
-	return temp;
+  int a = getdown(n),b =  getup(n);
+  int temp = a - b;
+  up[3] = temp % 10;
+  up[2] = temp / 10 % 10;
+  up[1] = temp / 100 % 10;
+  up[0] = temp / 1000;
+  for (int i = 0; i < 4; i++) {
+    cout << up[i];
+  }
+  cout << endl;
+  return temp;
 }
 bool check(int a) {
-	up[3] = a % 10;
-	up[2] = a / 10 % 10;
-	up[1] = a / 100 % 10;
-	up[0] = a / 1000;
-	if (up[0] == up[1] && up[1] == up[2]&& up[2] == up[3]){
-		cout << a << " - " << a << " = " << "0000" << endl;
-		return true;
-	}
-	return false;
+  up[3] = a % 10;
+  up[2] = a / 10 % 10;
+  up[1] = a / 100 % 10;
+  up[0] = a / 1000;
+  if (up[0] == up[1] && up[1] == up[2]&& up[2] == up[3]){
+    cout << a << " - " << a << " = " << "0000" << endl;
+    return true;
+  }
+  return false;
 }
 int main()
 {
-	int n;
-	while (cin>>n) {
-		bool index = true;
-		if (check(n)) {
-			index = false;
-		}
-		while (index) {
-			n = subscribe(n);
-			if (n == 6174)
-				break;
-		}
-		
-	}
-	return 0;
+  int n;
+  while (cin>>n) {
+    bool index = true;
+    if (check(n)) {
+      index = false;
+    }
+    while (index) {
+      n = subscribe(n);
+      if (n == 6174)
+        break;
+    }
+    
+  }
+  return 0;
 }
 ```

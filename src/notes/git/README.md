@@ -108,9 +108,9 @@ git push origin
 
 ```shell
 git remote -v
-origin	git@github.com:Alomerry/Note.git (fetch)
-origin	git@github.com:Alomerry/Note.git (push)
-origin	git@gitee.com:alomerry/Note.git (push)
+origin  git@github.com:Alomerry/Note.git (fetch)
+origin  git@github.com:Alomerry/Note.git (push)
+origin  git@gitee.com:alomerry/Note.git (push)
 ```
 
 使用 `git push` 可以看到：

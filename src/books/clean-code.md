@@ -321,35 +321,35 @@ https://the-zen-of-go.netlify.com/
 package main
 
 var (
-	bar = "bar"
-	baz = "baz"
+  bar = "bar"
+  baz = "baz"
 )
 
 func foo() bool {
-	return true
+  return true
 }
 
 // NOT BAD
 func f1() {
-	if foo() {
-		// ...
-	} else if bar == baz {
-		// ...
-	} else {
-		// ...
-	}
+  if foo() {
+    // ...
+  } else if bar == baz {
+    // ...
+  } else {
+    // ...
+  }
 }
 
 // BETTER
 func f2() {
-	switch {
-	case foo():
-		// ...
-	case bar == baz:
-		// ...
-	default:
-		// ...
-	}
+  switch {
+  case foo():
+    // ...
+  case bar == baz:
+    // ...
+  default:
+    // ...
+  }
 }
 ```
 
@@ -361,7 +361,7 @@ func f2() {
 package main
 
 type Service struct {
-	deleteCh chan bool // what does this bool mean?
+  deleteCh chan bool // what does this bool mean?
 }
 ```
 
@@ -371,7 +371,7 @@ type Service struct {
 package main
 
 type Service struct {
-	deleteCh chan struct{} // ok, if event than delete something.
+  deleteCh chan struct{} // ok, if event than delete something.
 }
 ```
 
@@ -385,9 +385,9 @@ package main
 import "time"
 
 var (
-	delay = time.Second * 60 * 24 * 60 // BAD
-	delay = 60 * time.Second * 60 * 24 // VERY BAD
-	delay = 24 * 60 * 60 * time.Second // GOOD
+  delay = time.Second * 60 * 24 * 60 // BAD
+  delay = 60 * time.Second * 60 * 24 // VERY BAD
+  delay = 24 * 60 * 60 * time.Second // GOOD
 )
 ```
 
@@ -399,8 +399,8 @@ package main
 import "time"
 
 var (
-	delayMillis int64         = 15000            // BAD
-	delay       time.Duration = 15 * time.Second // GOOD
+  delayMillis int64         = 15000            // BAD
+  delay       time.Duration = 15 * time.Second // GOOD
 )
 ```
 
@@ -411,9 +411,9 @@ package main
 
 // BAD
 const (
-	foo     = 1
-	bar     = 2
-	message = "warn message"
+  foo     = 1
+  bar     = 2
+  message = "warn message"
 )
 
 // MOSTLY BAD
@@ -423,8 +423,8 @@ const message = "warn message"
 
 // GOOD
 const (
-	foo = 1
-	bar = 2
+  foo = 1
+  bar = 2
 )
 
 const message = "warn message"
@@ -441,12 +441,12 @@ const message = "warn message"
 package main
 
 func main() {
-	defer func() {
-		//err := ocp.Close()
-		//if err != nil {
-		//	rerr = err
-		//}
-	}()
+  defer func() {
+    //err := ocp.Close()
+    //if err != nil {
+    //  rerr = err
+    //}
+  }()
 }
 ```
 
@@ -465,7 +465,7 @@ const A Status = 1
 const B Format = 1
 
 func main() {
-	println(A == B)
+  println(A == B)
 }
 ```
 
@@ -510,13 +510,13 @@ import "fmt"
 var s []int
 
 func main() {
-	fmt.Println(s, len(s), cap(s))
-	if s == nil {
-		fmt.Println("nil!")
-	}
-	// Output:
-	// [] 0 0
-	// nil!
+  fmt.Println(s, len(s), cap(s))
+  if s == nil {
+    fmt.Println("nil!")
+  }
+  // Output:
+  // [] 0 0
+  // nil!
 }
 
 ```
@@ -527,21 +527,21 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"reflect"
+  "fmt"
+  "reflect"
 )
 
 var (
-	a []string
-	b = []string{}
+  a []string
+  b = []string{}
 )
 
 func main() {
-	fmt.Println(reflect.DeepEqual(a, []string{}))
-	fmt.Println(reflect.DeepEqual(b, []string{}))
-	// Output:
-	// false
-	// true
+  fmt.Println(reflect.DeepEqual(a, []string{}))
+  fmt.Println(reflect.DeepEqual(b, []string{}))
+  // Output:
+  // false
+  // true
 }
 
 ```
@@ -553,19 +553,19 @@ func main() {
 package main
 
 import (
-	"reflect"
+  "reflect"
 )
 
 var (
-	object int
-	value  = reflect.ValueOf(object)
+  object int
+  value  = reflect.ValueOf(object)
 )
 
 func main() {
-	kind := value.Kind()
-	if kind >= reflect.Chan && kind <= reflect.Slice {
-		// ...
-	}
+  kind := value.Kind()
+  if kind >= reflect.Chan && kind <= reflect.Slice {
+    // ...
+  }
 }
 ```
 
@@ -579,15 +579,15 @@ package main
 import "fmt"
 
 func f1() {
-	var a, b struct{}
-	print(&a, "\n", &b, "\n") // Prints same address
-	fmt.Println(&a == &b)     // Comparison returns false
+  var a, b struct{}
+  print(&a, "\n", &b, "\n") // Prints same address
+  fmt.Println(&a == &b)     // Comparison returns false
 }
 
 func f2() {
-	var a, b struct{}
-	fmt.Printf("%p\n%p\n", &a, &b) // Again, same address
-	fmt.Println(&a == &b)          // ...but the comparison returns true
+  var a, b struct{}
+  fmt.Printf("%p\n%p\n", &a, &b) // Again, same address
+  fmt.Println(&a == &b)          // ...but the comparison returns true
 }
 ```
 
@@ -610,8 +610,8 @@ func f2() {
 package main
 
 const (
-	_       = iota
-	testvar // testvar 将是 int 类型
+  _       = iota
+  testvar // testvar 将是 int 类型
 )
 ```
 
@@ -623,8 +623,8 @@ package main
 type myType int
 
 const (
-	_       myType = iota
-	testVar        // testVar 将是 myType 类型
+  _       myType = iota
+  testVar        // testVar 将是 myType 类型
 )
 ```
 
@@ -641,17 +641,17 @@ import "encoding/json"
 
 // BAD
 func f1() (interface{}, error) {
-	var b []byte
-	var res interface{}
-	return res, json.Unmarshal(b, &res)
+  var b []byte
+  var res interface{}
+  return res, json.Unmarshal(b, &res)
 }
 
 // GOOD
 func f2() (interface{}, error) {
-	var b []byte
-	var res interface{}
-	err := json.Unmarshal(b, &res)
-	return res, err
+  var b []byte
+  var res interface{}
+  err := json.Unmarshal(b, &res)
+  return res, err
 }
 
 ```
@@ -662,8 +662,8 @@ func f2() (interface{}, error) {
 package main
 
 type Point struct {
-	X, Y float64
-	_    struct{} // to prevent unkeyed literals
+  X, Y float64
+  _    struct{} // to prevent unkeyed literals
 }
 ```
 
@@ -681,8 +681,8 @@ type Point struct {
 package main
 
 type Point struct {
-	_    [0]func() // unexported, zero-width non-comparable field
-	X, Y float64
+  _    [0]func() // unexported, zero-width non-comparable field
+  X, Y float64
 }
 ```
 
@@ -702,7 +702,7 @@ type Point struct {
 package main
 
 type Request struct {
-	ID int64 `json:"id,string"`
+  ID int64 `json:"id,string"`
 }
 ```
 
@@ -730,16 +730,16 @@ type Request struct {
 package main
 
 func check(a string) bool {
-	return true
+  return true
 }
 func f() {
-	var a []string
-	b := a[:0]
-	for _, x := range a {
-		if check(x) {
-			b = append(b, x)
-		}
-	}
+  var a []string
+  b := a[:0]
+  for _, x := range a {
+    if check(x) {
+      b = append(b, x)
+    }
+  }
 }
 ```
 
@@ -759,15 +759,15 @@ func f() {
 package main
 
 //import (
-//	"io"
-//	"io/ioutil"
-//	"client"
+//  "io"
+//  "io/ioutil"
+//  "client"
 //)
 //
 //func f() {
-//	res, _ := client.Do(req)
-//	io.Copy(ioutil.Discard, res.Body)
-//	defer res.Body.Close()
+//  res, _ := client.Do(req)
+//  io.Copy(ioutil.Discard, res.Body)
+//  defer res.Body.Close()
 //}
 
 ```
@@ -782,8 +782,8 @@ package main
 import "time"
 
 func f() {
-	ticker := time.NewTicker(1 * time.Second)
-	defer ticker.Stop()
+  ticker := time.NewTicker(1 * time.Second)
+  defer ticker.Stop()
 }
 
 ```
@@ -795,28 +795,28 @@ func f() {
 package main
 
 import (
-	"bytes"
-	"encoding/json"
+  "bytes"
+  "encoding/json"
 )
 
 type Entry map[string]string
 
 func (entry Entry) MarshalJSON() ([]byte, error) {
-	buffer := bytes.NewBufferString("{")
-	first := true
-	for key, value := range entry {
-		jsonValue, err := json.Marshal(value)
-		if err != nil {
-			return nil, err
-		}
-		if !first {
-			buffer.WriteString(",")
-		}
-		first = false
-		buffer.WriteString(key + ":" + string(jsonValue))
-	}
-	buffer.WriteString("}")
-	return buffer.Bytes(), nil
+  buffer := bytes.NewBufferString("{")
+  first := true
+  for key, value := range entry {
+    jsonValue, err := json.Marshal(value)
+    if err != nil {
+      return nil, err
+    }
+    if !first {
+      buffer.WriteString(",")
+    }
+    first = false
+    buffer.WriteString(key + ":" + string(jsonValue))
+  }
+  buffer.WriteString("}")
+  return buffer.Bytes(), nil
 }
 ```
 
@@ -840,8 +840,8 @@ import "unsafe"
 // compiles down to zero instructions.
 // go:nosplit
 func noescape(p unsafe.Pointer) unsafe.Pointer {
-	x := uintptr(p)
-	return unsafe.Pointer(x ^ 0)
+  x := uintptr(p)
+  return unsafe.Pointer(x ^ 0)
 }
 ```
 
@@ -857,11 +857,11 @@ func noescape(p unsafe.Pointer) unsafe.Pointer {
 package main
 
 func f() {
-	m := map[int]int{}
-	for k := range m {
-		delete(m, k)
-	}
-	m = make(map[int]int)
+  m := map[int]int{}
+  for k := range m {
+    delete(m, k)
+  }
+  m = make(map[int]int)
 }
 
 ```
@@ -895,9 +895,9 @@ package main
 import "testing"
 
 func TestSomething(t *testing.T) {
-	if testing.Short() {
-		t.Skip("skipping test in short mode.")
-	}
+  if testing.Short() {
+    t.Skip("skipping test in short mode.")
+  }
 }
 ```
 
@@ -907,14 +907,14 @@ func TestSomething(t *testing.T) {
 package main
 
 import (
-	//"runtime"
-	"testing"
+  //"runtime"
+  "testing"
 )
 
 func f(t *testing.T) {
-	//if runtime.GOARM == "arm" {
-	//	t.Skip("this doesn't work under ARM")
-	//}
+  //if runtime.GOARM == "arm" {
+  //  t.Skip("this doesn't work under ARM")
+  //}
 }
 
 ```
@@ -946,24 +946,24 @@ func f(t *testing.T) {
 package main
 
 import (
-	"log"
-	"os"
-	"os/signal"
-	"runtime"
-	"syscall"
+  "log"
+  "os"
+  "os/signal"
+  "runtime"
+  "syscall"
 )
 
 func main() {
-	go func() {
-		sigs := make(chan os.Signal, 1)
-		signal.Notify(sigs, syscall.SIGQUIT)
-		buf := make([]byte, 1<<20)
-		for {
-			<-sigs
-			stackLen := runtime.Stack(buf, true)
-			log.Printf("=== received SIGQUIT ===\n*** goroutine dump...\n%s\n*** end\n", buf[:stackLen])
-		}
-	}()
+  go func() {
+    sigs := make(chan os.Signal, 1)
+    signal.Notify(sigs, syscall.SIGQUIT)
+    buf := make([]byte, 1<<20)
+    for {
+      <-sigs
+      stackLen := runtime.Stack(buf, true)
+      log.Printf("=== received SIGQUIT ===\n*** goroutine dump...\n%s\n*** end\n", buf[:stackLen])
+    }
+  }()
 }
 
 ```
@@ -987,14 +987,14 @@ package main
 import "sync"
 
 var hits struct {
-	sync.Mutex
-	n int
+  sync.Mutex
+  n int
 }
 
 func main() {
-	hits.Lock()
-	hits.n++
-	hits.Unlock()
+  hits.Lock()
+  hits.n++
+  hits.Unlock()
 }
 ```
 

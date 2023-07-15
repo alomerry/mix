@@ -79,7 +79,7 @@ int main()
     std::ios::sync_with_stdio(false);
     std::cin.tie(0);
     cin >> n >> m >> k;
-	tsize = n;
+  tsize = n;
     while (!isPrime(tsize))
         ++tsize;
     vector<int> table(tsize);

@@ -26,14 +26,14 @@ roundRobin 结构体定义如下：
 
 ```
 type roundRobin struct {
-	r      naming.Resolver
-	w      naming.Watcher
-	addrs  []*addrInfo
-	mu     sync.Mutex
-	addrCh chan []Address
-	next   int
-	waitCh chan struct{}
-	done   bool
+  r      naming.Resolver
+  w      naming.Watcher
+  addrs  []*addrInfo
+  mu     sync.Mutex
+  addrCh chan []Address
+  next   int
+  waitCh chan struct{}
+  done   bool
 }
 ```
 

@@ -83,9 +83,9 @@ struct node
 {
     int deepth ;
     vector<int> sons;
-	node (){
-		deepth = 0;
-	}
+  node (){
+    deepth = 0;
+  }
 };
 int n, max_deepth = max_size, maxi = 0;
 double p, r;
@@ -104,7 +104,7 @@ void dfs(int root)
         {
             maxi++;
         }
-		return ;
+    return ;
     }
     for (int i = 0; i < tree[root].sons.size(); i++)
     {

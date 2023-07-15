@@ -171,12 +171,12 @@
     // simple function call with no arguments and no results. For example,
     // it rewrites:
     //
-    //	defer f(x, y)
+    //  defer f(x, y)
     //
     // into:
     //
-    //	x1, y1 := x, y
-    //	defer func() { f(x1, y1) }()
+    //  x1, y1 := x, y
+    //  defer func() { f(x1, y1) }()
     func (e *escape) goDeferStmt(n *ir.GoDeferStmt) {
       k := e.heapHole()
       if n.Op() == ir.ODEFER && e.loopDepth == 1 {

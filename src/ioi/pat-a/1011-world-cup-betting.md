@@ -80,8 +80,8 @@ int main()
         for (int j = 0; j < 3; j++)
         {
             scanf("%f", &now[j]);
-			if (now[j] > now[k])
-				k = j;
+      if (now[j] > now[k])
+        k = j;
         }
         res *= now[k];
         printf("%c ", s[k]);

@@ -971,21 +971,21 @@ QUEUED
 
 ```go
 func withPipline(n int, c redis.Conn) {
-	start := time.Now()
-	c.Send("MULTI")
-	for i := 0; i < n; i++ {
-		c.Send("set", "tmp", 100)
-	}
-	c.Do("EXEC")
-	fmt.Println(time.Since(start))
+  start := time.Now()
+  c.Send("MULTI")
+  for i := 0; i < n; i++ {
+    c.Send("set", "tmp", 100)
+  }
+  c.Do("EXEC")
+  fmt.Println(time.Since(start))
 }
 
 func withOutPipline(n int, c redis.Conn) {
-	start := time.Now()
-	for i := 0; i < n; i++ {
-		c.Do("set", "tmp", 100)
-	}
-	fmt.Println(time.Since(start))
+  start := time.Now()
+  for i := 0; i < n; i++ {
+    c.Do("set", "tmp", 100)
+  }
+  fmt.Println(time.Since(start))
 }
 ```
 

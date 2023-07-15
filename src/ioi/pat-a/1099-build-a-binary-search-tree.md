@@ -115,7 +115,7 @@ int main()
         cin >> tree[i].left >> tree[i].right;
     for (int i = 0; i < n; i++)
         cin >> val[i];
-	sort(val,val+n);
+  sort(val,val+n);
     inOrder(0);
     levelOrder();
     return 0;

@@ -58,32 +58,32 @@ set<int, greater<int>> v;
 map<int, float> m;
 int main()
 {
-	std::iostream::sync_with_stdio(false);
-	std::cin.tie(0);
-	int n, l;
-	float t;
-	for (int i = 0; i < 2; i++)
-	{
-		cin >> n;
-		for (int j = 0; j < n; j++)
-		{
-			cin >> l >> t;
-			v.insert(l);
-			m[l] += t;
-			if (m[l] == 0)
-			{
-				v.erase(l);
-			}
-		}
-	}
+  std::iostream::sync_with_stdio(false);
+  std::cin.tie(0);
+  int n, l;
+  float t;
+  for (int i = 0; i < 2; i++)
+  {
+    cin >> n;
+    for (int j = 0; j < n; j++)
+    {
+      cin >> l >> t;
+      v.insert(l);
+      m[l] += t;
+      if (m[l] == 0)
+      {
+        v.erase(l);
+      }
+    }
+  }
 
-	printf("%d", v.size());
-	for (set<int, greater<int> >::iterator it = v.begin(); it != v.end(); it++)
-	{
-		if (m[*it] != 0)
-			printf(" %d %.1f", *it, m[*it]);
-	}
-	printf("\n");
-	return 0;
+  printf("%d", v.size());
+  for (set<int, greater<int> >::iterator it = v.begin(); it != v.end(); it++)
+  {
+    if (m[*it] != 0)
+      printf(" %d %.1f", *it, m[*it]);
+  }
+  printf("\n");
+  return 0;
 }
 ```

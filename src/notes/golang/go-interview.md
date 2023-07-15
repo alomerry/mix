@@ -36,7 +36,7 @@ func Main(archInit func(*ssagen.ArchInfo)) {
   // 初始化一些信息
 
   // Parse and typecheck input.
-	noder.LoadPackage(flag.Args())
+  noder.LoadPackage(flag.Args())
 }
 // 函数 LoadPackage 接收一个字符串数组 filenames 作为参数。
 // 在函数开始时，通过 base.Timer.Start("fe", "parse") 开始一个计时器，计算语法解析的时间。
@@ -46,61 +46,61 @@ func Main(archInit func(*ssagen.ArchInfo)) {
 // 回到主 goroutine，遍历 noders 数组，对于每个 p，遍历其 err 通道，将错误信息通过 p.errorAt 方法输出。如果 p.file 为 nil，则调用 base.ErrorExit() 方法，结束程序。同时统计所有文件的行数，并通过 base.Timer.AddEvent 方法记录到计时器中。
 // 如果 base.Debug.Unified 不为 0，则调用 unified 方法处理 noders 数组。否则，调用 check2 方法进行类型检查和 IR 代码生成。
 func LoadPackage(filenames []string) {
-	base.Timer.Start("fe", "parse")
+  base.Timer.Start("fe", "parse")
 
-	// Limit the number of simultaneously open files.
-	sem := make(chan struct{}, runtime.GOMAXPROCS(0)+10)
+  // Limit the number of simultaneously open files.
+  sem := make(chan struct{}, runtime.GOMAXPROCS(0)+10)
 
-	noders := make([]*noder, len(filenames))
-	for i := range noders {
-		p := noder{
-			err: make(chan syntax.Error),
-		}
-		noders[i] = &p
-	}
+  noders := make([]*noder, len(filenames))
+  for i := range noders {
+    p := noder{
+      err: make(chan syntax.Error),
+    }
+    noders[i] = &p
+  }
 
-	// Move the entire syntax processing logic into a separate goroutine to avoid blocking on the "sem".
-	go func() {
-		for i, filename := range filenames {
-			filename := filename
-			p := noders[i]
-			sem <- struct{}{}
-			go func() {
-				defer func() { <-sem }()
-				defer close(p.err)
-				fbase := syntax.NewFileBase(filename)
+  // Move the entire syntax processing logic into a separate goroutine to avoid blocking on the "sem".
+  go func() {
+    for i, filename := range filenames {
+      filename := filename
+      p := noders[i]
+      sem <- struct{}{}
+      go func() {
+        defer func() { <-sem }()
+        defer close(p.err)
+        fbase := syntax.NewFileBase(filename)
 
-				f, err := os.Open(filename)
-				if err != nil {
-					p.error(syntax.Error{Msg: err.Error()})
-					return
-				}
-				defer f.Close()
+        f, err := os.Open(filename)
+        if err != nil {
+          p.error(syntax.Error{Msg: err.Error()})
+          return
+        }
+        defer f.Close()
 
-				p.file, _ = syntax.Parse(fbase, f, p.error, p.pragma, syntax.CheckBranches) // errors are tracked via p.error
-			}()
-		}
-	}()
+        p.file, _ = syntax.Parse(fbase, f, p.error, p.pragma, syntax.CheckBranches) // errors are tracked via p.error
+      }()
+    }
+  }()
 
-	var lines uint
-	for _, p := range noders {
-		for e := range p.err {
-			p.errorAt(e.Pos, "%s", e.Msg)
-		}
-		if p.file == nil {
-			base.ErrorExit()
-		}
-		lines += p.file.EOF.Line()
-	}
-	base.Timer.AddEvent(int64(lines), "lines")
+  var lines uint
+  for _, p := range noders {
+    for e := range p.err {
+      p.errorAt(e.Pos, "%s", e.Msg)
+    }
+    if p.file == nil {
+      base.ErrorExit()
+    }
+    lines += p.file.EOF.Line()
+  }
+  base.Timer.AddEvent(int64(lines), "lines")
 
-	if base.Debug.Unified != 0 {
-		unified(noders)
-		return
-	}
+  if base.Debug.Unified != 0 {
+    unified(noders)
+    return
+  }
 
-	// Use types2 to type-check and generate IR.
-	check2(noders)
+  // Use types2 to type-check and generate IR.
+  check2(noders)
 }
 
 
@@ -119,18 +119,18 @@ func LoadPackage(filenames []string) {
 // Parse 函数内部实现了一个 parser 结构体，用于完成具体的解析工作。parser 结构体包含了一个 scanner 结构体，用于将输入流转换为一个个 token。parser 结构体还包含了一些状态变量，用于处理解析过程中的上下文信息。
 // parser 结构体中的 init 函数用于初始化解析器的状态变量和 scanner 对象。next 函数用于从输入流中获取下一个 token，并根据 token 的类型进行相应的处理。fileOrNil 函数用于解析整个源文件，生成对应的语法树。fileOrNil 函数以 PackageClause 开头，随后依次解析 ImportDecl、TopLevelDecl 等声明，直到遇到文件末尾。如果解析过程中出现错误，fileOrNil 函数会返回 nil。
 func Parse(base *PosBase, src io.Reader, errh ErrorHandler, pragh PragmaHandler, mode Mode) (_ *File, first error) {
-	defer func() {
-		if p := recover(); p != nil {
-			if err, ok := p.(Error); ok {
-				first = err
-				return
-			}
-			panic(p)
-		}
-	}()
+  defer func() {
+    if p := recover(); p != nil {
+      if err, ok := p.(Error); ok {
+        first = err
+        return
+      }
+      panic(p)
+    }
+  }()
 
-	var p parser
-	p.init(base, src, errh, pragh, mode)
+  var p parser
+  p.init(base, src, errh, pragh, mode)
   // next advances the scanner by reading the next token.
   //
   // If a read, source encoding, or lexical error occurs, next calls
@@ -153,8 +153,8 @@ func Parse(base *PosBase, src io.Reader, errh ErrorHandler, pragh PragmaHandler,
   // 具体来说，next() 函数会读取源代码中的一个字符，并根据该字符的类型来判断下一个 token 的类型。如果该字符是字母或下划线，那么下一个 token 就是标识符或关键字；如果该字符是数字，那么下一个 token 就是数字字面量；如果该字符是符号，那么下一个 token 就是运算符或分隔符等。
 
   // 除了读取下一个 token 外，next() 函数还会更新 scanner 对象的状态，包括当前位置、行号、列号等。这些状态信息在编译器的后续阶段会被用来生成语法树或中间代码。
-	p.next()
-	return p.fileOrNil(), p.first
+  p.next()
+  return p.fileOrNil(), p.first
 }
 
 // 这段代码定义了一个结构体类型 noder，用于将 syntax 包中的 AST（抽象语法树）转换为 Node 树。该结构体包含以下字段：
@@ -167,14 +167,14 @@ func Parse(base *PosBase, src io.Reader, errh ErrorHandler, pragh PragmaHandler,
 // importedEmbed：是否导入了 embed 包
 // noder transforms package syntax's AST into a Node tree.
 type noder struct {
-	posMap
+  posMap
 
-	file           *syntax.File
-	linknames      []linkname
-	pragcgobuf     [][]string
-	err            chan syntax.Error
-	importedUnsafe bool
-	importedEmbed  bool
+  file           *syntax.File
+  linknames      []linkname
+  pragcgobuf     [][]string
+  err            chan syntax.Error
+  importedUnsafe bool
+  importedEmbed  bool
 }
 // 这段代码定义了一个名为 parser 的结构体，它包含了多个字段：
 // file：文件位置信息的基础对象。
@@ -192,20 +192,20 @@ type noder struct {
 // xnest：表达式嵌套层数（用于完成度歧义解析）。
 // indent：跟踪支持。
 type parser struct {
-	file  *PosBase
-	errh  ErrorHandler
-	mode  Mode
-	pragh PragmaHandler
-	scanner
+  file  *PosBase
+  errh  ErrorHandler
+  mode  Mode
+  pragh PragmaHandler
+  scanner
 
-	base   *PosBase // current position base
-	first  error    // first error encountered
-	errcnt int      // number of errors encountered
-	pragma Pragma   // pragmas
+  base   *PosBase // current position base
+  first  error    // first error encountered
+  errcnt int      // number of errors encountered
+  pragma Pragma   // pragmas
 
-	fnest  int    // function nesting level (for error handling)
-	xnest  int    // expression nesting level (for complit ambiguity resolution)
-	indent []byte // tracing support
+  fnest  int    // function nesting level (for error handling)
+  xnest  int    // expression nesting level (for complit ambiguity resolution)
+  indent []byte // tracing support
 }
 // 这段代码定义了一个名为 scanner 的结构体，它包含了多个字段：
 // source：源代码的输入流。
@@ -223,19 +223,19 @@ type parser struct {
 // op：标记是哪种运算符，如果标记是 _Operator、_Star、_AssignOp 或 _IncOp 类型的，则该字段有效。
 // prec：标记运算符的优先级，如果标记是 _Operator、_Star、_AssignOp 或 _IncOp 类型的，则该字段有效。
 type scanner struct {
-	source
-	mode   uint
-	nlsemi bool // if set '\n' and EOF translate to ';'
+  source
+  mode   uint
+  nlsemi bool // if set '\n' and EOF translate to ';'
 
-	// current token, valid after calling next()
-	line, col uint
-	blank     bool // line is blank up to col
-	tok       token
-	lit       string   // valid if tok is _Name, _Literal, or _Semi ("semicolon", "newline", or "EOF"); may be malformed if bad is true
-	bad       bool     // valid if tok is _Literal, true if a syntax error occurred, lit may be malformed
-	kind      LitKind  // valid if tok is _Literal
-	op        Operator // valid if tok is _Operator, _Star, _AssignOp, or _IncOp
-	prec      int      // valid if tok is _Operator, _Star, _AssignOp, or _IncOp
+  // current token, valid after calling next()
+  line, col uint
+  blank     bool // line is blank up to col
+  tok       token
+  lit       string   // valid if tok is _Name, _Literal, or _Semi ("semicolon", "newline", or "EOF"); may be malformed if bad is true
+  bad       bool     // valid if tok is _Literal, true if a syntax error occurred, lit may be malformed
+  kind      LitKind  // valid if tok is _Literal
+  op        Operator // valid if tok is _Operator, _Star, _AssignOp, or _IncOp
+  prec      int      // valid if tok is _Operator, _Star, _AssignOp, or _IncOp
 }
 ```
 
@@ -254,9 +254,9 @@ type stringStruct struct {
 
 ```go
 type SliceHeader struct {
-	Data uintptr
-	Len  int
-	Cap  int
+  Data uintptr
+  Len  int
+  Cap  int
 }
 ```
 

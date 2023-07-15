@@ -108,7 +108,7 @@ void level(int root)
             q.push(tree[now].left);
         if (tree[now].right != -1)
             q.push(tree[now].right);
-		cout<<tree[now].v;
+    cout<<tree[now].v;
         if (q.size() != 0)
         {
             cout << " ";
@@ -168,7 +168,7 @@ int main()
     postOrder(tree[root]);
     index = 1;
     level(root);
-	cout<<endl;
+  cout<<endl;
     inOrder(tree[root]);
     return 0;
 }

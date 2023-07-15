@@ -134,7 +134,7 @@ void bst_post(node *root)
     {
         bst_post(root->left);
         bst_post(root->right);
-		 now_order.push_back(root->v);
+     now_order.push_back(root->v);
     }
 }
 void mirror_bst_pre(node *root)
@@ -142,7 +142,7 @@ void mirror_bst_pre(node *root)
 
     if (root != NULL)
     {
-		 now_order.push_back(root->v);
+     now_order.push_back(root->v);
         mirror_bst_pre(root->right);
         mirror_bst_pre(root->left);
     }
@@ -154,7 +154,7 @@ void mirror_bst_post(node *root)
     {
         mirror_bst_post(root->right);
         mirror_bst_post(root->left);
-		now_order.push_back(root->v);
+    now_order.push_back(root->v);
     }
 }
 

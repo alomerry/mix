@@ -105,7 +105,7 @@ int main()
     for (int i = 0; i < m; i++)
     {
         cin >> a;
-		lists.clear();
+    lists.clear();
         for (int j = 0; j < a; j++)
         {
             cin >> list[j];

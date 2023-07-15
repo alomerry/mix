@@ -70,83 +70,83 @@ be no extra space at the end of output.
 #define INF 0x3fffffff
 using namespace std;
 struct node{
-	int len,cost;
+  int len,cost;
 };
 node g[500][500];
 vector<int> pre[500],path,out;
 bool vis[500] = {false};
 int d[500],mini = INF,now = 0;;
 void dij(int n,int c1,int c2){
-	fill(d,d+n,INF);
-	int u,min;
-	d[c1] = 0;
-	for(int i = 0;i<n;i++){
-		u = -1,min = INF;
-		for(int j = 0;j<n;j++){
-			if(vis[j] == false&& d[j] <min){
-				u = j;
-				min = d[j];
-			}
-		}
-		if(u == -1){
-			return ;
-		}
-		vis[u] = true;
-		for(int j = 0;j<n;j++){
-			if(vis[j] == false&& g[u][j].len >0){
-				if(d[j]>d[u]+g[u][j].len)
-				{
-					d[j] = d[u]+g[u][j].len;
-					pre[j].clear();
-					pre[j].push_back(u);
-				}
-				else if(d[j]==(d[u]+g[u][j].len))
-					pre[j].push_back(u);
-			}
-		}
-	}
+  fill(d,d+n,INF);
+  int u,min;
+  d[c1] = 0;
+  for(int i = 0;i<n;i++){
+    u = -1,min = INF;
+    for(int j = 0;j<n;j++){
+      if(vis[j] == false&& d[j] <min){
+        u = j;
+        min = d[j];
+      }
+    }
+    if(u == -1){
+      return ;
+    }
+    vis[u] = true;
+    for(int j = 0;j<n;j++){
+      if(vis[j] == false&& g[u][j].len >0){
+        if(d[j]>d[u]+g[u][j].len)
+        {
+          d[j] = d[u]+g[u][j].len;
+          pre[j].clear();
+          pre[j].push_back(u);
+        }
+        else if(d[j]==(d[u]+g[u][j].len))
+          pre[j].push_back(u);
+      }
+    }
+  }
 }
 void dfs(int index,int end){
-	if(index == end){
-		if( mini > now){
-			mini = now;
-			out.clear();
-			out = path;
+  if(index == end){
+    if( mini > now){
+      mini = now;
+      out.clear();
+      out = path;
 
-		}
-		return ;
-	}
-	for(int i = 0;i<pre[index].size();i++){
-		now+=g[index][pre[index][i]].cost;
-		path.push_back(pre[index][i]);
-		dfs(pre[index][i],end);
-		now-=g[index][pre[index][i]].cost;
-		path.pop_back();
-	}
+    }
+    return ;
+  }
+  for(int i = 0;i<pre[index].size();i++){
+    now+=g[index][pre[index][i]].cost;
+    path.push_back(pre[index][i]);
+    dfs(pre[index][i],end);
+    now-=g[index][pre[index][i]].cost;
+    path.pop_back();
+  }
 
 }
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(0);
-	int n,m,c1,c2,ta,tb;
-	node tmp;
-	cin>>n>>m>>c1>>c2;
-	for(int i = 0;i<m;i++){
-		cin>>ta>>tb;
-		cin>>tmp.len>>tmp.cost;
-		g[ta][tb] = tmp;
-		g[tb][ta] = tmp;
-	}
-	dij(n,c1,c2);
-	path.push_back(c2);
-	dfs(c2,c1);
-	for (int i =out.size()-1; i >=0 ; i--)
-	{
-		cout << out[i]<<" ";
-	}
-	cout<<d[c2]<<" "<<mini;
-	return 0;
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(0);
+  int n,m,c1,c2,ta,tb;
+  node tmp;
+  cin>>n>>m>>c1>>c2;
+  for(int i = 0;i<m;i++){
+    cin>>ta>>tb;
+    cin>>tmp.len>>tmp.cost;
+    g[ta][tb] = tmp;
+    g[tb][ta] = tmp;
+  }
+  dij(n,c1,c2);
+  path.push_back(c2);
+  dfs(c2,c1);
+  for (int i =out.size()-1; i >=0 ; i--)
+  {
+    cout << out[i]<<" ";
+  }
+  cout<<d[c2]<<" "<<mini;
+  return 0;
 }
 ```
 
@@ -166,8 +166,8 @@ using namespace std;
 int n, m, s, d, dis[MAX_SIZE], num[MAX_SIZE], cost = 0, mini_cost = INF;
 struct Node
 {
-	int v, len;
-	Node(int _v,int _len):v(_v),len(_len){}
+  int v, len;
+  Node(int _v,int _len):v(_v),len(_len){}
 };
 int costs[MAX_SIZE][MAX_SIZE];
 vector<Node> graph[MAX_SIZE];
@@ -177,95 +177,95 @@ set<int> pre[MAX_SIZE];
 
 bool spfa(int s)
 {
-	fill(inq, inq + MAX_SIZE, false);
-	fill(dis, dis + MAX_SIZE,INF);
-	fill(num, num + MAX_SIZE, 0);
+  fill(inq, inq + MAX_SIZE, false);
+  fill(dis, dis + MAX_SIZE,INF);
+  fill(num, num + MAX_SIZE, 0);
 
-	dis[s] = 0;
-	queue<int> q;
-	q.push(s);
-	inq[s] = true;
-	++num[s];
+  dis[s] = 0;
+  queue<int> q;
+  q.push(s);
+  inq[s] = true;
+  ++num[s];
 
-	while (!q.empty())
-	{
-		int u = q.front();
-		q.pop();
-		inq[u] = false;
+  while (!q.empty())
+  {
+    int u = q.front();
+    q.pop();
+    inq[u] = false;
 
-		for (int j = 0; j < graph[u].size(); j++)
-		{
-			int v = graph[u][j].v;
-			int length = graph[u][j].len;
-			if (dis[u] + length < dis[v])
-			{
-				dis[v] = dis[u] + length;
-				pre[v].clear();
-				pre[v].insert(u);
-				if (!inq[v])
-				{
-					q.push(v);
-					inq[v] = true;
-					++num[v];
-					if (num[v] > n)
-					{
-						return false;
-					}
-				}
-			}
-			else if (dis[u] + length == dis[v])
-			{
-				pre[v].insert(u);
-			}
-		}
-	}
-	return true;
+    for (int j = 0; j < graph[u].size(); j++)
+    {
+      int v = graph[u][j].v;
+      int length = graph[u][j].len;
+      if (dis[u] + length < dis[v])
+      {
+        dis[v] = dis[u] + length;
+        pre[v].clear();
+        pre[v].insert(u);
+        if (!inq[v])
+        {
+          q.push(v);
+          inq[v] = true;
+          ++num[v];
+          if (num[v] > n)
+          {
+            return false;
+          }
+        }
+      }
+      else if (dis[u] + length == dis[v])
+      {
+        pre[v].insert(u);
+      }
+    }
+  }
+  return true;
 }
 void dfs(int now, int start)
 {
-	path_now.push_back(now);
-	if (now == start)
-	{
-		if (cost < mini_cost)
-		{
-			mini_cost = cost;
-			path_out.clear();
-			path_out = path_now;
-		}
-		path_now.pop_back();
-		return;
-	}
-	for (set<int>::iterator it = pre[now].begin(); it != pre[now].end(); it++)
-	{
-		cost += costs[*it][now];
-		dfs(*it, start);
-		cost -= costs[now][*it];
-	}
+  path_now.push_back(now);
+  if (now == start)
+  {
+    if (cost < mini_cost)
+    {
+      mini_cost = cost;
+      path_out.clear();
+      path_out = path_now;
+    }
+    path_now.pop_back();
+    return;
+  }
+  for (set<int>::iterator it = pre[now].begin(); it != pre[now].end(); it++)
+  {
+    cost += costs[*it][now];
+    dfs(*it, start);
+    cost -= costs[now][*it];
+  }
 
-	path_now.pop_back();
+  path_now.pop_back();
 }
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(0);
-	int ta, tm, tl, tc;
-	cin >> n >> m >> s >> d;
-	for (int i = 0; i < m; i++)
-	{
-		cin >> ta >> tm>>tl>>tc;
-		graph[ta].push_back(Node(tm,tl));
-		costs[ta][tm] = tc;
-		costs[tm][ta] = tc;
-		graph[tm].push_back(Node(ta,tl));
-	}
-	spfa(s);
-	dfs(d, s);
-	for (int i = path_out.size() - 1; i >= 0; i--)
-	{
-		cout << path_out[i] << " ";
-	}
-	cout << dis[d] << " " << mini_cost<<endl;
-	return 0;
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(0);
+  int ta, tm, tl, tc;
+  cin >> n >> m >> s >> d;
+  for (int i = 0; i < m; i++)
+  {
+    cin >> ta >> tm>>tl>>tc;
+    graph[ta].push_back(Node(tm,tl));
+    costs[ta][tm] = tc;
+    costs[tm][ta] = tc;
+    graph[tm].push_back(Node(ta,tl));
+  }
+  spfa(s);
+  dfs(d, s);
+  for (int i = path_out.size() - 1; i >= 0; i--)
+  {
+    cout << path_out[i] << " ";
+  }
+  cout << dis[d] << " " << mini_cost<<endl;
+  return 0;
 }
 ```
 

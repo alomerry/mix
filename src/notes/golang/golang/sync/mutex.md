@@ -98,9 +98,9 @@ if atomic.CompareAndSwapInt32(&m.state, old, new) {
     break // 通过 CAS 函数获取了锁
   }
   queueLifo := waitStartTime != 0
-	if waitStartTime == 0 {
-		waitStartTime = runtime_nanotime()
-	}
+  if waitStartTime == 0 {
+    waitStartTime = runtime_nanotime()
+  }
   runtime_SemacquireMutex(&m.sema, queueLifo, 1)
   starving = starving || runtime_nanotime()-waitStartTime > starvationThresholdNs
   old = m.state

@@ -37,8 +37,8 @@ location = /mirror {
         set $mirrorReq $1;
     }
     
-		internal;
-		proxy_pass http://127.0.0.1:8180/ZMq6FXzoZRpEoEdakv9RyJ/$mirrorReq;
+    internal;
+    proxy_pass http://127.0.0.1:8180/ZMq6FXzoZRpEoEdakv9RyJ/$mirrorReq;
 }
 ```
 - 
