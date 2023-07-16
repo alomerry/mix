@@ -32,5 +32,7 @@ src/posts/assets
 src/books/assets
 src/about/assets
 src/notes/assets
+src/notes/golang/golang/assets
+src/notes/golang/golang/concurrency/sync/assets
 
 scripts/test.js

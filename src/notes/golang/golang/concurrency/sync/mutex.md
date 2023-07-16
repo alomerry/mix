@@ -16,6 +16,12 @@ type Mutex struct {
 
 ## 正常模式和饥饿模式
 
+协程请求所先尝试自旋几次，然后尝试获得锁，如果获得失败，会进入等待队列，通过信号量唤醒，先进先出，此为正常模式。
+
+后到获得锁请求可能因为自旋获利，或者当前占有时间片的协程因为不需要切换上下文，都有可能比等待队列中的请求获得锁协程更快获得锁，因此在当发现等待队列等待锁时间超过 xx ms 后将锁转为 饥饿模式，会在锁释放后直接交给等待队列的第一个协程。
+
+当等待队列的协程获得锁的等待时间小于 xx ms 或等待队列为空，则恢复正常模式
+
 :::tip
 
 Mutex fairness.
@@ -162,5 +168,6 @@ func (m *Mutex) Unlock() {
 - [知乎 你真的了解 sync.Mutex 吗](https://zhuanlan.zhihu.com/p/350456432)
 - [图解 sync.Mutex](https://developer.huawei.com/consumer/cn/forum/topic/0202545781985490042?fid=23)
 - [多图详解互斥锁 Mutex](https://www.cnblogs.com/luozhiyun/p/14157542.html)
+- https://www.bilibili.com/video/BV15V411n7fM/?spm_id_from=333.999.0.0&vd_source=ddc8289a36a2bf501f48ca984dc0b3c1
 
 <!-- @include: ./mutex.code.snippet.md -->

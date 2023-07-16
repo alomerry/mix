@@ -106,5 +106,17 @@ preprintpanics 提前记录参数（为什么？）// ran out of deferred calls 
 - http://go.cyub.vip/feature/panic-recover.html
 - https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-panic-recover/
 - https://golang.design/under-the-hood/zh-cn/part1basic/ch03lang/panic/
+- https://www.bilibili.com/video/BV155411Y7XT/?spm_id_from=333.999.0.0&vd_source=ddc8289a36a2bf501f48ca984dc0b3c1
 
 <!-- @include: ./panic-recover.code.snippet.md -->
+
+首先有 defer 就会在当前协程 defer 链前插入
+
+- 没有 panic 时，会依次执行协程的 defer 链
+- 有 panic 时
+  - 在协程 panic 链前插入 panic，并依次执行协程 defer 链，执行时，会将 panic 关联到执行的 defer，标记已开始
+    - 执行完一个 defer 就移除，同时检测 panic 是否 recover
+      - 如果 recover 了，就会移除当前 panic，继续执行 defer 链
+      - 如果没有 recover，就会继续执行 defer 链，最后输出堆栈信息
+    - 如果 panic 后执行 defer 时又产生了新的 panic，则在 panic 链头新增一个 panic，然后执行 defer 链
+      - 则执行到已开始的 defer，会将前面的 panic 标记为已终止

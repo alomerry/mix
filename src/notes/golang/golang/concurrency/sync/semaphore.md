@@ -1,4 +1,25 @@
+---
+date: 2023-07-17
+enableFootnotePopup: true
+tag: 
+  - golang
+---
+
 # sema
+
+- 自旋锁
+- 操作系统等待队列 win32 event/ linux futex
+  - 系统调用
+  - 线程切换
+
+多核、占用锁时间短，通过自旋，消耗更小，防止线程切换
+单核、占用锁时间长，通过等待队列更合适
+
+go 中的等待队列 semaphore 供协程使用的信号量
+
+sematable 存储 251 棵平衡树根
+
+![semaTable](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/sync/sematable.png)
 
 ## acquire
 
