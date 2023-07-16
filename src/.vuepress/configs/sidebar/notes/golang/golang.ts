@@ -6,8 +6,10 @@ export const golang = arraySidebar([
   "function-call",
   "keyword/defer",
   "keyword/panic-recover",
-  "concurrency/sync/context",
+  "concurrency/context",
   "concurrency/sync/mutex",
   "concurrency/sync/rwmutex",
-  "concurrency/sync/semaphore",
+  "concurrency/sync/map",
+  "concurrency/semaphore",
+  "concurrency/channel",
 ]);

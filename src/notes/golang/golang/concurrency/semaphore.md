@@ -7,6 +7,8 @@ tag:
 
 # sema
 
+- https://www.bilibili.com/video/BV1ZQ4y1f7go/?spm_id_from=333.999.0.0
+
 - 自旋锁
 - 操作系统等待队列 win32 event/ linux futex
   - 系统调用
@@ -19,7 +21,7 @@ go 中的等待队列 semaphore 供协程使用的信号量
 
 sematable 存储 251 棵平衡树根
 
-![semaTable](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/sync/sematable.png)
+![semaTable](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/sematable.png)
 
 ## acquire
 

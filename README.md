@@ -14,4 +14,8 @@
 cd blog/.vuepress
 ./ossPusher --configPath core.toml
 
+==TODO==
+
+添加 sync，从 oss_hash 下载不存在的文件到本地
+
 ## import code
