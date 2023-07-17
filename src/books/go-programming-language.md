@@ -11,7 +11,7 @@ date: 2021-03-01
 
 ### 获取 URL
 
-```go
+```go:no-line-numbers
 func main() {
 urls := []string{"https://www.baidu.com"}
 for _, url := range urls {
@@ -33,7 +33,7 @@ fmt.Printf("%s\n", b)
 
 ### 并发获取多个 URL
 
-```go
+```go:no-line-numbers
 func main() {
 urls := []string{
 "https://qte.alomerry.com",
@@ -77,13 +77,13 @@ ch <- fmt.Sprintf("%.2fs\t%d\t%s", sec, nbytes, url)
 
 #### new 函数
 
-```go
+```go:no-line-numbers
 func newInt() *int {
 return new(int)
 }
 ```
 
-```go
+```go:no-line-numbers
 func newInt() *int {
 var dummy int
 return &dummy
@@ -92,7 +92,7 @@ return &dummy
 
 每次调用 new 函数都是返回一个新的变量的地址，因此下面两个地址是不同的：
 
-```go
+```go:no-line-numbers
 p := new(int)
 q := new(int)
 fmt.Println(q == p) // false
@@ -114,7 +114,7 @@ fmt.Println(q == p) // false
 >
 > 编译器会自动选择在栈上还是堆上分配局部变量的存储空间，但可能令人惊讶的是，这个选择并不是由 var 还是 new 声明变量的方式决定的。
 >
-> ```go
+> ```go:no-line-numbers
 > var global *int
 > func f(){
 >     var x int
@@ -143,7 +143,7 @@ fmt.Println(q == p) // false
 
 包的初始化首先是解决包级变量的依赖顺序，然后按照包级变量声明出现的顺序依次初始化：
 
-```go
+```go:no-line-numbers
 var a = b + c // a 第三个初始化，为 3
 var b = f() // b 第二个初始化，为 2，通过调用 f（依赖 c）
 var c = 1   // c 第一个初始化，为 1
@@ -175,7 +175,7 @@ P78
 
 一个字符串是包含的只读字节数组，一旦创建，是不可变的。相比之下，一个字节 slice 的元素则可以自由地修改。
 
-```go
+```go:no-line-numbers
 s := "abc"
 b := []byte(s)
 s2 := string(b)
@@ -186,7 +186,7 @@ s2 := string(b)
 
 为了避免转换中不必要的内存分配，bytes 包和 strings 包同时提供了许多实用函数：
 
-```go
+```go:no-line-numbers
 func Contains(s, substr string) bool
 func Count(s, sep string) bool
 func Fields(s string) []string
@@ -244,7 +244,7 @@ map 类型的零值是 nil，也就是没有引用任何哈希表。查找、删
 
 Go 语言有一个特性让我们只声明一个成员对应的数据类型而不指明成员的名字；这类成员就角匿名成员。匿名成员的数据类型必须是命名的类型或指向一个命名的类型的指针。下面的代码中，Circle 和 Wheel 各自都有一个匿名结构成员。
 
-```go
+```go:no-line-numbers
 type Point struct {
 X, Y int
 }
@@ -260,7 +260,7 @@ Spokes int
 
 得意于匿名嵌入的特性，我们可以直接访问叶子属性而不需要给出完整的路径：
 
-```go
+```go:no-line-numbers
 var w Wheel
 w.X = 8 // equivalent to w.Circle.Point.X = 8
 w.Y = 8 // equivalent to w.Circle.Point.Y = 8
@@ -297,7 +297,7 @@ TODO
 
 匿名函数可以访问完整的语法环境。
 
-```go
+```go:no-line-numbers
 func squares() func () int {
 var x int
 return func () int {
@@ -321,7 +321,7 @@ fmt.Println(f()) // "16"
 
 #### 警告：捕获迭代变量
 
-```go
+```go:no-line-numbers
 var rmdirs []func ()
 for _, d := range tempDirs() {
 os.MkdirAll(dir, 0755)
@@ -339,7 +339,7 @@ rmdir() // clean up
 
 这个问题不仅存在基于 range 的循环中，下面例子有同样的问题：
 
-```go
+```go:no-line-numbers
 var rmdirs []func ()
 dirs := tempDirs()
 for i := 0; i < len(dirs); i++ {
@@ -359,7 +359,7 @@ defer 语句经常被用于处理成对的操作，如打开、关闭、连接�
 
 调试复杂程序时，defer 机制也常被用于记录何时进入和退出函数。
 
-```go
+```go:no-line-numbers
 func bigSlowOperation(){
 defer trace("bigSlowOperation")() // don't forget the
 extra parentheses
@@ -380,7 +380,7 @@ log.Printf("exit %s (%s)", msg, time.Since(start))
 
 defer 语句中函数会在 return 语句更新返回值变量后再执行，又因为在函数中定义匿名函数可以访问该函数包括返回值变量在内的所有变量，所以对匿名函数采用 defer 机制，可以使其观察函数的返回值，甚至修改函数返回给调用者的返回值。
 
-```go
+```go:no-line-numbers
 func double(x int) int {
 return x + x
 }
@@ -407,7 +407,7 @@ recover，输出堆栈信息，继续运行。这种做法在实践中很便捷�
 基于以上原因，安全的做法是有选择性的 recover，只恢复应该被恢复的 panic 异常，此外这些异常所占的比例应该尽可能的低。为了标识某个 panic 是否应该被恢复，我们可以将 panic value 设置成特殊类型。在
 recover 时对 panic value 进行检查，如果发现是特殊类型，就将 panic 作为 error 处理，如果不是则按照正常的 panic 进行处理。
 
-```go
+```go:no-line-numbers
 // soleTitle returns the text of the first non-empty title element
 // in doc, and an error if there was not exactly one.
 func soleTitle(doc *html.Node) (title string, err error) {
@@ -496,7 +496,7 @@ https://stackoverflow.com/questions/26641454/testify-is-seemingly-running-test-s
 
 练习 1.3 测量潜在低效的版本和使用了 `strings.Join` 的版本的运行事件差异。
 
-```go
+```go:no-line-numbers
 func main() {
 start := time.Now()
 
@@ -516,7 +516,7 @@ fmt.Println(sec)
 
 0.376342
 
-```go
+```go:no-line-numbers
 func main() {
 start := time.Now()
 
@@ -538,7 +538,7 @@ fmt.Println(sec)
 
 练习 1.7 调用 `io.Copy(dst,src)` 替换 `io.ReadAll` 来拷贝响应结构体到 `os.Stdout`，避免申请一个缓冲区来存储。
 
-```go
+```go:no-line-numbers
 func main() {
 urls := []string{"https://www.baidu.com"}
 for _, url := range urls {
@@ -560,7 +560,7 @@ os.Exit(1)
 
 练习 1.8 使用 strings.HasPrefix 函数在 url 没有 http:// 前缀时添加。
 
-```go
+```go:no-line-numbers
 func main() {
 urls := []string{"www.baidu.com"}
 for _, url := range urls {
@@ -585,7 +585,7 @@ os.Exit(1)
 
 练习 1.9 从 resp.Status 里打印出 HTTP 协议的状态码。
 
-```go
+```go:no-line-numbers
 func main() {
 urls := []string{"www.baidu.com"}
 for _, url := range urls {

@@ -969,7 +969,7 @@ QUEUED
 
 管道通过将多次请求打包，减小客户端与 Redis 的通讯次数来实现降低往返的延时时间。管道原理是队列，可以保证数据的顺序性。如下程序可以对比发现使用管道时消耗的总时间更少：
 
-```go
+```go:no-line-numbers
 func withPipline(n int, c redis.Conn) {
   start := time.Now()
   c.Send("MULTI")
@@ -991,7 +991,7 @@ func withOutPipline(n int, c redis.Conn) {
 
 程序输出结果：
 
-```go
+```go:no-line-numbers
 20.746117ms
 935.685µs
 ```

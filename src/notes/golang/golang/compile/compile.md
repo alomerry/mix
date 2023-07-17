@@ -57,7 +57,7 @@ cmd/internal/obj (生成机器码)
 
 Go 语言的语句在执行 buildssa 阶段中，会由 state.stmt 完成函数中各个语句 SSA 处理。
 
-```go
+```go:no-line-numbers 
 // src/cmd/compile/internal/gc/ssa.go
 func buildssa(fn *Node, worker int) *ssa.Func {
   var s state

@@ -48,7 +48,7 @@ Related Topics: [位运算](https://leetcode.cn/tag/bit-manipulation/), [数学]
 
 Language: **Go**
 
-```go
+```go:no-line-numbers
 func divide(dividend int, divisor int) int {
 
 }

@@ -1,6 +1,6 @@
 [^bucketEvacuated]:
 
-    ```go
+    ```go:no-line-numbers 
     func bucketEvacuated(t *maptype, h *hmap, bucket uintptr) bool {
       b := (*bmap)(add(h.oldbuckets, bucket*uintptr(t.bucketsize)))
       return evacuated(b)
@@ -9,7 +9,7 @@
 
 [^advanceEvacuationMark]:
 
-    ```go
+    ```go:no-line-numbers 
     func advanceEvacuationMark(h *hmap, t *maptype, newbit uintptr) {
       h.nevacuate++
       // Experiments suggest that 1024 is overkill by at least an order of magnitude.
@@ -37,7 +37,7 @@
 
 [^bucketMask]:
 
-    ```go
+    ```go:no-line-numbers 
     // bucketMask returns 1<<b - 1, optimized for code generation.
     func bucketMask(b uint8) uintptr {
       return bucketShift(b) - 1
@@ -46,7 +46,7 @@
 
 [^evacDst]:
 
-    ```go
+    ```go:no-line-numbers 
     // evacDst is an evacuation destination.
     type evacDst struct {
       b *bmap          // current destination bucket
@@ -58,7 +58,7 @@
 
 [^evacuate]:
 
-    ```go
+    ```go:no-line-numbers 
     func evacuate(t *maptype, h *hmap, oldbucket uintptr) {
       b := (*bmap)(add(h.oldbuckets, oldbucket*uintptr(t.bucketsize)))
       newbit := h.noldbuckets()
@@ -176,7 +176,7 @@
 
 [^growWork]:
 
-    ```go
+    ```go:no-line-numbers 
     func growWork(t *maptype, h *hmap, bucket uintptr) {
       // make sure we evacuate the oldbucket corresponding
       // to the bucket we're about to use
@@ -206,7 +206,7 @@
 
 [^growing]:
 
-    ```go
+    ```go:no-line-numbers 
     // growing reports whether h is growing. The growth may be to the same size or bigger.
     func (h *hmap) growing() bool {
       return h.oldbuckets != nil
@@ -215,7 +215,7 @@
 
 [^newoverflow]:
 
-    ```go
+    ```go:no-line-numbers 
     func (h *hmap) newoverflow(t *maptype, b *bmap) *bmap {
       var ovf *bmap
       if h.extra != nil && h.extra.nextOverflow != nil {
@@ -247,7 +247,7 @@
 
 [^tooManyOverflowBuckets]:
 
-    ```go
+    ```go:no-line-numbers 
     // tooManyOverflowBuckets reports whether noverflow buckets is too many for a map with 1<<B buckets.
     // Note that most of these overflow buckets must be in sparse use;
     // if use was dense, then we'd have already triggered regular map growth.
@@ -266,7 +266,7 @@
 
 [^hashGrow]:
 
-    ```go
+    ```go:no-line-numbers 
     func hashGrow(t *maptype, h *hmap) {
       // If we've hit the load factor, get bigger.
       // Otherwise, there are too many overflow buckets,
@@ -313,7 +313,7 @@
 
 [^bmap]:
 
-    ```go
+    ```go:no-line-numbers 
     const (
       // Maximum number of key/elem pairs a bucket can hold.
       bucketCntBits = 3
@@ -339,7 +339,7 @@
 
 [^mapextra]:
 
-    ```go
+    ```go:no-line-numbers 
     type mapextra struct {
       // If both key and elem do not contain pointers and are inline, then we mark bucket
       // type as containing no pointers. This avoids scanning such maps.
@@ -359,7 +359,7 @@
 
 [^walkAssignMapRead]:
 
-    ```go
+    ```go:no-line-numbers 
     // walkAssignMapRead walks an OAS2MAPR node.
     func walkAssignMapRead(init *ir.Nodes, n *ir.AssignListStmt) ir.Node {
       init.Append(ir.TakeInit(n)...)
@@ -418,7 +418,7 @@
 
 [^walkIndexMap]:
 
-    ```go
+    ```go:no-line-numbers 
     // walkIndexMap walks an OINDEXMAP node.
     // It replaces m[k] with *map{access1,assign}(maptype, m, &k)
     func walkIndexMap(n *ir.IndexExpr, init *ir.Nodes) ir.Node {
@@ -452,7 +452,7 @@
 
 [^walkExpr1-partly]:
 
-    ```go
+    ```go:no-line-numbers 
     func walkExpr1(n ir.Node, init *ir.Nodes) ir.Node {
       switch n.Op() {
       default:
@@ -485,7 +485,7 @@
 
 [^evacuated]:
 
-    ```go
+    ```go:no-line-numbers 
     const (
       // Possible tophash values. We reserve a few possibilities for special marks.
       // Each bucket (including its overflow buckets, if any) will have either all or none of its
@@ -508,7 +508,7 @@
 
 [^mapaccessK]:
 
-    ```go
+    ```go:no-line-numbers 
     func mapaccessK(t *maptype, h *hmap, key unsafe.Pointer) (unsafe.Pointer, unsafe.Pointer) {
       if h == nil || h.count == 0 {
         return nil, nil
@@ -555,7 +555,7 @@
 
 [^mapaccess1]:
 
-    ```go
+    ```go:no-line-numbers 
     // mapaccess1 returns a pointer to h[key].  Never returns nil, instead
     // it will return a reference to the zero object for the elem type if
     // the key is not in the map.
@@ -625,7 +625,7 @@
 
 [^mapdelete]:
 
-    ```go
+    ```go:no-line-numbers 
     func mapdelete(t *maptype, h *hmap, key unsafe.Pointer) {
       if h.flags&hashWriting != 0 {
         fatal("concurrent map writes")
@@ -749,7 +749,7 @@
 
 [^mapassign]:
 
-    ```go
+    ```go:no-line-numbers 
     func mapassign(t *maptype, h *hmap, key unsafe.Pointer) unsafe.Pointer {
       if h == nil {
         panic(plainError("assignment to entry in nil map"))
@@ -859,7 +859,7 @@
 
 [^makeBucketArray]:
 
-    ```go
+    ```go:no-line-numbers 
     // makeBucketArray initializes a backing array for map buckets.
     // 1<<b is the minimum number of buckets to allocate.
     // dirtyalloc should either be nil or a bucket array previously
@@ -914,7 +914,7 @@
 
 [^mapaccess2]:
 
-    ```go
+    ```go:no-line-numbers 
     func mapaccess2(t *maptype, h *hmap, key unsafe.Pointer) (unsafe.Pointer, bool) {
       if raceenabled && h != nil {
         callerpc := getcallerpc()
@@ -979,7 +979,7 @@
 
 [^fastrand]:
 
-    ```go
+    ```go:no-line-numbers 
     //go:nosplit
     func fastrand() uint32 {
       mp := getg().m
@@ -1010,7 +1010,7 @@
 
 [^bucketShift]:
 
-    ```go
+    ```go:no-line-numbers 
     // bucketShift returns 1<<b, optimized for code generation.
     func bucketShift(b uint8) uintptr {
       // Masking the shift amount allows overflow checks to be elided.
@@ -1024,13 +1024,13 @@
 
     @tab before
 
-    ```go
+    ```go:no-line-numbers 
     a,b = m[i]
     ```
 
     @tab after
 
-    ```go
+    ```go:no-line-numbers 
     var,b = mapaccess2*(t, m, i)
     a = *var
     ```
@@ -1039,7 +1039,7 @@
 
 [^walkExpr1]:
 
-    ```go
+    ```go:no-line-numbers 
     func walkExpr1(n ir.Node, init *ir.Nodes) ir.Node {
       switch n.Op() {
       default:
@@ -1067,7 +1067,7 @@
 
 [^map-const]:
 
-    ```go
+    ```go:no-line-numbers 
     const (
       // Maximum number of key/elem pairs a bucket can hold.
       bucketCntBits = 3
@@ -1117,7 +1117,7 @@
 
 [^hmap]:
 
-    ```go
+    ```go:no-line-numbers 
     // A header for a Go map.
     type hmap struct {
       count     int // # live cells == size of map.  Must be first (used by len() builtin)
@@ -1155,7 +1155,7 @@
 
 [^maplit]:
 
-    ```go
+    ```go:no-line-numbers 
     func maplit(n *Node, m *Node, init *Nodes) {
       a := nod(OMAKE, nil, nil)
       a.Esc = n.Esc
@@ -1176,7 +1176,7 @@
 
 [^makemap]: 
 
-    ```go
+    ```go:no-line-numbers 
     // makemap implements Go map creation for make(map[k]v, hint).
     // If the compiler has determined that the map or the first bucket
     // can be created on the stack, h and/or bucket may be non-nil.
@@ -1219,7 +1219,7 @@
     ```
 [^init-map]: 
 
-    ```go
+    ```go:no-line-numbers 
     // 源码定义
     hash := map[string]int{
       "1": 2,
@@ -1230,7 +1230,7 @@
 
 [^init-map-within-25]: 
 
-    ```go
+    ```go:no-line-numbers 
     // 元素未超过 25 时转换成以下形式
     hash := make(map[string]int, 3)
     hash["1"] = 2
@@ -1240,7 +1240,7 @@
 
 [^init-map-outof-25]: 
 
-    ```go
+    ```go:no-line-numbers 
     hash := make(map[string]int, 26)
     vstatk := []string{"1", "2", "3", ... ， "26"}
     vstatv := []int{1, 2, 3, ... , 26}
@@ -1255,7 +1255,7 @@
 
 [^makeBucketArray]: 
 
-    ```go
+    ```go:no-line-numbers 
     // makeBucketArray initializes a backing array for map buckets.
     // 1<<b is the minimum number of buckets to allocate.
     // dirtyalloc should either be nil or a bucket array previously
@@ -1310,7 +1310,7 @@
 
 [^overLoadFactor]:
 
-    ```go
+    ```go:no-line-numbers 
     const (
       // Maximum number of key/elem pairs a bucket can hold.
       bucketCntBits = 3

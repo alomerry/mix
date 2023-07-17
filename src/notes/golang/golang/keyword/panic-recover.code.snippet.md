@@ -1,6 +1,6 @@
 [^fatalpanic]:
 
-    ```go
+    ```go:no-line-numbers 
     // fatalpanic implements an unrecoverable panic. It is like fatalthrow, except
     // that if msgs != nil, fatalpanic also prints panic messages and decrements
     // runningPanicDefers once main is blocked from exiting.
@@ -46,7 +46,7 @@
 
 [^addOneOpenDeferFrame]:
 
-```go
+```go:no-line-numbers 
 func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
   var prevDefer *_defer
   if sp == nil {
@@ -132,7 +132,7 @@ func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
 
 [^gorecover.all]:
 
-    ```go
+    ```go:no-line-numbers 
     // The implementation of the predeclared function recover.
     // Cannot split the stack because it needs to reliably
     // find the stack segment of its caller.
@@ -160,7 +160,7 @@ func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
 
 [^gopanic.all]:
 
-    ```go
+    ```go:no-line-numbers 
     // The implementation of the predeclared function panic.
     func gopanic(e any) {
       gp := getg()
@@ -352,7 +352,7 @@ func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
 
 [^fatalpanic]:
 
-    ```go
+    ```go:no-line-numbers 
     // fatalpanic implements an unrecoverable panic. It is like fatalthrow, except
     // that if msgs != nil, fatalpanic also prints panic messages and decrements
     // runningPanicDefers once main is blocked from exiting.
@@ -398,7 +398,7 @@ func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
 
 [^recovery]:
 
-    ```go
+    ```go:no-line-numbers 
     // Unwind the stack after a deferred function calls recover
     // after a panic. Then arrange to continue running as though
     // the caller of the deferred function returned normally.
@@ -426,7 +426,7 @@ func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
 
 [^walkExpr1.panic]:
 
-    ```go
+    ```go:no-line-numbers 
     func walkExpr1(n ir.Node, init *ir.Nodes) ir.Node {
       switch n.Op() {
       ...
@@ -439,7 +439,7 @@ func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
 
 [^walkExpr1.recover]:
 
-    ```go
+    ```go:no-line-numbers 
     func walkExpr1(n ir.Node, init *ir.Nodes) ir.Node {
       switch n.Op() {
       ...
@@ -454,7 +454,7 @@ func addOneOpenDeferFrame(gp *g, pc uintptr, sp unsafe.Pointer) {
 
 [^walkExpr1.all]:
 
-    ```go
+    ```go:no-line-numbers 
     func walkExpr1(n ir.Node, init *ir.Nodes) ir.Node {
       switch n.Op() {
       ...

@@ -317,7 +317,7 @@ https://the-zen-of-go.netlify.com/
 
 #### 多个 if 语句可以折叠成 switch
 
-```go
+```go:no-line-numbers
 package main
 
 var (
@@ -357,7 +357,7 @@ func f2() {
 
 当你在结构中看到 `chan bool` 的定义时，有时不容易理解如何使用该值，例如：
 
-```go
+```go:no-line-numbers
 package main
 
 type Service struct {
@@ -367,7 +367,7 @@ type Service struct {
 
 但是我们可以将其改为明确的 `chan struct {}` 来使其更清楚：我们不在乎值（它始终是 `struct {}`），我们关心可能发生的事件，例如：
 
-```go
+```go:no-line-numbers
 package main
 
 type Service struct {
@@ -379,7 +379,7 @@ type Service struct {
 
 你不需要将无类型的常量包装成类型，编译器会找出来。 另外最好将常量移到第一位：
 
-```go
+```go:no-line-numbers
 package main
 
 import "time"
@@ -393,7 +393,7 @@ var (
 
 #### 用 `time.Duration` 代替 `int64` + 变量名
 
-```go
+```go:no-line-numbers
 package main
 
 import "time"
@@ -406,7 +406,7 @@ var (
 
 #### 按类型分组 `const` 声明，按逻辑和/或类型分组 `var`
 
-```go
+```go:no-line-numbers
 package main
 
 // BAD
@@ -437,7 +437,7 @@ const message = "warn message"
   - https://godoc.org/golang.org/x/tools/cmd/stringer
 - 检查 `defer` 中的错误
 
-```go
+```go:no-line-numbers
 package main
 
 func main() {
@@ -455,7 +455,7 @@ func main() {
 - 不要给枚举使用别名，因为这打破了类型安全
   - https://play.golang.org/p/MGbeDwtXN3
 
-```go
+```go:no-line-numbers
   package main
 
 type Status = int
@@ -477,7 +477,7 @@ func main() {
 - 多行字符串用反引号(\`)
 - 用 `_` 来跳过不用的参数
 
-```go
+```go:no-line-numbers
 package main
 
 func f(a int, _ string) {}
@@ -487,13 +487,13 @@ func f(a int, _ string) {}
 - 带有上下文的函数第一个参数名为 `ctx`，形如：`func foo(ctx Context, ...)`
 - 几个相同类型的参数定义可以用简短的方式来进行
 
-```go
+```go:no-line-numbers
 package main
 
 func f(a int, b int, s string, p string)
 ```
 
-```go
+```go:no-line-numbers
 package main
 
 func f(a, b int, s, p string)
@@ -502,7 +502,7 @@ func f(a, b int, s, p string)
 - 一个 slice 的零值是 nil
   - https://play.golang.org/p/pNT0d_Bunq
 
-```go
+```go:no-line-numbers
 package main
 
 import "fmt"
@@ -523,7 +523,7 @@ func main() {
 
 - https://play.golang.org/p/meTInNyxtk
 
-```go
+```go:no-line-numbers
 package main
 
 import (
@@ -549,7 +549,7 @@ func main() {
 - 不要将枚举类型与 `<`, `>`, `<=` 和 `>=` 进行比较
   - 使用确定的值，不要像下面这样做:
 
-```go
+```go:no-line-numbers
 package main
 
 import (
@@ -573,7 +573,7 @@ func main() {
 - 注意空结构 `struct{}`, 看 issue: https://github.com/golang/go/issues/23440
   - more: https://play.golang.org/p/9C0puRUstrP
 
-```go
+```go:no-line-numbers
 package main
 
 import "fmt"
@@ -606,7 +606,7 @@ func f2() {
 - 不要忘记为 `iota` 指定一种类型
   - https://play.golang.org/p/mZZdMaI92cI
 
-```go
+```go:no-line-numbers
 package main
 
 const (
@@ -617,7 +617,7 @@ const (
 
 vs
 
-```go
+```go:no-line-numbers
 package main
 
 type myType int
@@ -634,7 +634,7 @@ const (
 
 #### 不要依赖于计算顺序，特别是在 return 语句中。
 
-```go
+```go:no-line-numbers
 package main
 
 import "encoding/json"
@@ -658,7 +658,7 @@ func f2() (interface{}, error) {
 
 #### 防止结构体字段用纯值方式初始化，添加 `_ struct {}` 字段：
 
-```go
+```go:no-line-numbers
 package main
 
 type Point struct {
@@ -677,7 +677,7 @@ type Point struct {
 
 #### 为了防止结构比较，添加 `func` 类型的空字段
 
-```go
+```go:no-line-numbers
 package main
 
 type Point struct {
@@ -698,7 +698,7 @@ type Point struct {
 
 用 `json:"id,string"` 代替
 
-```go
+```go:no-line-numbers
 package main
 
 type Request struct {
@@ -726,7 +726,7 @@ type Request struct {
   - 除非你需要泄露 goroutine
 - 过滤但不分配新内存
 
-```go
+```go:no-line-numbers
 package main
 
 func check(a string) bool {
@@ -755,7 +755,7 @@ func f() {
 - 如果你不需要用它，可以考虑丢弃它，例如`io.Copy(ioutil.Discard, resp.Body)`
   - HTTP 客户端的传输不会重用连接，直到 body 被读完和关闭。
 
-```go
+```go:no-line-numbers
 package main
 
 //import (
@@ -776,7 +776,7 @@ package main
   - 因为这些 defer 会不断地填满你的栈（内存）
 - 不要忘记停止 ticker, 除非你需要泄露 channel
 
-```go
+```go:no-line-numbers
 package main
 
 import "time"
@@ -791,7 +791,7 @@ func f() {
 - 用自定义的 marshaler 去加速 marshaler 过程
   - 但是在使用它之前要进行定制！例如：https://play.golang.org/p/SEm9Hvsi0r
 
-```go
+```go:no-line-numbers
 package main
 
 import (
@@ -829,7 +829,7 @@ func (entry Entry) MarshalJSON() ([]byte, error) {
 - 为了隐藏逃生分析的指针，你可以小心使用这个函数：:
   - 来源: https://go-review.googlesource.com/c/go/+/86976
 
-```go
+```go:no-line-numbers
 package main
 
 import "unsafe"
@@ -853,7 +853,7 @@ func noescape(p unsafe.Pointer) unsafe.Pointer {
   - 分配新的
   -
 
-```go
+```go:no-line-numbers
 package main
 
 func f() {
@@ -889,7 +889,7 @@ func f() {
 - 测试名称 `package_test` 比 `package` 要好
 - `go test -short` 允许减少要运行的测试数
 
-```go
+```go:no-line-numbers
 package main
 
 import "testing"
@@ -903,7 +903,7 @@ func TestSomething(t *testing.T) {
 
 - 根据系统架构跳过测试
 
-```go
+```go:no-line-numbers
 package main
 
 import (
@@ -942,7 +942,7 @@ func f(t *testing.T) {
 
 - dump goroutines https://stackoverflow.com/a/27398062/433041
 
-```go
+```go:no-line-numbers
 package main
 
 import (
@@ -970,7 +970,7 @@ func main() {
 
 - 在编译期检查接口的实现
 
-```go
+```go:no-line-numbers
 package main
 
 //import "io"
@@ -981,7 +981,7 @@ package main
   - https://golang.org/pkg/builtin/#len
 - 匿名结构很酷
 
-```go
+```go:no-line-numbers
 package main
 
 import "sync"

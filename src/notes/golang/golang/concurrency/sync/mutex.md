@@ -7,7 +7,7 @@ tag:
 
 # 互斥锁
 
-```go
+```go:no-line-numbers 
 type Mutex struct {
   state int32 // 表示当前互斥锁的状态
   sema  uint32 // 用于控制锁状态的信号量
@@ -53,7 +53,7 @@ Starvation mode is important to prevent pathological cases of tail latency.
 
 ## 加锁
 
-```go
+```go:no-line-numbers 
 func (m *Mutex) Lock() {
   if atomic.CompareAndSwapInt32(&m.state, 0, mutexLocked) {
     return
@@ -78,7 +78,7 @@ func (m *Mutex) Lock() {
   - 当前 Goroutine 为了获取该锁进入自旋的次数小于四次；
   - 当前机器上至少存在一个正在运行的处理器 P 并且处理的运行队列为空；
 
-```go
+```go:no-line-numbers 
 new := old
 // Don't try to acquire starving mutex, new arriving goroutines must queue.
 if old&mutexStarving == 0 {
@@ -98,7 +98,7 @@ if awoke {
 
 计算了新的互斥锁状态之后，会使用 CAS 函数 `CompareAndSwapInt32` 更新状态：
 
-```go
+```go:no-line-numbers 
 if atomic.CompareAndSwapInt32(&m.state, old, new) {
   if old&(mutexLocked|mutexStarving) == 0 {
     break // 通过 CAS 函数获取了锁
@@ -128,7 +128,7 @@ if atomic.CompareAndSwapInt32(&m.state, old, new) {
 
 ## 解锁
 
-```go
+```go:no-line-numbers 
 func (m *Mutex) Unlock() {
   new := atomic.AddInt32(&m.state, -mutexLocked)
   if new != 0 {

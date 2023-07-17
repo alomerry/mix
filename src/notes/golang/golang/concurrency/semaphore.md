@@ -25,7 +25,7 @@ sematable 存储 251 棵平衡树根
 
 ## acquire
 
-```go
+```go:no-line-numbers 
 // Called from runtime.
 func semacquire(addr *uint32) {
   semacquire1(addr, false, 0, 0, waitReasonSemacquire)
@@ -91,7 +91,7 @@ func semacquire1(addr *uint32, lifo bool, profile semaProfileFlags, skipframes i
 
 ## release
 
-```go
+```go:no-line-numbers 
 unc semrelease(addr *uint32) {
   semrelease1(addr, false, 0)
 }

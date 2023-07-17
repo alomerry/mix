@@ -35,7 +35,7 @@ https://github.com/golang-design
 
 避免在循环中 defer 可能会造成生命周期变长，内存占用增加
 
-```go
+```go:no-line-numbers 
 func main() {
     for i := 0; i < 100; i++ {
         file, _ := os.Open(fmt.Sprintf("%v.txt", i))
@@ -108,7 +108,7 @@ func main() {
 
 ### Context 接口
 
-```go
+```go:no-line-numbers 
 type Context interface {
 // Deadline returns the time when work done on behalf of this context
 // should be canceled. Deadline returns ok==false when no deadline is
@@ -134,13 +134,13 @@ Value(key interface{}) interface{}
 要创建context树，第一步是要有一个根结点。`context.Background`
 函数的返回值是一个空的context，经常作为树的根结点，它一般由接收请求的第一个routine创建，不能被取消、没有值、也没有过期时间。
 
-```go
+```go:no-line-numbers 
 func Background() Context
 ```
 
 之后该怎么创建其它的子孙节点呢？context包为我们提供了以下函数：
 
-```go
+```go:no-line-numbers 
 func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
 func WithDeadline(parent Context, deadline time.Time) (Context, CancelFunc)
 func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
@@ -151,13 +151,13 @@ func WithValue(parent Context, key interface{}, val interface{}) Context
 
 `WithCancel`函数，返回一个额外的CancelFunc函数类型变量，该函数类型的定义为：
 
-```go
+```go:no-line-numbers 
 type CancelFunc func ()
 ```
 
 调用CancelFunc对象将撤销对应的Context对象，这样父结点的所在的环境中，获得了撤销子节点context的权利，当触发某些条件时，可以调用CancelFunc对象来终止子结点树的所有routine。在子节点的routine中，需要用类似下面的代码来判断何时退出routine：
 
-```go
+```go:no-line-numbers 
 select {
 case <-cxt.Done():
 // do some cleaning and return
@@ -177,7 +177,7 @@ case <-cxt.Done():
 
 #### 上下文数据的存储与查询
 
-```go
+```go:no-line-numbers 
 type valueCtx struct {
 Context
 key, val interface{}
@@ -209,7 +209,7 @@ context上下文数据的存储就像一个树，每个结点只存储一个key/
 
 `cancelCtx`中嵌入了父Context，实现了canceler接口：
 
-```go
+```go:no-line-numbers 
 type cancelCtx struct {
 Context // 保存parent Context
 done chan struct{}
@@ -230,7 +230,7 @@ Done() <-chan struct{}
 来终止所有的`cancelCtx`。`done`
 用来标识是否已被cancel。当外部触发cancel、或者父Context的channel关闭时，此done也会关闭。
 
-```go
+```go:no-line-numbers 
 type timerCtx struct {
 cancelCtx //cancelCtx.Done()关闭的时机：1）用户调用cancel 2）deadline到了 3）父Context的done关闭了
 timer    *time.Timer
@@ -273,7 +273,7 @@ PIC
 
 ### Overwrite Pointer Receiver in Method
 
-```go
+```go:no-line-numbers 
 package main
 
 import "fmt"
@@ -341,7 +341,7 @@ https://colobu.com/2020/12/27/go-with-os-exec/
 
 简单获取命令行参数的方式，演示代码如下：
 
-```go
+```go:no-line-numbers 
 func main() {
 for index, arg := range os.Args {
 fmt.Printf("arg[%v]=[%v]", index, arg)
@@ -358,7 +358,7 @@ arg[1]=[os.Args]
 arg[2]=[demo]
 ```
 
-```go
+```go:no-line-numbers 
 // A Flag represents the state of a flag.
 type Flag struct {
 Name     string // name as it appears on command line
@@ -368,7 +368,7 @@ DefValue string // default value (as text); for usage message
 }
 ```
 
-```go
+```go:no-line-numbers 
 // A FlagSet represents a set of defined flags. The zero value of a FlagSet
 // has no name and has ContinueOnError error handling.
 type FlagSet struct {
@@ -393,7 +393,7 @@ output        io.Writer // nil means stderr; use out() accessor
 
 ### 自定义类型
 
-```go
+```go:no-line-numbers 
 //自定义类型是定义了一个全新的类型
 //将MyInt定义为int类型
 type MyInt int
@@ -401,7 +401,7 @@ type MyInt int
 
 ### 类型别名
 
-```go
+```go:no-line-numbers 
 //类型别名规定：TypeAlias只是Type的别名，本质上TypeAlias与Type是同一个类型。
 type TypeAlias = Type
 type byte = uint8
@@ -410,7 +410,7 @@ type rune = int32
 
 ### 区别
 
-```go
+```go:no-line-numbers 
 //类型定义
 type NewInt int
 
@@ -531,7 +531,7 @@ Go 语言的 [`sync.Mutex`](https://draveness.me/golang/tree/sync.Mutex) 由两�
 互斥锁的状态比较复杂，如下图所示，最低三位分别表示 `mutexLocked`、`mutexWoken` 和 `mutexStarving`，剩下的位置用来表示当前有多少个
 Goroutine 在等待互斥锁的释放：
 
-```go
+```go:no-line-numbers 
 type Mutex struct {
 state int32
 sema  uint32
@@ -566,7 +566,7 @@ CPU 上并且可能有大量这样的协程），在这种情况下
 
 ##### 加锁和解锁
 
-```go
+```go:no-line-numbers 
 // 获取锁，如果锁已被使用，则会阻塞至一直可用
 func (m *Mutex) Lock() {
 // 如果锁未使用，则使用原子操作设置 m.state 为 mutexLocked
@@ -581,7 +581,7 @@ m.lockSlow()
 
 -
 
-```go
+```go:no-line-numbers 
 func (m *Mutex) lockSlow() {
 var waitStartTime int64
 starving := false
@@ -649,7 +649,7 @@ Notify 函数 https://blog.csdn.net/chuanglan/article/details/80750119
 
 简单获取命令行参数的方式，演示代码如下：
 
-```go
+```go:no-line-numbers 
 func main() {
 for index, arg := range os.Args {
 fmt.Printf("arg[%v]=[%v]", index, arg)
@@ -666,7 +666,7 @@ arg[1]=[os.Args]
 arg[2]=[demo]
 ```
 
-```go
+```go:no-line-numbers 
 // A Flag represents the state of a flag.
 type Flag struct {
 Name     string // name as it appears on command line
@@ -676,7 +676,7 @@ DefValue string // default value (as text); for usage message
 }
 ```
 
-```go
+```go:no-line-numbers 
 // A FlagSet represents a set of defined flags. The zero value of a FlagSet
 // has no name and has ContinueOnError error handling.
 type FlagSet struct {
@@ -701,7 +701,7 @@ output        io.Writer // nil means stderr; use out() accessor
 
 ### 自定义类型
 
-```go
+```go:no-line-numbers 
 //自定义类型是定义了一个全新的类型
 //将MyInt定义为int类型
 type MyInt int
@@ -709,7 +709,7 @@ type MyInt int
 
 ### 类型别名
 
-```go
+```go:no-line-numbers 
 //类型别名规定：TypeAlias只是Type的别名，本质上TypeAlias与Type是同一个类型。
 type TypeAlias = Type
 type byte = uint8
@@ -718,7 +718,7 @@ type rune = int32
 
 ### 区别
 
-```go
+```go:no-line-numbers 
 //类型定义
 type NewInt int
 
@@ -777,7 +777,7 @@ context 只读
 
 ### Context 接口
 
-<!-- ```go
+<!-- ```go:no-line-numbers 
 type Context interface {
 // Deadline returns the time when work done on behalf of this context
 // should be canceled. Deadline returns ok==false when no deadline is
@@ -803,13 +803,13 @@ Value(key interface{}) interface{}
 要创建 context 树，第一步是要有一个根结点。`context.Background`函数的返回值是一个空的 context，经常作为树的根结点，它一般由接收请求的第一个
 routine 创建，不能被取消、没有值、也没有过期时间。
 
-```go
+```go:no-line-numbers 
 func Background() Context
 ```
 
 之后该怎么创建其它的子孙节点呢？context 包为我们提供了以下函数：
 
-```go
+```go:no-line-numbers 
 func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
 func WithDeadline(parent Context, deadline time.Time) (Context, CancelFunc)
 func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
@@ -822,7 +822,7 @@ routine 了。
 
 `WithCancel`函数，返回一个额外的 CancelFunc 函数类型变量，该函数类型的定义为：
 
-```go
+```go:no-line-numbers 
 type CancelFunc func ()
 ```
 
@@ -830,7 +830,7 @@ type CancelFunc func ()
 CancelFunc 对象来终止子结点树的所有 routine。在子节点的
 routine 中，需要用类似下面的代码来判断何时退出 routine：
 
-```go
+```go:no-line-numbers 
 select {
 case <-cxt.Done():
 // do some cleaning and return
@@ -852,7 +852,7 @@ context 中设置 key/value，若 key
 
 #### 上下文数据的存储与查询
 
-```go
+```go:no-line-numbers 
 type valueCtx struct {
 Context
 key, val interface{}
@@ -884,7 +884,7 @@ context 上下文数据的存储就像一个树，每个结点只存储一个 ke
 
 `cancelCtx`中嵌入了父 Context，实现了 canceler 接口：
 
-```go
+```go:no-line-numbers 
 type cancelCtx struct {
 Context // 保存parent Context
 done chan struct{}
@@ -905,7 +905,7 @@ Done() <-chan struct{}
 来终止所有的`cancelCtx`。`done`用来标识是否已被
 cancel。当外部触发 cancel、或者父 Context 的 channel 关闭时，此 done 也会关闭。
 
-```go
+```go:no-line-numbers 
 type timerCtx struct {
 cancelCtx //cancelCtx.Done()关闭的时机：1）用户调用cancel 2）deadline到了 3）父Context的done关闭了
 timer    *time.Timer
@@ -943,7 +943,7 @@ PIC
 
 ### Case: 超时控制
 
-```go
+```go:no-line-numbers 
 workDone := make(chan struct{}, 1)
 go func () {
 LongTimeWork() // 要控制超时的函数
@@ -963,7 +963,7 @@ close 了。
 
 #### 式一
 
-```go
+```go:no-line-numbers 
 timeoutCh := make(chan struct{}, 1)
 go func () {
 time.Sleep(100 * time.Millisecond)  // 要控制超时的函数
@@ -973,7 +973,7 @@ timeoutCh <- struct{}{}
 
 #### 式二
 
-```go
+```go:no-line-numbers 
 select { //下面的case只执行最早到来的那一个
 case <-workDone: //LongTimeWork运行结束
 fmt.Println("LongTimeWork return")
@@ -986,7 +986,7 @@ fmt.Println("LongTimeWork timeout")
 
 go语言Context是一个接口，它的Done()成员方法返回一个管道。
 
-```go
+```go:no-line-numbers 
 type Context interface {
 Deadline() (deadline time.Time, ok bool)
 Done() <-chan struct{}
@@ -996,7 +996,7 @@ Value(key interface{}) interface{}
 
 cancelCtx是Context的一个具体实现，当调用它的cancle()函数时，会关闭Done()这个管道，<-Done()会解除阻塞。
 
-```go
+```go:no-line-numbers 
 ctx, cancel := context.WithCancel(context.Background())
 go func () {
 time.Sleep(100 * time.Millisecond)
@@ -1015,7 +1015,7 @@ fmt.Println("LongTimeWork timeout")
 跟式三类似，timerCtx也是Context的一个具体实现，当调用它的cancle()函数或者到达指定的超时时间后，都会关闭Done()这个管道，<
 -Done()会解除阻塞。
 
-```go
+```go:no-line-numbers 
 ctx, _ := context.WithTimeout(context.Background(), time.Millisecond*100)
 select { //下面的case只执行最早到来的那一个
 case <-workDone:
@@ -1035,7 +1035,7 @@ fmt.Println("LongTimeWork timeout")
 
 <!-- ### 数组和切片作为参数分别是值传递和引用传递
 
-```go
+```go:no-line-numbers 
 type Member struct {
 Name string
 }
@@ -1062,7 +1062,7 @@ members[0].Name = "B"
 
 ### for range 中的参数为值拷贝
 
-```go
+```go:no-line-numbers 
 func main() {
 arr1 := []int{1, 2, 3}
 arr2 := make([]*int, len(arr1))
@@ -1096,7 +1096,7 @@ fmt.Print(*v, " ")
 - defer 参数即时求值
 - defer 可以修改返回值
 
-```go
+```go:no-line-numbers 
 func count(i int) (n int) {
 defer func (i int) {
 n = n + i
@@ -1110,7 +1110,7 @@ return
 // 30
 ```
 
-```go
+```go:no-line-numbers 
 type Car struct {
 model string
 }
@@ -1156,12 +1156,12 @@ Car.model ），因为，接收者也同时是输入的参数，当使用 defer
 
 go 1.13.4 源码中的注释如下：
 
-```go
+```go:no-line-numbers 
 stdFracSecond0 // ".0", ".00", ... , trailing zeros included
 stdFracSecond9 // ".9", ".99", ..., trailing zeros omitted
 ```
 
-```go
+```go:no-line-numbers 
 ...
 case stdFracSecond0: // stdFracSecond0 requires the exact number of digits as specified in the layout.
 ...
@@ -1329,7 +1329,7 @@ https://studygolang.com/articles/23104
 
 ## 某个类型是否实现了某个接口
 
-```go
+```go:no-line-numbers 
 package main
 
 import (

@@ -11,7 +11,7 @@ tag:
 
 结构
 
-```go
+```go:no-line-numbers 
 // A _panic holds information about an active panic.
 //
 // A _panic value must only ever live on the stack.

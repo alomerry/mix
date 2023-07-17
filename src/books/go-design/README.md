@@ -25,7 +25,7 @@ date: 2022-02-14
 
 - 抽象语法树（abstract syntax tree, AST） 是源代码语法的结构的一种抽象表示，它用树状的方式表示编程语言的语法结构1。抽象语法树中的每一个节点都表示源代码中的一个元素，每一棵子树都表示一个语法元素
 - 静态单赋值（static single assignment） SSA 是中间代码的特性，如果中间代码具有静态单赋值特性，那么每个变量只会被赋值一次。
-  ```go
+  ```go:no-line-numbers
   x := 1
   x := 2
   y := x
@@ -50,7 +50,7 @@ date: 2022-02-14
 
 - 存储类型相同相同、大小不同的数组类型不一致
 
-```go
+```go:no-line-numbers
 // NewArray returns a new fixed-length array Type.
 func NewArray(elem *Type, bound int64) *Type {
   if bound < 0 {
@@ -67,7 +67,7 @@ func NewArray(elem *Type, bound int64) *Type {
 
 ##### 上限推导
 
-```go
+```go:no-line-numbers
 // The result of typecheckcomplit MUST be assigned back to n, e.g.
 //   n.Left = typecheckcomplit(n.Left)
 func typecheckcomplit(n *Node) (res *Node) {
@@ -283,7 +283,7 @@ return n
 
 ##### 语句转化
 
-```go
+```go:no-line-numbers
 func anylit(n *Node, var_ *Node, init *Nodes) {
 t := n.Type
 switch n.Op {
@@ -386,11 +386,11 @@ maplit(n, var_, init)
 
 检查数组越界
 
-```go
+```go:no-line-numbers
 func typecheck1(n *Node, top int) (res *Node) {
 ```
 
-```go
+```go:no-line-numbers
 // failures in the comparisons for s[x], 0 <= x < y (y == len(s))
 func goPanicIndex(x int, y int) {
 panicCheck1(getcallerpc(), "index out of range")
@@ -402,7 +402,7 @@ panic(boundsError{x: int64(x), signed: true, y: y, code: boundsIndex})
 
 切片在编译期生成的类型只会包含切片中的元素类型：
 
-```go
+```go:no-line-numbers
 func NewSlice(elem *Type) *Type {
 if t := elem.Cache.slice; t != nil {
 if t.Elem() != elem {
@@ -434,7 +434,7 @@ return t
 
 `arr[0:3] or slice[0:3]`，编译器会将语句转为 `OpSliceMake` 操作：
 
-```go
+```go:no-line-numbers
 func newSlice() []int {
 arr := [3]int{1, 2, 3}
 slice := arr[0:1]
@@ -455,7 +455,7 @@ name slice.cap[int]: v17
 
 ### 哈希表
 
-```go
+```go:no-line-numbers
 // A header for a Go map.
 type hmap struct {
   // Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.
@@ -493,7 +493,7 @@ type hmap struct {
 
 循环永动机
 
-```go
+```go:no-line-numbers
 func main() {
 arr := []int{1, 2, 3}
 for _, v := range arr {
@@ -510,7 +510,7 @@ $ go run main.go
 
 神奇的指针
 
-```go
+```go:no-line-numbers
 func main() {
 arr := []int{1, 2, 3}
 newArr := []*int{}
@@ -528,7 +528,7 @@ $ go run main.go
 
 遍历清空数组
 
-```go
+```go:no-line-numbers
 func main() {
 arr := []int{1, 2, 3}
 for i, _ := range arr {
@@ -539,7 +539,7 @@ arr[i] = 0
 
 随机遍历
 
-```go
+```go:no-line-numbers
 func main() {
 hash := map[string]int{
 "1": 1,
@@ -561,7 +561,7 @@ Go 语言中的经典循环在编译器看来是一个 `OFOR` 类型的节点，
 - 循环体结束时执行的 `Right`
 - 循环体 `NBody`
 
-```go
+```go:no-line-numbers
 for Ninit; Left; Right {
 NBody
 }
@@ -571,7 +571,7 @@ NBody
 中间代码的阶段，[`cmd/compile/internal/gc.state.stmt`](https://draveness.me/golang/tree/cmd/compile/internal/gc.state.stmt)
 方法在发现传入的节点类型是 `OFOR` 时会执行以下的代码块，这段代码会将循环中的代码分成不同的块：
 
-```go
+```go:no-line-numbers
 func (s *state) stmt(n *Node) {
 switch n.Op {
 case OFOR, OFORUNTIL:
@@ -607,7 +607,7 @@ s.startBlock(bEnd)
 3. 分析使用 `for i := range a {}` 遍历数组和切片，只关心索引的情况；
 4. 分析使用 `for i, elem := range a {}` 遍历数组和切片，关心索引和数据的情况；
 
-```go
+```go:no-line-numbers
 func walkrange(n *Node) *Node {
 switch t.Etype {
 case TARRAY, TSLICE:
@@ -621,7 +621,7 @@ Go
 [`cmd/compile/internal/gc.arrayClear`](https://draveness.me/golang/tree/cmd/compile/internal/gc.arrayClear) 会优化 Go
 语言遍历数组或者切片并删除全部元素的逻辑：
 
-```go
+```go:no-line-numbers
 // 原代码
 for i := range a {
 a[i] = zero

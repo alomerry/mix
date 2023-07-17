@@ -12,7 +12,7 @@ tag:
 
 ![golang-defer-link](https://img.draveness.me/2020-01-19-15794017184603-golang-defer-link.png)
 
-```go
+```go:no-line-numbers 
 type _defer struct {
     started bool
     heap    bool

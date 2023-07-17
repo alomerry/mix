@@ -31,7 +31,7 @@ date: 2023-02-21
 
 go1.20.2 编译过程
 
-```go
+```go:no-line-numbers
 func Main(archInit func(*ssagen.ArchInfo)) {
   // 初始化一些信息
 
@@ -242,7 +242,7 @@ type scanner struct {
 - nil 切片和空切片是否一样
 - 字符串转成 byte 数组，会发生内存拷贝吗
 
-```go
+```go:no-line-numbers
 // 该结构体有两个字段：一个指向字符串的字节数组的指针和字符串的长度。
 type stringStruct struct {
   str unsafe.Pointer
@@ -252,7 +252,7 @@ type stringStruct struct {
 - 翻转含有中文、数字、英文字母的字符串
 - 拷贝大切片一定比小切片代价大吗？
 
-```go
+```go:no-line-numbers
 type SliceHeader struct {
   Data uintptr
   Len  int
@@ -262,7 +262,7 @@ type SliceHeader struct {
 
 - map 不初始化使用
 
-```go
+```go:no-line-numbers
 可以对未初始化的map进行取值，但取出来的东西是空：不能对未初始化的map进行赋值，这样将会抛出一个异常：panic: assignment to entry in nil map
 ```
 

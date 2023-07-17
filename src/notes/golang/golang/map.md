@@ -16,7 +16,7 @@ tag:
 
 map 在运行时对应的结构是 `hmap`：
 
-```go
+```go:no-line-numbers 
 // A header for a Go map.
 type hmap struct {
     count      int // # live cells == size of map.
@@ -34,7 +34,7 @@ type hmap struct {
 - `count` 代表 map 中元素的数量
 - `flag` 为标识位
   
-  ```go
+  ```go:no-line-numbers 
   const (
     // flags
     iterator     = 1 // there may be an iterator using buckets

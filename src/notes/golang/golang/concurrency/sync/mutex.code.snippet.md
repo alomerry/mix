@@ -1,6 +1,6 @@
 [^runtime_Semrelease]:
 
-    ```go
+    ```go:no-line-numbers 
     // Semrelease atomically increments *s and notifies a waiting goroutine
     // if one is blocked in Semacquire.
     // It is intended as a simple wakeup primitive for use by the synchronization
@@ -13,7 +13,7 @@
 
 [^unlockSlow]:
 
-    ```go
+    ```go:no-line-numbers 
     func (m *Mutex) unlockSlow(new int32) {
       if (new+mutexLocked)&mutexLocked == 0 {
         fatal("sync: unlock of unlocked mutex")
@@ -51,7 +51,7 @@
 
 [^sync_runtime_canSpin]:
 
-    ```go
+    ```go:no-line-numbers 
     // Active spinning for sync.Mutex.
     //
     //go:linkname sync_runtime_canSpin sync.runtime_canSpin
@@ -74,7 +74,7 @@
 
 [^Lock]:
 
-    ```go
+    ```go:no-line-numbers 
     // Lock locks m.
     // If the lock is already in use, the calling goroutine
     // blocks until the mutex is available.
@@ -93,7 +93,7 @@
 
 [^lockSlow]:
 
-    ```go
+    ```go:no-line-numbers 
     func (m *Mutex) lockSlow() {
       var waitStartTime int64
       starving := false

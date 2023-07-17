@@ -48,7 +48,7 @@ type roundRobin struct {
 
 #### roundRobin 启动
 
-```go
+```go:no-line-numbers
 func (rr *roundRobin) Start(target string, config BalancerConfig) error {
 rr.mu.Lock()
 defer rr.mu.Unlock()
@@ -82,7 +82,7 @@ return nil
 
 #### 监听命名解析器的地址变化：
 
-```go
+```go:no-line-numbers
 func (rr *roundRobin) watchAddrUpdates() error {
 // watcher的next方法会阻塞，直至有地址变化信息过来，updates即为变化信息
 updates, err := rr.w.Next()
@@ -147,7 +147,7 @@ return nil
 
 up 方法是 grpc 内部负载均衡 watcher 调用的，该 watcher 会读全局的连接状态改变队列，如果是 ready 状态的连接，会调用 up 方法来改变 addrs 地址数组中该地址的状态为**已连接**。
 
-```go
+```go:no-line-numbers
 func (rr *roundRobin) Up(addr Address) func (error) {
 rr.mu.Lock()
 defer rr.mu.Unlock()
@@ -181,7 +181,7 @@ rr.down(addr, err)
 
 down 方法就简单了, 直接找到 addr 置为不可用就行了。
 
-```go
+```go:no-line-numbers
 //如果addr1已经被连接上了，但是resolver通知删除了，grpc内部如何处理关闭的逻辑？
 func (rr *roundRobin) down(addr Address, err error) {
 rr.mu.Lock()
@@ -200,7 +200,7 @@ break
 client 需要获取一个可用的地址，如果 addrs 为空，或者 addrs 不为空，但是地址都不可用（没连接），Get()方法会返回错误。但是如果设置了 failfast = false，Get()方法会阻塞在 waitCh
 channel 上，直至 Up 方法给到通知，然后轮询调度可用的地址。
 
-```go
+```go:no-line-numbers
 func (rr *roundRobin) Get(ctx context.Context, opts BalancerGetOptions) (addr Address, put func (), err error) {
 var ch chan struct{}
 rr.mu.Lock()
@@ -305,7 +305,7 @@ rr.mu.Unlock()
 lbWatcher 会监听地址变化信息，roundroubin 每次有地址变化时，会将所有的地址通知给 lbWatcher，lbWatcher 本身维护了地址连接的 map
 表，会找出新添加的地址和需要删除的地址，然后做连接、关闭操作，再调用 roundRobin 的 Up/Down 方法通知连接的状态。
 
-```go
+```go:no-line-numbers
 func (bw *balancerWrapper) lbWatcher() {
 notifyCh := bw.balancer.Notify()
 if notifyCh == nil {
@@ -450,7 +450,7 @@ resolver 是如何工作的，以及我们如何在项目中，使用 resolver �
 
 首先，创建了一个 clientConn 对象，并把 target 赋给了对象中的 target：
 
-```go
+```go:no-line-numbers
   cc := &ClientConn{
 target:            target,
 csMgr:             &connectivityStateManager{},
@@ -464,13 +464,13 @@ firstResolveEvent: grpcsync.NewEvent(),
 
 接下来，对这个 target 进行解析
 
-```go
+```go:no-line-numbers
 cc.parsedTarget = grpcutil.ParseTarget(cc.target)
 ```
 
 我们可以看看 ParseTarget 这个函数做了些什么：
 
-```go
+```go:no-line-numbers
 // ParseTarget splits target into a resolver.Target struct containing scheme,
 // authority and endpoint.
 //
@@ -494,7 +494,7 @@ return ret
 的一个标识，authority 的话，我们的项目中并没有用，我也并不能完全理解，所以这里贴上[官方文档](https://github.com/grpc/grpc/blob/master/doc/naming.md)
 给出的一行解释，大家自行体会去吧。。
 
-```go
+```go:no-line-numbers
 authority indicates the DNS server to use, although this is only supported by some implementations.(In C-core, the default DNS resolver does not support this, but the c-ares based resolver supports specifying this in the form "IP:port".)
 ```
 
@@ -502,13 +502,13 @@ authority indicates the DNS server to use, although this is only supported by so
 
 解析完 target 之后执行的是下面这一句：
 
-```go
+```go:no-line-numbers
 resolverBuilder := cc.getResolver(cc.parsedTarget.Scheme)
 ```
 
 也就是在根据解析的结果，包括 scheme 和 endpoint 这两个参数，获取一个 resolver 的 builder，我们来看看获取的逻辑是怎么样的：
 
-```go
+```go:no-line-numbers
 func (cc *ClientConn) getResolver(scheme string) resolver.Builder {
 for _, rb := range cc.dopts.resolvers {
 if scheme == rb.Scheme() {
@@ -522,7 +522,7 @@ return resolver.Get(scheme)
 这里呢，其实就是在根据 scheme 进行查找，如果 resolver 已经在调用 DialContext 的时候通过 opts 参数传了进来，那我们就直接用，否则调用 resolver.Get(scheme)去找，我们项目中就是用的
 resolver.Get(scheme)，所以我们再来看看这里是怎么做的：
 
-```go
+```go:no-line-numbers
 // Get returns the resolver builder registered with the given scheme.
 //
 // If no builder is register with the scheme, nil will be returned.
@@ -536,7 +536,7 @@ return nil
 
 这里面，Get 函数是通过 m 这个 map，去查找有没有 scheme 对应的 resolver 的 builder，那么 m 这个 map 是什么时候插入的值呢？这个在 resolver 的 Register 函数里：
 
-```go
+```go:no-line-numbers
 func Register(b Builder) {
 m[b.Scheme()] = b
 }
@@ -546,7 +546,7 @@ m[b.Scheme()] = b
 ，这个看名字就理解了，就是透传，所谓透传就是，什么都不做，那么什么时候需要透传呢？当你调用 DialContext 的时候，如果传入的 target 本身就是一个 ip+port，这个时候，自然就不需要再解析什么了。那么"
 passthrough"对应的这个默认的解析器是什么时候注册到 m 这个 map 中的呢？这个调用在 passthrough 包的 init 函数里
 
-```go
+```go:no-line-numbers
 func init() {
 resolver.Register(&passthroughBuilder{})
 }
@@ -562,7 +562,7 @@ resolver.Register(&passthroughBuilder{})
 
 再回到 DialContext 这个函数，在通过 getResolver 获取 resolver 的 builder 之后，如果结果为 nil，也就是没找到，会怎么样呢？
 
-```go
+```go:no-line-numbers
   resolverBuilder := cc.getResolver(cc.parsedTarget.Scheme)
 if resolverBuilder == nil {
 // If resolver builder is still nil, the parsed target's scheme is
@@ -582,7 +582,7 @@ return nil, fmt.Errorf("could not get resolver for default scheme: %q", cc.parse
 
 可以看到，scheme 会被设置为默认的 scheme，这个默认的 scheme 又是啥呢？
 
-```go
+```go:no-line-numbers
 defaultScheme = "passthrough"
 ```
 
@@ -590,7 +590,7 @@ defaultScheme = "passthrough"
 
 接下来，DialContext 函数会使用获取到的 resolver 的 builder，构建一个 resolver，并将其赋给 cc 这个对象：
 
-```go
+```go:no-line-numbers
     // Build the resolver.
 rWrapper, err := newCCResolverWrapper(cc, resolverBuilder)
 if err != nil {
@@ -603,7 +603,7 @@ cc.mu.Unlock()
 
 而使用 builder 构建 resolver 的时候又做了什么呢？我们再来看看 newCCResolverWrapper 函数：
 
-```go
+```go:no-line-numbers
 // newCCResolverWrapper uses the resolver.Builder to build a Resolver and
 // returns a ccResolverWrapper object which wraps the newly built resolver.
 func newCCResolverWrapper(cc *ClientConn, rb resolver.Builder) (*ccResolverWrapper, error) {
@@ -640,7 +640,7 @@ return ccr, nil
 
 这个函数最重要的一行，就是调用了我们传入的 builder 的 Build 方法，也就是这一行：
 
-```go
+```go:no-line-numbers
 ccr.resolver, err = rb.Build(cc.parsedTarget, ccr, rbo)
 ```
 
@@ -654,7 +654,7 @@ ccr.resolver, err = rb.Build(cc.parsedTarget, ccr, rbo)
 池的用法，内容较多，本篇就先不探讨了，以后我会单独写一篇。除了我们自己创建，我们使用 protoc 为我们生成的客户端接口里，也会为我们实现 stream 的创建，也就是说这个完全是可以不用我们自己费心的，我们随便看一个 protoc
 生成的客户端接口：
 
-```go
+```go:no-line-numbers
 func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
 out := new(HelloReply)
 err := c.cc.Invoke(ctx, "/helloworld.Greeter/SayHello", in, out, opts...)
@@ -667,7 +667,7 @@ return out, nil
 
 这里，请求是通过 Invoke 函数发出的，所以接着看 Invoke：
 
-```go
+```go:no-line-numbers
 func (cc *ClientConn) Invoke(ctx context.Context, method string, args, reply interface{}, opts ...CallOption) error {
 // allow interceptor to see all applicable call options, which means those
 // configured as defaults from dial option as well as per-call options
@@ -682,7 +682,7 @@ return invoke(ctx, method, args, reply, cc, opts...)
 
 在没有设置拦截器的情况下，会直接调 invoke：
 
-```go
+```go:no-line-numbers
 func invoke(ctx context.Context, method string, req, reply interface{}, cc *ClientConn, opts ...CallOption) error {
 cs, err := newClientStream(ctx, unaryStreamDesc, cc, method, opts...)
 if err != nil {
@@ -719,7 +719,7 @@ return cs.RecvMsg(reply)
 
 首先，这一段实现了连接的创建：
 
-```go
+```go:no-line-numbers
 newTr, addr, reconnect, err := ac.tryAllAddrs(addrs, connectDeadline)
 if err != nil {
 // After exhausting all addresses, the addrConn enters
@@ -754,7 +754,7 @@ continue
 这里调用的 tryAllAddrs 函数很好理解，就是把 resolver 解析结果中的 addr 全试一遍，知道和其中一个 addr 成功建立连接，如果失败，会等待一个退避时间，然后重试，需要注意的是，重试的时候，要经过
 resetTransport 函数最开头的这段：
 
-```go
+```go:no-line-numbers
 if i > 0 {
 ac.cc.resolveNow(resolver.ResolveNowOptions{})
 }
@@ -765,7 +765,7 @@ ac.cc.resolveNow(resolver.ResolveNowOptions{})
 上面说的是如果第一次连接就建立失败的情况，这种其实不太常见，常见的是连接建立之后，后端的服务因为网络故障或者升级之类的原因导致的连接断开，这种情况下 grpc 是如何发现的呢？要搞明白这个，就要看下 tryAllAddrs 函数里面调用的
 createTransport 函数的内容了：
 
-```go
+```go:no-line-numbers
 onGoAway := func (r transport.GoAwayReason) {
 ac.mu.Lock()
 ac.adjustParams(r)
@@ -804,7 +804,7 @@ http2client 对象中，那么这两个函数何时会被触发呢？
 
 以 onGoAway 函数为例，我们可以看看 http2client 的 reader 方法：
 
-```go
+```go:no-line-numbers
 func (t *http2Client) reader() {
 defer close(t.readerDone)
 // Check the validity of server preface.
@@ -878,7 +878,7 @@ errorf("transport: http2Client.reader got unhandled frame type %v.", frame)
 可以看到，reader 方法会读取连接上的所有消息，如果是 GoAway 类型，则会调用上面我们设置的 onGoAway，而 onGoAway 函数里的 reconnect.Fire()，会触发 reconnect
 这个事件，这个事件被触发会怎么样呢？我们再回到 resetTransport 函数，这个函数在连接成功创建之后，会阻塞在这里：
 
-```go
+```go:no-line-numbers
 // Block until the created transport is down. And when this happens,
 // we restart from the top of the addr list.
 <-reconnect.Done()
@@ -908,7 +908,7 @@ GET http://myself.dns.xyz?service=service.order
 
 我们先来实现 resolver：
 
-```go
+```go:no-line-numbers
 type mydnsResolver struct {
 domain       string
 port         string
@@ -973,7 +973,7 @@ return addresses, nil
 
 再来实现 builder：
 
-```go
+```go:no-line-numbers
 type mydnsBuilder struct {
 }
 
@@ -1014,7 +1014,7 @@ return mr, nil
 
 接下来我们还要实现，当这个包初始化时，将 scheme 注册到 grpc 的解析器 map 中：
 
-```go
+```go:no-line-numbers
 func init() {
 resolver.Register(NewBuilder())
 }
@@ -1022,7 +1022,7 @@ resolver.Register(NewBuilder())
 
 实现好这个包之后，我们只需要在调用 Dial 的文件 import mydns 这个包，并且保证传入的 target 满足以下格式：
 
-```go
+```go:no-line-numbers
 mydns: //service.order
 ```
 
@@ -1039,7 +1039,7 @@ Reference:[grpc 进阶篇之 resolver](https://blog.csdn.net/u013536232/article/
 
 服务端
 
-```go
+```go:no-line-numbers
 var kaep = keepalive.EnforcementPolicy{
 MinTime:             5 * time.Second, // If a client pings more than once every 5 seconds, terminate the connection
 PermitWithoutStream: true, // Allow pings even when there are no active streams
@@ -1058,7 +1058,7 @@ server := grpc.NewServer(grpc.KeepaliveEnforcementPolicy(kaep), grpc.KeepalivePa
 
 客户端
 
-```go
+```go:no-line-numbers
 var kacp = keepalive.ClientParameters{
 Time:                10 * time.Second, // send pings every 10 seconds if there is no activity
 Timeout:             time.Second, // wait 1 second for ping ack before considering the connection dead

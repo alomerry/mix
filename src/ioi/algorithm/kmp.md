@@ -16,7 +16,7 @@ tag:
 
 以朴素或者说暴力的方式解决上面的问题，应该是使用双重循环：
 
-```go
+```go:no-line-numbers
 for i := range s {
     si := i
     for j := range p {

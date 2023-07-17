@@ -1,6 +1,6 @@
 [^freedefer]:
 
-    ```go
+    ```go:no-line-numbers 
     // Free the given defer.
     // The defer cannot be used after this call.
     //
@@ -58,7 +58,7 @@
 
 [^deferCallSave]:
 
-    ```go
+    ```go:no-line-numbers 
     // deferCallSave calls fn() after saving the caller's pc and sp in the
     // panic record. This allows the runtime to return to the Goexit defer
     // processing loop, in the unusual case where the Goexit may be
@@ -82,7 +82,7 @@
 
 [^openDeferRecord]:
 
-    ```go
+    ```go:no-line-numbers 
     func (s *state) openDeferRecord(n *ir.CallExpr) {
       if len(n.Args) != 0 || n.Op() != ir.OCALLFUNC || n.X.Type().NumResults() != 0 {
         s.Fatalf("defer call with arguments or results: %v", n)
@@ -115,7 +115,7 @@
 
 [^emitOpenDeferInfo]:
 
-    ```go
+    ```go:no-line-numbers 
     // emitOpenDeferInfo emits FUNCDATA information about the defers in a function
     // that is using open-coded defers.  This funcdata is used to determine the active
     // defers in a function and execute those defers during panic processing.
@@ -147,7 +147,7 @@
 
 [^openDeferInfo]:
 
-    ```go
+    ```go:no-line-numbers 
     // Information about each open-coded defer.
     type openDeferInfo struct {
       // The node representing the call of the defer
@@ -164,7 +164,7 @@
 
 [^goDeferStmt]:
 
-    ```go
+    ```go:no-line-numbers 
     // goDeferStmt analyzes a "go" or "defer" statement.
     //
     // In the process, it also normalizes the statement to always use a
@@ -240,7 +240,7 @@
 
 [^deferprocStack]:
 
-    ```go
+    ```go:no-line-numbers 
     // deferprocStack queues a new deferred function with a defer record on the stack.
     // The defer record must have its fn field initialized.
     // All other fields can contain junk.
@@ -287,7 +287,7 @@
 
 [^StaticAuxCall]:
 
-    ```go
+    ```go:no-line-numbers 
     // StaticAuxCall returns an AuxCall for a static call.
     func StaticAuxCall(sym *obj.LSym, paramResultInfo *abi.ABIParamResultInfo) *AuxCall {
       if paramResultInfo == nil {
@@ -303,7 +303,7 @@
 
 [^deferstruct]:
 
-    ```go
+    ```go:no-line-numbers 
     // deferstruct makes a runtime._defer structure.
     func deferstruct() *types.Type {
       makefield := func(name string, typ *types.Type) *types.Field {
@@ -342,7 +342,7 @@
 
 [^state.call.stack]:
 
-    ```go
+    ```go:no-line-numbers 
     // Calls the function n using the specified call type.
     // Returns the address of the return value (or nil if none).
     func (s *state) call(n *ir.CallExpr, k callKind, returnResultAddr bool) *ssa.Value {
@@ -472,7 +472,7 @@
 
 [^buildssa]:
 
-    ```go
+    ```go:no-line-numbers 
     // buildssa builds an SSA function for fn.
     // worker indicates which of the backend workers is doing the processing.
     func buildssa(fn *ir.Func, worker int) *ssa.Func {
@@ -557,7 +557,7 @@
 
 [^maxOpenDefers]:
 
-    ```go
+    ```go:no-line-numbers 
     // The max number of defers in a function using open-coded defers. We enforce this
     // limit because the deferBits bitmask is currently a single byte (to minimize code size)
     const maxOpenDefers = 8
@@ -565,7 +565,7 @@
 
 [^runOpenDeferFrame]:
 
-    ```go
+    ```go:no-line-numbers 
     // runOpenDeferFrame runs the active open-coded defers in the frame specified by
     // d. It normally processes all active defers in the frame, but stops immediately
     // if a defer does a successful recover. It returns true if there are no
@@ -609,7 +609,7 @@
 
 [^newdefer]:
 
-    ```go
+    ```go:no-line-numbers 
     // Allocate a Defer, usually using per-P pool.
     // Each defer must be released with freedefer.  The defer is not
     // added to any defer chain yet.
@@ -646,7 +646,7 @@
 
 [^state.exit]:
 
-    ```go
+    ```go:no-line-numbers 
     // exit processes any code that needs to be generated just before returning.
     // It returns a BlockRet block that ends the control flow. Its control value
     // will be set to the final memory state.
@@ -717,7 +717,7 @@
 
 [^defer]:
 
-    ```go
+    ```go:no-line-numbers 
     type _defer struct {
         started bool
         heap    bool
@@ -747,7 +747,7 @@
 
 [^deferproc]:
 
-    ```go
+    ```go:no-line-numbers 
     // Create a new deferred function fn, which has no arguments and results.
     // The compiler turns a defer statement into a call to this.
     func deferproc(fn func()) {
@@ -784,7 +784,7 @@
 
 [^deferreturn]:
 
-    ```go
+    ```go:no-line-numbers 
     // deferreturn runs deferred functions for the caller's frame.
     // The compiler inserts a call to this at the end of any
     // function which calls defer.
@@ -823,7 +823,7 @@
 
 [^walkStmt.ODERFER]:
 
-    ```go
+    ```go:no-line-numbers 
     case ir.OCASE:
       ...
     case ir.ODEFER:
@@ -849,7 +849,7 @@
 
 [^stmt.ODERFER]:
 
-    ```go
+    ```go:no-line-numbers 
     // stmt converts the statement n to SSA and adds it to s.
     func (s *state) stmt(n ir.Node) {
       ...
@@ -885,7 +885,7 @@
 
 [^state.call]:
 
-    ```go
+    ```go:no-line-numbers 
     // Calls the function n using the specified call type.
     // Returns the address of the return value (or nil if none).
     func (s *state) call(n *ir.CallExpr, k callKind, returnResultAddr bool) *ssa.Value {

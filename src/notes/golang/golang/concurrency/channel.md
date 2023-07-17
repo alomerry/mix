@@ -1,5 +1,5 @@
 ---
-enableFootnotePopup: false
+enableFootnotePopup: true
 date: 2023-07-17
 tag:
   - golang
@@ -7,15 +7,11 @@ tag:
 
 # channel
 
-hchan
+分为只读、只写和可读可写，也可以分为带缓冲区和不带缓冲区
 
-http://go.cyub.vip/concurrency/channel.html
+channel 的运行时结构为 hchan
 
-https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-select/
-
-![channel](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/hchan.png)
-
-```go
+```go:no-line-numbers 
 type hchan struct {
   qcount   uint           // total data in the queue
   dataqsiz uint           // size of the circular queue
@@ -38,9 +34,33 @@ type hchan struct {
 }
 ```
 
+- qcount channel 中的元素个数
+- dataqsize channel 中的缓冲区数量
+- buf 缓冲区数组地址
+- elemtype 通道元素的类型
+- elemsize 通道元素大小
+- closed channel 是否关闭
+- sendx 缓冲区发送位标记，循环队列中的队首指针
+- recvx 缓冲区读取位标记，循环队列中的队尾指针
+- recvq 阻塞的读等待队列
+- sendq 阻塞的写等待队列
+- lock 互斥锁
+
+循环队列一般使用空余单元法来解决队空和队满时候都存在 `font = rear` 带来的二义性问题，但这样会浪费一个单元。golang 的 channel 中是通过增加 qcount 字段记录队列长度来解决二义性，一方面不会浪费一个存储单元，另一方面当使用len函数查看通道长度时候，可以直接返回qcount字段。
+
+recvq 和 sendq 分别存储了等待从通道中接收数据的 goroutine 和等待发送数据到通道的 goroutine，两者都是 waitq[^waitq] 类型
+
+
+
+http://go.cyub.vip/concurrency/channel.html
+
+https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-select/
+
+![channel](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/hchan.png)
+
 ## sudog
 
-```go
+```go:no-line-numbers 
 // sudog represents a g in a wait list, such as for sending/receiving
 // on a channel.
 //
@@ -90,7 +110,7 @@ type sudog struct {
 
 ## selectgo
 
-```go
+```go:no-line-numbers 
 // selectgo implements the select statement.
 //
 // cas0 points to an array of type [ncases]scase, and order0 points to
@@ -504,4 +524,6 @@ sclose:
 }
 ```
 
-##
+## Reference
+
+<!-- @include: ./channel.code.snippet.md -->
