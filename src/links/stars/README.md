@@ -41,6 +41,10 @@
   name: 幼麟实验室
   desc: 做点儿形象通透的编程教程。
   link: https://www.zhihu.com/people/kylin-lab/
+- icon: https://www.luozhiyun.com/favicon.ico
+  name: luozhiyun`s Blog
+  desc: xxx
+  link: https://www.luozhiyun.com/
 ```
 
 :::
@@ -106,7 +110,7 @@ https://webgradients.com/
   desc: 阿里巴巴矢量图标库。
   link: https://www.iconfont.cn/
 
-## 指南 
+## 指南
 
 https://github.com/byoungd/English-level-up-tips https://www.v2ex.com/t/425450
 

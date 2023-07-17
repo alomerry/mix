@@ -1,3 +1,10 @@
+---
+enableFootnotePopup: false
+date: 2023-07-17
+tag:
+  - golang
+---
+
 # channel
 
 hchan

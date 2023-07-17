@@ -1,7 +1,7 @@
 ---
 date: 2023-07-17
-enableFootnotePopup: true
-tag: 
+enableFootnotePopup: false
+tag:
   - golang
 ---
 
