@@ -24,15 +24,14 @@ type hchan struct {
   recvq    waitq  // list of recv waiters
   sendq    waitq  // list of send waiters
 
-  // lock protects all fields in hchan, as well as several
-  // fields in sudogs blocked on this channel.
-  //
   // Do not change another G's status while holding this lock
   // (in particular, do not ready a G), as this can deadlock
   // with stack shrinking.
   lock mutex
 }
 ```
+
+<!-- ![hchan-struct](@CDN/hchan-struct.png) -->
 
 - qcount channel 中的元素个数
 - dataqsize channel 中的缓冲区数量
@@ -46,17 +45,27 @@ type hchan struct {
 - sendq 阻塞的写等待队列
 - lock 互斥锁
 
-循环队列一般使用空余单元法来解决队空和队满时候都存在 `font = rear` 带来的二义性问题，但这样会浪费一个单元。golang 的 channel 中是通过增加 qcount 字段记录队列长度来解决二义性，一方面不会浪费一个存储单元，另一方面当使用len函数查看通道长度时候，可以直接返回qcount字段。
+循环队列一般使用空余单元法来解决队空和队满时候都存在 `font = rear` 带来的二义性问题，但这样会浪费一个单元。golang 的 channel 中是通过增加 qcount 字段记录队列长度来解决二义性，一方面不会浪费一个存储单元，另一方面当使用len函数查看通道长度时候，可以直接返回 qcount 字段。
 
 recvq 和 sendq 分别存储了等待从通道中接收数据的 goroutine 和等待发送数据到通道的 goroutine，两者都是 waitq[^waitq] 类型
 
+> 伪共享 false share
 
+- https://zhuanlan.zhihu.com/p/55917869
+- https://zh.wikipedia.org/wiki/%E4%BC%AA%E5%85%B1%E4%BA%AB
+- https://www.cnblogs.com/cyfonly/p/5800758.html
 
 http://go.cyub.vip/concurrency/channel.html
 
 https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-select/
 
 ![channel](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/hchan.png)
+
+
+`ch := make(chan int, 5)` 在运行时调用的是 `makechan`[^makechan.switch] 函数。
+
+- 通道数据元素不含指针，hchan和buf内存空间调用mallocgc一次性分配完成
+- 当通道数据元素含指针时候，先创建hchan，然后给buf分配内存空间
 
 ## sudog
 
