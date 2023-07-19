@@ -7,8 +7,20 @@ tag:
 
 # 协程
 
-## 流程
+## bootstrap
 
+:::tips
+// The bootstrap sequence is:
+//
+//	call osinit
+//	call schedinit
+//	make & queue new G
+//	call runtime·mstart
+//
+// The new G calls runtime·main.
+```
+
+## 流程
 
 ```go
 funA() {
@@ -18,6 +30,7 @@ main() {
   go funA()
   time.sleep(xxx)
 }
+```
 
 ```
 _rt0_amd64_linux
@@ -64,7 +77,7 @@ mstart -> schedule()
               m.curg = nil
               ...
               schedule()
-```  
+```
 
 ```go
 *runtime.goready
@@ -122,7 +135,10 @@ var (
 )
 ```
 
+## netpoll 网络轮询器
+
+## sysmon 系统监控
+
 ## Reference
 
 - http://go.cyub.vip/index.html
-
