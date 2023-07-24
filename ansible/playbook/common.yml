@@ -1,0 +1,4 @@
+- hosts: tencent-cvm
+  remote_user: ubuntu
+  roles:
+  - common

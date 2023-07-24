@@ -1,0 +1,35 @@
+https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos/credentials
+
+
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
+  numExecutors: 2
+  scmCheckoutRetryCount: 2
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: true
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+        - usernamePassword:
+              scope: GLOBAL
+              id: "tencent-vps-admin"
+              username: "root"
+              password: "${SOME_USER_PASSWORD}"
+              description: "tencent-vps-admin"
+        - string:
+              scope: GLOBAL
+              id: "	jenkins-git-webhook-token"
+              secret: "${SECRET_TEXT}"
+              description: "	jenkins-git-webhook-token"
+        - string:
+              scope: GLOBAL
+              id: "cdn-domain"
+              secret: "${SECRET_TEXT}"
+              description: "cdn-domain"
+        - string:
+              scope: GLOBAL
+              id: "bark-notification-device-iPhone12"
+              secret: "${?????}"
+              description: "bark-notification-device-iPhone12"
