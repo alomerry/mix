@@ -18,7 +18,12 @@ tag:
 - [ ] https://www.mafeifan.com/DevOps/Jenkins/Jenkins2-%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9727----pipeline-%E4%B8%AD-Docker-%E6%93%8D%E4%BD%9C.html
 - [ ] https://docs.cloudbees.com/docs/admin-resources/latest/plugins/docker-workflow
 - [ ] https://www.jenkins.io/zh/doc/book/pipeline/docker/ -->
+https://www.jenkinschina.com/tags/#Jenkins
 
+备份和迁移 https://www.jenkins.io/doc/book/system-administration/backing-up/
+
+todo configuration-as-code https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos/credentials
+     https://cloud.tencent.com/developer/article/1851872
 
 ## 升级 Jenkins
 
