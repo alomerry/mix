@@ -31,7 +31,7 @@ type hchan struct {
 }
 ```
 
-<!-- ![hchan-struct](@CDN/hchan-struct.png) -->
+<!-- ![hchan-struct](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/hchan-struct.png) -->
 
 - qcount channel 中的元素个数
 - dataqsize channel 中的缓冲区数量

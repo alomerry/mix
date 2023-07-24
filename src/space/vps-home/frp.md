@@ -1,11 +1,10 @@
 ---
-description: frp、rustDesk
 date: 2022-06-17
 tag:
   - frp
 ---
 
-# 远控局域网搭建
+# 远控局域网/内网穿透搭建
 
 ## 起因
 
@@ -13,47 +12,40 @@ tag:
 
 但是由于六月份的时候换了地方，宽带没有 IPv6 了之后尝试 frp 之后记录一下过程，这次仅使用 TCP 的方式。
 
-## frp
+## [frp](https://github.com/fatedier/frp)
 
-### 配置
+::: code-tabs#server
 
-#### server 配置
-
-frps.ini
+@tab server
 
 ```ini
 [common]
 bind_port = 7000
 bind_udp_port = 7000
 dashboard_port = 7500
-dashboard_user = ******
-dashboard_pwd = ******
-token = <自定义签名>
-subdomain_host = <服务器域名>
+dashboard_user = xxx
+dashboard_pwd = xxx
+token = 令牌
+subdomain_host = 服务器域名
 ```
 
-#### client 配置
-
-frpc.ini
+@tab client
 
 ```ini
 [common]
-token = <自定义签名>
-server_addr = <服务器 IP>
+token = 令牌
+server_addr = 服务器 IP
 server_port = 7000
 admin_addr = 127.0.0.1
 admin_port = 7400
-admin_user = ******
-admin_pwd = ******
-
-[ssh]
-type = tcp
-local_ip = 127.0.0.1
-local_port = 22
-remote_port = <remote_port>
-use_encryption = true
-use_compression = true
+admin_user = xxx
+admin_pwd = xxx
+includes = xxx.ini
+log_file = xxx.log
+log_max_days = 1
 ```
+
+:::
 
 ### 设置自启
 
@@ -69,7 +61,7 @@ Wants=network.target
 Type=simple
 Restart=on-failure
 RestartSec=5s
-ExecStart=/home/alomerry-home/Applications/frp_0.43/frpc -c /home/alomerry-home/Applications/frp_0.43/frpc.ini
+ExecStart=${frpc bin path} -c ${frpc config ini path}
 
 [Install]
 WantedBy=multi-user.target
@@ -89,16 +81,6 @@ WantedBy=multi-user.target
      CGroup: /system.slice/frpc.service
              └─3909 /home/alomerry-home/Applications/frp_0.43/frpc -c /home/alomerry-home/Applications/frp_0.43/frpc.ini
 ```
-
-### 配置 xtcp
-
-### 断连邮件提醒
-
-## RustDesk
-
-### QA
-
-- mac 远控 linux 时键盘不生效需要开启输入检测权限
 
 ## Reference
 

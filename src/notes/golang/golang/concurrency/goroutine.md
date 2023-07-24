@@ -7,6 +7,8 @@ tag:
 
 # 协程
 
+## IO 多路复用
+
 ## bootstrap
 
 :::tips
@@ -18,7 +20,7 @@ tag:
 //	call runtime·mstart
 //
 // The new G calls runtime·main.
-```
+:::
 
 ## 流程
 
@@ -32,7 +34,7 @@ main() {
 }
 ```
 
-```
+```go
 _rt0_amd64_linux
 _rt0_amd64_windows
 ...
@@ -63,7 +65,7 @@ mstart -> schedule()
       exit()
 ```
 
-```
+```go
 *gopark
   acquirem
   ...

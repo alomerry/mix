@@ -157,15 +157,15 @@ No analytics data has been sent yet (nor will any be during this install run).
 
 :::
 
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=http://127.0.0.1:7890
+
 ## linux
 
 ## windows
 
 ## 多平台
 
-### [oh-my-zsh](https://ohmyz.sh/)
-
-### 安装
+### zsh/[oh-my-zsh](https://ohmyz.sh/)
 
 - ubuntu 安装 `sudo apt-get install -y zsh`
 - mac os 安装 
@@ -173,6 +173,7 @@ No analytics data has been sent yet (nor will any be during this install run).
   - 镜像安装 `REMOTE=https://gitee.com/mirrors/oh-my-zsh.git sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"`
   - 镜像安装 `sh -c "$(wget -O- https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"`
 
+install oh-my-zsh `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 ### 必备插件安装
   - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)

@@ -25,22 +25,13 @@ docker push
 
 https://yeasy.gitbook.io/docker_practice/image/multistage-builds/laravel
 
-## Docker
+## [Install](https://docs.docker.com/engine/install/ubuntu/)
 
-### Install [^install-docker]
+添加当前账号到 sudoer 避免 docker 操作需要 sudo
 
-- `sudo apt-get remove docker docker-engine docker.io containerd runc`
-- `sudo apt-get update`
-- `xxxa`
-- `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg`
-- `echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null`
-- `sudo apt-get update`
-- `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
-- `sudo docker run hello-world`
-
-- [设置阿里云镜像加速服务]((https://help.aliyun.com/document_detail/60750.html))
+- `sudo groupadd docker` 创建组
+- `sudo gpasswd -a ${USER} docker` 将用户添加到该组，例如 xxx 用户
+- `sudo systemctl restart docker` 重启 docker-daemon
 
 ### 常用命令
 

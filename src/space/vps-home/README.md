@@ -28,97 +28,48 @@ justhost
 
 :::
 
-## List
+## 系统
 
-- 修改 hostname hostnamectl set-hostname &lt;newhostname&gt;
-- 开启 bbr 
-  ```
+- 开启 bbr（root）
+  ```shell
   echo net.core.default_qdisc=fq >> /etc/sysctl.conf
   echo net.ipv4.tcp_congestion_control=bbr >> /etc/sysctl.conf
   sysctl -p
-  ```
-  执行 `sysctl net.ipv4.tcp_available_congestion_control`
+  sysctl net.ipv4.tcp_available_congestion_control
   lsmod | grep bbr
+  ```
 - 设置 root 密码 `sudo passwd`
-- 清理日期 `journalctl --vacuum-time=1d`、`journalctl --vacuum-size=30M`
-- 修改中科大源
-- 安装软件
-  - chrome https://www.google.com/chrome/
-    - [switchyomega 插件](https://proxy-switchyomega.com/) 2^2
-  - 
-chrome vscode
-https://blog.csdn.net/xiangxianghehe/article/details/122856771
-- 安装 zsh git curl `sudo apt-get install zsh git curl`
-- 安装 [vscode](https://code.visualstudio.com/)
-- 安装 pei zhi git/sheng cheng ssh key
-- 安装 oh-my-zsh 以及 zsh-autosuggestions、zsh-syntax-highlighting 插件 (ju bu dai li export http_proxy https://www.muzhuangnet.com/show/85666.html)
-  - `REMOTE=https://gitee.com/mirrors/oh-my-zsh.git sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"`
-  - `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
-  - `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
-  - ~/.zshrc
+- 设置日志大小和时间（root） `journalctl --vacuum-time=1d`、`journalctl --vacuum-size=30M`
+- 修改 hostname hostnamectl set-hostname &lt;newhostname&gt;
+- 安装 fcitx-5/fcitx-rime
+- 安装 openssh-server
 - 禁用睡眠 `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
-- 安装 docker https://docs.docker.com/desktop/install/ubuntu/#install-docker-desktop
-  - `sudo apt-get remove docker docker-engine docker.io containerd runc`
-  - `sudo apt-get install ca-certificates curl gnupg lsb-release`
-  - `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg`
-  - `echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null`
-  - `sudo apt-get update`
-  - `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
-  - 设置[阿里云镜像加速](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
-    - `sudo vim /etc/docker/daemon.json`
-    - 添加以下代码：
+## 安装列表
 
-    ```json:no-line-numbers
-    {
-      "registry-mirrors": ["https://xxxx.mirror.aliyuncs.com"]
-    } 
-    ```
+- [配置 git](../../notes/git/README.md#配置)
+- 安装 [clash](https://github.com/Fndroid/clash_for_windows_pkg/releases/latest)
+- [zsh/oh-my-zsh](../../posts/installation-manual.md#zshoh-my-zsh)
+- [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+  - 安装 node、pnpm
+- [gvm](https://github.com/moovweb/gvm#installing)
+  - 安装 gcc、bison
+  - 安装 go
+- [chrome](https://www.google.com/chrome/)
+  - [switchyomega 插件](https://proxy-switchyomega.com/)
+- [vscode](https://code.visualstudio.com/)
+- [jetbrains tools](https://www.jetbrains.com/toolbox-app/)
+- [todesk](https://www.todesk.com/download.html)
+- [frp](https://github.com/fatedier/frp)
+- [docker](../../notes/container/docker/README.md#Install)
 
-    - `sudo systemctl daemon-reload`
-    - `sudo systemctl restart docker`
-  - 添加当前账号到 sudoer 避免 docker 操作需要 sudo
-    - `sudo groupadd docker` 创建组
-    - `sudo gpasswd -a ${USER} docker` 将用户添加到该组，例如 xxx 用户
-    - `sudo systemctl restart docker` 重启 docker-daemon
-  - 登录阿里云容器仓库
-    - `docker login --username=9404*****@qq.com registry.cn-hangzhou.aliyuncs.com`
-  - 拉取镜像预热
-    -  `docker pull registry.cn-hangzhou.aliyuncs.com/alomerry/vscode-web:latest`
-    -  `docker pull ghcr.io/umami-software/umami:postgresql-latest`
-    -  `docker pull postgres:12-alpine`
-    -  `docker pull mondedie/flarum:stable`
-    -  `docker pull mariadb:10.5`
-    -  `docker pull jenkinsci/blueocean:1.25.5`
-    -  `docker pull amir20/dozzle:latest`
-- 安装 duf `wget http://cdn.alomerry.com/packages/duf/duf_0.8.1_linux_amd64.deb`
+## 可选
+
+- 安装 duf [`wget http://cdn.alomerry.com/packages/duf/duf_0.8.1_linux_amd64.deb`](https://github.com/muesli/duf#installation)
 - 安装 htop `sudo apt-get install htop`
-- 安装 xfce/xrdp
-  - `sudo apt-get install xfce4`
-  - `sudo apt-get install xrdp`
-  - `sudo echo xfce4-session >~/.xsession`
-  - `sudo service xrdp restart`
-- 安装软件
-  - smplayer `sudo apt-get install smplayer`
-  - 安装 edge `wget http://cdn.alomerry.com/packages/applications/microsoft-edge-stable_104.0.1293.47-1_amd64.deb`
-    - 安装 switchyomega，设置规则列表网址 https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
-- 安装 frp
-  - `wget http://cdn.alomerry.com/packages/frp/frp_0.43.0_linux_amd64.tar.gz`
-  - `tar -xf frp_0.43.0_linux_amd64.tar.gz`
-  - [设置自启](/posts/2022-06-17-frp.md)
-  - 配置 frpc.ini
-  - 配置 frpc-hk.ini（恒创到期后移除）
 - 安装 aliyun-webdav
   - `sudo snap install aliyundrive-webdav`
 
-## docker
-
-### umami
-
-@[code yml:no-line-numbers](../../_codes/vps-home/frpc/umami/docker-compose.yml)
-
-#### 挂载新硬盘作为存储策略
+## 挂载新硬盘作为存储策略
 
 修改盘符
 
@@ -131,37 +82,6 @@ https://blog.csdn.net/xiangxianghehe/article/details/122856771
 - 配置开机自动挂载 vim /etc/fstab `/dev/sda1(磁盘分区)  /data1（挂载目录） ext4（文件格式）defaults  0  2`
 - sudo e2label /dev/sda1 victor_disk 重命名盘符[^rename_ubuntu_usb_drive]
 
-
-### flarum
-
-- 先启动 mariadb `docker compose up -d mariadb`
-- `docker compose up -d flarum`
-- 安装中文包 `docker exec -ti flarum extension require flarum-lang/chinese-simplified`
-
-@[code yml:no-line-numbers](../../_codes/docker-flarum/docker-compose.yml)
-
-### vscode web
-
-@[code yml:no-line-numbers](../../_codes/vscode-web/docker-compose.yml)
-
-### jenkins
-
-vps-home/frpc/jenkins/docker-compose.yml
-
-@[code yml:no-line-numbers](../../_codes/vps-home/frpc/jenkins/docker-compose.yml)
-
-### dozzle
-
-@[code yml:no-line-numbers](../../_codes/dozzle/docker-compose.yml)
-
-### rocket.chat
-
-@[code yml:no-line-numbers](../../_codes/vps-home/frpc/rocket.chat/docker-compose.yml)
-
-https://docs.rocket.chat/quick-start/installing-and-updating/rapid-deployment-methods/docker-and-docker-compose
-https://support.websoft9.com/docs/rocketchat/zh/solution-smtp.html
-https://bynss.com/linux/553614.html
-https://docs.rocket.chat/getting-support#mongodb-versions
 
 ## TODO
 
