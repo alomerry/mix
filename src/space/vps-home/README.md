@@ -28,7 +28,28 @@ justhost
 
 :::
 
-## 系统
+## cloud
+
+TODO code to set env
+TODO code to gen new cvm
+TODO ansible 初始化 cvm 下载 docker nginx 等自动化
+TODO 检查抢占式信号 https://cloud.tencent.com/document/product/213/37970
+迁移 mysql 脚本
+  - umami
+迁移 mongodb 脚本
+  - waline
+- blog
+- ioi
+- resume
+- frpc/frps
+- uptime
+- bark
+- waline
+
+
+## home
+
+### 系统
 
 - 开启 bbr（root）
   ```shell
@@ -44,7 +65,7 @@ justhost
 - 安装 fcitx-5/fcitx-rime
 - 安装 openssh-server
 - 禁用睡眠 `sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target`
-## 安装列表
+### 安装列表
 
 - [配置 git](../../notes/git/README.md#配置)
 - 安装 [clash](https://github.com/Fndroid/clash_for_windows_pkg/releases/latest)
@@ -61,15 +82,14 @@ justhost
 - [todesk](https://www.todesk.com/download.html)
 - [frp](https://github.com/fatedier/frp)
 - [docker](../../notes/container/docker/README.md#Install)
-
-## 可选
+### 可选
 
 - 安装 duf [`wget http://cdn.alomerry.com/packages/duf/duf_0.8.1_linux_amd64.deb`](https://github.com/muesli/duf#installation)
 - 安装 htop `sudo apt-get install htop`
 - 安装 aliyun-webdav
   - `sudo snap install aliyundrive-webdav`
 
-## 挂载新硬盘作为存储策略
+### 挂载新硬盘作为存储策略
 
 修改盘符
 
@@ -83,12 +103,12 @@ justhost
 - sudo e2label /dev/sda1 victor_disk 重命名盘符[^rename_ubuntu_usb_drive]
 
 
-## TODO
+### TODO
 
 - 工具 GoAccess `tail -F /www/wwwlog/xxx.com.log | docker run -p 7890:7890 --rm -i -e LANG=zh_CN -e TZ="Asia/Shanghai" allinurl/goaccess -a -o html --log-format COMBINED --real-time-html - > report.html`
 - 服务器探针 [ServerStatus](https://github.com/stilleshan/ServerStatus)
 
-## More
+### More
 
 - [flarum 中文社区](https://discuss.flarum.org.cn/)
 - [flarum 中文搜索功能支持](https://discuss.flarum.org.cn/d/1216)
