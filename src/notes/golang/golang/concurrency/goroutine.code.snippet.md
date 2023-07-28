@@ -1,427 +1,428 @@
 [^runtimer]:
 
-```go
-// runtimer examines the first timer in timers. If it is ready based on now,
-// it runs the timer and removes or updates it.
-// Returns 0 if it ran a timer, -1 if there are no more timers, or the time
-// when the first timer should run.
-// The caller must have locked the timers for pp.
-// If a timer is run, this will temporarily unlock the timers.
-//
-//go:systemstack
-func runtimer(pp *p, now int64) int64 {
-	for {
-		t := pp.timers[0]
-		if t.pp.ptr() != pp {
-			throw("runtimer: bad p")
-		}
-		switch s := t.status.Load(); s {
-		case timerWaiting:
-			if t.when > now {
-				// Not ready to run.
-				return t.when
-			}
+    ```go
+    // runtimer examines the first timer in timers. If it is ready based on now,
+    // it runs the timer and removes or updates it.
+    // Returns 0 if it ran a timer, -1 if there are no more timers, or the time
+    // when the first timer should run.
+    // The caller must have locked the timers for pp.
+    // If a timer is run, this will temporarily unlock the timers.
+    //
+    //go:systemstack
+    func runtimer(pp *p, now int64) int64 {
+      for {
+        t := pp.timers[0]
+        if t.pp.ptr() != pp {
+          throw("runtimer: bad p")
+        }
+        switch s := t.status.Load(); s {
+        case timerWaiting:
+          if t.when > now {
+            // Not ready to run.
+            return t.when
+          }
 
-			if !t.status.CompareAndSwap(s, timerRunning) {
-				continue
-			}
-			// Note that runOneTimer may temporarily unlock
-			// pp.timersLock.
-			runOneTimer(pp, t, now)
-			return 0
+          if !t.status.CompareAndSwap(s, timerRunning) {
+            continue
+          }
+          // Note that runOneTimer may temporarily unlock
+          // pp.timersLock.
+          runOneTimer(pp, t, now)
+          return 0
 
-		case timerDeleted:
-			if !t.status.CompareAndSwap(s, timerRemoving) {
-				continue
-			}
-			dodeltimer0(pp)
-			if !t.status.CompareAndSwap(timerRemoving, timerRemoved) {
-				badTimer()
-			}
-			pp.deletedTimers.Add(-1)
-			if len(pp.timers) == 0 {
-				return -1
-			}
+        case timerDeleted:
+          if !t.status.CompareAndSwap(s, timerRemoving) {
+            continue
+          }
+          dodeltimer0(pp)
+          if !t.status.CompareAndSwap(timerRemoving, timerRemoved) {
+            badTimer()
+          }
+          pp.deletedTimers.Add(-1)
+          if len(pp.timers) == 0 {
+            return -1
+          }
 
-		case timerModifiedEarlier, timerModifiedLater:
-			if !t.status.CompareAndSwap(s, timerMoving) {
-				continue
-			}
-			t.when = t.nextwhen
-			dodeltimer0(pp)
-			doaddtimer(pp, t)
-			if !t.status.CompareAndSwap(timerMoving, timerWaiting) {
-				badTimer()
-			}
+        case timerModifiedEarlier, timerModifiedLater:
+          if !t.status.CompareAndSwap(s, timerMoving) {
+            continue
+          }
+          t.when = t.nextwhen
+          dodeltimer0(pp)
+          doaddtimer(pp, t)
+          if !t.status.CompareAndSwap(timerMoving, timerWaiting) {
+            badTimer()
+          }
 
-		case timerModifying:
-			// Wait for modification to complete.
-			osyield()
+        case timerModifying:
+          // Wait for modification to complete.
+          osyield()
 
-		case timerNoStatus, timerRemoved:
-			// Should not see a new or inactive timer on the heap.
-			badTimer()
-		case timerRunning, timerRemoving, timerMoving:
-			// These should only be set when timers are locked,
-			// and we didn't do it.
-			badTimer()
-		default:
-			badTimer()
-		}
-	}
-}
-```
+        case timerNoStatus, timerRemoved:
+          // Should not see a new or inactive timer on the heap.
+          badTimer()
+        case timerRunning, timerRemoving, timerMoving:
+          // These should only be set when timers are locked,
+          // and we didn't do it.
+          badTimer()
+        default:
+          badTimer()
+        }
+      }
+    }
+    ```
 
 [^checkTimers]:
 
-```go
-// checkTimers runs any timers for the P that are ready.
-// If now is not 0 it is the current time.
-// It returns the passed time or the current time if now was passed as 0.
-// and the time when the next timer should run or 0 if there is no next timer,
-// and reports whether it ran any timers.
-// If the time when the next timer should run is not 0,
-// it is always larger than the returned time.
-// We pass now in and out to avoid extra calls of nanotime.
-//
-//go:yeswritebarrierrec
-func checkTimers(pp *p, now int64) (rnow, pollUntil int64, ran bool) {
-	// If it's not yet time for the first timer, or the first adjusted
-	// timer, then there is nothing to do.
-	next := pp.timer0When.Load()
-	nextAdj := pp.timerModifiedEarliest.Load()
-	if next == 0 || (nextAdj != 0 && nextAdj < next) {
-		next = nextAdj
-	}
+    ```go
+    // checkTimers runs any timers for the P that are ready.
+    // If now is not 0 it is the current time.
+    // It returns the passed time or the current time if now was passed as 0.
+    // and the time when the next timer should run or 0 if there is no next timer,
+    // and reports whether it ran any timers.
+    // If the time when the next timer should run is not 0,
+    // it is always larger than the returned time.
+    // We pass now in and out to avoid extra calls of nanotime.
+    //
+    //go:yeswritebarrierrec
+    func checkTimers(pp *p, now int64) (rnow, pollUntil int64, ran bool) {
+      // If it's not yet time for the first timer, or the first adjusted
+      // timer, then there is nothing to do.
+      next := pp.timer0When.Load()
+      nextAdj := pp.timerModifiedEarliest.Load()
+      if next == 0 || (nextAdj != 0 && nextAdj < next) {
+        next = nextAdj
+      }
 
-	if next == 0 {
-		// No timers to run or adjust.
-		return now, 0, false
-	}
+      if next == 0 {
+        // No timers to run or adjust.
+        return now, 0, false
+      }
 
-	if now == 0 {
-		now = nanotime()
-	}
-	if now < next {
-		// Next timer is not ready to run, but keep going
-		// if we would clear deleted timers.
-		// This corresponds to the condition below where
-		// we decide whether to call clearDeletedTimers.
-		if pp != getg().m.p.ptr() || int(pp.deletedTimers.Load()) <= int(pp.numTimers.Load()/4) {
-			return now, next, false
-		}
-	}
+      if now == 0 {
+        now = nanotime()
+      }
+      if now < next {
+        // Next timer is not ready to run, but keep going
+        // if we would clear deleted timers.
+        // This corresponds to the condition below where
+        // we decide whether to call clearDeletedTimers.
+        if pp != getg().m.p.ptr() || int(pp.deletedTimers.Load()) <= int(pp.numTimers.Load()/4) {
+          return now, next, false
+        }
+      }
 
-	lock(&pp.timersLock)
+      lock(&pp.timersLock)
 
-	if len(pp.timers) > 0 {
-		adjusttimers(pp, now)
-		for len(pp.timers) > 0 {
-			// Note that runtimer may temporarily unlock
-			// pp.timersLock.
-			if tw := runtimer(pp, now); tw != 0 {
-				if tw > 0 {
-					pollUntil = tw
-				}
-				break
-			}
-			ran = true
-		}
-	}
+      if len(pp.timers) > 0 {
+        adjusttimers(pp, now)
+        for len(pp.timers) > 0 {
+          // Note that runtimer may temporarily unlock
+          // pp.timersLock.
+          if tw := runtimer(pp, now); tw != 0 {
+            if tw > 0 {
+              pollUntil = tw
+            }
+            break
+          }
+          ran = true
+        }
+      }
 
-	// If this is the local P, and there are a lot of deleted timers,
-	// clear them out. We only do this for the local P to reduce
-	// lock contention on timersLock.
-	if pp == getg().m.p.ptr() && int(pp.deletedTimers.Load()) > len(pp.timers)/4 {
-		clearDeletedTimers(pp)
-	}
+      // If this is the local P, and there are a lot of deleted timers,
+      // clear them out. We only do this for the local P to reduce
+      // lock contention on timersLock.
+      if pp == getg().m.p.ptr() && int(pp.deletedTimers.Load()) > len(pp.timers)/4 {
+        clearDeletedTimers(pp)
+      }
 
-	unlock(&pp.timersLock)
+      unlock(&pp.timersLock)
 
-	return now, pollUntil, ran
-}
-```
+      return now, pollUntil, ran
+    }
+    ```
 
 [^runqsteal]:
 
-```go
-// Steal half of elements from local runnable queue of p2
-// and put onto local runnable queue of p.
-// Returns one of the stolen elements (or nil if failed).
-func runqsteal(pp, p2 *p, stealRunNextG bool) *g {
-	t := pp.runqtail
-	n := runqgrab(p2, &pp.runq, t, stealRunNextG)
-	if n == 0 {
-		return nil
-	}
-	n--
-	gp := pp.runq[(t+n)%uint32(len(pp.runq))].ptr()
-	if n == 0 {
-		return gp
-	}
-	h := atomic.LoadAcq(&pp.runqhead) // load-acquire, synchronize with consumers
-	if t-h+n >= uint32(len(pp.runq)) {
-		throw("runqsteal: runq overflow")
-	}
-	atomic.StoreRel(&pp.runqtail, t+n) // store-release, makes the item available for consumption
-	return gp
-}
-```
+    ```go
+    // Steal half of elements from local runnable queue of p2
+    // and put onto local runnable queue of p.
+    // Returns one of the stolen elements (or nil if failed).
+    func runqsteal(pp, p2 *p, stealRunNextG bool) *g {
+      t := pp.runqtail
+      n := runqgrab(p2, &pp.runq, t, stealRunNextG)
+      if n == 0 {
+        return nil
+      }
+      n--
+      gp := pp.runq[(t+n)%uint32(len(pp.runq))].ptr()
+      if n == 0 {
+        return gp
+      }
+      h := atomic.LoadAcq(&pp.runqhead) // load-acquire, synchronize with consumers
+      if t-h+n >= uint32(len(pp.runq)) {
+        throw("runqsteal: runq overflow")
+      }
+      atomic.StoreRel(&pp.runqtail, t+n) // store-release, makes the item available for consumption
+      return gp
+    }
+    ```
 
 [^startlockedm]:
 
-```go
-// Schedules the locked m to run the locked gp.
-// May run during STW, so write barriers are not allowed.
-//
-//go:nowritebarrierrec
-func startlockedm(gp *g) {
-	mp := gp.lockedm.ptr()
-	if mp == getg().m {
-		throw("startlockedm: locked to me")
-	}
-	if mp.nextp != 0 {
-		throw("startlockedm: m has p")
-	}
-	// directly handoff current P to the locked m
-	incidlelocked(-1)
-	pp := releasep()
-	mp.nextp.set(pp)
-	notewakeup(&mp.park)
-	stopm()
-}
-```
+    ```go
+    // Schedules the locked m to run the locked gp.
+    // May run during STW, so write barriers are not allowed.
+    //
+    //go:nowritebarrierrec
+    func startlockedm(gp *g) {
+      mp := gp.lockedm.ptr()
+      if mp == getg().m {
+        throw("startlockedm: locked to me")
+      }
+      if mp.nextp != 0 {
+        throw("startlockedm: m has p")
+      }
+      // directly handoff current P to the locked m
+      incidlelocked(-1)
+      pp := releasep()
+      mp.nextp.set(pp)
+      notewakeup(&mp.park)
+      stopm()
+    }
+    ```
 
 [^wakeup]:
 
-```go
-// Tries to add one more P to execute G's.
-// Called when a G is made runnable (newproc, ready).
-// Must be called with a P.
-func wakep() {
-	// Be conservative about spinning threads, only start one if none exist
-	// already.
-	if sched.nmspinning.Load() != 0 || !sched.nmspinning.CompareAndSwap(0, 1) {
-		return
-	}
+    ```go
+    // Tries to add one more P to execute G's.
+    // Called when a G is made runnable (newproc, ready).
+    // Must be called with a P.
+    func wakep() {
+      // Be conservative about spinning threads, only start one if none exist
+      // already.
+      if sched.nmspinning.Load() != 0 || !sched.nmspinning.CompareAndSwap(0, 1) {
+        return
+      }
 
-	// Disable preemption until ownership of pp transfers to the next M in
-	// startm. Otherwise preemption here would leave pp stuck waiting to
-	// enter _Pgcstop.
-	//
-	// See preemption comment on acquirem in startm for more details.
-	mp := acquirem()
+      // Disable preemption until ownership of pp transfers to the next M in
+      // startm. Otherwise preemption here would leave pp stuck waiting to
+      // enter _Pgcstop.
+      //
+      // See preemption comment on acquirem in startm for more details.
+      mp := acquirem()
 
-	var pp *p
-	lock(&sched.lock)
-	pp, _ = pidlegetSpinning(0)
-	if pp == nil {
-		if sched.nmspinning.Add(-1) < 0 {
-			throw("wakep: negative nmspinning")
-		}
-		unlock(&sched.lock)
-		releasem(mp)
-		return
-	}
-	// Since we always have a P, the race in the "No M is available"
-	// comment in startm doesn't apply during the small window between the
-	// unlock here and lock in startm. A checkdead in between will always
-	// see at least one running M (ours).
-	unlock(&sched.lock)
+      var pp *p
+      lock(&sched.lock)
+      pp, _ = pidlegetSpinning(0)
+      if pp == nil {
+        if sched.nmspinning.Add(-1) < 0 {
+          throw("wakep: negative nmspinning")
+        }
+        unlock(&sched.lock)
+        releasem(mp)
+        return
+      }
+      // Since we always have a P, the race in the "No M is available"
+      // comment in startm doesn't apply during the small window between the
+      // unlock here and lock in startm. A checkdead in between will always
+      // see at least one running M (ours).
+      unlock(&sched.lock)
 
-	startm(pp, true, false)
+      startm(pp, true, false)
 
-	releasem(mp)
-}
-```
+      releasem(mp)
+    }
+    ```
 
 [^resetspinning]:
 
-```go
-func resetspinning() {
-	gp := getg()
-	if !gp.m.spinning {
-		throw("resetspinning: not a spinning m")
-	}
-	gp.m.spinning = false
-	nmspinning := sched.nmspinning.Add(-1)
-	if nmspinning < 0 {
-		throw("findrunnable: negative nmspinning")
-	}
-	// M wakeup policy is deliberately somewhat conservative, so check if we
-	// need to wakeup another P here. See "Worker thread parking/unparking"
-	// comment at the top of the file for details.
-	wakep()
-}
-```
+    ```go
+    func resetspinning() {
+      gp := getg()
+      if !gp.m.spinning {
+        throw("resetspinning: not a spinning m")
+      }
+      gp.m.spinning = false
+      nmspinning := sched.nmspinning.Add(-1)
+      if nmspinning < 0 {
+        throw("findrunnable: negative nmspinning")
+      }
+      // M wakeup policy is deliberately somewhat conservative, so check if we
+      // need to wakeup another P here. See "Worker thread parking/unparking"
+      // comment at the top of the file for details.
+      wakep()
+    }
+    ```
 
 [^gfput]:
 
-```go
-// Put on gfree list.
-// If local list is too long, transfer a batch to the global list.
-func gfput(pp *p, gp *g) {
-	if readgstatus(gp) != _Gdead {
-		throw("gfput: bad status (not Gdead)")
-	}
+    ```go
+    // Put on gfree list.
+    // If local list is too long, transfer a batch to the global list.
+    func gfput(pp *p, gp *g) {
+      if readgstatus(gp) != _Gdead {
+        throw("gfput: bad status (not Gdead)")
+      }
 
-	stksize := gp.stack.hi - gp.stack.lo
+      stksize := gp.stack.hi - gp.stack.lo
 
-	if stksize != uintptr(startingStackSize) {
-		// non-standard stack size - free it.
-		stackfree(gp.stack)
-		gp.stack.lo = 0
-		gp.stack.hi = 0
-		gp.stackguard0 = 0
-	}
+      if stksize != uintptr(startingStackSize) {
+        // non-standard stack size - free it.
+        stackfree(gp.stack)
+        gp.stack.lo = 0
+        gp.stack.hi = 0
+        gp.stackguard0 = 0
+      }
 
-	pp.gFree.push(gp)
-	pp.gFree.n++
-	if pp.gFree.n >= 64 {
-		var (
-			inc      int32
-			stackQ   gQueue
-			noStackQ gQueue
-		)
-		for pp.gFree.n >= 32 {
-			gp := pp.gFree.pop()
-			pp.gFree.n--
-			if gp.stack.lo == 0 {
-				noStackQ.push(gp)
-			} else {
-				stackQ.push(gp)
-			}
-			inc++
-		}
-		lock(&sched.gFree.lock)
-		sched.gFree.noStack.pushAll(noStackQ)
-		sched.gFree.stack.pushAll(stackQ)
-		sched.gFree.n += inc
-		unlock(&sched.gFree.lock)
-	}
-}
-```
+      pp.gFree.push(gp)
+      pp.gFree.n++
+      if pp.gFree.n >= 64 {
+        var (
+          inc      int32
+          stackQ   gQueue
+          noStackQ gQueue
+        )
+        for pp.gFree.n >= 32 {
+          gp := pp.gFree.pop()
+          pp.gFree.n--
+          if gp.stack.lo == 0 {
+            noStackQ.push(gp)
+          } else {
+            stackQ.push(gp)
+          }
+          inc++
+        }
+        lock(&sched.gFree.lock)
+        sched.gFree.noStack.pushAll(noStackQ)
+        sched.gFree.stack.pushAll(stackQ)
+        sched.gFree.n += inc
+        unlock(&sched.gFree.lock)
+      }
+    }
+    ```
 
 [^goexit0]:
 
-```go
-// goexit continuation on g0.
-func goexit0(gp *g) {
-	mp := getg().m
-	pp := mp.p.ptr()
+    ```go
+    // goexit continuation on g0.
+    func goexit0(gp *g) {
+      mp := getg().m
+      pp := mp.p.ptr()
 
-	casgstatus(gp, _Grunning, _Gdead)
-	gcController.addScannableStack(pp, -int64(gp.stack.hi-gp.stack.lo))
-	if isSystemGoroutine(gp, false) {
-		sched.ngsys.Add(-1)
-	}
-	gp.m = nil
-	locked := gp.lockedm != 0
-	gp.lockedm = 0
-	mp.lockedg = 0
-	gp.preemptStop = false
-	gp.paniconfault = false
-	gp._defer = nil // should be true already but just in case.
-	gp._panic = nil // non-nil for Goexit during panic. points at stack-allocated data.
-	gp.writebuf = nil
-	gp.waitreason = waitReasonZero
-	gp.param = nil
-	gp.labels = nil
-	gp.timer = nil
+      casgstatus(gp, _Grunning, _Gdead)
+      gcController.addScannableStack(pp, -int64(gp.stack.hi-gp.stack.lo))
+      if isSystemGoroutine(gp, false) {
+        sched.ngsys.Add(-1)
+      }
+      gp.m = nil
+      locked := gp.lockedm != 0
+      gp.lockedm = 0
+      mp.lockedg = 0
+      gp.preemptStop = false
+      gp.paniconfault = false
+      gp._defer = nil // should be true already but just in case.
+      gp._panic = nil // non-nil for Goexit during panic. points at stack-allocated data.
+      gp.writebuf = nil
+      gp.waitreason = waitReasonZero
+      gp.param = nil
+      gp.labels = nil
+      gp.timer = nil
 
-	if gcBlackenEnabled != 0 && gp.gcAssistBytes > 0 {
-		// Flush assist credit to the global pool. This gives
-		// better information to pacing if the application is
-		// rapidly creating an exiting goroutines.
-		assistWorkPerByte := gcController.assistWorkPerByte.Load()
-		scanCredit := int64(assistWorkPerByte * float64(gp.gcAssistBytes))
-		gcController.bgScanCredit.Add(scanCredit)
-		gp.gcAssistBytes = 0
-	}
+      if gcBlackenEnabled != 0 && gp.gcAssistBytes > 0 {
+        // Flush assist credit to the global pool. This gives
+        // better information to pacing if the application is
+        // rapidly creating an exiting goroutines.
+        assistWorkPerByte := gcController.assistWorkPerByte.Load()
+        scanCredit := int64(assistWorkPerByte * float64(gp.gcAssistBytes))
+        gcController.bgScanCredit.Add(scanCredit)
+        gp.gcAssistBytes = 0
+      }
 
-	dropg()
+      dropg()
 
-	if GOARCH == "wasm" { // no threads yet on wasm
-		gfput(pp, gp)
-		schedule() // never returns
-	}
+      if GOARCH == "wasm" { // no threads yet on wasm
+        gfput(pp, gp)
+        schedule() // never returns
+      }
 
-	if mp.lockedInt != 0 {
-		print("invalid m->lockedInt = ", mp.lockedInt, "\n")
-		throw("internal lockOSThread error")
-	}
-	gfput(pp, gp)
-	if locked {
-		// The goroutine may have locked this thread because
-		// it put it in an unusual kernel state. Kill it
-		// rather than returning it to the thread pool.
+      if mp.lockedInt != 0 {
+        print("invalid m->lockedInt = ", mp.lockedInt, "\n")
+        throw("internal lockOSThread error")
+      }
+      gfput(pp, gp)
+      if locked {
+        // The goroutine may have locked this thread because
+        // it put it in an unusual kernel state. Kill it
+        // rather than returning it to the thread pool.
 
-		// Return to mstart, which will release the P and exit
-		// the thread.
-		if GOOS != "plan9" { // See golang.org/issue/22227.
-			gogo(&mp.g0.sched)
-		} else {
-			// Clear lockedExt on plan9 since we may end up re-using
-			// this thread.
-			mp.lockedExt = 0
-		}
-	}
-	schedule()
-}
-```
+        // Return to mstart, which will release the P and exit
+        // the thread.
+        if GOOS != "plan9" { // See golang.org/issue/22227.
+          gogo(&mp.g0.sched)
+        } else {
+          // Clear lockedExt on plan9 since we may end up re-using
+          // this thread.
+          mp.lockedExt = 0
+        }
+      }
+      schedule()
+    }
+    ```
 
 [^goexit1]:
 
-```go
-// Finishes execution of the current goroutine.
-func goexit1() {
-	if raceenabled {
-		racegoend()
-	}
-	if traceEnabled() {
-		traceGoEnd()
-	}
-	mcall(goexit0)
-}
-```
+    ```go
+    // Finishes execution of the current goroutine.
+    func goexit1() {
+      if raceenabled {
+        racegoend()
+      }
+      if traceEnabled() {
+        traceGoEnd()
+      }
+      mcall(goexit0)
+    }
+    ```
+
 [^runtime·goexit]:
 
-```asm
-// The top-most function running on a goroutine
-// returns to goexit+PCQuantum.
-TEXT runtime·goexit(SB),NOSPLIT|TOPFRAME|NOFRAME,$0-0
-	BYTE	$0x90	// NOP
-	CALL	runtime·goexit1(SB)	// does not return
-	// traceback from goexit1 must hit code range of goexit
-	BYTE	$0x90	// NOP
-```
+    ```asm
+    // The top-most function running on a goroutine
+    // returns to goexit+PCQuantum.
+    TEXT runtime·goexit(SB),NOSPLIT|TOPFRAME|NOFRAME,$0-0
+      BYTE	$0x90	// NOP
+      CALL	runtime·goexit1(SB)	// does not return
+      // traceback from goexit1 must hit code range of goexit
+      BYTE	$0x90	// NOP
+    ```
 
-[^gostartcall/fn]:
+[^gostartcallfn]:
 
-```go
-// adjust Gobuf as if it executed a call to fn
-// and then stopped before the first instruction in fn.
-func gostartcallfn(gobuf *gobuf, fv *funcval) {
-	var fn unsafe.Pointer
-	if fv != nil {
-		fn = unsafe.Pointer(fv.fn)
-	} else {
-		fn = unsafe.Pointer(abi.FuncPCABIInternal(nilfunc))
-	}
-	gostartcall(gobuf, fn, unsafe.Pointer(fv))
-}
+    ```go
+    // adjust Gobuf as if it executed a call to fn
+    // and then stopped before the first instruction in fn.
+    func gostartcallfn(gobuf *gobuf, fv *funcval) {
+      var fn unsafe.Pointer
+      if fv != nil {
+        fn = unsafe.Pointer(fv.fn)
+      } else {
+        fn = unsafe.Pointer(abi.FuncPCABIInternal(nilfunc))
+      }
+      gostartcall(gobuf, fn, unsafe.Pointer(fv))
+    }
 
-// adjust Gobuf as if it executed a call to fn with context ctxt
-// and then stopped before the first instruction in fn.
-func gostartcall(buf *gobuf, fn, ctxt unsafe.Pointer) {
-	sp := buf.sp
-	sp -= goarch.PtrSize
-	*(*uintptr)(unsafe.Pointer(sp)) = buf.pc
-	buf.sp = sp
-	buf.pc = uintptr(fn)
-	buf.ctxt = ctxt
-}
-```
+    // adjust Gobuf as if it executed a call to fn with context ctxt
+    // and then stopped before the first instruction in fn.
+    func gostartcall(buf *gobuf, fn, ctxt unsafe.Pointer) {
+      sp := buf.sp
+      sp -= goarch.PtrSize
+      *(*uintptr)(unsafe.Pointer(sp)) = buf.pc
+      buf.sp = sp
+      buf.pc = uintptr(fn)
+      buf.ctxt = ctxt
+    }
+    ```
 
 [^gfget]:
 

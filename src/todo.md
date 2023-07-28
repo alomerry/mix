@@ -3,6 +3,7 @@
 - vps-tencent 迁移 uptime，waline 再考虑一下
 - [ ] https://colobu.com/2020/12/27/go-with-os-exec/
 - [ ] 检查 md 中包含大于小于号的部分，做转义
+- [ ] goroutine 一节切换 sidebar 会卡，需要排查一下
 
 ## Golang developer roadmap
 
@@ -300,7 +301,7 @@ https://www.zhihu.com/question/53295083
 - [**《寒霜之地》**](https://github.com/halfrost/Halfrost-Field)
 - [《编程中文书籍索引》](https://github.com/justjavac/free-programming-books-zh_CN)
 - [计算机电子书](https://github.com/itdevbooks/pdf)
-- 
+-
 
 ### IOI
 

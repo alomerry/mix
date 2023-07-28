@@ -75,7 +75,6 @@ TEXT runtime·rt0_go(SB),NOSPLIT|TOPFRAME,$0
 
 `runtime.rt0_go()` 包含了 Go 程序启动的大致流程：
 
-- 初始化 g0，将 g0 和 m0 关联，将 g0 设置到 TLS 中
 - 调用 `runtime·args` 暂存命令行参数用于后续解析
 - 调用 `runtime.osinit` 初始化系统核心数、物理页面大小等
 - 调用 `runtime·schedinit`[^schedinit] 初始化调度系统
@@ -138,9 +137,9 @@ mstart -> schedule()
   - 在 g0 栈上生成 g（如何通过 g.sched 来恢复现场 TODOOOOO）
   - 调用 `runqput` 将 g 放到 p 的 runnext 上，当 currentG 执行完就会执行 runnext
     - p 的本地队列未满时，将 g 放入协程 p 的本地队列
-    - 
+    -
   - 当 `main` 已经执行，则唤醒该 g
-- `runqput` 
+- `runqput`
   - 当 next 为 true 会将 g 放到 runnext 上。如果 p 的 runnext 原本非空，则需要将该 g 从 runnext 放入 runq 尾部（？？？<Badge text="待确认" type="tip"/>这也是为什么 mutex 中正常模式下的锁更容易被新协程获得）
   - 当 next 为 false，会尝试将 g 放入 runq 的尾部
   - 当 runq 未满时就放入 runq 中，否则放入全局 runq（问题？无锁是怎么实现的 <Badge text="TODO" type="error"/>）
@@ -149,7 +148,7 @@ mstart -> schedule()
   - 调用 `gfget` 获取空闲 g，如果未获取到则调用 `malg`[^malg] 创建一个 g（2M 大小栈空间？？），并添加到 `allgs` 中，此时 g 状态从 `_Gidle` 转为 `_Gdead`
   - 如果协程入口有参数就调用 memmove 将参数移动？？到协程栈上？？？
   - 计算栈上所需空间，用参数大小加额外预留空间并对齐，并依此计算出 sp （把参数复制到新 g 的栈上？？？需要写屏障？？？）
-  - 设置为 pc 为 `goexit` 函数地址加一个指令大小，然后调用 `gostartcallfn`，最终会调用 `gostartcall`[^gostartcall/fn]，在该函数中，将栈指针下移一位后并写入 pc 的值，这意味着在入栈了一个新的栈帧，原 pc 成为了返回地址，且 新的 pc 被设置成协程函数入口。因此协程函数最终执行完后会返回到 `goexit` 并回收参数等资源，就仿佛是从 `goexit` 中调用了协程函数却没有执行一样
+  - 设置为 pc 为 `goexit` 函数地址加一个指令大小，然后调用 `gostartcallfn`，最终会调用 `gostartcall`[^gostartcallfn]，在该函数中，将栈指针下移一位后并写入 pc 的值，这意味着在入栈了一个新的栈帧，原 pc 成为了返回地址，且 新的 pc 被设置成协程函数入口。因此协程函数最终执行完后会返回到 `goexit` 并回收参数等资源，就仿佛是从 `goexit` 中调用了协程函数却没有执行一样
   ```go
   totalSize := uintptr(4*goarch.PtrSize + sys.MinFrameSize) // extra space in case of reads slightly beyond frame
 	totalSize = alignUp(totalSize, sys.StackAlign)
@@ -164,7 +163,7 @@ mstart -> schedule()
   ```
   - CAS 更新 g 的状态为 `_Grunnable`
   - // ??? gcController.addScannableStack(pp, int64(newg.stack.hi-newg.stack.lo))
-  - 释放 m 的锁 
+  - 释放 m 的锁
 - `goexit`[^runtime·goexit] 中 `newproc1` 初始化 g 的上下文现场时会插入 `goexit1` 地址加一个指令，可以看到汇编函数中在 `call` 指令之前插入了 NOP 指令，并调用 `goexit1`[^goexit1]，最终调用 `goexit0`
 - `goexit0`[^goexit0] 会将 g 状态置为 `_Gdead`、清空属性、调用 `dropg` 将 g 与 m 解绑，调用 `gfput`[^gfput] 将 g 放入空闲队列，调用 `schedule` 执行调度
 - `gfget`[^gfget] 获取关联 p 上空闲 g 队列 gFree<Badge text="TODO" type="tip"/>，如果 p 上不存在空闲的 g 并且调度器全局 gFree 非空，则会将全局 gFree 中的空闲 g 弹出并设置到 p 上，直到 p 上的空闲 gFree 个数超过 31 个或者是全局空闲 gFree 已耗尽，并且会清理该 g 已有的栈空间
@@ -176,7 +175,7 @@ mstart -> schedule()
 
 - // m.lockedg 会在 lockosthread 下变为非零？？？
 
-- [^schedule] 
+- [^schedule]
 - 执行一些检测，例如：当前 m 是否持有锁（`newproc`）、m 是否被 g 绑定（绑定的 m 无法执行其他 g （为什么会绑定，什么时候绑定？？？））
 - 设置 `p.preempt` 为 false 禁止 p 被抢占
 - 安全检查：p 的本地 runq 为空且无 runnext 的时候 m 不应当自旋（为什么？？有想法但不确定）
@@ -234,7 +233,7 @@ mstart -> schedule()
 
 ### 抢占式调度
 
-#### 基于协作的抢占式调度 go1.13 
+#### 基于协作的抢占式调度 go1.13
 
 #### 基于信号的抢占式调度 go1.14+
 
