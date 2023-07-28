@@ -901,34 +901,34 @@
 
 [^gcstopm]:
 
-```go
-// Stops the current m for stopTheWorld.
-// Returns when the world is restarted.
-func gcstopm() {
-	gp := getg()
+    ```go
+    // Stops the current m for stopTheWorld.
+    // Returns when the world is restarted.
+    func gcstopm() {
+      gp := getg()
 
-	if !sched.gcwaiting.Load() {
-		throw("gcstopm: not waiting for gc")
-	}
-	if gp.m.spinning {
-		gp.m.spinning = false
-		// OK to just drop nmspinning here,
-		// startTheWorld will unpark threads as necessary.
-		if sched.nmspinning.Add(-1) < 0 {
-			throw("gcstopm: negative nmspinning")
-		}
-	}
-	pp := releasep()
-	lock(&sched.lock)
-	pp.status = _Pgcstop
-	sched.stopwait--
-	if sched.stopwait == 0 {
-		notewakeup(&sched.stopnote)
-	}
-	unlock(&sched.lock)
-	stopm()
-}
-```
+      if !sched.gcwaiting.Load() {
+        throw("gcstopm: not waiting for gc")
+      }
+      if gp.m.spinning {
+        gp.m.spinning = false
+        // OK to just drop nmspinning here,
+        // startTheWorld will unpark threads as necessary.
+        if sched.nmspinning.Add(-1) < 0 {
+          throw("gcstopm: negative nmspinning")
+        }
+      }
+      pp := releasep()
+      lock(&sched.lock)
+      pp.status = _Pgcstop
+      sched.stopwait--
+      if sched.stopwait == 0 {
+        notewakeup(&sched.stopnote)
+      }
+      unlock(&sched.lock)
+      stopm()
+    }
+    ```
 
 [^findRunnable]:
 
@@ -1864,18 +1864,7 @@ func gcstopm() {
 
       CALL	runtime·abort(SB)	// mstart should never return
       RET
-
-    bad_cpu: // show that the program requires a certain microarchitecture level.
-      MOVQ	$2, 0(SP)
-      MOVQ	$bad_cpu_msg<>(SB), AX
-      MOVQ	AX, 8(SP)
-      MOVQ	$84, 16(SP)
-      CALL	runtime·write(SB)
-      MOVQ	$1, 0(SP)
-      CALL	runtime·exit(SB)
-      CALL	runtime·abort(SB)
-      RET
-
+      ...
       // Prevent dead-code elimination of debugCallV2, which is
       // intended to be called by debuggers.
       MOVQ	$runtime·debugCallV2<ABIInternal>(SB), AX
