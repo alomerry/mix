@@ -31,7 +31,7 @@ const (
 
 对于 `starvationThresholdNs` 常量源码中有详细描述：
 
-::: tips [Mutex fairness.](https://github.com/golang/go/blob/202a1a57064127c3f19d96df57b9f9586145e21c/src/sync/mutex.go#L51)
+:::tip Mutex fairness.
 
 互斥锁有两种操作模式：正常模式和饥饿模式。
 
@@ -43,17 +43,6 @@ const (
 正常模式的性能更好，因为即使有阻塞的等待者，一个协程也会去连续多次获取锁。饥饿模式对于避免尾部延迟是很重要。
 
 :::
-
-## 正常模式和饥饿模式
-
-协程请求所先尝试自旋几次，然后尝试获得锁，如果获得失败，会进入等待队列，通过信号量唤醒，先进先出，此为正常模式。
-
-后到获得锁请求可能因为自旋获利，或者当前占有时间片的协程因为不需要切换上下文，都有可能比等待队列中的请求获得锁协程更快获得锁，因此在当发现等待队列等待锁时间超过 xx ms 后将锁转为 饥饿模式，会在锁释放后直接交给等待队列的第一个协程。
-
-当等待队列的协程获得锁的等待时间小于 xx ms 或等待队列为空，则恢复正常模式
-
-- 在正常模式下，锁的等待者会按照先进先出的顺序获取锁。但是刚被唤起的 Goroutine 与新创建的 Goroutine 竞争时，大概率会获取不到锁，为了减少这种情况的出现，一旦 Goroutine 超过 1ms 没有获取到锁，它就会将当前互斥锁切换饥饿模式，防止部分 Goroutine 被『饿死』。
-- 在饥饿模式中，互斥锁会直接交给等待队列最前面的 Goroutine。新的 Goroutine 在该状态下不能获取锁、也不会进入自旋状态，它们只会在队列的末尾等待。如果一个 Goroutine 获得了互斥锁并且它在队列的末尾或者它等待的时间少于 1ms，那么当前的互斥锁就会切换回正常模式。
 
 初次看到可能会比较困惑，接下来基于源码对以上互斥锁结构和两种操作模式做更详细的描述。
 
@@ -139,7 +128,7 @@ func sync_runtime_canSpin(i int) bool {
 
 判断的第二个部分调用了 `runtime_canSpin`，该函数注释中表明了作用（<Badge title="更详细" type="tip></Badge）：
 
-::: tips [Active spinning for sync.Mutex.](https://github.com/golang/go/blob/202a1a57064127c3f19d96df57b9f9586145e21c/src/runtime/proc.go#L6372)
+:::tip Active spinning for sync.Mutex.
 
 `sync.Mutex` 是合作性的，因此对旋转持保守态度。仅旋转几次，并且仅当在多核计算机上运行并且 GOMAXPROCS 大于 1 并且至少有一个其他运行 P 并且当前 p 的本地 runq 为空时。与运行时互斥体相反，我们在这里不进行被动旋转，因为可以在全局 runq 或其他 P 上进行工作。
 
@@ -212,6 +201,8 @@ if atomic.CompareAndSwapInt32(&m.state, old, new) {
 }
 ```
 
+![尝试获得锁](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/sync/try-to-lock.png)
+
 计算完新的状态后执行 CAS 更新锁，如果更新失败了，则获取锁最新的状态重新执行 for 循环
 
 ```go
@@ -219,6 +210,8 @@ if old&(mutexLocked|mutexStarving) == 0 {
 	break // locked the mutex with CAS
 }
 ```
+
+![饥饿模式](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/sync/stave-mode.png)
 
 CAS 更新成功之后会验证锁之前是否是未锁定/正常模式状态，如果是的话说明 CAS 函数已经成功使当前协程持有锁了
 
@@ -238,66 +231,7 @@ func sync_runtime_SemacquireMutex(addr *uint32, lifo bool, skipframes int) {
 }
 ```
 
-```go
-func semacquire1(addr *uint32, lifo bool, profile semaProfileFlags, skipframes int, reason waitReason) {
-	gp := getg()
-	if gp != gp.m.curg {
-		throw("semacquire not on the G stack")
-	}
-
-	// Easy case.
-	if cansemacquire(addr) {
-		return
-	}
-
-	// Harder case:
-	//	increment waiter count
-	//	try cansemacquire one more time, return if succeeded
-	//	enqueue itself as a waiter
-	//	sleep
-	//	(waiter descriptor is dequeued by signaler)
-	s := acquireSudog()
-	root := semtable.rootFor(addr)
-	t0 := int64(0)
-	s.releasetime = 0
-	s.acquiretime = 0
-	s.ticket = 0
-	if profile&semaBlockProfile != 0 && blockprofilerate > 0 {
-		t0 = cputicks()
-		s.releasetime = -1
-	}
-	if profile&semaMutexProfile != 0 && mutexprofilerate > 0 {
-		if t0 == 0 {
-			t0 = cputicks()
-		}
-		s.acquiretime = t0
-	}
-	for {
-		lockWithRank(&root.lock, lockRankRoot)
-		// Add ourselves to nwait to disable "easy case" in semrelease.
-		root.nwait.Add(1)
-		// Check cansemacquire to avoid missed wakeup.
-		if cansemacquire(addr) {
-			root.nwait.Add(-1)
-			unlock(&root.lock)
-			break
-		}
-		// Any semrelease after the cansemacquire knows we're waiting
-		// (we set nwait above), so go to sleep.
-		root.queue(addr, s, lifo)
-		goparkunlock(&root.lock, reason, traceBlockSync, 4+skipframes)
-		if s.ticket != 0 || cansemacquire(addr) {
-			break
-		}
-	}
-	if s.releasetime > 0 {
-		blockevent(s.releasetime-t0, 3+skipframes)
-	}
-	releaseSudog(s)
-}
-```
-
-逻辑继续往下走说明要么锁处于饥饿模式，要么是锁从一开始到现在一直是锁的，则调用 `runtime_SemacquireMutex` 将协程放入等待队列，唤醒后仍未获得锁的协程将放入等待队列头部，首次进入等待队列时则放入等待队列尾部，并设置起始时间，阻塞等待。`runtime_SemacquireMutex` 在运行时最终会调用 `semacquire1` 函数，后文后详细描述，主要作用是让当前协程阻塞？？？queueLifo？？
+逻辑继续往下走说明要么锁处于饥饿模式，要么是锁从一开始到现在一直是锁的，则调用 `runtime_SemacquireMutex` 将协程放入等待队列，唤醒后仍未获得锁的协程将放入等待队列头部，首次进入等待队列时则放入等待队列尾部，并设置起始时间，阻塞等待。`runtime_SemacquireMutex` 在运行时最终会调用 `semacquire1`[^semacquire1] 函数，后文后详细描述，主要作用是让当前协程阻塞？？？queueLifo？？
 
 #### 唤醒
 
@@ -306,6 +240,8 @@ runtime_SemacquireMutex(&m.sema, queueLifo, 1)
 starving = starving || runtime_nanotime()-waitStartTime > starvationThresholdNs
 old = m.state
 ```
+
+![被唤醒后](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/sync/wake-up.png)
 
 当某个协程释放锁，当前协程被唤醒，会更新 mutex 的饥饿状态，已经是饥饿状态或者等待了 `starvationThresholdNs` 即 1ms 都会标记是饥饿状态并获取锁的最新状态。
 
@@ -327,19 +263,7 @@ iter = 0
   - 获得锁成功，退出整个 for 循环（因为饥饿模式并不会更新锁的 `mutexLocked`，只会在解锁的时候传递给下一位，所以在下一位获取锁的位置只需要判断是否仍处于饥饿状态，不处于饥饿状态时清空 `mutexLocked`）
 - 设置 `awoke` 为 true，清空自旋次数，重新开始通过 for 循环从自旋这一步开始获取锁
 
-![xxx](https://img.luozhiyun.com/20201218225213.png)
-![xxx](https://img.luozhiyun.com/20201218225217.png)
-
-判断当前 Goroutine 能否进入自旋；
-
-- 通过自旋等待互斥锁的释放；
-- 计算互斥锁的最新状态；
-- 更新互斥锁的状态并获取锁；
-
-自旋是一种多线程同步机制，当前的进程在进入自旋的过程中会一直保持 CPU 的占用，持续检查某个条件是否为真。在多核的 CPU 上，自旋可以避免 Goroutine 的切换，使用恰当会对性能带来很大的增益，但是使用的不恰当就会拖慢整个程序，所以 Goroutine 进入自旋的条件非常苛刻：
 ### UnLock
-
-![xxx](https://img.luozhiyun.com/20201218225221.png)
 
 ```go
 func (m *Mutex) Unlock() {
@@ -410,6 +334,7 @@ func (m *Mutex) unlockSlow(new int32) {
 - [知乎 你真的了解 sync.Mutex 吗](https://zhuanlan.zhihu.com/p/350456432)
 - [图解 sync.Mutex](https://developer.huawei.com/consumer/cn/forum/topic/0202545781985490042?fid=23)
 - [多图详解互斥锁 Mutex](https://www.cnblogs.com/luozhiyun/p/14157542.html)
-- https://www.bilibili.com/video/BV15V411n7fM/?spm_id_from=333.999.0.0&vd_source=ddc8289a36a2bf501f48ca984dc0b3c1
+- [多图详解 Go 的互斥锁 Mutex](https://www.cnblogs.com/luozhiyun/p/14157542.html)
+- [Go Mutex 秘籍](https://www.bilibili.com/video/BV15V411n7fM/?spm_id_from=333.999.0.0&vd_source=ddc8289a36a2bf501f48ca984dc0b3c1)
 
 <!-- @include: ./mutex.code.snippet.md -->

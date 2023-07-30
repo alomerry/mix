@@ -70,9 +70,19 @@ assets/img/notes/container/docker/container-layers.jpg[@]97c622c247ef510b06fee1a
 assets/img/notes/container/docker/merge-layer.gif[@]bbcb27ba8cc85a4d8b9f84ae623011ad
 assets/img/notes/container/docker/multi-run-create-new-layer.gif[@]d4a73968c4c8f18a9ee89733292430f4
 assets/img/notes/container/docker/sharing-layers.jpg[@]21133d5dc07e6fdc837d1dfb58995f67
+assets/img/notes/golang/golang/concurrency/channel1.png[@]ea5027664a5886447b4f978b7f63f26a
+assets/img/notes/golang/golang/concurrency/channel2.png[@]fbfa43cc7a4d9dfeff6f2a3850e2aa9e
+assets/img/notes/golang/golang/concurrency/channel3.png[@]d7bea5d318285486dfb773c832fbbdd8
+assets/img/notes/golang/golang/concurrency/channel4.png[@]1beabd57b0f8b35cede18411b006d505
+assets/img/notes/golang/golang/concurrency/hchan-struct.png[@]40410360be1974e28d959906acde6fd7
 assets/img/notes/golang/golang/concurrency/hchan.png[@]9ad12bc25e2331f93b2ef917752f0a10
+assets/img/notes/golang/golang/concurrency/hello-goroutine.png[@]04928791d63c68e8a4ae6aedca785ee4
+assets/img/notes/golang/golang/concurrency/runq.png[@]2a74eacbde16641f7f1fe6146f68eaa1
 assets/img/notes/golang/golang/concurrency/sematable.png[@]8e0c35af520d2275a4c7a2d11cc75cfe
 assets/img/notes/golang/golang/concurrency/sync/sematable.png[@]
+assets/img/notes/golang/golang/concurrency/sync/stave-mode.png[@]4aeb213d654f3a0c7b371342d8123e2b
+assets/img/notes/golang/golang/concurrency/sync/try-to-lock.png[@]3b05bc508f71b84d5835e8b9fd57230e
+assets/img/notes/golang/golang/concurrency/sync/wake-up.png[@]fd09befc6e8a6240d9f4f007092454f2
 assets/img/notes/golang/golang/golang-function-stack-frame.png[@]a1532f15e85a88bc807a5885b081ebc9
 assets/img/posts/aliyun-direct-mail.png[@]893f25be6561a0fb9827b0fbbb9a65c3
 assets/img/posts/apps-intro-jetbrains-tools-01.jpg[@]5f67216533152cf31fc9b2d918c31902
@@ -86,6 +96,6 @@ assets/img/posts/vscode-matepad-preview.jpg[@]acee7486351dc4987500343d2de3d076
 assets/pdf/books/gopl.pdf[@]e0c6d6e2c7bcf43882815a1bf1ee6a60
 avatar.png[@]d24bc920f390aad9a245fe938a08703d
 favicon.ico[@]018a42eaeac45af687ca3bacbbae4c53
-github-contributions-snake.svg[@]0b9b3b0a6928df21b65ef060f72359ac
+github-contributions-snake.svg[@]a535e740474facdf294d79d48f66707f
 logo.png[@]b8db9a73459e10b591a9b3ca3940de48
 logo.svg[@]aaaeba3342f3c579b93ac3a39ee19834

@@ -15,7 +15,7 @@ export default defineUserConfig({
     "**/*.md",
     "!about/resume/2023.md",
     "!spaces/digest/**/*.md",
-    "!*.snippet.md",
+    "!!**/*.snippet.md",
     "!.vuepress",
     "!node_modules"
   ],

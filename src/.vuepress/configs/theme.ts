@@ -52,6 +52,7 @@ export default hopeTheme({
     config: {
       "/about/resume": "alomerry",
       "/about/resume.html": "alomerry",
+      "/about/own.html": "alone",
       "/notes/golang/go-interview.html": "alomerry",
     }
   },

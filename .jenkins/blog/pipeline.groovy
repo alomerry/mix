@@ -84,9 +84,9 @@ pipeline {
     stage('check and trigger resume') {
       steps {
         script {
-          def resumeChanged = sh(script: 'git --no-pager diff --name-only HEAD^ HEAD | grep "src/about/resume/" || true', returnStdout: true).trim()
+          def resumeChanged = sh(script: 'git --no-pager diff --name-only HEAD^ HEAD | grep "src/about/resume/2023.md" || true', returnStdout: true).trim()
           if (resumeChanged != "") {
-            build job: 'resume', wait: true
+            build job: 'resume', wait: false
           }
         }
       }
