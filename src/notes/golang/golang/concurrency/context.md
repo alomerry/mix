@@ -5,27 +5,16 @@ tag:
   - golang
 ---
 
-# 上下文
+# 上下文 Context
 
 ::: tip 本文基于 Golang 1.20
 :::
 
-- http://go.cyub.vip/concurrency/context.html
-- https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-context/
+一个接口四个实现六个方法
 
-- emptyCtx
-- cancelCtx
-- timerCtx
-- valueCtx
+## 接口定义
 
-- Background
-- TODO
-- WithCancel
-- WithDeadline
-- WithTimeout
-- WithValue
-
-```go:no-line-numbers 
+```go 
 // A Context carries a deadline, a cancellation signal, and other values across
 // API boundaries.
 //
@@ -125,7 +114,19 @@ type Context interface {
 }
 ```
 
-https://static.cyub.vip/images/202008/context-cancel.jpg
+
+- emptyCtx
+- cancelCtx
+- timerCtx
+- valueCtx
+
+- Background
+- TODO
+- WithCancel
+- WithDeadline
+- WithTimeout
+- WithValue
+
 
 Context实现两种递归
 Context实现两种方向的递归操作。
@@ -134,7 +135,7 @@ Context实现两种方向的递归操作。
 向下递归  当对父Context进去手动取消操作，或超时取消时候，向下递归处理对实现了canceler接口的后代进行取消操作
 向上队规  当对Context查询Key信息时候，若当前Context没有当前K-V信息时候，则向父辈递归查询，一直到查询到跟节点的emptyCtx，返回nil为止
 
-```go:no-line-numbers 
+```go
 // propagateCancel arranges for child to be canceled when parent is.
 func propagateCancel(parent Context, child canceler) {
   done := parent.Done()
