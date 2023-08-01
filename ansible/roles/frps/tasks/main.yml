@@ -1,4 +1,3 @@
-
 - name: download frp bin
   shell: wget -P ~/apps/ https://ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.51.1/frp_0.51.1_linux_amd64.tar.gz
 - name: extract frp tar

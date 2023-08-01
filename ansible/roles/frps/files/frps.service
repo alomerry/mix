@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-Restart=on-failure
+Restart=always
 RestartSec=5s
 ExecStart=/root/apps/frp_0.51.1_linux_amd64/frps -c /root/apps/frp_0.51.1_linux_amd64/frps.ini
 
