@@ -2,10 +2,6 @@
 	path = frpc/docker-flarum
 	url = git@gitlab.com:alomerry/docker-flarum.git
 	branch = develop
-[submodule "frpc/bark-server"]
-	path = frpc/bark-server
-	url = git@gitlab.com:alomerry/bark-server
-	branch = develop
 [submodule "frpc/dst-admin"]
 	path = frpc/dst-admin
 	url = git@gitlab.com:alomerry/dst-admin.git
