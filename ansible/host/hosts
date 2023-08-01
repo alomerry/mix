@@ -1,5 +1,5 @@
 [tencent-cvm]
-bt.alomerry.com:22 ansible_ssh_user=ubuntu
+bt.alomerry.com:22
 
 [justhost]
-vps.alomerry.com:22 ansible_ssh_user=root
+vps.alomerry.com:22

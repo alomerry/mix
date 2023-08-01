@@ -1,0 +1,17 @@
+
+- name: download frp bin
+  shell: wget -P ~/apps/ https://ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.51.1/frp_0.51.1_linux_amd64.tar.gz
+- name: extract frp tar
+  shell: tar -xf ~/apps/frp_0.51.1_linux_amd64.tar.gz
+- name: clean cache
+  shell: rm ~/apps/frp_0.51.1_linux_amd64.tar.gz ~/apps/frp_0.51.1_linux_amd64/frpc ~/apps/frp_0.51.1_linux_amd64/frpc.ini ~/apps/frp_0.51.1_linux_amd64/frpc_full.ini ~/apps/frp_0.51.1_linux_amd64/frps_full.ini ~/apps/frp_0.51.1_linux_amd64/LICENSE
+- name: update frps ini
+  copy:
+    src: frps.ini
+    dest: /root/apps/frp_0.51.1_linux_amd64/frps.ini
+- name: update frps service
+  copy:
+    src: frps.service
+    dest: /etc/systemd/system/frps.service
+- name: enable and start frps service
+  shell: systemctl enable frps.service && systemctl start frps.service

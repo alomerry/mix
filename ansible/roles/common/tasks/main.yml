@@ -17,6 +17,9 @@
   with_items:
   - tree
   - aptitude
-- name: disable swap
-  shell: swapoff -a
-  when: system_fstab.changed
+  - ca-certificates
+  - curl
+  - gnupg
+  - wget
+- name: set journal
+  shell: journalctl --vacuum-time=1d && journalctl --vacuum-size=30M
