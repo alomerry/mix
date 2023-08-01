@@ -50,8 +50,9 @@ export default hopeTheme({
   },
   encrypt: {
     config: {
-      "/about/resume": "alomerry",
-      "/about/resume.html": "alomerry",
+      "/about/resume": "alone",
+      "/about/resume.html": "alone",
+      "/about/resume/8gu.html": "alomerry",
       "/about/own.html": "alone",
       "/notes/golang/go-interview.html": "alomerry",
     }
@@ -65,7 +66,7 @@ export default hopeTheme({
         name: "清欢",
         description: "一个后端开发者",
         intro: "/intro.html",
-        timeline: "时日无多", // 时间轴的顶部文字 默认值: "昨日不在" 
+        timeline: "时日无多", // 时间轴的顶部文字 默认值: "昨日不在"
       },
       copyright: `Copyright &copy; 2018-2023 <a href="https://github.com/Alomerry" target="_blank">清欢</a>`,
       metaLocales: {
