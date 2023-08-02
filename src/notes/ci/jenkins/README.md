@@ -11,6 +11,8 @@ tag:
 
 <!-- ## TODO
 
+https://www.jenkins.io/doc/book/managing/groovy-hook-scripts/
+
 - [ ] 构建 docker 镜像并推送到仓库
 - [ ] 集成 k8s
 - [ ] Jenkins 升级 https://mirrors.jenkins.io/war
