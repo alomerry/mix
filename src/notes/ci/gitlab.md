@@ -10,3 +10,4 @@ article: false
 - https://www.php.cn/faq/505025.html
 - https://forum.gitlab.com/t/ci-cd-pipeline-get-list-of-changed-files/26847/25
 - https://forum.gitlab.com/t/ci-cd-pipeline-get-list-of-changed-files/26847/11
+- https://meigit.readthedocs.io/en/latest/gitlab_ci_.gitlab-ci.yml_detail.html
