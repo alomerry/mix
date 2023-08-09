@@ -4,22 +4,22 @@ pipeline {
     GenericTrigger(
       genericVariables: [
         [
-          key: 'name', 
-          value: '$.repository.name', 
-          expressionType: 'JSONPath', 
-          regularFilter: '', 
+          key: 'name',
+          value: '$.repository.name',
+          expressionType: 'JSONPath',
+          regularFilter: '',
           defaultValue: ''
         ]
       ],
-      printContributedVariables: false, 
-      printPostContent: false, 
+      printContributedVariables: false,
+      printPostContent: false,
       tokenCredentialId: 'jenkins-git-webhook-token',
       regexpFilterText: '$name',
       regexpFilterExpression: '^(B|b)log$',
       causeString: ' Triggered on $ref' ,
     )
   }
-  
+
   // 代理
   agent {
     docker {
@@ -70,13 +70,13 @@ pipeline {
             remote.password = "${password}"
           }
           sshCommand remote: remote, command: '''#!/bin/bash
-            cd /www/wwwroot/blog.alomerry.com/
+            cd /root/apps/nginx/site/blog.alomerry.com/
             shopt -s extglob
             rm -rf !(.htaccess|.user.ini|.well-known|favicon.ico|blog.tar.gz)
             '''
-          sshPut remote: remote, from: '/var/jenkins_home/workspace/vuepress-blog/src/.vuepress/dist/blog.tar.gz', into: '/www/wwwroot/blog.alomerry.com/'
-          sshCommand remote: remote, command: "cd /www/wwwroot/blog.alomerry.com && tar -xf blog.tar.gz"
-          sshRemove remote: remote, path: '/www/wwwroot/blog.alomerry.com/blog.tar.gz'
+          sshPut remote: remote, from: '/var/jenkins_home/workspace/vuepress-blog/src/.vuepress/dist/blog.tar.gz', into: '/root/apps/nginx/site/blog.alomerry.com/'
+          sshCommand remote: remote, command: "cd /root/apps/nginx/site/blog.alomerry.com && tar -xf blog.tar.gz"
+          sshRemove remote: remote, path: '/root/apps/nginx/site/blog.alomerry.com/blog.tar.gz'
         }
       }
     }
@@ -93,17 +93,17 @@ pipeline {
     }
   }
 
-  environment {
-    barkDevice = credentials('bark-notification-device-iPhone12')
-    cdnDomain = credentials('cdn-domain')
-    BUILD_NUMBER = "${env.BUILD_NUMBER}"
-  }
-  post {
-    success {
-      sh 'curl --globoff "https://bark.alomerry.com/$barkDevice/Blog%20build%20status%3A%20%5B%20Success%20%5D?icon=https%3A%2F%2F${cdnDomain}%2Fmedia%2Fimages%2Fjenkins.png&isArchive=0&group=jenkins&sound=electronic&level=passive"'
-    }
-    failure {
-      sh 'curl --globoff "https://bark.alomerry.com/$barkDevice/Blog%20build%20status%3A%20%5B%20Failed%20%5D?icon=https%3A%2F%2F${cdnDomain}%2Fmedia%2Fimages%2Fjenkins.png&url=https%3A%2F%2Fci.alomerry.com%2Fjob%2Fvuepress-blog%2F${BUILD_NUMBER}%2Fconsole&isArchive=0&group=jenkins&sound=electronic"'
-    }
-  }
+  // environment {
+  //   barkDevice = credentials('bark-notification-device-iPhone12')
+  //   cdnDomain = credentials('cdn-domain')
+  //   BUILD_NUMBER = "${env.BUILD_NUMBER}"
+  // }
+  // post {
+  //   success {
+  //     sh 'curl --globoff "https://bark.alomerry.com/$barkDevice/Blog%20build%20status%3A%20%5B%20Success%20%5D?icon=https%3A%2F%2F${cdnDomain}%2Fmedia%2Fimages%2Fjenkins.png&isArchive=0&group=jenkins&sound=electronic&level=passive"'
+  //   }
+  //   failure {
+  //     sh 'curl --globoff "https://bark.alomerry.com/$barkDevice/Blog%20build%20status%3A%20%5B%20Failed%20%5D?icon=https%3A%2F%2F${cdnDomain}%2Fmedia%2Fimages%2Fjenkins.png&url=https%3A%2F%2Fci.alomerry.com%2Fjob%2Fvuepress-blog%2F${BUILD_NUMBER}%2Fconsole&isArchive=0&group=jenkins&sound=electronic"'
+  //   }
+  // }
 }
