@@ -1,0 +1,9 @@
+- hosts: tencent-cvm
+  remote_user: root
+  roles:
+    # - common
+    # - bark
+    # - aliyun
+    # - docker
+    # - frps
+    - nginx

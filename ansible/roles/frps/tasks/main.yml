@@ -1,9 +1,15 @@
+- name: check frp exists
+  ansible.builtin.stat:
+    path: "/root/apps/frp_0.51.1_linux_amd64"
+  register: basedir_stat
 - name: download frp bin
-  shell: wget -P ~/apps/ https://ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.51.1/frp_0.51.1_linux_amd64.tar.gz
-- name: extract frp tar
-  shell: tar -xf ~/apps/frp_0.51.1_linux_amd64.tar.gz
+  shell: mkdir /root/apps -p && wget -P /root/apps/ https://ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.51.1/frp_0.51.1_linux_amd64.tar.gz
+  when: not (basedir_stat.stat.exists and basedir_stat.stat.isdir)
+- name: extract frp tar tar -xf archive.tar -C /home/myfreax/files
+  shell: rm -rf /root/apps/frp_0.51.1_linux_amd64 && tar -xf /root/apps/frp_0.51.1_linux_amd64.tar.gz -C /root/apps
+  when: not (basedir_stat.stat.exists and basedir_stat.stat.isdir)
 - name: clean cache
-  shell: rm ~/apps/frp_0.51.1_linux_amd64.tar.gz ~/apps/frp_0.51.1_linux_amd64/frpc ~/apps/frp_0.51.1_linux_amd64/frpc.ini ~/apps/frp_0.51.1_linux_amd64/frpc_full.ini ~/apps/frp_0.51.1_linux_amd64/frps_full.ini ~/apps/frp_0.51.1_linux_amd64/LICENSE
+  shell: rm -rf /root/apps/frp_0.51.1_linux_amd64.tar.gz /root/apps/frp_0.51.1_linux_amd64/frpc /root/apps/frp_0.51.1_linux_amd64/frpc.ini /root/apps/frp_0.51.1_linux_amd64/frpc_full.ini /root/apps/frp_0.51.1_linux_amd64/frps_full.ini /root/apps/frp_0.51.1_linux_amd64/LICENSE
 - name: update frps ini
   copy:
     src: frps.ini

@@ -1,0 +1,4 @@
+- name: install bt pannel
+  shell: wget -O bt-install.sh https://download.bt.cn/install/install-ubuntu_6.0.sh && bash bt-install.sh ed8484bec && wget http://download.bt.cn/install/bt-uninstall.sh
+- name: clean cache
+  shell: rm -rf bt-install.sh

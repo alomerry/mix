@@ -1,4 +1,0 @@
-- hosts: tencent-cvm
-  remote_user: root
-  roles:
-    - frps

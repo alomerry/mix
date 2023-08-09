@@ -1,0 +1,21 @@
+- name: install nginx
+  apt:
+    name: '{{ item }}'
+  with_items:
+    - nginx
+    - socat
+- include: acme.yml
+- name: init nginx workspace
+  shell: |
+    mkdir /root/apps/nginx/site -p
+    mkdir /root/apps/nginx/cert -p
+    mkdir /root/apps/nginx/logs -p
+- include: blog.yml
+- include: resume.yml
+- name: copy nginx conf
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    mode: 0644
+- name: reload nginx
+  shell: nginx -s reload
