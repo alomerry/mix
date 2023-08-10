@@ -30,7 +30,7 @@ tag:
 - 本地 runq 和全局 runq
 - M 的自旋
 
-## bootstrap
+## 调度器初始化
 
 ```go
 funA() {
@@ -171,6 +171,15 @@ mstart -> schedule()
 
 ## 调度循环 `schedule`
 
+
+top:
+	pp := mp.p.ptr()
+	pp.preempt = false
+
+执行调度时修出 p 的抢占标志
+
+调用 gp, inheritTime, tryWakeP := findRunnable() // blocks until work is available 查找可执行的 g，会阻塞到找到为止
+
 ### 任务窃取调度器
 
 - // m.lockedg 会在 lockosthread 下变为非零？？？
@@ -235,7 +244,11 @@ mstart -> schedule()
 
 #### 基于协作的抢占式调度 go1.13
 
+栈增长
+
 #### 基于信号的抢占式调度 go1.14+
+
+
 
 ## 结构
 
