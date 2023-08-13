@@ -22,7 +22,7 @@ let MD_DIR_LIST = [
 ]
 
 const FileTypeBelongToMapper = new Map([
-  ["png", "img"], ["gif", "img"], ["jpg", "img"], ["jpeg", "img"], ["svg", "img"],
+  ["png", "img"], ["gif", "img"], ["jpg", "img"], ["jpeg", "img"], ["svg", "img"], ["webp", "img"],
   ["pdf", "pdf"],
   ["mp3", "audio"],
   ["md", "markdown"],
