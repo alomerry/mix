@@ -1,18 +1,18 @@
 version: '3.8'
 services:
   jenkins:
-    build: .
+    # build: .
+    image: registry.cn-hangzhou.aliyuncs.com/alomerry/jenkins:latest
     container_name: jenkins
     user: root
     privileged: true
-    restart: on-failure
-    # environment:
-    #   - CASC_JENKINS_CONFIG=/var/configure/jenkins.yaml
-    ports: 
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
       - '880:8080'
       - '50000:50000'
     volumes:
-      - './configure:/var/configure'
       - './data/jenkins_home:/var/jenkins_home'
       - '/etc/localtime:/etc/localtime'
       - '/var/run/docker.sock:/var/run/docker.sock'

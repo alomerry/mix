@@ -10,12 +10,17 @@
     mkdir /root/apps/nginx/site -p
     mkdir /root/apps/nginx/cert -p
     mkdir /root/apps/nginx/logs -p
-- include: blog.yml
-- include: resume.yml
+# - include: blog.yml
+# - include: resume.yml
+- include: ci.yml
+# - name: copy nginx service
+#   copy:
+#     src: nginx.service
+#     dest: /etc/systemd/system/nginx.service
 - name: copy nginx conf
   copy:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
     mode: 0644
-- name: reload nginx
-  shell: nginx -s reload
+- name: restart nginx
+  shell: service nginx restart

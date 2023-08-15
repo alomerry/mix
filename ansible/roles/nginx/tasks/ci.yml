@@ -1,0 +1,15 @@
+- name: init ci.alomerry.com workspace
+  shell: |
+    mkdir /root/apps/nginx/site/ci.alomerry.com/ -p
+    mkdir /root/apps/nginx/cert/ci.alomerry.com/ -p
+    mkdir /root/apps/nginx/conf/ci.alomerry.com/ -p
+    touch /root/apps/nginx/cert/ci.alomerry.com/privkey.pem
+    touch /root/apps/nginx/cert/ci.alomerry.com/fullchain.pem
+- name: copy nginx conf
+  copy:
+    src: conf/ci.conf
+    dest: /root/apps/nginx/conf/ci.alomerry.com.conf
+# - name: generate ssl
+#   shell: /root/.acme.sh/acme.sh --issue --dns dns_ali -d ci.alomerry.com --webroot /root/apps/nginx/site/ci.alomerry.com/ --nginx
+- name: install ssl
+  shell: /root/.acme.sh/acme.sh --install-cert -d ci.alomerry.com --key-file /root/apps/nginx/cert/ci.alomerry.com/privkey.pem --fullchain-file /root/apps/nginx/cert/ci.alomerry.com/fullchain.pem

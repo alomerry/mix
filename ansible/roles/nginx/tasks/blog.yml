@@ -12,4 +12,4 @@
 # - name: generate ssl
 #   shell: /root/.acme.sh/acme.sh --issue --dns dns_ali -d blog.alomerry.com --webroot /root/apps/nginx/site/blog.alomerry.com/ --nginx
 - name: install ssl
-  shell: /root/.acme.sh/acme.sh --install-cert -d blog.alomerry.com --key-file /root/apps/nginx/cert/blog.alomerry.com/privkey.pem --fullchain-file /root/apps/nginx/cert/blog.alomerry.com/fullchain.pem --reloadcmd "service nginx force-reload"
+  shell: /root/.acme.sh/acme.sh --install-cert -d blog.alomerry.com --key-file /root/apps/nginx/cert/blog.alomerry.com/privkey.pem --fullchain-file /root/apps/nginx/cert/blog.alomerry.com/fullchain.pem

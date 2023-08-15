@@ -1,2 +1,10 @@
-[amd-5600g]
-192.168.3.110:22
+
+- hosts: local
+  remote_user: root
+  roles:
+    # - common
+    # - bark
+    # - aliyun
+    # - docker
+    # - frps
+    - jenkins
