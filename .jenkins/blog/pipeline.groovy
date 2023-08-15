@@ -31,7 +31,7 @@ pipeline {
   stages {
     stage('pull code') {
       environment {
-        url = 'https://gitlab.com/alomerry/blog.git'
+        url = 'https://gitee.com/alomerry/blog.git'
       }
       steps {
         retry(3) {
