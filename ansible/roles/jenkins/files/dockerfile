@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.418
+FROM jenkins/jenkins:2.419
 USER root
 # COPY sources.list /etc/apt/sources.list
 COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt

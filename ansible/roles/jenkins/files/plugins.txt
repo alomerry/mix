@@ -11,7 +11,7 @@ workflow-api:1251.vd4889a_b_0a_065
 durable-task:513.vc48a_a_075a_d93
 credentials:1271.v54b_1c2c6388a_
 pipeline-model-extensions:2.2144.v077a_d1928a_40
-caffeine-api:3.1.6-115.vb_8b_b_328e59d8
+caffeine-api:3.1.8-133.v17b_1ff2e0599
 jersey2-api:2.40-1
 pipeline-groovy-lib:671.v07c339c842e8
 workflow-basic-steps:1042.ve7b_140c4a_e0c
