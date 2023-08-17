@@ -31,14 +31,6 @@ src/about/resume/todo.md
 src/.vuepress/public/assets/pdf
 src/.vuepress/public/assets/img
 
-src/posts/assets
-src/books/assets
-src/about/assets
-src/about/resume/assets
-src/notes/assets
-src/notes/golang/golang/assets
-src/notes/golang/golang/keyword/assets
-src/notes/golang/golang/concurrency/assets
-src/notes/golang/golang/concurrency/sync/assets
+src/**/assets
 
 scripts/test.js
