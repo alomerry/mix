@@ -83,15 +83,15 @@ export default hopeTheme({
   plugins: {
     blog: true,
     // autoCatalog: false,
-    comment: {
-      provider: "Waline",
-      serverURL: "https://waline.alomerry.com",
-      dark: "auto",
-      meta: ['nick', 'mail', 'link'],
-      requiredMeta: [],
-      // reaction:[],
-      login: "enable"
-    },
+    // comment: {
+    //   provider: "Waline",
+    //   serverURL: "https://waline.alomerry.com",
+    //   dark: "auto",
+    //   meta: ['nick', 'mail', 'link'],
+    //   requiredMeta: [],
+    //   // reaction:[],
+    //   login: "enable"
+    // },
 
     // all features are enabled for demo, only preserve features you need here
     mdEnhance: {

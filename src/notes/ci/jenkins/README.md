@@ -9,6 +9,8 @@ tag:
 
 # Jenkins 学习笔记
 
+https://dyrnq.com/jenkins/
+
 <!-- ## TODO
 
 https://www.jenkins.io/doc/book/managing/groovy-hook-scripts/

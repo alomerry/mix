@@ -13,7 +13,7 @@ pipeline {
       ],
       printContributedVariables: false,
       printPostContent: false,
-      tokenCredentialId: 'jenkins-git-webhook-token',
+      // tokenCredentialId: 'jenkins-git-webhook-token',
       regexpFilterText: '$name',
       regexpFilterExpression: '^(B|b)log$',
       causeString: ' Triggered on $ref' ,
@@ -31,7 +31,7 @@ pipeline {
   stages {
     stage('pull code') {
       environment {
-        url = 'https://gitee.com/alomerry/blog.git'
+        url = 'https://gitlab.com/alomerry/blog.git'
       }
       steps {
         retry(3) {

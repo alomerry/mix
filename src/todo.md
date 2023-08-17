@@ -1,5 +1,7 @@
 # TODO
 
+读写内存屏障
+
 - vps-tencent 迁移 uptime，waline 再考虑一下
 - [ ] https://colobu.com/2020/12/27/go-with-os-exec/
 - [ ] 检查 md 中包含大于小于号的部分，做转义

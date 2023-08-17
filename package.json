@@ -10,7 +10,7 @@
   "scripts": {
     "build": "vuepress build src",
     "clean-dev": "vuepress dev src --clean-cache",
-    "dev": "vuepress dev src",
+    "dev": "vuepress dev src --clean-cache",
     "update-package": "pnpm dlx vp-update",
     "postinstall": "node scripts/cmd.js modifySplitFontsCss downloadImportCode autoGenIOISidebar",
     "postbuild": "node scripts/cmd.js addUmamiTrace convertCDN",
