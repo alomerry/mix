@@ -7,29 +7,6 @@ tag:
 
 # Goroutine 协程
 
-## 进程、线程和协程
-
-- 每个是什么
-- 优缺点
-
-## IO 多路复用
-
-三种网络 IO 模型
-
-## GMP
-
-### GM 模型
-
-存在什么问题
-
-- 全局 mutex 保护全局 runq，调度时要先获取锁，竞争严重
-- G 的执行被分发到随机 M，造成在不同 M 频繁切换
-
-### GMP 模型
-
-- 本地 runq 和全局 runq
-- M 的自旋
-
 ## 二进制文件是如何运行的
 
 ```go
@@ -43,62 +20,15 @@ func main() {
 }
 ```
 
-代码被构建成可执行文件后有执行入口，根据平台不同有 `_rt0_amd64_linux`[^_rt0_amd64]、`_rt0_amd64_windows` 等，该函数会执行一条汇编指令，调用 `runtime.rt0_go()` 函数：
+代码被构建成可执行文件后有执行入口，根据平台不同有 `_rt0_amd64_linux`[^_rt0_amd64]、`_rt0_amd64_windows` 等，该函数会执行一条汇编指令，调用 `runtime.rt0_go` 函数：
 
-`runtime.rt0_go()`[^rt0_go] 包含了 Go 程序启动的大致流程：
+`runtime.rt0_go`[^rt0_go] 包含了 Go 程序启动的大致流程：
 
 - 调用 `runtime·args` 暂存命令行参数用于后续解析
 - 调用 `runtime.osinit` 初始化系统核心数、物理页面大小等
 - 调用 `runtime·schedinit`[^schedinit] 初始化调度系统
 - 调用 `runtime·newproc` 创建主协程
 - 调用 `runtime·mstart`，当前线程进入调度循环
-
-```go
-new main goroutine(newproc)
-
-mstart -> schedule()
-    *runtime.main
-      sysmon, package init...
-      call main.main
-      ....
-          *newproc(0, funA) -> newproc1(协程入口，参数地址，参数大小，父协程，返回地址)
-            ...
-            acquirem() // 禁止当前 m 被抢占
-            ...
-            gfget(_p_) // 获取空闲 g
-            如果无 g 则创建一个添加到 allgs
-            memmove // 协程入口如果有参数，将参数移动到协程栈上
-            runqput // 将 g 放到当前 p 的本地队列
-            ...
-            releasem()
-            // 执行相关逻辑 funA
-            ...
-            goexit() // 处理协程资源
-      exit()
-```
-
-```go
-*gopark
-  acquirem
-  ...
-  releasem
-  mcall(park_m)
-      *保存现场
-        switch g0 & it's stack
-        call runtime.park_m()
-            *
-              m.curg.m = nil
-              m.curg = nil
-              ...
-              schedule()
-```
-
-```go
-*runtime.goready
-  switch g0
-  runtime.ready()
-```
-
 
 ## 创建主协程
 
@@ -151,7 +81,7 @@ mstart0[^mstart0]
 mstart1[^mstart1]
 - `mstart1` 初始化 m0，。。。。最后执行 `schedule`
 
-### 调度循环 `schedule`
+## 调度 `schedule`
 
 `schedule`[^schedule] 每执行一次，就表示发生了一次调度
 
@@ -171,7 +101,7 @@ mstart1[^mstart1]
 
 - // m.lockedg 会在 lockosthread 下变为非零？？？
 
-#### `findRunnable`
+### `findRunnable`
 
 ::: tip
 
@@ -189,59 +119,138 @@ Tries to steal from other P's, get g from local or global queue, poll network.
 - 执行安全点检查 `runSafePointFn`[^runSafePointFn]
 - `checkTimers`[^checkTimers] 会运行当前 p 上所有已经达到触发时间的计时器（TODOODODODO 如何处理的？如何唤醒对应额 goroutine 的，计时器变更了怎么办）// now and pollUntil are saved for work stealing later, which may steal timers. It's important that between now and then, nothing blocks, so these numbers remain mostly relevant.
 - gcBlackenEnabled traceReader // Try to schedule a GC worker. tracereader 这两种是非正常协程
-- // 为了公平，每调用 schedule 函数 61 次就要从全局可运行 G 队列中获取，保证效率的基础上兼顾公平性，防止本地队列上的两个持续唤醒的 goroutine 造成全局队列一直得不到调度
-  ```go
-  // Check the global runnable queue once in a while to ensure fairness.
-  // Otherwise two goroutines can completely occupy the local runqueue
-  // by constantly respawning each other.
-  if pp.schedtick%61 == 0 && sched.runqsize > 0 {
-    lock(&sched.lock)
-    gp := globrunqget(pp, 1)
-    unlock(&sched.lock)
-    if gp != nil {
-      return gp, false, false
-    }
-  }
-  ```
-- // Wake up the finalizer G.？？？？
-- 从本地队列获取 g `if gp, inheritTime := runqget(pp); gp != nil {` [^runqget]
-- 从全局 runq 中获取 g `gp := globrunqget(pp, 0)`
-- 执行 `netpull` 若返回值非空则将第一个 g 从列表中弹出，将剩余的尝试按本地 runq、全局 runq 的顺序插入 // 从I/O轮询器获取 G???? `if netpollinited() && ...` // 尝试从netpoller 获取Glist // 将其余队列放入 P 的可运行G队列
-- 判断 p？m？是否可以窃取其他 p 的 runq，需要满足两个条件：当前 m 处于自旋等待或者出于自旋的 m 要小于处于工作中 p 的一半。这样是为了防止程序中 p 很大，但是并发性很低时，CPU 不必要的消耗
+- 为了公平[^findRunnable_fairness]，每调用 `schedule` 函数 61 次就要调用 `globrunqget` 从全局可运行 G 队列中获取 1 个，保证效率的基础上兼顾公平性，防止本地队列上的两个持续唤醒的 goroutine 造成全局队列一直得不到调度
+- // Wake up the finalizer G. TODOODODO
+- 从本地队列获取 g `runqget`
+- 从全局 runq 中获取 g `globrunqget`
+- 执行 `netpull` 若返回值非空则将第一个 g 从列表中弹出，将剩余的尝试按本地 runq、全局 runq 的顺序插入 // 从I/O轮询器获取 G???? `if netpollinited() && ...` // 尝试从netpoller 获取Glist // 将其余队列放入 P 的可运行G队列 TODODOO
+- 判断 p 是否可以窃取其他 p 的 runq，需要满足两个条件[^findRunnable_steal_check]：当前 m 处于自旋等待或者出于自旋的 m 要小于处于工作中 p 的一半。这样是为了防止程序中 p 很大，但是并发性很低时，CPU 不必要的消耗
+- 满足窃取 g 条件时[^findRunnable_steal]，将 m 标记为自旋并调用 `stealWork`，如果未成功窃取 g，// TDOOODODODO
+- // gcBlackenEnabled != 0 && gcMarkWorkAvailable(pp) && gcController.addIdleMarkWorker()
+- 至此 `findRunnable` 主要工作做完，会做一些额外工作[^findRunnable_release_p]
+  - 再次检测 gc 是否在等待执行，是则跳至 top 进行新的一轮 `findRunnable`，在新轮次的开始执行 gc
+  - 再次从全局 runq 中获取 g
+  - `releasep` 解除 m 和 p 的关联，并调用 `pidleput` 将 p 放入空闲 p 列表中
+- TODODODO
+
+::: tips
+
+Delicate dance: thread transitions from spinning to non-spinning state, potentially concurrently with submission of new work. We must drop nmspinning first and then check all sources again (with #StoreLoad memory barrier in between). If we do it the other way around, another thread can submit work after we've checked all sources but before we drop nmspinning; as a result nobody will unpark a thread to run the work.
+	
+This applies to the following sources of work:
+	
+* Goroutines added to the global or a per-P run queue.
+* New/modified-earlier timers on a per-P timer heap.
+* Idle-priority GC work (barring golang.org/issue/19112).
+	
+If we discover new work below, we need to restore m.spinning as a signal for resetspinning to unpark a new worker thread (because there can be more than one starving goroutine).
+	
+However, if after discovering new work we also observe no idle Ps (either here or in resetspinning), we have a problem. We may be racing with a non-spinning M in the block above, having found no work and preparing to release its P and park. Allowing that P to go idle will result in loss of work conservation (idle P while there is runnable work). This could result in complete deadlock in the unlikely event that we discover new work (from netpoll) right as we are racing with _all_ other Ps going idle.
+	
+We use sched.needspinning to synchronize with non-spinning Ms going idle. If needspinning is set when they are about to drop their P, they abort the drop and instead become a new spinning M on our behalf. If we are not racing and the system is truly fully loaded then no spinning threads are required, and the next thread to naturally become spinning will clear the flag. 	
+Also see "Worker thread parking/unparking" comment at the top of the file.
+
+:::
+
+#### `execute`
+
+`execute` 会关联 m 和 g，将 g 设置成 `_Grunning`，并通过 `gogo` 函数将 `g.sched` 中的上下文恢复
+
+### stealWork
+
 - 满足窃取 g 条件时，将 m 标记为自旋并调用 `stealWork`[^stealWork]
   - // 从 p2 窃取计时器。 对 checkTimers 的调用是我们可以锁定不同 P 的计时器的唯一地方。 我们在检查 runnext 之前在最后一次传递中执行此操作，因为从其他 P 的 runnext 窃取应该是最后的手段，因此如果有计时器要窃取，请首先执行此操作。 我们只在一次窃取迭代中检查计时器，因为 now 中存储的时间在此循环中不会改变，并且使用相同的 now 值多次检查每个 P 的计时器可能是浪费时间。timerpMask 告诉我们是否 P可能有定时器。 如果不能的话，根本不需要检查。
   - `stealWork` 中会尝试窃取四次，前三次会从其他 p 的 runq 中窃取，最后一次会查找其他 p 的 timer[^checkTimers] 执行（TODOODODODO）
   - `randomOrder` 尝试随机窃取某个 p（TDODOODOD）
   - 窃取 p 的 runq 时会先判断 p 是否空闲，如果非空闲，则调用 `runqsteal`[^runqsteal] 窃取，窃取成功则返回该 g // if !idlepMask.read(enum.position()) {
   - 成功执行 p 的 timer 后[^runtimer]（TODODODODO），因为由于执行了其他 p 的 timer，可能会使某些 goroutine 变成 `_Grunnable` 状态，会调用 `runqget` 尝试从当前 p 中获取 g，如果依旧没有找到待执行的 g，则重新执行 `findRunnable` 中的流程
-- ....
-- ....
 
-#### `execute`
+### `globrunqget`
 
-`execute` 会关联 m 和 g，将 g 设置成 `_Grunning`，并通过 `gogo` 函数将 `g.sched` 中的上下文恢复
+`globrunqget`[^globrunqget] 旨在从全局 runq 队列中获取最多 max 个待执行的 g
 
-## 调度
+  - 首先调用 `assertLockHeld`[^assertLockHeld] 保证调用者已经锁住调度器
+  - 计算得出最多能获取的 g 数量 n，g 的数量不能超过：max（非 0）、p 的 runq 一半
+  - 将首个可执行的 g 作为返回值，剩余的 n-1 个 g 放入 p 的 runq 中
 
-主动释放
+### runqget
 
-### 抢占式调度
+[^runqget]
 
-#### 基于协作的抢占式调度 go1.13
+### pidleput
 
-栈增长
+## 抢占式调度
 
-#### 基于信号的抢占式调度 go1.14+
+- `goexit`[^runtime·goexit] 中 `newproc1` 初始化 g 的上下文现场时会插入 `goexit1` 地址加一个指令，可以看到汇编函数中在 `call` 指令之前插入了 NOP 指令，并调用 `goexit1`[^goexit1]，最终调用 `goexit0`。`goexit0`[^goexit0] 会将 g 状态置为 `_Gdead`、清空属性、调用 `dropg` 将 g 与 m 解绑，调用 `gfput`[^gfput] 将 g 放入空闲队列，调用 `schedule` 执行调度
+
+### 基于协作的抢占式调度 go1.13-
+
+- [`stacksplit`](https://github.com/golang/go/blob/de4748c47c67392a57f250714509f590f68ad395/src/cmd/internal/obj/x86/obj6.go#L1029) 编译期在函数调用前插入栈增长代码调用 `runtime.morestarck`
+- 运行时会在 gc、系统监控检测发现 goroutine 执行时间超过 10ms 时发出抢占请求，将 `g.stackguard0` 设置成 `stackPreempt`
+- 协程发生函数调用时执行编译期插入的 `runtime.morestack`，它会调用 `runtime.newstack` 检测 `g.stackguard0`，如果是 `stackPreempt` 则会触发抢占，调用 `gogo`[^gogo]
+
+```go
+func fibonacci(n int) {
+  if n < 2 {
+    return 1
+  }
+  return fibonacci(n-1) + fibonacci(n-2)
+}
+```
+
+```go
+func fibonacci(n int) {
+entry:
+  gp := getg()
+  if SP <= gp.stackguard0 {
+    goto morestack
+  }
+  return fibonacci(n-1) + fibonacci(n-2)
+morestack: 
+  runtime.morestack_noctxt()
+  go entry
+}
+```
+
+```go
+const (
+	uintptrMask = 1<<(8*goarch.PtrSize) - 1
+
+	// The values below can be stored to g.stackguard0 to force
+	// the next stack check to fail.
+	// These are all larger than any real SP.
+
+	// Goroutine preemption request.
+	// 0xfffffade in hex.
+	stackPreempt = uintptrMask & -1314
+
+	// Thread is forking. Causes a split stack check failure.
+	// 0xfffffb2e in hex.
+	stackFork = uintptrMask & -1234
+
+	// Force a stack movement. Used for debugging.
+	// 0xfffffeed in hex.
+	stackForceMove = uintptrMask & -275
+
+	// stackPoisonMin is the lowest allowed stack poison value.
+	stackPoisonMin = uintptrMask & -4096
+)
+```
+
+- stopTheWorldWithSema
+  - gcStart
+  - gcMarkDone
+  - stopTheWorld
+
+### 基于信号的抢占式调度 go1.14+
+
 
 
 ### 相关函数
 
 - `runtime.systemstack`[^systemstack]<Badge text="TODO" type="tip"/> 该函数旨在临时性切换至当前 M 的 g0 栈，完成操作后再切换回原来的协程栈，主要用于执行触发栈增长函数。如果处于 gsignal??? 或 g0 栈上，则 `systemstack` 不会产生作用（当从 g0 切换回 g 后，会丢弃 g0 栈上的内容<Badge text="TODO" type="tip"/>）
 - `runtime.mcall`[^mcall] 和 `systemstack` 类似，但是不可以在 g0 栈上调用，也不会切换回 g。作用？？？将自己挂起
-- `runtime.gogo`[^gogo]
 - `runtime.gosave`[^gosave]
-- `goexit`[^runtime·goexit] 中 `newproc1` 初始化 g 的上下文现场时会插入 `goexit1` 地址加一个指令，可以看到汇编函数中在 `call` 指令之前插入了 NOP 指令，并调用 `goexit1`[^goexit1]，最终调用 `goexit0`
-- `goexit0`[^goexit0] 会将 g 状态置为 `_Gdead`、清空属性、调用 `dropg` 将 g 与 m 解绑，调用 `gfput`[^gfput] 将 g 放入空闲队列，调用 `schedule` 执行调度
 - `gfget`[^gfget] 获取关联 p 上空闲 g 队列 gFree<Badge text="TODO" type="tip"/>，如果 p 上不存在空闲的 g 并且调度器全局 gFree 非空，则会将全局 gFree 中的空闲 g 弹出并设置到 p 上，直到 p 上的空闲 gFree 个数超过 31 个或者是全局空闲 gFree 已耗尽，并且会清理该 g 已有的栈空间
 
 
@@ -396,10 +405,85 @@ bad:
   INT	$3
 ```
 
+
+## 进程、线程和协程
+
+- 每个是什么
+- 优缺点
+
+## IO 多路复用
+
+三种网络 IO 模型
+
+## GMP
+
+### GM 模型
+
+存在什么问题
+
+- 全局 mutex 保护全局 runq，调度时要先获取锁，竞争严重
+- G 的执行被分发到随机 M，造成在不同 M 频繁切换
+
+### GMP 模型
+
+- 本地 runq 和全局 runq
+- M 的自旋
+
 ## Reference
 
 - http://go.cyub.vip/index.html
 - https://www.luozhiyun.com/archives/448
 - https://blog.tianfeiyu.com/source-code-reading-notes/go/golang_gpm.html
+- https://draveness.me/golang/
+- 深度探索 Go 语言对象模型与 runtime 的原理、特性及应用
 
-<!-- @include: ./goroutine.code.snippet.md -->
+<!-- @include: ./_bootstrap.code.snippet.md -->
+<!-- @include: ./_schedule.code.snippet.md -->
+<!-- @include: ./_find-runnable.code.snippet.md -->
+<!-- @include: ./_preempt.code.snippet.md -->
+<!-- @include: ./_goroutine.code.snippet.md -->
+
+```go
+new main goroutine(newproc)
+mstart -> schedule()
+    *runtime.main
+      sysmon, package init...
+      call main.main
+      ....
+          *newproc(0, funA) -> newproc1(协程入口，参数地址，参数大小，父协程，返回地址)
+            ...
+            acquirem() // 禁止当前 m 被抢占
+            ...
+            gfget(_p_) // 获取空闲 g
+            如果无 g 则创建一个添加到 allgs
+            memmove // 协程入口如果有参数，将参数移动到协程栈上
+            runqput // 将 g 放到当前 p 的本地队列
+            ...
+            releasem()
+            // 执行相关逻辑 funA
+            ...
+            goexit() // 处理协程资源
+      exit()
+```
+
+```go
+*gopark
+  acquirem
+  ...
+  releasem
+  mcall(park_m)
+      *保存现场
+        switch g0 & it's stack
+        call runtime.park_m()
+            *
+              m.curg.m = nil
+              m.curg = nil
+              ...
+              schedule()
+```
+
+```go
+*runtime.goready
+  switch g0
+  runtime.ready()
+```

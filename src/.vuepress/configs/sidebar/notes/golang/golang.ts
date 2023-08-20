@@ -12,5 +12,5 @@ export const golang = arraySidebar([
   "concurrency/sync/map",
   "concurrency/semaphore",
   "concurrency/channel",
-  "concurrency/goroutine",
+  "concurrency/goroutine/goroutine",
 ]);
