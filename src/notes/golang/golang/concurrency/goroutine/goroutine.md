@@ -7,6 +7,52 @@ tag:
 
 # Goroutine
 
+- 任务窃取调度
+- 基于协作的抢占式调度
+- 基于信号的抢占式调度
+
+g
+
+- stack
+- stackguard0
+- _panic
+- _defer
+- m
+- sched gobuf
+  - sp
+  - pc
+  - g
+
+m
+
+- go
+- curg
+- p
+- nextp
+- oldp
+
+p
+
+- runqhead
+- runqtail
+- runq
+- runnext
+
+excute()
+
+- gogo
+- goexit0
+
+- 主动挂起
+  - gopark park_m / goready
+- 系统调用
+  - exitsyscall exitsyscall0
+  - 
+- 协作式调用
+  - Gosched gosched_m goschedImpl
+- 系统监控
+  - sysmon retake preemptone
+
 ## 二进制文件是如何运行的
 
 ```go
