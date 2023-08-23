@@ -59,7 +59,6 @@ export const setupFootnotePopup = () => {
         let underInsert = this.footer()?.childNodes as NodeListOf<ChildNode>
         let index = 0;
         while (underInsert.length > index) {
-          console.log(666);
           if (this.hasFootLink(underInsert[index] as HTMLElement)) {
             (underInsert[0] as HTMLElement).classList.add("code-popup-display-none")
             // a 标签理论上在最后
@@ -169,6 +168,9 @@ export const setupFootnotePopup = () => {
   }
 
   const clickListener = (event: any) => {
+    if (!(event.target.nodeName === 'A' && event.target.getAttribute('href')?.startsWith("#footnote"))) {
+      return;
+    }
     event.preventDefault()
     let needHoverDiv = (event.currentTarget as HTMLElement).childNodes[2]
 
