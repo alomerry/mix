@@ -117,10 +117,6 @@ https://github.com/byoungd/English-level-up-tips https://www.v2ex.com/t/425450
 ## gpt
 
 - https://openai.apifox.cn/api-67883981
-- https://openai.alomerry.com/#/chat
-- https://chat2.aichatos.com
 - https://github.com/pengzhile/pandora
 - https://github.com/xx025/carrot
-- http://chat.talktop.top/
-- https://weexai.com/
 - https://www.v2ex.com/t/936590#reply11

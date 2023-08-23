@@ -20,7 +20,10 @@
 }
 
 .code-popup-warp {
-  position: relative;
+  position: absolute;
+  display: inline-block;
+  top: 150%;
+  font-size: 16px;
 }
 
 .code-popup {
@@ -45,12 +48,11 @@
 
   @media (min-width: hope-config.$mobile) {
     width: calc(100% - 10px);
-    left: 45%;
   }
 
   @media (max-width: hope-config.$mobile) {
     width: calc(100%);
-    left: 47%;
+    left: 55%;
   }
 }
 
