@@ -12,7 +12,7 @@ article: false
 
 ::: details
 
-![MySQL 执行流程](@CDN/mysql-query.webp)
+![MySQL 执行流程](https://cdn.alomerry.com/blog/assets/img/notes/database/sql/mysql-query.webp)
 
 - 连接器：建立连接，管理连接、校验用户身份；
 - 查询缓存：查询语句如果命中查询缓存则直接返回，否则继续往下执行。MySQL 8.0 已删除该模块；
@@ -30,7 +30,7 @@ MySQL 一行记录是怎么存储的？
 
 表空间由段（segment）、区（extent）、页（page）、行（row）组成，InnoDB存储引擎的逻辑存储结构大致如下图：
 
-![表结构](@CDN/table-struct.webp)
+![表结构](https://cdn.alomerry.com/blog/assets/img/notes/database/sql/table-struct.webp)
 
 - 行：数据库表中的记录都是按行（row）进行存放的，每行记录根据不同的行格式，有不同的存储结构
 - 页：记录是按照行来存储的，但是数据库的读取并不以「行」为单位，否则一次读取（也就是一次 I/O 操作）只能处理一行数据，效率会非常低。因此，InnoDB 的数据是按「页」为单位来读写的，也就是说，当需要读一条记录的时候，并不是将这个行记录从磁盘读出来，而是以页为单位，将其整体读入内存。
@@ -52,7 +52,7 @@ COMPACT 行格式长什么样？
 
 ::: details
 
-![compat 行格式](@CDN/COMPACT-row-format.webp)
+![compat 行格式](https://cdn.alomerry.com/blog/assets/img/notes/database/sql/COMPACT-row-format.webp)
 
 可以看到，一条完整的记录分为「记录的额外信息」和「记录的真实数据」两个部分。
 
