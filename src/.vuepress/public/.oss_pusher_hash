@@ -84,6 +84,7 @@ assets/img/notes/golang/golang/concurrency/channel2.png[@]fbfa43cc7a4d9dfeff6f2a
 assets/img/notes/golang/golang/concurrency/channel3.png[@]d7bea5d318285486dfb773c832fbbdd8
 assets/img/notes/golang/golang/concurrency/channel4.png[@]1beabd57b0f8b35cede18411b006d505
 assets/img/notes/golang/golang/concurrency/context-cancel.jpg[@]1855e963eff45cb690dddd27bd4f81de
+assets/img/notes/golang/golang/concurrency/goroutine/p-runq.png[@]2a74eacbde16641f7f1fe6146f68eaa1
 assets/img/notes/golang/golang/concurrency/hchan-struct.png[@]40410360be1974e28d959906acde6fd7
 assets/img/notes/golang/golang/concurrency/hchan.png[@]9ad12bc25e2331f93b2ef917752f0a10
 assets/img/notes/golang/golang/concurrency/hello-goroutine.png[@]04928791d63c68e8a4ae6aedca785ee4

@@ -232,3 +232,188 @@
       buf.ctxt = ctxt
     }
     ```
+
+[^gfget]:
+
+    ```go
+    // Get from gfree list.
+    // If local list is empty, grab a batch from global list.
+    func gfget(pp *p) *g {
+    retry:
+      if pp.gFree.empty() && (!sched.gFree.stack.empty() || !sched.gFree.noStack.empty()) {
+        lock(&sched.gFree.lock)
+        // Move a batch of free Gs to the P.
+        for pp.gFree.n < 32 {
+          // Prefer Gs with stacks.
+          gp := sched.gFree.stack.pop()
+          if gp == nil {
+            gp = sched.gFree.noStack.pop()
+            if gp == nil {
+              break
+            }
+          }
+          sched.gFree.n--
+          pp.gFree.push(gp)
+          pp.gFree.n++
+        }
+        unlock(&sched.gFree.lock)
+        goto retry
+      }
+      gp := pp.gFree.pop()
+      if gp == nil {
+        return nil
+      }
+      pp.gFree.n--
+      if gp.stack.lo != 0 && gp.stack.hi-gp.stack.lo != uintptr(startingStackSize) {
+        // Deallocate old stack. We kept it in gfput because it was the
+        // right size when the goroutine was put on the free list, but
+        // the right size has changed since then.
+        systemstack(func() {
+          stackfree(gp.stack)
+          gp.stack.lo = 0
+          gp.stack.hi = 0
+          gp.stackguard0 = 0
+        })
+      }
+      if gp.stack.lo == 0 {
+        // Stack was deallocated in gfput or just above. Allocate a new one.
+        systemstack(func() {
+          gp.stack = stackalloc(startingStackSize)
+        })
+        gp.stackguard0 = gp.stack.lo + _StackGuard
+      } else {
+        if raceenabled {
+          racemalloc(unsafe.Pointer(gp.stack.lo), gp.stack.hi-gp.stack.lo)
+        }
+        if msanenabled {
+          msanmalloc(unsafe.Pointer(gp.stack.lo), gp.stack.hi-gp.stack.lo)
+        }
+        if asanenabled {
+          asanunpoison(unsafe.Pointer(gp.stack.lo), gp.stack.hi-gp.stack.lo)
+        }
+      }
+      return gp
+    }
+    ```
+
+[^malg]:
+
+    ```go
+    // Allocate a new g, with a stack big enough for stacksize bytes.
+    func malg(stacksize int32) *g {
+      newg := new(g)
+      if stacksize >= 0 {
+        stacksize = round2(_StackSystem + stacksize)
+        systemstack(func() {
+          newg.stack = stackalloc(uint32(stacksize))
+        })
+        newg.stackguard0 = newg.stack.lo + _StackGuard
+        newg.stackguard1 = ^uintptr(0)
+        // Clear the bottom word of the stack. We record g
+        // there on gsignal stack during VDSO on ARM and ARM64.
+        *(*uintptr)(unsafe.Pointer(newg.stack.lo)) = 0
+      }
+      return newg
+    }
+    ```
+
+[^allgadd]:
+
+    ```go
+    func allgadd(gp *g) {
+      if readgstatus(gp) == _Gidle {
+        throw("allgadd: bad status Gidle")
+      }
+
+      lock(&allglock)
+      allgs = append(allgs, gp)
+      if &allgs[0] != allgptr {
+        atomicstorep(unsafe.Pointer(&allgptr), unsafe.Pointer(&allgs[0]))
+      }
+      atomic.Storeuintptr(&allglen, uintptr(len(allgs)))
+      unlock(&allglock)
+    }
+    ```
+
+[^newproc1.setpc]:
+
+    ```go
+    totalSize := uintptr(4*goarch.PtrSize + sys.MinFrameSize) // extra space in case of reads slightly beyond frame
+    totalSize = alignUp(totalSize, sys.StackAlign)
+    sp := newg.stack.hi - totalSize
+    spArg := sp
+    if usesLR {
+      // caller's LR
+      *(*uintptr)(unsafe.Pointer(sp)) = 0
+      prepGoExitFrame(sp)
+      spArg += sys.MinFrameSize
+    }
+
+    memclrNoHeapPointers(unsafe.Pointer(&newg.sched), unsafe.Sizeof(newg.sched))
+    newg.sched.sp = sp
+    newg.stktopsp = sp
+    newg.sched.pc = abi.FuncPCABI0(goexit) + sys.PCQuantum // +PCQuantum so that previous instruction is in same function
+    newg.sched.g = guintptr(unsafe.Pointer(newg))
+    gostartcallfn(&newg.sched, fn)
+    newg.parentGoid = callergp.goid
+    newg.gopc = callerpc
+    newg.ancestors = saveAncestors(callergp)
+    newg.startpc = fn.fn
+    ```
+
+[^runqputslow]:
+
+    ```go
+    // Put g and a batch of work from local runnable queue on global queue.
+    // Executed only by the owner P.
+    func runqputslow(pp *p, gp *g, h, t uint32) bool {
+      var batch [len(pp.runq)/2 + 1]*g
+
+      // First, grab a batch from local queue.
+      n := t - h
+      n = n / 2
+      if n != uint32(len(pp.runq)/2) {
+        throw("runqputslow: queue is not full")
+      }
+      for i := uint32(0); i < n; i++ {
+        batch[i] = pp.runq[(h+i)%uint32(len(pp.runq))].ptr()
+      }
+      if !atomic.CasRel(&pp.runqhead, h, h+n) { // cas-release, commits consume
+        return false
+      }
+      batch[n] = gp
+
+      if randomizeScheduler {
+        for i := uint32(1); i <= n; i++ {
+          j := fastrandn(i + 1)
+          batch[i], batch[j] = batch[j], batch[i]
+        }
+      }
+
+      // Link the goroutines.
+      for i := uint32(0); i < n; i++ {
+        batch[i].schedlink.set(batch[i+1])
+      }
+      var q gQueue
+      q.head.set(batch[0])
+      q.tail.set(batch[n])
+
+      // Now put the batch on global queue.
+      lock(&sched.lock)
+      globrunqputbatch(&q, int32(n+1))
+      unlock(&sched.lock)
+      return true
+    }
+    ```
+
+[^globrunqputbatch]:
+
+    ```go
+    func globrunqputbatch(batch *gQueue, n int32) {
+      assertLockHeld(&sched.lock)
+
+      sched.runq.pushBackAll(*batch)
+      sched.runqsize += n
+      *batch = gQueue{}
+    }
+    ```
