@@ -1,0 +1,16 @@
+- name: init waline workspace
+  shell: |
+    mkdir /root/apps/waline/ -p
+- name: copy docker compose
+  copy:
+    src: waline.yml
+    dest: /root/apps/waline/docker-compose.yml
+- name: copy .env
+  copy:
+    src: .env
+    dest: /root/apps/waline/.env
+- name: update waline image and restart
+  shell: |
+    /usr/bin/docker compose -f /root/apps/waline/docker-compose.yml pull
+    /usr/bin/docker compose -f /root/apps/waline/docker-compose.yml down
+    /usr/bin/docker compose -f /root/apps/waline/docker-compose.yml up -d --force-recreate

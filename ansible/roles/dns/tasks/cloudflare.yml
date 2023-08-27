@@ -1,0 +1,6 @@
+- name: copy cloudflare dns
+  copy:
+    src: cloudflare.toml
+    dest: /tmp/domains.toml
+- name: set cloudflare dns
+  shell: env CF_SK="{{ cf.CF_SK }}" CF_ZONE="{{ cf.CF_ZONE }}" /tmp/dns-tools --f /tmp/domains.toml

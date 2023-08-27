@@ -25,12 +25,3 @@
     - docker-buildx-plugin
     - docker-compose-plugin
   when: existsResult.rc != 0
-- name: init dozzle workspace
-  shell: |
-    mkdir /root/apps/dozzle/ -p
-- name: copy docker compose
-  copy:
-    src: dozzle.yml
-    dest: /root/apps/dozzle/docker-compose.yml
-- name: run dozzle
-  shell: /usr/bin/docker compose -f /root/apps/dozzle/docker-compose.yml up -d

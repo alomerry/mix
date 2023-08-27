@@ -1,0 +1,27 @@
+- name: init workspace
+  shell: |
+    mkdir /root/apps/nginx/site/{{ item }}/ -p
+    mkdir /root/apps/nginx/cert/{{ item }}/ -p
+    mkdir /root/apps/nginx/conf/{{ item }}/ -p
+    touch /root/apps/nginx/cert/{{ item }}/privkey.pem
+    touch /root/apps/nginx/cert/{{ item }}/fullchain.pem
+  with_items: 
+    - bark.alomerry.dev
+    - blog.alomerry.com
+    - ci.alomerry.dev
+    - resume.alomerry.com
+    - umami.alomerry.dev
+    - uptime.alomerry.dev
+    - waline.alomerry.dev
+- name: copy nginx conf
+  copy:
+    src: conf/{{ item }}.conf
+    dest: /root/apps/nginx/conf/{{ item }}.conf
+  with_items: 
+    - bark.alomerry.dev
+    - blog.alomerry.com
+    - ci.alomerry.dev
+    - resume.alomerry.com
+    - umami.alomerry.dev
+    - uptime.alomerry.dev
+    - waline.alomerry.dev

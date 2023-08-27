@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  waline:
+    container_name: waline
+    image: lizheming/waline:latest
+    restart: always
+    ports:
+      - 8360:8360
+    volumes:
+      - /root/apps/waline/data:/app/data
+    environment:
+      TZ: 'Asia/Shanghai'
+      SITE_NAME: '清欢の沙滩'
+      SITE_URL: 'https://blog.alomerry.com'
+      SECURE_DOMAINS: 'blog.alomerry.com'
+      AUTHOR_EMAIL: 'alomerry.wu@gmail.com'
+      MYSQL_DB: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: mysql
+      WEBHOOK: ${WEBHOOK}
+      SMTP_SECURE: true
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SENDER_NAME: ${SENDER_NAME}
+      SENDER_EMAIL: ${SENDER_EMAIL}
+      # RECAPTCHA_V3_SECRET Google 验证码服务
+      # RECAPTCHA_V3_KEY Google 验证码服务
+    networks:
+      - home_mysql
+
+networks:
+  home_mysql:
+    name: mysql_home_mysql
+    external: true
+# waline / http://127.0.0.1:8360
+
+# #PROXY-START/
+# location /.well-known {
+#     root  /www/wwwroot/waline.alomerry.com;
+# }
+
+# location / {
+#     proxy_pass http://127.0.0.1:8360;
+#     proxy_set_header Host $host;
+#     proxy_set_header X-Real-IP $remote_addr;
+#     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#     proxy_set_header X-Forwarded-Proto $scheme;
+#     proxy_set_header REMOTE-HOST $remote_addr;
+#     add_header X-Cache $upstream_cache_status;
+#     # cache
+#     add_header Cache-Control no-cache;
+#     expires 12h;
+# }
+# #PROXY-END/

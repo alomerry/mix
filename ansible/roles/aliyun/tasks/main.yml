@@ -1,9 +1,0 @@
-- name: copy dns.sh
-  copy:
-    src: dns.sh
-    dest: /tmp/dns.sh
-    mode: 0700
-- name: config ddns
-  shell: /tmp/dns.sh
-  register: shell_result
-- debug: var=shell_result.stdout_lines

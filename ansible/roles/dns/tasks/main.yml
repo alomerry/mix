@@ -1,0 +1,11 @@
+# - name: copy dns tools
+#   copy:
+#     src: dns-tools
+#     dest: /tmp/dns-tools
+#     mode: 0700
+- name: set env
+  include_vars: env.yml
+# - name: site aliyun domain dns
+#   include_tasks: aliyun.yml
+- name: site cloudflare domain dns
+  include_tasks: cloudflare.yml

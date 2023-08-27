@@ -1,37 +1,12 @@
-# - name: install required package
-#   apt:
-#     name: '{{ item }}'
-#   with_items:
-#     - socat
-#     - curl
-#     - gnupg2 
-#     - ca-certificates
-#     - lsb-release
-#     - ubuntu-keyring
-# - name: install nginx
-#   shell: |
-#     curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
-#     gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
-#     echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | tee /etc/apt/sources.list.d/nginx.list
-#     echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | tee /etc/apt/preferences.d/99nginx
-#     apt update
-#     apt install nginx -y
-# - name: init nginx workspace
-#   shell: |
-#     mkdir /root/apps/nginx/site -p
-#     mkdir /root/apps/nginx/cert -p
-#     mkdir /root/apps/nginx/logs -p
-# - include: blog.yml
-# - include: resume.yml
-- include: ci.yml
-# - name: copy nginx service
-#   copy:
-#     src: nginx.service
-#     dest: /etc/systemd/system/nginx.service
-- name: copy nginx conf
-  copy:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
-    mode: 0644
-- name: restart nginx
-  shell: service nginx restart
+# - name: set nginx
+#   include_tasks: install-nginx.yml
+# - name: set acme
+#   include_tasks: acme.yml
+# - name: init website workspace
+#   include_tasks: init.yml
+# - name: set aliyun ssl
+#   include_tasks: aliyun-ssl.yml
+- name: set cloudflare ssl
+  include_tasks: cloudflare-ssl.yml
+# - name: restart nginx
+#   shell: service nginx restart

@@ -1,7 +1,6 @@
 .fleet
 .idea
 .env
-frps/frps.ini
 frpc/algolia/.env
 frpc/space-on-premises/config
 frpc/jenkins/data
@@ -10,7 +9,14 @@ frpc/umami/db-data
 frpc/umami/sql
 frpc/mysql/*
 !frpc/mysql/docker-compose.yml
+
 vps-home.iml
+
+env.yml
+
 **/*.DS_Store
 **/*.local.ini
 **/*.local.env
+
+ansible/roles/frpc/**/*.ini
+ansible/roles/frps/**/*.ini

@@ -1,0 +1,7 @@
+- name: generate and install aliyun ssl
+  shell: |
+    /root/.acme.sh/acme.sh --issue --dns dns_ali -d {{ item }} --webroot /root/apps/nginx/site/{{ item }}/ --nginx
+    /root/.acme.sh/acme.sh --install-cert -d {{ item }} --key-file /root/apps/nginx/cert/{{ item }}/privkey.pem --fullchain-file /root/apps/nginx/cert/{{ item }}/fullchain.pem
+  with_items: 
+    - blog.alomerry.com
+    - resume.alomerry.com

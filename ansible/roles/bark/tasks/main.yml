@@ -1,0 +1,11 @@
+- name: init bark workspace
+  shell: mkdir /root/apps/bark -p
+- name: copy docker compose
+  copy:
+    src: bark.yml
+    dest: /root/apps/bark/docker-compose.yml
+- name: update bark image and restart
+  shell: |
+    /usr/bin/docker compose -f /root/apps/bark/docker-compose.yml pull
+    /usr/bin/docker compose -f /root/apps/bark/docker-compose.yml down
+    /usr/bin/docker compose -f /root/apps/bark/docker-compose.yml up -d --force-recreate

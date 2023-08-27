@@ -16,6 +16,5 @@
     src: acme/account.conf
     dest: /root/.acme.sh/account.conf
     mode: 0700
-  when: not (basedir_stat.stat.exists and basedir_stat.stat.isdir)
 - name: clean acme script
   shell: rm -rf /root/acme.sh
