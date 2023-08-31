@@ -14,9 +14,8 @@ tag:
 
 :::
 
-![xxx](https://ask.qcloudimg.com/developer-images/article/7988120/xe9xqqaes1.png?imageView2/2/w/1200)
 
-https://ask.qcloudimg.com/developer-images/article/7988120/sy1cud3w67.png?imageView2/2/w/1200
+<!-- https://ask.qcloudimg.com/developer-images/article/7988120/sy1cud3w67.png?imageView2/2/w/1200 -->
 
 了解 go 的函数调用底层逻辑，能更清晰的理解 defer、recover、panic 的工作方式，以及函数执行时的xxx
 
