@@ -8,5 +8,5 @@
 #   include_tasks: aliyun-ssl.yml
 - name: set cloudflare ssl
   include_tasks: cloudflare-ssl.yml
-# - name: restart nginx
-#   shell: service nginx restart
+- name: restart nginx
+  shell: systemctl restart nginx

@@ -1,6 +1,6 @@
 - hosts: local
   remote_user: root
-  vars: 
+  vars:
     - FRP_VERSION: 0.51.3
     - ENV: LOCAL
   roles:

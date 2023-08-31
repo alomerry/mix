@@ -1,8 +1,13 @@
-- name: generate and install cloudflare ssl
+# - name: check and generate cloudflare ssl
+#   shell: |
+#     /root/.acme.sh/acme.sh --issue --dns dns_cf -d *.alomerry.dev --nginx --reloadcmd "systemctl restart nginx"
+# - name: renew cloudflare ssl
+#   shell: |
+#     /root/.acme.sh/acme.sh --renew -d *.alomerry.dev --nginx --reloadcmd "systemctl restart nginx"
+- name: install cloudflare ssl
   shell: |
-    /root/.acme.sh/acme.sh --issue --dns dns_cf -d {{ item }} --webroot /root/apps/nginx/site/{{ item }}/ --nginx
-    /root/.acme.sh/acme.sh --install-cert -d {{ item }} --key-file /root/apps/nginx/cert/{{ item }}/privkey.pem --fullchain-file /root/apps/nginx/cert/{{ item }}/fullchain.pem
-  with_items: 
+    /root/.acme.sh/acme.sh --install-cert -d *.alomerry.dev --key-file /root/apps/nginx/cert/{{ item }}/privkey.pem --fullchain-file /root/apps/nginx/cert/{{ item }}/fullchain.pem --reloadcmd "systemctl restart nginx"
+  with_items:
     - bark.alomerry.dev
     - ci.alomerry.dev
     - umami.alomerry.dev
