@@ -57,7 +57,7 @@ func main() {
 
 ![p-runq](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/goroutine/p-runq.png)
 
-`runqput` 旨在将 g 放到 p 的 runq 队列
+`runqput`[^runqput] 旨在将 g 放到 p 的 runq 队列
 
 - 当 next 为 true 会将 g 放到 runnext 上。如果 p 的 runnext 原本非空，则需要将该 g 从 runnext 放入 runq 尾部
 - 当 next 为 false，会尝试将 g 放入 runq 的尾部
@@ -83,87 +83,46 @@ TEXT runtime·mstart(SB),NOSPLIT|TOPFRAME|NOFRAME,$0
 
 `schedule`[^schedule] 每执行一次，就表示发生了一次调度
 
-- 执行一些检测[^schedule_check]，例如：当前 m 是否持有锁（`newproc`）、m 是否被 g 绑定（绑定的 m 无法执行其他 g （TODO 哪些时候绑定，为什么会绑定）
+- 执行一些检测[^schedule_check]，例如：当前 m 是否持有锁（`newproc`）、m 是否被 g 绑定（<Badge text="TODO" type="tip"/>） <!-- TODO 绑定的 m 无法执行其他 g （TODO 哪些时候绑定，为什么会绑定 -->
 - 进入一个循环中[^schedule_top]，直到获取可执行的 g 并执行
   - 首先获取当前 m 的 p 并设置 `p.preempt` 为 false 禁止 p 被抢占（因为已经被调度到了，无需再抢占了）
   - 安全检查如果 m 处于自旋状态，p 不应有任何任何待执行的 g
   - 调用 `findRunnable` 获取一个可执行的 g 找到待执行的 g
-    - inheritTime（表示从 p.runnext 中窃取，则可以继承时间片，未继承时间片时说明执行了一次 schedule，则 p.schedtick 会++ TODO）
-    - tryWakeP 表示找到的是特殊的 g（GC worker、tracereader 为什么特殊 TODO）
+    - `inheritTime`（表示从 `p.runnext` 中窃取，则可以继承时间片，未继承时间片时说明执行了一次 `schedule`，则 `p.schedtick` 会增加）
+    - `tryWakeP` 表示找到的是特殊的 g（GC worker、tracereader 为什么特殊）<Badge text="TODO" type="tip"/>
   - 获取到可执行 g 后原本自旋的 m 可以停止自旋 `resetspinning`
-  - TODO sched.disable.user && !schedEnabled(gp) 找到 g 后调度器检测是否允许调度用户协程，如果不允许则将该 g 放入调度器的 disable 队列暂存，并重新寻找可执行的 g，等到允许调度用户协程后，将 disable 队列中的 g 重新加入 runq 中
-  - （TODO）tryWakeP 为 true 就会调用 `wakeup`[^wakeup]唤醒 p 以保证有足够线程来调度 TraceReader 和 GC Worker
-  - TODO `startlockedm` ((如果 g 有绑定 m 则调用 `startlockedm`[^startlockedm] 唤醒对应绑定的 m 执行 g 且当前线程也要重新查找待执行的 g；如果 g 没有绑定的 m 则调用 `execute`[^execute] 执行
+  - `sched.disable.user && !schedEnabled(gp)` 找到 g 后调度器检测是否允许调度用户协程，如果不允许则将该 g 放入调度器的 disable 队列暂存，并重新寻找可执行的 g，等到允许调度用户协程后，将 disable 队列中的 g 重新加入 runq 中
+  - `tryWakeP` 为 true 就会调用 `wakeup`[^wakeup] 唤醒 p 以保证有足够线程来调度 TraceReader 和 GC Worker <Badge text="TODO" type="tip"/>
+  - `startlockedm` ((如果 g 有绑定 m 则调用 `startlockedm`[^startlockedm] 唤醒对应绑定的 m 执行 g 且当前线程也要重新查找待执行的 g；如果 g 没有绑定的 m 则调用 `execute`[^execute] 执行 <Badge text="TODO" type="tip"/>
   - 调用 `execute` 执行 g
-
-
-调用 gp, inheritTime, tryWakeP := findRunnable() // blocks until work is available 查找可执行的 g，会阻塞到找到为止
-
-- // m.lockedg 会在 lockosthread 下变为非零？？？
 
 ### `findRunnable`
 
-::: tip
+>Finds a runnable goroutine to execute.
+>
+>Tries to steal from other P's, get g from local or global queue, poll network.
+>
+>`tryWakeP` indicates that the returned goroutine is not normal (GC worker, trace reader) so the caller should try to wake a P.
 
-Finds a runnable goroutine to execute.
+`findRunnable`[^findRunnable] 旨在会本地队列、全局队列、其他 p 的本地队列寻找一个可执行的 g，会阻塞到找到为止
 
-Tries to steal from other P's, get g from local or global queue, poll network.
-
-`tryWakeP` indicates that the returned goroutine is not normal (GC worker, trace reader) so the caller should try to wake a P.
-
-:::
-
-`findRunnable`[^findRunnable] 旨在会本地队列、全局队列、其他 p 的本地队列寻找一个可执行的 g
-
-- 检测 `sched.gcwaiting`，如果执行 gc 则调用 `gcstopm`[^gcstopm]（TODOOOO） 休眠当前 m
+- 检测 `sched.gcwaiting`，如果执行 gc 则调用 `gcstopm`[^gcstopm] <!-- 为什么要休眠当前 m --> 休眠当前 m
 - 执行安全点检查 `runSafePointFn`[^runSafePointFn]
-- `checkTimers`[^checkTimers] 会运行当前 p 上所有已经达到触发时间的计时器（TODOODODODO 如何处理的？如何唤醒对应额 goroutine 的，计时器变更了怎么办）// now and pollUntil are saved for work stealing later, which may steal timers. It's important that between now and then, nothing blocks, so these numbers remain mostly relevant.
-- gcBlackenEnabled traceReader // Try to schedule a GC worker. tracereader 这两种是非正常协程
-- 为了公平[^findRunnable_fairness]，每调用 `schedule` 函数 61 次就要调用 `globrunqget` 从全局可运行 G 队列中获取 1 个，保证效率的基础上兼顾公平性，防止本地队列上的两个持续唤醒的 goroutine 造成全局队列一直得不到调度
-- // Wake up the finalizer G. TODOODODO
-- 从本地队列获取 g `runqget`
+- `checkTimers`[^checkTimers] 会运行当前 p 上所有已经达到触发时间的计时器 <!-- （TODOODODODO 如何处理的？如何唤醒对应额 goroutine 的，计时器变更了怎么办） -->
+  >now and pollUntil are saved for work stealing later, which may steal timers. It's important that between now and then, nothing blocks, so these numbers remain mostly relevant.
+- gcBlackenEnabled traceReader 这两种是非正常协程 <Badge text="TODO" type="tip"/>
+- 为了公平[^findRunnable_fairness]，每调用 `schedule` 函数 61 次就要调用 `globrunqget` 从全局可运行 G 队列中获取 1 个，保证效率的基础上兼顾公平性，防止本地队列上的两个持续唤醒的 goroutine 造成全局队列一直得不到调度 <!-- // Wake up the finalizer G. TODOODODO -->
+- 从本地队列获取 g `runqget`[^runqget]
 - 从全局 runq 中获取 g `globrunqget`
-- 执行 `netpull` 若返回值非空则将第一个 g 从列表中弹出，将剩余的尝试按本地 runq、全局 runq 的顺序插入 // 从I/O轮询器获取 G???? `if netpollinited() && ...` // 尝试从netpoller 获取Glist // 将其余队列放入 P 的可运行G队列 TODODOO
+- 执行 `netpull` 从网络 I/O 轮询器获取 glist，若返回值非空则将第一个 g 从列表中弹出，将剩余的尝试按本地 runq、全局 runq 的顺序插入 <Badge text="TODO" type="tip"/>
 - 判断 p 是否可以窃取其他 p 的 runq，需要满足两个条件[^findRunnable_steal_check]：当前 m 处于自旋等待或者出于自旋的 m 要小于处于工作中 p 的一半。这样是为了防止程序中 p 很大，但是并发性很低时，CPU 不必要的消耗
-- 满足窃取 g 条件时[^findRunnable_steal]，将 m 标记为自旋并调用 `stealWork`，如果未成功窃取 g，// TDOOODODODO
+- 满足窃取 g 条件时[^findRunnable_steal]，将 m 标记为自旋并调用 `stealWork` 窃取 g
 - // gcBlackenEnabled != 0 && gcMarkWorkAvailable(pp) && gcController.addIdleMarkWorker()
 - 至此 `findRunnable` 主要工作做完，会做一些额外工作[^findRunnable_release_p]
   - 再次检测 gc 是否在等待执行，是则跳至 top 进行新的一轮 `findRunnable`，在新轮次的开始执行 gc
-  - 再次从全局 runq 中获取 g
-  - `releasep` 解除 m 和 p 的关联，并调用 `pidleput` 将 p 放入空闲 p 列表中
-- TODODODO
+  - 再次从全局 runq 中获取 g <!-- `releasep` 解除 m 和 p 的关联，并调用 `pidleput` 将 p 放入空闲 p 列表中？？？ -->
 
-::: tip
-
-Delicate dance: thread transitions from spinning to non-spinning state, potentially concurrently with submission of new work. We must drop nmspinning first and then check all sources again (with #StoreLoad memory barrier in between). If we do it the other way around, another thread can submit work after we've checked all sources but before we drop nmspinning; as a result nobody will unpark a thread to run the work.
-
-This applies to the following sources of work:
-
-* Goroutines added to the global or a per-P run queue.
-* New/modified-earlier timers on a per-P timer heap.
-* Idle-priority GC work (barring golang.org/issue/19112).
-
-If we discover new work below, we need to restore m.spinning as a signal for resetspinning to unpark a new worker thread (because there can be more than one starving goroutine).
-
-However, if after discovering new work we also observe no idle Ps (either here or in resetspinning), we have a problem. We may be racing with a non-spinning M in the block above, having found no work and preparing to release its P and park. Allowing that P to go idle will result in loss of work conservation (idle P while there is runnable work). This could result in complete deadlock in the unlikely event that we discover new work (from netpoll) right as we are racing with _all_ other Ps going idle.
-
-We use sched.needspinning to synchronize with non-spinning Ms going idle. If needspinning is set when they are about to drop their P, they abort the drop and instead become a new spinning M on our behalf. If we are not racing and the system is truly fully loaded then no spinning threads are required, and the next thread to naturally become spinning will clear the flag.
-Also see "Worker thread parking/unparking" comment at the top of the file.
-
-:::
-
-#### `execute`
-
-`execute` 会关联 m 和 g，将 g 设置成 `_Grunning`，并通过 `gogo` 函数将 `g.sched` 中的上下文恢复
-
-### stealWork
-
-- 满足窃取 g 条件时，将 m 标记为自旋并调用 `stealWork`[^stealWork]
-  - // 从 p2 窃取计时器。 对 checkTimers 的调用是我们可以锁定不同 P 的计时器的唯一地方。 我们在检查 runnext 之前在最后一次传递中执行此操作，因为从其他 P 的 runnext 窃取应该是最后的手段，因此如果有计时器要窃取，请首先执行此操作。 我们只在一次窃取迭代中检查计时器，因为 now 中存储的时间在此循环中不会改变，并且使用相同的 now 值多次检查每个 P 的计时器可能是浪费时间。timerpMask 告诉我们是否 P可能有定时器。 如果不能的话，根本不需要检查。
-  - `stealWork` 中会尝试窃取四次，前三次会从其他 p 的 runq 中窃取，最后一次会查找其他 p 的 timer[^checkTimers] 执行（TODOODODODO）
-  - `randomOrder` 尝试随机窃取某个 p（TDODOODOD）
-  - 窃取 p 的 runq 时会先判断 p 是否空闲，如果非空闲，则调用 `runqsteal`[^runqsteal] 窃取，窃取成功则返回该 g // if !idlepMask.read(enum.position()) {
-  - 成功执行 p 的 timer 后[^runtimer]（TODODODODO），因为由于执行了其他 p 的 timer，可能会使某些 goroutine 变成 `_Grunnable` 状态，会调用 `runqget` 尝试从当前 p 中获取 g，如果依旧没有找到待执行的 g，则重新执行 `findRunnable` 中的流程
+<!-- TODOOOOOOOOOO 成功执行 p 的 timer 后[^runtimer]（TODODODODO），因为由于执行了其他 p 的 timer，可能会使某些 goroutine 变成 `_Grunnable` 状态，会调用 `runqget` 尝试从当前 p 中获取 g，如果依旧没有找到待执行的 g，则重新执行 `findRunnable` 中的流程 -->
 
 ### `globrunqget`
 
@@ -173,11 +132,21 @@ Also see "Worker thread parking/unparking" comment at the top of the file.
   - 计算得出最多能获取的 g 数量 n，g 的数量不能超过：max（非 0）、p 的 runq 一半
   - 将首个可执行的 g 作为返回值，剩余的 n-1 个 g 放入 p 的 runq 中
 
-### runqget
+### `stealWork`
 
-[^runqget]
+`stealWork`[^stealWork] 旨在从 `timer` 和其他 p 的 runq 中偷取 g
 
-### pidleput
+- 尝试窃取四次，前三次会从其他 p 的 runq 中窃取，最后一次会查找其他 p 的 timer[^checkTimers]。
+  - 窃取 p 的 runq 时使用 `randomOrder`[^stealOrder] <!-- TODODOOD --> 结构尝试随机窃取某个 p，找到 p 后判断 p 是否空闲[^stealWork_check_p_idle]，如果非空闲，则调用 `runqsteal`[^runqsteal] 窃取[^runqgrab]，窃取成功则返回该 g
+  - 窃取 timer <Badge text="TODO" type="tip"/>
+
+<!-- // 从 p2 窃取计时器。 对 checkTimers 的调用是我们可以锁定不同 P 的计时器的唯一地方。 我们在检查 runnext 之前在最后一次传递中执行此操作，因为从其他 P 的 runnext 窃取应该是最后的手段，因此如果有计时器要窃取，请首先执行此操作。 我们只在一次窃取迭代中检查计时器，因为 now 中存储的时间在此循环中不会改变，并且使用相同的 now 值多次检查每个 P 的计时器可能是浪费时间。timerpMask 告诉我们是否 P可能有定时器。 如果不能的话，根本不需要检查。 -->
+
+#### `execute`
+
+`execute`[^execute] 会关联 m 和 g，将 g 设置成 `_Grunning`，并通过 `gogo` 函数将 `g.sched` 中的上下文恢复，最终调用 `runtime·gogo`[^gogo] 恢复协程的上下文
+
+<!-- ### pidleput -->
 
 ## 抢占式调度
 
@@ -887,6 +856,7 @@ bad:
 <!-- @include: ./_bootstrap.code.snippet.md -->
 <!-- @include: ./_schedule.code.snippet.md -->
 <!-- @include: ./_find-runnable.code.snippet.md -->
+<!-- @include: ./_execute.code.snippet.md -->
 <!-- @include: ./_preempt.code.snippet.md -->
 <!-- @include: ./_goroutine.code.snippet.md -->
 

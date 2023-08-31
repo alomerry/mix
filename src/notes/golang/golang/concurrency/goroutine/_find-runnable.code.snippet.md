@@ -452,3 +452,175 @@
       goto top
     }
     ```
+
+[^stealWork]:
+
+    ```go
+    // stealWork attempts to steal a runnable goroutine or timer from any P.
+    //
+    // If newWork is true, new work may have been readied.
+    //
+    // If now is not 0 it is the current time. stealWork returns the passed time or
+    // the current time if now was passed as 0.
+    func stealWork(now int64) (gp *g, inheritTime bool, rnow, pollUntil int64, newWork bool) {
+      pp := getg().m.p.ptr()
+
+      ranTimer := false
+
+      const stealTries = 4
+      for i := 0; i < stealTries; i++ {
+        stealTimersOrRunNextG := i == stealTries-1
+
+        for enum := stealOrder.start(fastrand()); !enum.done(); enum.next() {
+          if sched.gcwaiting.Load() {
+            // GC work may be available.
+            return nil, false, now, pollUntil, true
+          }
+          p2 := allp[enum.position()]
+          if pp == p2 {
+            continue
+          }
+
+          // Steal timers from p2. This call to checkTimers is the only place
+          // where we might hold a lock on a different P's timers. We do this
+          // once on the last pass before checking runnext because stealing
+          // from the other P's runnext should be the last resort, so if there
+          // are timers to steal do that first.
+          //
+          // We only check timers on one of the stealing iterations because
+          // the time stored in now doesn't change in this loop and checking
+          // the timers for each P more than once with the same value of now
+          // is probably a waste of time.
+          //
+          // timerpMask tells us whether the P may have timers at all. If it
+          // can't, no need to check at all.
+          if stealTimersOrRunNextG && timerpMask.read(enum.position()) {
+            tnow, w, ran := checkTimers(p2, now)
+            now = tnow
+            if w != 0 && (pollUntil == 0 || w < pollUntil) {
+              pollUntil = w
+            }
+            if ran {
+              // Running the timers may have
+              // made an arbitrary number of G's
+              // ready and added them to this P's
+              // local run queue. That invalidates
+              // the assumption of runqsteal
+              // that it always has room to add
+              // stolen G's. So check now if there
+              // is a local G to run.
+              if gp, inheritTime := runqget(pp); gp != nil {
+                return gp, inheritTime, now, pollUntil, ranTimer
+              }
+              ranTimer = true
+            }
+          }
+
+          // Don't bother to attempt to steal if p2 is idle.
+          if !idlepMask.read(enum.position()) {
+            if gp := runqsteal(pp, p2, stealTimersOrRunNextG); gp != nil {
+              return gp, false, now, pollUntil, ranTimer
+            }
+          }
+        }
+      }
+
+      // No goroutines found to steal. Regardless, running a timer may have
+      // made some goroutine ready that we missed. Indicate the next timer to
+      // wait for.
+      return nil, false, now, pollUntil, ranTimer
+    }
+    ```
+
+[^randomOrder]:
+
+    ```go
+    var stealOrder randomOrder
+
+    // randomOrder/randomEnum are helper types for randomized work stealing.
+    // They allow to enumerate all Ps in different pseudo-random orders without repetitions.
+    // The algorithm is based on the fact that if we have X such that X and GOMAXPROCS
+    // are coprime, then a sequences of (i + X) % GOMAXPROCS gives the required enumeration.
+    type randomOrder struct {
+      count    uint32
+      coprimes []uint32
+    }
+
+    type randomEnum struct {
+      i     uint32
+      count uint32
+      pos   uint32
+      inc   uint32
+    }
+    ```
+
+[^stealWork_check_p_idle]:
+
+    ```go
+    // Don't bother to attempt to steal if p2 is idle.
+    if !idlepMask.read(enum.position()) {
+      if gp := runqsteal(pp, p2, stealTimersOrRunNextG); gp != nil {
+        return gp, false, now, pollUntil, ranTimer
+      }
+    }
+    ```
+
+[^runqgrab]:
+
+    ```go
+    // Grabs a batch of goroutines from _p_'s runnable queue into batch.
+    // Batch is a ring buffer starting at batchHead.
+    // Returns number of grabbed goroutines.
+    // Can be executed by any P.
+    func runqgrab(_p_ *p, batch *[256]guintptr, batchHead uint32, stealRunNextG bool) uint32 {
+      for {
+        h := atomic.LoadAcq(&_p_.runqhead) // load-acquire, synchronize with other consumers
+        t := atomic.LoadAcq(&_p_.runqtail) // load-acquire, synchronize with the producer
+        n := t - h
+        n = n - n/2
+        if n == 0 {
+          if stealRunNextG {
+            // Try to steal from _p_.runnext.
+            if next := _p_.runnext; next != 0 {
+              if _p_.status == _Prunning {
+                // Sleep to ensure that _p_ isn't about to run the g
+                // we are about to steal.
+                // The important use case here is when the g running
+                // on _p_ ready()s another g and then almost
+                // immediately blocks. Instead of stealing runnext
+                // in this window, back off to give _p_ a chance to
+                // schedule runnext. This will avoid thrashing gs
+                // between different Ps.
+                // A sync chan send/recv takes ~50ns as of time of
+                // writing, so 3us gives ~50x overshoot.
+                if GOOS != "windows" && GOOS != "openbsd" && GOOS != "netbsd" {
+                  usleep(3)
+                } else {
+                  // On some platforms system timer granularity is
+                  // 1-15ms, which is way too much for this
+                  // optimization. So just yield.
+                  osyield()
+                }
+              }
+              if !_p_.runnext.cas(next, 0) {
+                continue
+              }
+              batch[batchHead%uint32(len(batch))] = next
+              return 1
+            }
+          }
+          return 0
+        }
+        if n > uint32(len(_p_.runq)/2) { // read inconsistent h and t
+          continue
+        }
+        for i := uint32(0); i < n; i++ {
+          g := _p_.runq[(h+i)%uint32(len(_p_.runq))]
+          batch[(batchHead+i)%uint32(len(batch))] = g
+        }
+        if atomic.CasRel(&_p_.runqhead, h, h+n) { // cas-release, commits consume
+          return n
+        }
+      }
+    }
+    ```

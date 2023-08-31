@@ -85,6 +85,46 @@ undo log、redo log、binlog 有什么用？
 - show databases
 - use database
 
+### 插入
+
+insert into 表名 (column_name1, column_name2, ...) values (value1, value2, ...)
+
+### 查询
+
+select[distinct][concat (col1,":",col2) as col] selection_list // 选择的列 from 数据表名 where primary_constraint // 查询条件 group by grouping_cols // 分组 order by sorting_cols // 排序 having secondary_constraint // 查询的第二条件 limit count
+
+#### where
+
+- =
+- >=
+- <=
+- >
+- <
+- != 或者 <>
+- IS NULL
+- IS NOT NULL
+- BETWEEN AND
+- IN
+- NOT IN
+- LIKE % _
+- NOT LIKE
+- REGEXP
+
+### update
+
+update 表名 set col_name1=new_value1, col_name2=new_value2, ... where condition
+
+### delete
+
+### 函数
+
+- SUM
+- AVG
+
+## niuke
+
+
+
 ## Reference
 
 - [图解MySQL介绍](https://xiaolincoding.com/mysql/)

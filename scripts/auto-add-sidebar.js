@@ -9,13 +9,15 @@ function run() {
     "leetcode-easy", // 1
     "leetcode-medium", // 2
     "leetcode-hard", // 3
-    "leetcode-weekly-contest" // 4
+    "leetcode-weekly-contest", // 4
+    "leetcode-sql", // 5
   ]
 
   getSiderBarChildren(types[1])
   getSiderBarChildren(types[2])
   getSiderBarChildren(types[3])
   getSiderBarChildren(types[4])
+  getSiderBarChildren(types[5])
 }
 
 function getSiderBarChildren(changeType) {
@@ -49,6 +51,9 @@ function replaceSideBar(config, changeType, newContent) {
         break
       case "leetcode-weekly-contest":
         reg = /prefix: "leetcode-weekly-contest\/",\n    children: \[\n(( )*'(\w)+-(\S)*',\n)+( )+\],/
+        break
+      case "leetcode-sql":
+        reg = /prefix: "leetcode-sql\/",\n    children: \[\n(( )*'(\w)+-(\S)*',\n)+( )+\],/
         break
       default:
         return

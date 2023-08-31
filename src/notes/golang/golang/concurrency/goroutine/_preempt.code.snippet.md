@@ -92,30 +92,3 @@
       schedule()
     }
     ```
-
-[^gogo]:
-
-    ```armasm
-    // func gogo(buf *gobuf)
-    // restore state from Gobuf; longjmp
-    TEXT runtime·gogo(SB), NOSPLIT, $0-8
-      MOVQ	buf+0(FP), BX		// gobuf
-      MOVQ	gobuf_g(BX), DX
-      MOVQ	0(DX), CX		// make sure g != nil
-      JMP	gogo<>(SB)
-
-    TEXT gogo<>(SB), NOSPLIT, $0
-      get_tls(CX)
-      MOVQ	DX, g(CX)
-      MOVQ	DX, R14		// set the g register
-      MOVQ	gobuf_sp(BX), SP	// restore SP
-      MOVQ	gobuf_ret(BX), AX
-      MOVQ	gobuf_ctxt(BX), DX
-      MOVQ	gobuf_bp(BX), BP
-      MOVQ	$0, gobuf_sp(BX)	// clear to help garbage collector
-      MOVQ	$0, gobuf_ret(BX)
-      MOVQ	$0, gobuf_ctxt(BX)
-      MOVQ	$0, gobuf_bp(BX)
-      MOVQ	gobuf_pc(BX), BX
-      JMP	BX
-    ```

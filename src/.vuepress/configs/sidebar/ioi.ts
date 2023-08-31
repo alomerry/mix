@@ -1,4 +1,4 @@
-import {arraySidebar} from "vuepress-theme-hope";
+import { arraySidebar } from "vuepress-theme-hope";
 
 export const ioi = arraySidebar([
   "",
@@ -184,6 +184,14 @@ export const ioi = arraySidebar([
     prefix: "leetcode-weekly-contest/",
     children: [
       '83-weekly-contest.md',
+    ],
+  },
+  {
+    text: "LeetCode SQL",
+    collapsible: true,
+    prefix: "leetcode-sql/",
+    children: [
+      '182-duplicate-emails.md',
     ],
   },
   "leet-code-tag",

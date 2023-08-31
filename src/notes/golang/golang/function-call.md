@@ -8,9 +8,6 @@ tag:
 
 # 函数调用
 
-::: tip 本文基于 Golang 1.19.3
-:::
-
 ::: info
 
 函数参数皆是值拷贝，只是区别是拷贝目标对象还是拷贝指针，函数调用前就会为形参和返回值分配内存空间，并将实参拷贝到形参中
@@ -68,7 +65,7 @@ ret 指令
 
 :::details 传值
 
-```go:no-line-numbers 
+```go:no-line-numbers
 func swap(a, b int) {
   a, b = b, a
 }
@@ -112,7 +109,7 @@ func main() {
 
 ::: details 传指针
 
-```go:no-line-numbers 
+```go:no-line-numbers
 func swap(a, b *int) {
   a, b = b, a
 }
@@ -143,7 +140,7 @@ func main() {
 
 ::: details 匿名返回值
 
-```go:no-line-numbers 
+```go:no-line-numbers
 func inc(a int) int {
   var b int
   defer func() {
@@ -223,7 +220,7 @@ func main() {
 
 ::: details 命名返回值
 
-```go:no-line-numbers 
+```go:no-line-numbers
 func inc(a int) (b int) {
   defer func() {
     a++
@@ -309,7 +306,7 @@ https://img.draveness.me/2019-01-20-golang-function-call-stack-before-return.png
 
 :::
 
-```go:no-line-numbers 
+```go:no-line-numbers
 func create() func()int {
   c := 2
   return func() int {
@@ -349,7 +346,7 @@ func main() {
 
 以上代码中由于 c 初始化后没有其他修改，所以在返回闭包函数时，会直接将变量拷贝到 funcValue 的捕获列表中，执行时通过偏移来获取变量的值，如果函数中修改了被捕获的局部变量，或者变量逃逸了则会将变量分配到堆上，并将地址存到 [funcval](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/runtime2.go#L197) 的捕获列表中
 
-```go:no-line-numbers 
+```go:no-line-numbers
 func create() (fs [2]func()) {
   for i := 0; i < 2; i++ {
     fs[i] = func() {
