@@ -1,1 +1,1 @@
-domains = ["ci.alomerry.dev", "uptime.alomerry.dev", "umami.alomerry.dev", "bark.alomerry.dev", "waline.alomerry.dev"]
+domains = []

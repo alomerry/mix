@@ -5,22 +5,22 @@
     touch /root/apps/nginx/cert/{{ item }}/privkey.pem
     touch /root/apps/nginx/cert/{{ item }}/fullchain.pem
   with_items:
-    - bark.alomerry.dev
+    - bark.alomerry.com
     - blog.alomerry.com
-    - ci.alomerry.dev
+    - ci.alomerry.com
     - resume.alomerry.com
-    - umami.alomerry.dev
-    - uptime.alomerry.dev
-    - waline.alomerry.dev
+    - umami.alomerry.com
+    - uptime.alomerry.com
+    - waline.alomerry.com
 - name: copy nginx conf
   copy:
     src: conf/{{ item }}.conf
     dest: /root/apps/nginx/conf/{{ item }}.conf
   with_items:
-    - bark.alomerry.dev
-    - blog.alomerry.com
-    - ci.alomerry.dev
-    - resume.alomerry.com
-    - umami.alomerry.dev
-    - uptime.alomerry.dev
-    - waline.alomerry.dev
+    - ci.alomerry.com
+    # - bark.alomerry.com
+    # - blog.alomerry.com
+    # - resume.alomerry.com
+    # - umami.alomerry.com
+    # - uptime.alomerry.com
+    # - waline.alomerry.com
