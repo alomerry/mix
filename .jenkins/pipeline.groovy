@@ -1,33 +1,24 @@
 pipeline {
-  // pipeline 的触发方式
   triggers {
     GenericTrigger(
       genericVariables: [
-        [
-          key: 'name',
-          value: '$.repository.name',
-          expressionType: 'JSONPath',
-          regularFilter: '',
-          defaultValue: ''
-        ]
+        [ key: 'name', value: '$.repository.name', expressionType: 'JSONPath' ],
+        [ key: 'branch', value: '$.ref', expressionType: 'JSONPath' ],
       ],
       printContributedVariables: false,
       printPostContent: false,
-      // tokenCredentialId: 'jenkins-git-webhook-token',
-      regexpFilterText: '$name',
-      regexpFilterExpression: '^(B|b)log$',
-      causeString: ' Triggered on $ref' ,
+      tokenCredentialId: 'webhook-trigger-token',
+      regexpFilterText: '$name@$branch',
+      regexpFilterExpression: 'blog@refs/heads/master',
+      causeString: ' Triggered on $branch' ,
     )
   }
-
-  // 代理
   agent {
     docker {
       image 'registry.cn-hangzhou.aliyuncs.com/alomerry/blog-build:latest'
       args '-v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro'
     }
   }
-  // // 阶段
   stages {
     stage('pull code') {
       environment {
@@ -48,7 +39,6 @@ pipeline {
     }
     stage('compress') {
       steps {
-        // 压缩构建后的文件用于发布到服务器的 nginx 中
         retry(2) {
           sh '''
           cd /var/jenkins_home/workspace/vuepress-blog/src/.vuepress/dist/
@@ -57,12 +47,13 @@ pipeline {
         }
       }
     }
+    // https://plugins.jenkins.io/ssh-steps/
     stage('ssh') {
       steps {
         script {
           def remote = [:]
           remote.name = 'root'
-          remote.logLevel = 'FINEST'
+          remote.logLevel = 'WARNING'
           remote.host = 'blog.alomerry.com'
           remote.allowAnyHosts = true
           withCredentials([usernamePassword(credentialsId: 'tencent-vps-admin', passwordVariable: 'password', usernameVariable: 'username')]) {
@@ -80,7 +71,6 @@ pipeline {
         }
       }
     }
-
     stage('check and trigger resume') {
       steps {
         script {
@@ -92,18 +82,17 @@ pipeline {
       }
     }
   }
-
-  // environment {
-  //   barkDevice = credentials('bark-notification-device-iPhone12')
-  //   cdnDomain = credentials('cdn-domain')
-  //   BUILD_NUMBER = "${env.BUILD_NUMBER}"
-  // }
-  // post {
-  //   success {
-  //     sh 'curl --globoff "https://bark.alomerry.com/$barkDevice/Blog%20build%20status%3A%20%5B%20Success%20%5D?icon=https%3A%2F%2F${cdnDomain}%2Fmedia%2Fimages%2Fjenkins.png&isArchive=0&group=jenkins&sound=electronic&level=passive"'
-  //   }
-  //   failure {
-  //     sh 'curl --globoff "https://bark.alomerry.com/$barkDevice/Blog%20build%20status%3A%20%5B%20Failed%20%5D?icon=https%3A%2F%2F${cdnDomain}%2Fmedia%2Fimages%2Fjenkins.png&url=https%3A%2F%2Fci.alomerry.com%2Fjob%2Fvuepress-blog%2F${BUILD_NUMBER}%2Fconsole&isArchive=0&group=jenkins&sound=electronic"'
-  //   }
-  // }
+  environment {
+    barkDevice = credentials('bark-notification-device-alomerry')
+    cdnDomain = credentials('cdn-domain')
+    BUILD_NUMBER = "${env.BUILD_NUMBER}"
+  }
+  post {
+    success {
+      sh 'curl --globoff "https://bark.alomerry.com/$barkDevice/Blog%20build%20status%3A%20%5B%20Success%20%5D?icon=https%3A%2F%2F${cdnDomain}%2Fmedia%2Fimages%2Fjenkins.png&isArchive=0&group=jenkins&sound=electronic&level=passive"'
+    }
+    failure {
+      sh 'curl --globoff "https://bark.alomerry.com/$barkDevice/Blog%20build%20status%3A%20%5B%20Failed%20%5D?icon=https%3A%2F%2F${cdnDomain}%2Fmedia%2Fimages%2Fjenkins.png&url=https%3A%2F%2Fci.alomerry.com%2Fjob%2Fvuepress-blog%2F${BUILD_NUMBER}%2Fconsole&isArchive=0&group=jenkins&sound=electronic"'
+    }
+  }
 }
