@@ -4,12 +4,12 @@
     - FRP_VERSION: 0.51.3
     - ENV: LOCAL
   roles:
-    - frpc
+    # - frpc
     # - common
     # - bark
     # - aliyun
     # - docker
-    # - jenkins
+    - jenkins
     # - mysql
     # - umami
     # - uptime

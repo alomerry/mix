@@ -21,7 +21,6 @@ pipeline-input-step:477.v339683a_8d55e
 mina-sshd-api-core:2.10.0-69.v28e3e36d18eb_
 workflow-cps:3774.v4a_d648d409ce
 ssh-slaves:2.916.vd17b_43357ce4
-configuration-as-code:1670.v564dc8b_982d0
 mailer:463.vedf8358e006b_
 copyartifact:722.v0662a_9b_e22a_c
 jakarta-mail-api:2.0.1-3
@@ -80,7 +79,6 @@ javax-activation-api:1.2.0-6
 pipeline-milestone-step:111.v449306f708b_7
 pipeline-stage-tags-metadata:2.2144.v077a_d1928a_40
 variant:59.vf075fe829ccb
-gitlab-plugin:1.7.15
 structs:325.vcb_307d2a_2782
 git-client:4.4.0
 pipeline-github-lib:42.v0739460cda_c4

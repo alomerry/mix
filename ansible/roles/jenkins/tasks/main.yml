@@ -20,4 +20,5 @@
 - name: stop and restart jenkins # TODO add pull /usr/bin/docker compose -f /root/apps/jenkins/docker-compose.yml build
   shell: |
     /usr/bin/docker compose -f /root/apps/jenkins/docker-compose.yml down
+    /usr/bin/docker compose -f /root/apps/jenkins/docker-compose.yml pull
     /usr/bin/docker compose -f /root/apps/jenkins/docker-compose.yml up -d

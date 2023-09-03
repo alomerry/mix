@@ -10,6 +10,7 @@ flush privileges;
 
 - umami
 - study
+- chorus_player chorus_player_root
 
 ## TOODO backup dbs
 
