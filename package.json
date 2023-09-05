@@ -39,9 +39,9 @@
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
     "vuepress": "2.0.0-beta.67",
-    "vuepress-plugin-components": "2.0.0-beta.236",
-    "vuepress-plugin-search-pro": "2.0.0-beta.236",
+    "vuepress-plugin-components": "2.0.0-beta.237",
+    "vuepress-plugin-search-pro": "2.0.0-beta.237",
     "vuepress-shared": "2.0.0-beta.228",
-    "vuepress-theme-hope": "2.0.0-beta.236"
+    "vuepress-theme-hope": "2.0.0-beta.237"
   }
 }
