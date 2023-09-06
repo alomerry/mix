@@ -1,6 +1,6 @@
 ---
 date: 2020-07-06
-tag: 
+tag:
   - git
 ---
 
@@ -25,6 +25,7 @@ tag:
 ```shell
 git config --global user.name "xxx xxx"
 git config --global user.email "xxx@xxx.xxx"
+git config --global core.editor vim
 ```
 
 **生成 SSH 公钥**
