@@ -20,6 +20,8 @@ tag:
 
 ## Generic Webhook Trigger[^generic-webhook-trigger]
 
+https://github.com/jenkinsci/generic-webhook-trigger-plugin/blob/master/src/test/resources/org/jenkinsci/plugins/gwt/bdd/
+
 Case 配合 pipeline 中的 trigger 可以实现仓库有推送后即触发构建
 
 ```groovy:no-line-numbers
