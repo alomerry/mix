@@ -9,17 +9,16 @@
 [![VuePress-Theme-Hope](https://img.shields.io/static/v1?logo=appveyor&color=blue&label=VuePress-Theme-Hope&message=2.0.0-beta.237)](https://theme-hope.vuejs.press/zh/)
 
 
-## local git hook && oss pusher
+## local git hook && [oss pusher](https://github.com/alomerry/go-tools)
 
 cd blog/.vuepress
 ./ossPusher --configPath core.toml
-
-==TODO==
 
 添加 sync，从 oss_hash 下载不存在的文件到本地
 
 ## import code
 
+## todo
 
 ## Thanks for free JetBrains Open Source license
 
