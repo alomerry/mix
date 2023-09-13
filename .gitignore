@@ -20,3 +20,5 @@ env.yml
 
 ansible/roles/frpc/**/*.ini
 ansible/roles/frps/**/*.ini
+ansible/roles/vps/files/frps/**/*.ini
+ansible/roles/vps/files/frpc/**/*.ini

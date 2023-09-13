@@ -1,17 +1,20 @@
-- hosts: local
+# - hosts: local
+#   remote_user: root
+#   roles:
+#     - docker
+- hosts: local-master
   remote_user: root
-  vars:
-    - FRP_VERSION: 0.51.3
-    - ENV: LOCAL
   roles:
     # - frpc
-    # - common
     # - bark
     # - aliyun
-    # - docker
     - jenkins
     # - mysql
     # - umami
     # - uptime
     # - bark
     # - waline
+# - hosts: local
+#   remote_user: root
+#   roles:
+#     - k8s-node

@@ -1,0 +1,28 @@
+FROM phusion/baseimage:focal-1.1.0
+
+COPY sources.list /etc/apt/sources.list
+
+RUN apt-get update; \
+  DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
+  wget; \
+  apt-get clean;
+
+ENV GOLANG_DOWNLOAD_URL https://mirrors.ustc.edu.cn/golang/go1.21.1.linux-amd64.tar.gz
+RUN wget -q ${GOLANG_DOWNLOAD_URL} -O golang.tar.gz && \
+    tar -C /usr/local -xf golang.tar.gz && \
+    rm golang.tar.gz
+
+ENV GOPATH /app
+ENV GOROOT /usr/local/go
+ENV PATH ${GOPATH}/bin:${GOROOT}/bin:$PATH
+
+RUN mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
+    chmod -R 777 ${GOPATH}
+
+ENV GOPROXY https://goproxy.cn,direct
+
+WORKDIR ${GOPATH}
+
+ENV GOFLAGS --buildvcs=false
+
+# https://betterprogramming.pub/path-to-a-perfect-go-dockerfile-f7fe54b5c78c

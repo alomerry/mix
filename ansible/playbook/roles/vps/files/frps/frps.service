@@ -1,0 +1,13 @@
+[Unit]
+Description=Frp Server Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Restart=always
+RestartSec=5s
+ExecStart=/root/apps/frps/frps -c /root/apps/frps/frps.ini
+
+[Install]
+WantedBy=multi-user.target

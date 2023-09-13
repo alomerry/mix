@@ -1,0 +1,16 @@
+- name: check kubectl exists
+  shell: kubectl version --client
+  register: existsResult
+  ignore_errors: true
+- name: copy kubectl bin
+  copy:
+    src: "kubectl-linux-amd64-{{K8S_VERSION}}.bin"
+    dest: /root/kubectl
+  when: existsResult.rc != 0
+- name: install kubectl
+  shell: | 
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    kubectl version --client
+  when: existsResult.rc != 0
+- name: clear bin
+  shell: rm -rf /root/kubectl

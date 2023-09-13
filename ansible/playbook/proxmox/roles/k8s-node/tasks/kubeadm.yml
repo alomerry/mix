@@ -1,0 +1,28 @@
+- name: check kubeadm exists
+  shell: kubeadm version
+  register: kubeadm_exists
+  ignore_errors: true
+- name: copy kubeadm bin
+  copy:
+    src: "kubeadm/kubeadm-linux-amd64-{{K8S_VERSION}}.bin"
+    dest: /root/kubeadm
+  when: kubeadm_exists.rc != 0
+- name: install kubeadm
+  shell: | 
+    install -o root -g root -m 0755 kubeadm /usr/local/bin/kubeadm
+  when: kubeadm_exists.rc != 0
+# - name: copy init config
+#   copy:
+#     src: "kubeadm/init.yml"
+#     dest: /var/lib/kubelet/config.yaml
+- name: copy kubeadm config
+  copy:
+    src: "kubeadm/kubeadm.conf"
+    dest: /root/kubeadm.conf
+- name: set kubeadm config
+  shell: | 
+    mkdir -p /etc/systemd/system/kubelet.service.d
+    cat /root/kubeadm.conf | sed "s:/usr/bin:/usr/local/bin/:g" | tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+- name: clear bin
+  shell: |
+    rm -rf /root/kubeadm /root/kubeadm.conf

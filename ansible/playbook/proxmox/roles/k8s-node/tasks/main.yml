@@ -1,0 +1,20 @@
+- name: set common app
+  include_tasks: common.yml
+- name: set kubectl
+  include_tasks: kubectl.yml
+- name: set kubeadm
+  include_tasks: kubeadm.yml
+- name: set kubelet
+  include_tasks: kubelet.yml
+- name: enable kubelet
+  ansible.builtin.systemd:
+    name: kubelet
+    enabled: yes
+    state: started
+# - name: set helm
+#   include_tasks: helm.yml
+- name: set cni
+  include_tasks: cni.yml
+- name: init preset
+  include_tasks: init-preset.yml
+# RELEASE_VERSION="v0.15.1"

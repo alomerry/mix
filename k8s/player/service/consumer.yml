@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: player-openapi-consumer-service
+  namespace: nocturnal-chorus-player
+  labels:
+    project: openapi
+    env: develop
+spec:
+  ports:
+    - name: http
+      port: 4376
+      targetPort: http
+      protocol: TCP
+  selector:
+    service: player-openapi-consumer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player-openapi-consumer-deployment
+  namespace: nocturnal-chorus-player
+  labels:
+    project: openapi
+    env: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: player-openapi-consumer
+  template:
+    metadata:
+      labels:
+        service: player-openapi-consumer
+    spec:
+      containers:
+        - name: player-openapi-consumer
+          image: registry.cn-hangzhou.aliyuncs.com/nocturnal-chorus/player-openapi-consumer:v1694640317935
+          ports:
+            - name: http
+              containerPort: 4376
+              protocol: TCP

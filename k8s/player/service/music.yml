@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: player-music-service
+  namespace: nocturnal-chorus-player
+  labels:
+    project: backend
+    env: develop
+spec:
+  ports:
+    - name: rpc
+      port: 8091
+      targetPort: rpc
+      protocol: TCP
+  selector:
+    service: player-music
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player-music-deployment
+  namespace: nocturnal-chorus-player
+  labels:
+    project: backend
+    env: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: player-music
+  template:
+    metadata:
+      labels:
+        service: player-music
+    spec:
+      containers:
+        - name: player-music
+          image: registry.cn-hangzhou.aliyuncs.com/nocturnal-chorus/player-backend-music:v1694640314029
+          ports:
+            - name: rpc
+              containerPort: 8091
+              protocol: TCP

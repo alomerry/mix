@@ -1,0 +1,6 @@
+- name: set cvm
+  include_tasks: cloud.yml
+  when: not ("'local' in inventory_hostname")
+- name: set local
+  include_tasks: local.yml
+  when: "'local' in inventory_hostname"

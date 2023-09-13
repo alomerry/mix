@@ -1,0 +1,40 @@
+- name: check frpc exists
+  ansible.builtin.stat:
+    path: "/root/apps/vps-frpc/{{FRP_VERSION}}.version"
+  register: basedir_stat
+- name: init frpc workspace
+  shell: rm -rf /root/apps/vps-frpc
+  when: not (basedir_stat.stat.exists)
+- name: download frpc bin
+  shell: |
+    mkdir /root/apps/vps-frpc -p
+    wget -P /root/apps/vps-frpc https://ghproxy.com/https://github.com/fatedier/frp/releases/download/v{{FRP_VERSION}}/frp_{{FRP_VERSION}}_linux_amd64.tar.gz -O /root/apps/vps-frpc/frpc.tar.gz
+  when: not (basedir_stat.stat.exists)
+- name: extract frp tar
+  shell: tar -xf /root/apps/vps-frpc/frpc.tar.gz --strip-components 1 -C /root/apps/vps-frpc/
+  when: not (basedir_stat.stat.exists)
+- name: clean cache
+  shell: |
+    rm -rf /root/apps/vps-frpc/frpc.tar.gz 
+    rm -rf /root/apps/vps-frpc/frps
+    rm -rf /root/apps/vps-frpc/frps.ini
+    rm -rf /root/apps/vps-frpc/frpc_full.ini 
+    rm -rf /root/apps/vps-frpc/frps_full.ini
+    rm -rf /root/apps/vps-frpc/frpc.ini
+- name: set configration
+  copy:
+    src: frpc/
+    dest: /root/apps/vps-frpc/
+- name: set frpc service
+  copy:
+    src: frpc/frpc.service
+    dest: /etc/systemd/system/vps-frpc.service
+- name: enable and start frpc service
+  shell: |
+    systemctl enable vps-frpc.service
+    systemctl stop vps-frpc.service
+    systemctl daemon-reload
+    systemctl start vps-frpc.service
+- name: set frpc version
+  shell: touch /root/apps/vps-frpc/{{FRP_VERSION}}.version
+  when: not (basedir_stat.stat.exists)
