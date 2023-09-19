@@ -1,10 +1,14 @@
 ---
 date: 2022-04-26
-tag: 
+tag:
   - docker
 ---
 
 # Docker Note
+
+## 容器访问宿主机
+
+https://wiki.eryajf.net/pages/674f53/#%E6%96%B9%E6%A1%88%E4%BA%8C
 
 ## TODO
 
@@ -308,35 +312,35 @@ Successfully tagged alomerry/vscode-web:latest
 ```shell
 ➜  docker history alomerry/vscode-web
 IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
-16bd785bdd91   2 minutes ago   /bin/sh -c #(nop)  EXPOSE 8000                  0B        
-0dc8de14002a   2 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "./se…   0B        
-7935785732b8   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   239B      
-c6cdde9ee8b8   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   239B      
-326e349e3afc   2 minutes ago   /bin/sh -c #(nop) WORKDIR /root/app/vscode-s…   0B        
-91c34ca5e3ea   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   215MB     
-4c66a3f2736d   2 minutes ago   /bin/sh -c #(nop) WORKDIR /root/app             0B        
-2511c97bed1e   2 minutes ago   /bin/sh -c #(nop)  VOLUME [/root/workspace]     0B        
-c6614419dca4   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   3.3kB     
-06646e86813e   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   10.6kB    
-4911870b76db   2 minutes ago   /bin/sh -c #(nop)  ENV PATH=/root/.nvm/versi…   0B        
-b1d103271fe7   3 minutes ago   /bin/sh -c #(nop)  ENV NODE_PATH=/root/.nvm/…   0B        
-3495add72751   3 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   8.76kB    
-1259cd840d61   3 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   119MB     
-e2fae1b107b1   3 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   300MB     
-477f94d85bb6   4 minutes ago   /bin/sh -c #(nop)  ARG NODE_VERSION=16.16.0     0B        
-8acec8f79e6b   4 minutes ago   /bin/sh -c #(nop)  ARG name=vscode-web          0B        
-653c7c1d8bb2   4 minutes ago   /bin/sh -c #(nop)  ENV NVM_DIR=/root/.nvm       0B        
-439c48d31f3f   4 minutes ago   /bin/sh -c #(nop)  ENV LC_ALL=en_US.UTF-8       0B        
-d4c2464f5214   4 minutes ago   /bin/sh -c #(nop)  ENV LANGUAGE=en_US:en        0B        
-2ae0d77a1dc4   4 minutes ago   /bin/sh -c #(nop)  ENV LANG=en_US.UTF-8         0B        
-ee376367b7ea   4 minutes ago   /bin/sh -c #(nop)  ENV HOME=/root               0B        
-23b96b938143   4 minutes ago   /bin/sh -c #(nop)  ENV DEBIAN_FRONTEND=nonin…   0B        
+16bd785bdd91   2 minutes ago   /bin/sh -c #(nop)  EXPOSE 8000                  0B
+0dc8de14002a   2 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "./se…   0B
+7935785732b8   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   239B
+c6cdde9ee8b8   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   239B
+326e349e3afc   2 minutes ago   /bin/sh -c #(nop) WORKDIR /root/app/vscode-s…   0B
+91c34ca5e3ea   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   215MB
+4c66a3f2736d   2 minutes ago   /bin/sh -c #(nop) WORKDIR /root/app             0B
+2511c97bed1e   2 minutes ago   /bin/sh -c #(nop)  VOLUME [/root/workspace]     0B
+c6614419dca4   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   3.3kB
+06646e86813e   2 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   10.6kB
+4911870b76db   2 minutes ago   /bin/sh -c #(nop)  ENV PATH=/root/.nvm/versi…   0B
+b1d103271fe7   3 minutes ago   /bin/sh -c #(nop)  ENV NODE_PATH=/root/.nvm/…   0B
+3495add72751   3 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   8.76kB
+1259cd840d61   3 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   119MB
+e2fae1b107b1   3 minutes ago   |2 NODE_VERSION=16.16.0 name=vscode-web /bin…   300MB
+477f94d85bb6   4 minutes ago   /bin/sh -c #(nop)  ARG NODE_VERSION=16.16.0     0B
+8acec8f79e6b   4 minutes ago   /bin/sh -c #(nop)  ARG name=vscode-web          0B
+653c7c1d8bb2   4 minutes ago   /bin/sh -c #(nop)  ENV NVM_DIR=/root/.nvm       0B
+439c48d31f3f   4 minutes ago   /bin/sh -c #(nop)  ENV LC_ALL=en_US.UTF-8       0B
+d4c2464f5214   4 minutes ago   /bin/sh -c #(nop)  ENV LANGUAGE=en_US:en        0B
+2ae0d77a1dc4   4 minutes ago   /bin/sh -c #(nop)  ENV LANG=en_US.UTF-8         0B
+ee376367b7ea   4 minutes ago   /bin/sh -c #(nop)  ENV HOME=/root               0B
+23b96b938143   4 minutes ago   /bin/sh -c #(nop)  ENV DEBIAN_FRONTEND=nonin…   0B
 a081952496e3   11 months ago   CMD ["/sbin/my_init"]                           0B        buildkit.dockerfile.v0
 <missing>      11 months ago   ENV DEBIAN_FRONTEND=teletype LANG=en_US.UTF-…   0B        buildkit.dockerfile.v0
 <missing>      11 months ago   RUN |1 QEMU_ARCH= /bin/sh -c /bd_build/prepa…   151MB     buildkit.dockerfile.v0
 <missing>      11 months ago   COPY . /bd_build # buildkit                     40.4kB    buildkit.dockerfile.v0
 <missing>      11 months ago   ARG QEMU_ARCH                                   0B        buildkit.dockerfile.v0
-<missing>      11 months ago   /bin/sh -c #(nop)  CMD ["bash"]                 0B        
+<missing>      11 months ago   /bin/sh -c #(nop)  CMD ["bash"]                 0B
 <missing>      11 months ago   /bin/sh -c #(nop) ADD file:d2abf27fe2e8b0b5f…   72.8MB
 ```
 
@@ -407,7 +411,7 @@ RUN apt-get update && apt-get install vim
 - 解压缩统一用 tar -xf，不要加 -v 以减少输出，不用加 -z 因为会自动检测，必要的话可以加 -C [dir] 指定解压到的目录
 - 在 RUN 指令中慎用 chmod 和 chown，他们会产生额外的文件层，chmod 命令可以在源文件上执行，COPY 的时候权限会被保留。
 
-### Case 
+### Case
 
 优化一个 dockerfile
 
@@ -461,7 +465,7 @@ jekyll 构建时会忽略时间是未来的 markdown，基础镜像中默认是 
   # or
   docker rmi $(docker images -qf "dangling=true")
   ```
-- 清理所有无用数据卷 
+- 清理所有无用数据卷
   ```shell
   docker volume prune
   ```

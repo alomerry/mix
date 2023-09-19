@@ -9,7 +9,9 @@ tag:
 
 # Jenkins 学习笔记
 
-https://dyrnq.com/jenkins/
+- https://dyrnq.com/jenkins/
+- jenkins k8s https://wnote.com/post/cicd-jenkins-in-kubernetes/
+  - https://www.orchome.com/16641
 
 <!-- ## TODO
 

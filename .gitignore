@@ -6,9 +6,6 @@
 # macos cache
 **/*.DS_Store
 
-# obsidian
-obsidian/.obsidian
-
 # npm install
 !codes/*.md
 node_modules
@@ -19,18 +16,15 @@ src/.vuepress/core.toml
 src/.vuepress/dist
 
 src/.vuepress/public/github-contributions-snake.svg
-src/.vuepress/public/files
-src/.vuepress/public/assets/icon
-src/.vuepress/public/assets/fonts/**/*.ttf
 
+# need to delete
 src/_codes
 
 # need to delete
 src/about/resume/todo.md
 
-src/.vuepress/public/assets/pdf
-src/.vuepress/public/assets/img
-
-src/**/assets
-
 scripts/test.js
+
+src/**/*/assets/*.*
+
+src/.vuepress/public/assets/*

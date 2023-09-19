@@ -17,6 +17,30 @@ freestyle 主要使用配置的方式来描述一个 job，刚上手的时候我
 
 :::
 
+- https://github.com/jenkinsci/kubernetes-plugin/blob/master/src/test/resources/org/csanchez/jenkins/plugins/kubernetes/pipeline/declarative.groovy
+- https://github.com/jenkinsci/kubernetes-plugin/blob/master/src/test/resources/org/csanchez/jenkins/plugins/kubernetes/pipeline/jenkinsSecretHidden.groovy
+- https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/test/resources/org/csanchez/jenkins/plugins/kubernetes/pipeline
+- https://plugins.jenkins.io/kubernetes/
+
+优化
+
+- http://www.devopser.org/articles/2020/09/11/1599814292016.html
+
+其他
+
+- https://stackoverflow.com/questions/36194316/how-to-get-the-build-user-in-jenkins-when-job-triggered-by-timer
+
+build info
+
+- https://testerhome.com/topics/13511
+- https://cloud.tencent.com/developer/article/2202789
+- https://blog.csdn.net/weixin_39918388/article/details/112462275
+
+k8s
+
+- https://www.chenshaowen.com/blog/creating-jenkins-slave-dynamically-on-kubernetes.html
+- https://www.cnblogs.com/cyleon/p/14894586.html
+
 ## 概念[^pipeline-conception]
 
 先来看一个官方的声明式的 pipeline Jenkinsfile[^jenkinsfile]：
