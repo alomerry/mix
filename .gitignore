@@ -1,5 +1,6 @@
 .fleet
 .idea
+.vscode
 .env
 frpc/algolia/.env
 frpc/space-on-premises/config
