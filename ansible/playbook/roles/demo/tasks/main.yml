@@ -1,8 +1,0 @@
-- name: Run a Shell Command
-  shell: |
-    echo {{ENV}}
-    echo {{TYPE}}
-  register: command_result  # 将命令的输出保存到变量 command_result
-- name: Display Command Result
-  debug:
-    var: command_result.stdout

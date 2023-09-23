@@ -1,9 +1,0 @@
-- hosts: local
-  remote_user: root
-  roles:
-    - demo
-# - hosts: local-master
-#   remote_user: root
-#   roles:
-# - hosts: local-nodes
-#   remote_user: root

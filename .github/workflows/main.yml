@@ -1,0 +1,26 @@
+name: sync to gitee
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  mirror:
+    env:
+      dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+      dst_token: ${{ secrets.GITEE_TOKEN }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Mirror the Github organization repos to Gitee.
+        uses: Yikun/hub-mirror-action@master
+        if: env.dst_key && env.dst_token
+        with:
+          src: github/alomerry
+          dst: gitee/alomerry
+          force_update: true
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          static_list: vps-home

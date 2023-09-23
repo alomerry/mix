@@ -1,7 +1,0 @@
-- hosts: proxmox-nodes
-  remote_user: root
-  vars:
-    - K8S_VERSION: 1.28.1
-    - K8S_TOOLS_VERSION: 0.15.1
-  roles:
-    - k8s-node

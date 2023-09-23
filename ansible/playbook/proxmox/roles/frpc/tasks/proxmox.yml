@@ -1,0 +1,14 @@
+- name: set proxmox configration
+  copy:
+    src: proxmox
+    dest: /root/apps/frpc/
+- name: set proxmox frpc service
+  copy:
+    src: proxmox.service
+    dest: /etc/systemd/system/proxmox.service
+- name: enable and start proxmox frpc service
+  shell: |
+    systemctl enable proxmox.service
+    systemctl stop proxmox.service
+    systemctl daemon-reload
+    systemctl start proxmox.service

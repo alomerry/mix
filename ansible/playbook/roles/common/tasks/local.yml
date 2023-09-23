@@ -1,8 +1,0 @@
-- name: install common debs
-  apt:
-    name: '{{ item }}'
-  with_items:
-  - tree
-  - curl
-  - wget
-  - net-tools
