@@ -1,4 +1,3 @@
-ant:497.v94e7d9fffa_b_9
 antisamy-markup-formatter:162.v0e6ec0fcfcf6
 apache-httpcomponents-client-4-api:4.5.14-208.v438351942757
 apache-httpcomponents-client-5-api:5.2.1-1.0
@@ -6,7 +5,9 @@ authentication-tokens:1.53.v1c90fd9191a_b_
 bootstrap5-api:5.3.2-1
 bouncycastle-api:2.29
 branch-api:2.1128.v717130d4f816
+build-name-setter:2.3.0
 build-timeout:1.31
+build-user-vars-plugin:1.9
 caffeine-api:3.1.8-133.v17b_1ff2e0599
 checks-api:2.0.2
 cloud-stats:320.v96b_65297a_4b_b_
@@ -17,10 +18,6 @@ copyartifact:722.v0662a_9b_e22a_c
 credentials-binding:636.v55f1275c7b_27
 credentials:1271.v54b_1c2c6388a_
 display-url-api:2.3.9
-docker-commons:439.va_3cb_0a_6a_fb_29
-docker-java-api:3.3.1-79.v20b_53427e041
-docker-plugin:1.5
-docker-workflow:572.v950f58993843
 durable-task:523.va_a_22cf15d5e0
 echarts-api:5.4.0-6
 embeddable-build-status:412.v09da_db_1dee68
@@ -28,9 +25,6 @@ font-awesome-api:6.4.2-1
 generic-webhook-trigger:1.87.0
 git-client:4.5.0
 git:5.2.0
-github-api:1.314-431.v78d72a_3fe4c3
-github:1.37.3
-gradle:2.8.2
 instance-identity:173.va_37c494ec4e5
 ionicons-api:56.v1b_1c8c49374e
 jackson2-api:2.15.2-350.v0c2f3f8fc595
@@ -43,11 +37,14 @@ jersey2-api:2.40-1
 jjwt-api:0.11.5-77.v646c772fddb_0
 jquery3-api:3.7.1-1
 junit:1240.vf9529b_881428
-ldap:694.vc02a_69c9787f
+kubernetes-client-api:6.8.1-224.vd388fca_4db_3b_
+kubernetes-credentials:0.11
+kubernetes:4029.v5712230ccb_f8
 localization-support:1.2
 mailer:463.vedf8358e006b_
 matrix-auth:3.2.1
 matrix-project:808.v5a_b_5f56d6966
+metrics:4.2.18-442.v02e107157925
 mina-sshd-api-common:2.10.0-69.v28e3e36d18eb_
 mina-sshd-api-core:2.10.0-69.v28e3e36d18eb_
 okhttp-api:4.11.0-157.v6852a_a_fa_ec11
@@ -82,7 +79,7 @@ variant:60.v7290fc0eb_b_cd
 workflow-aggregator:596.v8c21c963d92d
 workflow-api:1281.vca_5fddb_3fceb_
 workflow-basic-steps:1042.ve7b_140c4a_e0c
-workflow-cps:3787.v8f5dcd14a_fa_c
+workflow-cps:3791.va_c0338ea_b_59c
 workflow-durable-task-step:1289.v4d3e7b_01546b_
 workflow-job:1346.v180a_63f40267
 workflow-multibranch:756.v891d88f2cd46
