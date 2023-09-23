@@ -13,7 +13,7 @@
 
 ```shell
 kubeadm init \
-  --apiserver-advertise-address=192.168.3.110 \
+  --apiserver-advertise-address=192.168.31.100 \
   --image-repository registry.aliyuncs.com/google_containers \
   --kubernetes-version v1.28.1 \
   --service-cidr=10.1.0.0/16 \
@@ -92,8 +92,8 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 192.168.3.110:6443 --token 60ou8b.lf0cah9vejzud6y9 \
-	--discovery-token-ca-cert-hash sha256:f082ca2021ea9832459a0d5edc0fef5d782c3147929591a1e5116cd5cceeface
+kubeadm join 192.168.31.100:6443 --token 9yty37.gin6xenv7jb3yxrv \
+	--discovery-token-ca-cert-hash sha256:deddebbcb745ed6a1137968a5c9a9d1fc07775fad8a2bcc9b65996c07d7805d1
 ```
 
 - https://kubernetes.io/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/

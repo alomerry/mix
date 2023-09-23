@@ -1,0 +1,18 @@
+- name: has init?
+  ansible.builtin.stat:
+    path: "/etc/kubernetes/admin.conf"
+  register: has_init
+- name: init k8s cluster
+  shell: |
+    kubeadm init \
+      --apiserver-advertise-address=192.168.31.100 \
+      --image-repository registry.aliyuncs.com/google_containers \
+      --kubernetes-version v1.28.1 \
+      --service-cidr=10.1.0.0/16 \
+      --pod-network-cidr=10.244.0.0/16 \
+      --cri-socket=unix:///var/run/containerd/containerd.sock
+  when: not (has_init.stat.exists)
+
+
+
+  TODO hostnamectl set-hostname<newhostname>
