@@ -1,0 +1,25 @@
+- name: update hostname
+  shell: hostname cvm && echo cvm > /etc/hostname
+- name: stop unattended-upgrades
+  shell: |
+    if [[ $(systemctl is-active unattended-upgrades) == "active" ]]; then
+      systemctl stop unattended-upgrades
+    fi
+  args:
+    executable: /bin/bash
+- name: delete /etc/apt/apt.conf.d/20auto-upgrades
+  file:
+    path: /etc/apt/apt.conf.d/20auto-upgrades
+    state: absent
+- name: install common debs
+  apt:
+    name: '{{ item }}'
+  with_items:
+  - tree
+  - aptitude
+  - ca-certificates
+  - curl
+  - gnupg
+  - wget
+- name: set journal
+  shell: journalctl --vacuum-time=1d && journalctl --vacuum-size=30M
