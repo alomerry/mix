@@ -1,0 +1,12 @@
+# - name: set nginx
+#   include_tasks: install-nginx.yml
+# - name: set acme
+#   include_tasks: acme.yml
+- name: init website workspace
+  include_tasks: init.yml
+# - name: set aliyun ssl
+#   include_tasks: aliyun-ssl.yml
+# - name: set cloudflare ssl
+#   include_tasks: cloudflare-ssl.yml
+- name: reload nginx
+  shell: systemctl force-reload nginx
