@@ -1,0 +1,9 @@
+- name: install qemu debs
+  apt:
+    name: '{{ item }}'
+  with_items:
+  - qemu-guest-agent
+- name: reload qemu
+  shell: |
+    systemctl enable qemu-guest-agent
+    systemctl restart qemu-guest-agent

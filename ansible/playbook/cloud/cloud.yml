@@ -1,0 +1,8 @@
+- hosts: tencent-cvm
+  remote_user: root
+  vars:
+    - FRP_VERSION: 0.51.3
+  roles:
+    - common
+    - frps
+    - nginx

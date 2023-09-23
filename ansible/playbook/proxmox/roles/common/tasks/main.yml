@@ -6,5 +6,9 @@
   - curl
   - wget
   - net-tools
+  - zsh
+  - git
 - name: set docker
   include_tasks: docker.yml
+- name: set oh-my-zsh
+  include_tasks: zsh.yml
