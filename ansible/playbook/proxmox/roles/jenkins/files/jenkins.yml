@@ -1,0 +1,130 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: alomerry
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+  namespace: alomerry
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: alomerry
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: alomerry
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /root/apps/jenkins
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+            - master
+            - node
+            - node2
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+  namespace: alomerry
+  labels:
+    service: jenkins
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: alomerry
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: web
+      protocol: TCP
+    - name: websocket
+      port: 50000
+      targetPort: wesocket
+  selector:
+    service: jenkins
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: alomerry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: jenkins
+  template:
+    metadata:
+      labels:
+        service: jenkins
+    spec:
+      # uid=1000(jenkins) gid=1000(jenkins) groups=1000(jenkins)
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: jenkins
+          image: registry.cn-hangzhou.aliyuncs.com/alomerry/jenkins:v2.424
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          ports:
+            - name: web
+              containerPort: 8080
+            - name: wesocket
+              containerPort: 50000
+          volumeMounts:
+            - name: jenkins-pv
+              mountPath: /var/jenkins_home
+      # initContainers:
+      #   - name: chauth
+      #     image: busybox
+      #     imagePullPolicy: IfNotPresent
+      #     restartPolicy: Never
+      #     securityContext:
+      #       privileged: true
+      #     command: ['sh', '-c', 'chmod 755 /var/run/docker.sock && chown 1000:1000 /var/run/docker.sock']
+      #     volumeMounts:
+      #       - name: docker
+      #         mountPath: /var/run/docker.sock
+      volumes:
+        - name: jenkins-pv
+          persistentVolumeClaim:
+            claimName: jenkins-pvc
