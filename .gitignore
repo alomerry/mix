@@ -13,6 +13,14 @@ frpc/mysql/*
 
 vps-home.iml
 
+vps.ini
+master.ini
+cvm.ini
+proxmox.ini
+frpc.ini
+frps.ini
+
+
 env.yml
 
 **/*.DS_Store

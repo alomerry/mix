@@ -1,6 +1,0 @@
-# - name: set frps
-#   include_tasks: frps.yml
-#   when: TYPE == 'master'
-- name: set local frpc
-  include_tasks: frpc.yml
-  when: TYPE == 'node'

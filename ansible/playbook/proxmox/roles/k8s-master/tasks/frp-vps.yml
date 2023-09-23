@@ -1,0 +1,12 @@
+- name: set k8s-master conf
+  copy:
+    src: vps
+    dest: /root/apps/frpc/
+- name: set k8s-master frpc service
+  copy:
+    src: frp-vps.service
+    dest: /etc/systemd/system/frp-vps.service
+- name: enable and start frp-master frpc service
+  shell: |
+    systemctl enable frp-vps.service
+    systemctl stop frp-vps.service

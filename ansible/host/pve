@@ -16,8 +16,6 @@
 
 [pve-k8s-nodes:vars]
 
-
-
 [local:vars]
 ENV=LOCAL
 K8S_VERSION=1.28.1

@@ -3,5 +3,5 @@
   vars:
     - FRP_VERSION: 0.51.3
   roles:
-    - frpc
-    - common
+    - pve-master
+    # - common
