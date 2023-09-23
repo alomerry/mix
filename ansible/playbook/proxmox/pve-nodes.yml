@@ -1,0 +1,6 @@
+- hosts: pve-nodes
+  remote_user: root
+  vars:
+  roles:
+    - common
+    - qemu

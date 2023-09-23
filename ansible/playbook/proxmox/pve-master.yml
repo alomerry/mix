@@ -1,0 +1,7 @@
+- hosts: pve-master
+  remote_user: root
+  vars:
+    - FRP_VERSION: 0.51.3
+  roles:
+    - frpc
+    - common
