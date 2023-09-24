@@ -1,9 +1,10 @@
 ---
 date: 2023-09-21
 category:
-  - Jenkins
+  - CI/CD
 tag:
   - Jenkins
+  - K8S
 ---
 
 # Jenkins in k8s
@@ -137,13 +138,13 @@ Service 用于将 Jenkins Pod 的端口以服务的形式统一暴露，如需�
 
 如果需要在 Jenkins 访问和部署 Pod 需要配置对应的 ServiceAccount/ClusterRoleBinding 授权访问集群信息
 
-### Case
+## Case
 
 以下是我部署的 Jenkins 对应的资源文件：
 
 @[code](@_codes/vps-home/ansible/playbook/roles/jenkins/files/jenkins.yml)
 
-### 图示
+## 图示
 
 执行 `kubectl apply -f jenkins.yml` 后即可进入初始化页面：
 

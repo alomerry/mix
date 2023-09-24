@@ -1,0 +1,3 @@
+- kubernets 相关技术调研 https://blog.k8s.li/k8s-01.html#CI-x2F-CD-%E6%96%B9%E6%A1%88
+- https://imroc.cc/k8s/best-practice/containerd-dind/
+- https://www.qikqiak.com/k8strain2/containerd/build/

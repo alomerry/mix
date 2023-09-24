@@ -5,7 +5,7 @@ import { vspHome } from "./sidebar/space/vps-home.js"
 import { docker } from "./sidebar/notes/container/docker.js"
 import { nosql } from "./sidebar/notes/database/nosql.js"
 import { frontend } from "./sidebar/notes/frontend.js"
-import { golang } from "./sidebar/notes/golang/golang.js"
+import { golang } from "./sidebar/notes/language/golang.js"
 import { nginx } from "./sidebar/notes/nginx.js"
 import { git } from "./sidebar/notes/git.js"
 import { jenkins } from "./sidebar/notes/ci/jenkins.js"
@@ -31,10 +31,14 @@ export const zhSidebar = sidebar({
 
   "/books/go-design": bookGoDesign,
 
+  // TODO
   "/notes/ci/jenkins/": jenkins,
   "/notes/nginx/": nginx,
   "/notes/network/": network,
-  "/notes/golang/golang": golang,
+
+  "/notes/language/golang/golang": golang,
+  
+  // TODO
   "/notes/frontend/": frontend,
   "/notes/database/nosql": nosql,
   "/notes/git/": git,

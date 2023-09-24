@@ -111,6 +111,7 @@ export default hopeTheme({
       katex: true,
       mark: true,
       mermaid: true,
+      linkify: true,
       playground: {
         presets: ["ts", "vue"],
       },

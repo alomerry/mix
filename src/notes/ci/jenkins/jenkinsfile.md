@@ -2,7 +2,7 @@
 date: 2023-05-19
 timeline: false
 category:
-  - Jenkins
+  - CI/CD
 tag:
   - Jenkins
 ---

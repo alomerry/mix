@@ -6,6 +6,8 @@ tag:
 
 # 远控局域网/内网穿透搭建
 
+https://zhuanlan.zhihu.com/p/58916955
+
 ## 起因
 
 原来住处的宽带是有 IPv6 的，使用 ddns 服务主动请求阿里云解析 API 映射 AAAA 记录到住处的 IPv6 地址上，IPv6 配上 moonlight 高码率远控体验出奇的好。

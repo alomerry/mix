@@ -22,6 +22,8 @@ cd blog/.vuepress
 
 ## todo
 
+https://github.com/orgs/vuepress-theme-hope/discussions/3393#discussioncomment-6910096
+
 ## Thanks for free JetBrains Open Source license
 
 <a href="https://www.jetbrains.com/?from=alomerry/blog" target="_blank">

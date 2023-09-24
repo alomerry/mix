@@ -57,17 +57,40 @@ export const renderProjects = (tokens: Token[], idx: number) => {
           type?: string
         ) => {
           const isFriends = type === 'friends'
-          return `
+          if (project.icon.startsWith('http')) {
+            return `
               <a class="project project${index % 9}"
                 href="${withBase(project.link)}"
                 ${isFriends ? '' : 'rel="noopener noreferrer"'}
                 target="_blank">
-                <img src="${withBase(project.icon)}"
-                  alt="${project.name}" class="image" />
+                <img src="${withBase(project.icon)}" alt="${project.name}" class="image" />
                 <div class="name">${project.name}</div>
-                <div class="desc">${project.desc}</div>
+                <div class="desc">${project.desc ? project.desc: ""}</div>
               </a>
             `
+          } else if (project.icon.indexOf(':') !== -1) {
+            return `
+              <a class="project project${index % 9}"
+                href="${withBase(project.link)}"
+                ${isFriends ? '' : 'rel="noopener noreferrer"'}
+                target="_blank">
+                <iconify-icon icon="${project.icon}" width="40" class="image" />
+                <div class="name">${project.name}</div>
+                <div class="desc">${project.desc ? project.desc: ""}</div>
+              </a>
+            `
+          } else {
+            return `
+              <a class="project project${index % 9}"
+                href="${withBase(project.link)}"
+                ${isFriends ? '' : 'rel="noopener noreferrer"'}
+                target="_blank">
+                <div class="image">${project.icon ? project.icon : ""}</div>
+                <div class="name">${project.name}</div>
+                <div class="desc">${project.desc ? project.desc: ""}</div>
+              </a>
+            `
+          }
         }
         const getProjects = (projects: Project[], type?: string) => {
           let projectsStr = ''

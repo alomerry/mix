@@ -105,6 +105,8 @@ function replaceCDN(markdownPath, fileName2BelongMap) {
       let url = constant.CDN_BLOG_URL + "/assets/" + belongTo + "/" + getOutputFilePrefix(markdownPath) + "/" + fileName
       mdContent = mdContent.replace("@CDN/" + fileName, url)
       fs.writeFileSync(markdownPath, mdContent, 'utf8')
+    } else if (mdContent.match("@CDN/") != null){
+      console.log(markdownPath, " not found resources")
     }
   })
 }
