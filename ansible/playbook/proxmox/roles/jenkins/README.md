@@ -17,15 +17,11 @@ https://www.orchome.com/16641
 - cdn-domain cdn.alomerry.com
 - bark-notification-device-alomerry
 - bark-notification-device-tobery1
-- wehook-trigger-token
+- webhook-trigger-token
 - docker-login
   - user
   - password
-- docker-registry
-- k8s-master
-  - username
-  - password
-- k8s config
+- k8sconfig
 
 
 Error: Another active Homebrew update process is already in progress.
