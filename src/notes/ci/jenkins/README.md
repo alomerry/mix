@@ -10,8 +10,6 @@ tag:
 # Jenkins 学习笔记
 
 - https://dyrnq.com/jenkins/
-- jenkins k8s https://wnote.com/post/cicd-jenkins-in-kubernetes/
-  - https://www.orchome.com/16641
 
 <!-- ## TODO
 
@@ -36,7 +34,34 @@ todo configuration-as-code https://github.com/jenkinsci/configuration-as-code-pl
 - 兼容的情况下删除 docker image 重新 run
 - 更新 docker 容器中的 jenkins war 包
 
-### Jenkins 部署服务
+## 制作 Jenkins 镜像
+
+### 获取已安装插件
+
+如果已经搭建了 Jenkins，可以在设置中的 script console 中执行以下代码，输出已安装插件和版本：
+
+```groovy
+Jenkins.instance.pluginManager.plugins.each{
+  plugin ->
+    println ("${plugin.getShortName()}:${plugin.getVersion()}")
+}
+```
+
+### 构建 Jenkins 镜像
+
+```dockerfile
+FROM jenkins/jenkins:2.424
+USER root
+COPY sources.list /etc/apt/sources.list
+COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
+USER jenkins
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
+RUN git config --global --add safe.directory "*"
+```
+
+基于 Jenkins 原版镜像并提前安装所需插件，执行 `docker build -t xxx .` 即可
+
+## Jenkins 部署服务
 
 - [](https://blog.csdn.net/qq_22648091/article/details/116424237)
 - [](https://www.mafeifan.com/DevOps/Jenkins/Jenkins2-%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9727----pipeline-%E4%B8%AD-Docker-%E6%93%8D%E4%BD%9C.html)

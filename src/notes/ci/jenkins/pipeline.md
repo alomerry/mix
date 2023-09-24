@@ -374,11 +374,47 @@ pipeline {
 
 :::
 
+
+
 ## jenkins function
 
-https://stackoverflow.com/questions/68969660/how-do-i-reassign-parameters-in-a-jenkins-pipeline-script
+```groovy
+pipeline {
+  agent any
+  stages {
+    stage('Test') {
+      steps {
+        whateverFunction()
+      }
+    }
+  }
+}
 
-https://blog.csdn.net/IT_ZRS/article/details/125601643
+def whateverFunction() {
+  sh 'ls /'
+}
+```
+
+return value
+
+```groovy
+def output // set as global variable
+pipeline{
+...
+
+stage('Sum')
+{
+    steps
+    {
+        script
+        {
+            output = sum()
+            echo "The sum is ${output}"
+        }
+    }
+}
+...
+```
 
 ## Reference
 

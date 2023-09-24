@@ -72,6 +72,14 @@ assets/img/about/resume/TCP-IP-data.webp[@]3baee5e55327038527112e4f09f14ced
 assets/img/about/resume/TCP-IP-detail.webp[@]21ddc6d728ad721f726bbcccc9b28cf1
 assets/img/about/resume/TCP-IP.webp[@]78537a5dfa46b2ef220be352da486770
 assets/img/about/tencent-cvm.svg[@]8ed1b169ef5e29411a28613a060e1fd6
+assets/img/notes/ci/jenkins/architecture.png[@]8ed9e84bf41c97629f951be32f895174
+assets/img/notes/ci/jenkins/jenkins-build-by-k8s-pod.png[@]dbdf7c4edc0056fdb4b79b9da0f9eaac
+assets/img/notes/ci/jenkins/jenkins-build-pod.png[@]3b0e3a8e0bc86ec7ce87398d3032c06e
+assets/img/notes/ci/jenkins/jenkins-home.png[@]323c68fdd6f2f60ee4d3a253b97c0702
+assets/img/notes/ci/jenkins/jenkins-k8s-config-1.png[@]3abd9b831b7dcf2ab217b849063721ae
+assets/img/notes/ci/jenkins/jenkins-k8s-config-2.png[@]35c55e0c12f91ae8282e5a05887adc83
+assets/img/notes/ci/jenkins/prevent-use-build-in-node.png[@]86741c4ab556a00752e66a3950c3f9cc
+assets/img/notes/ci/jenkins/unlock-jenkins.png[@]3d9acdc29dcb610b82bbb05594c1f5c2
 assets/img/notes/container/docker/container-layers.jpg[@]97c622c247ef510b06fee1aff4ec890f
 assets/img/notes/container/docker/merge-layer.gif[@]bbcb27ba8cc85a4d8b9f84ae623011ad
 assets/img/notes/container/docker/multi-run-create-new-layer.gif[@]d4a73968c4c8f18a9ee89733292430f4
@@ -94,6 +102,7 @@ assets/img/notes/golang/golang/concurrency/sync/sematable.png[@]
 assets/img/notes/golang/golang/concurrency/sync/stave-mode.png[@]4aeb213d654f3a0c7b371342d8123e2b
 assets/img/notes/golang/golang/concurrency/sync/try-to-lock.png[@]3b05bc508f71b84d5835e8b9fd57230e
 assets/img/notes/golang/golang/concurrency/sync/wake-up.png[@]fd09befc6e8a6240d9f4f007092454f2
+assets/img/notes/golang/golang/func-stack.png[@]9059dc99ced56bbc96a195688cf2cc53
 assets/img/notes/golang/golang/golang-function-stack-frame.png[@]a1532f15e85a88bc807a5885b081ebc9
 assets/img/notes/golang/golang/keyword/interface-io-rw.png[@]f77e4196d872309364b0a33cba3f2d5e
 assets/img/notes/golang/golang/keyword/itab-hash-table.png[@]9ca178e8a669c28d7038619949619240
@@ -112,6 +121,6 @@ assets/img/posts/vscode-matepad-preview.jpg[@]acee7486351dc4987500343d2de3d076
 assets/pdf/books/gopl.pdf[@]e0c6d6e2c7bcf43882815a1bf1ee6a60
 avatar.png[@]d24bc920f390aad9a245fe938a08703d
 favicon.ico[@]018a42eaeac45af687ca3bacbbae4c53
-github-contributions-snake.svg[@]c3072c197aa50a97a4c6117b7c2214fe
+github-contributions-snake.svg[@]d41d8cd98f00b204e9800998ecf8427e
 logo.png[@]b8db9a73459e10b591a9b3ca3940de48
 logo.svg[@]aaaeba3342f3c579b93ac3a39ee19834

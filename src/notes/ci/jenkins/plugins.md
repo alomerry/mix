@@ -9,6 +9,8 @@ tag:
 
 # Jenkins 插件
 
+https://plugins.jenkins.io/build-user-vars-plugin/
+
 - https://plugins.jenkins.io/build-user-vars-plugin/
 
 ## SSH
