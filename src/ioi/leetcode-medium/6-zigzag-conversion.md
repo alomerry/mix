@@ -69,4 +69,4 @@ P     I
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/6-main.cpp)
+@[code](../../../algorithm/code/leet-code/6-main.cpp)

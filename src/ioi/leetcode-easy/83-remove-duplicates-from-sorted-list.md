@@ -43,4 +43,4 @@ Source: [LeetCode 83](https://leetcode-cn.com/problems/remove-duplicates-from-so
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/83-main.cpp)
+@[code](../../../algorithm/code/leet-code/83-main.cpp)

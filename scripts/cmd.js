@@ -36,5 +36,4 @@ process.argv.forEach((val, index) => {
     case CONVERT_CDN: convertCDN.run()
     case AUTO_GEN_SIDEBAR: autoAddSidebar.run()
   }
-
 })

@@ -50,4 +50,4 @@ Source: [LeetCode 70](https://leetcode-cn.com/problems/climbing-stairs/){target=
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/70-main.cpp)
+@[code](../../../algorithm/code/leet-code/70-main.cpp)

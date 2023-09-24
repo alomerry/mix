@@ -46,4 +46,4 @@ Related Topics: [递归](https://leetcode.cn/tag/recursion/), [链表](https://l
 
 Language: **Go**
 
-[@code go](../../_codes/algorithm/code/leet-code/hard/25-main.go)
+[@code go](../../../algorithm/code/leet-code/hard/25-main.go)

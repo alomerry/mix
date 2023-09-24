@@ -17,6 +17,7 @@ freestyle 主要使用配置的方式来描述一个 job，刚上手的时候我
 
 :::
 
+- https://plugins.jenkins.io/kubernetes/
 - https://github.com/jenkinsci/kubernetes-plugin/blob/master/src/test/resources/org/csanchez/jenkins/plugins/kubernetes/pipeline/declarative.groovy
 - https://github.com/jenkinsci/kubernetes-plugin/blob/master/src/test/resources/org/csanchez/jenkins/plugins/kubernetes/pipeline/jenkinsSecretHidden.groovy
 - https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/test/resources/org/csanchez/jenkins/plugins/kubernetes/pipeline
@@ -282,11 +283,7 @@ pipeline
 
 @tab blog
 
-@[code groovy:no-line-numbers](../../../_codes/blog/.jenkins/blog/pipeline.groovy)
-
-@tab algorithm
-
-@[code groovy:no-line-numbers](../../../_codes/vps-home/pipeline/algorithm.groovy)
+@[code](@_codes/blog/Jenkinsfile)
 
 :::
 
@@ -376,6 +373,12 @@ pipeline {
 ```
 
 :::
+
+## jenkins function
+
+https://stackoverflow.com/questions/68969660/how-do-i-reassign-parameters-in-a-jenkins-pipeline-script
+
+https://blog.csdn.net/IT_ZRS/article/details/125601643
 
 ## Reference
 

@@ -13,13 +13,12 @@ article: false
 
 Related Topics: [递归](https://leetcode.cn/tag/recursion/), [字符串](https://leetcode.cn/tag/string/), [动态规划](https://leetcode.cn/tag/dynamic-programming/)
 
-
 给你一个字符串 `s` 和一个字符规律 `p`，请你来实现一个支持 `'.'` 和 `'*'` 的正则表达式匹配。
 
-*   `'.'` 匹配任意单个字符
-*   `'*'` 匹配零个或多个前面的那一个元素
+* `'.'` 匹配任意单个字符
+* `'*'` 匹配零个或多个前面的那一个元素
 
-所谓匹配，是要涵盖 **整个 **字符串 `s`的，而不是部分字符串。
+所谓匹配，是要涵盖**整个**字符串 `s`的，而不是部分字符串。
 
 **示例 1：**
 
@@ -60,4 +59,4 @@ https://leetcode.cn/problems/regular-expression-matching/solution/ji-yu-guan-fan
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/10-main.cpp)
+@[code](../../../algorithm/code/leet-code/10-main.cpp)

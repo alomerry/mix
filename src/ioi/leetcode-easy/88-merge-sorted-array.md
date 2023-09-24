@@ -63,4 +63,4 @@ Source: [LeetCode 88](https://leetcode-cn.com/problems/merge-sorted-array/){targ
 
 ## Code
 
-@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/88-main.cpp)
+@[code](../../../algorithm/code/leet-code/88-main.cpp)

@@ -61,4 +61,4 @@ Source: [LeetCode 33](https://leetcode-cn.com/problems/search-in-rotated-sorted-
 
 ## Code
 
-@[code](../../_codes/algorithm/code/leet-code/33-main.cpp)
+@[code](../../../algorithm/code/leet-code/33-main.cpp)

@@ -54,4 +54,4 @@ Related Topics: [链表](https://leetcode.cn/tag/linked-list/), [排序](https:/
 
 Language: **Go**
 
-@[code gos](../../_codes/algorithm/code/leet-code/147-main.go)
+@[code](../../../algorithm/code/leet-code/147-main.go)

@@ -48,28 +48,28 @@ Related Topics: [数组](https://leetcode.cn/tag/array/), [二分查找](https:/
 
 要取得中位数，只需要将两条数组合并并排序，如果数组长度为偶数，则去中间两个取平均值，否则去中间的数即可。
 
-@[code go](../../_codes/algorithm/code/leet-code/hard/4-merge-and-sort.go)
+@[code](../../../algorithm/code/leet-code/hard/4-merge-and-sort.go)
 
 ### 冒泡排序
 
-@[code go](../../_codes/algorithm/code/leet-code/base/sort/bubble_sort.go)
+@[code](../../../algorithm/code/leet-code/base/sort/bubble_sort.go)
 
 ### 选择排序
 
-@[code go](../../_codes/algorithm/code/leet-code/base/sort/select_sort.go)
+@[code](../../../algorithm/code/leet-code/base/sort/select_sort.go)
 
 ### 插入排序
 
-@[code go](../../_codes/algorithm/code/leet-code/base/sort/insert_sort.go)
+@[code](../../../algorithm/code/leet-code/base/sort/insert_sort.go)
 
 ### 归并排序
 
-@[code go](../../_codes/algorithm/code/leet-code/base/sort/merge_sort.go)
+@[code](../../../algorithm/code/leet-code/base/sort/merge_sort.go)
 
 ### 堆排序
 
-@[code go](../../_codes/algorithm/code/leet-code/base/sort/heap_sort.go)
+@[code](../../../algorithm/code/leet-code/base/sort/heap_sort.go)
 
 ### 快速排序
 
-@[code go](../../_codes/algorithm/code/leet-code/base/sort/quick_sort.cpp)
+@[code](../../../algorithm/code/leet-code/base/sort/quick_sort.cpp)

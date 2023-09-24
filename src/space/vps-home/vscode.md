@@ -29,7 +29,7 @@ plugins=(
 
 ::: details
 
-@[code dockerfile:no-line-numbers](../../_codes/algorithm/.jenkins/docker/dev/dockerfile)
+TODO
 
 :::
 

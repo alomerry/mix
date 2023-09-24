@@ -17,25 +17,25 @@ category:
 
 ## 冒泡排序
 
-@[code](../../_codes/algorithm/data-struct/sort/bubbleSort/main.go)
+@[code](../../../algorithm/data-struct/sort/bubbleSort/main.go)
 
 ## 插入排序
 
-@[code](../../_codes/algorithm/data-struct/sort/insertionSort/main.go)
+@[code](../../../algorithm/data-struct/sort/insertionSort/main.go)
 
 ## 选择排序
 
-@[code](../../_codes/algorithm/data-struct/sort/selectSort/main.go)
+@[code](../../../algorithm/data-struct/sort/selectSort/main.go)
 ## 归并排序
 
-@[code](../../_codes/algorithm/data-struct/sort/mergeSort/main.go)
+@[code](../../../algorithm/data-struct/sort/mergeSort/main.go)
 
 ## 快速排序
 
-@[code](../../_codes/algorithm/data-struct/sort/quickSort/main.go)
+@[code](../../../algorithm/data-struct/sort/quickSort/main.go)
 
 ## 堆排序
 
-@[code](../../_codes/algorithm/data-struct/sort/heapSort/main.go)
+@[code](../../../algorithm/data-struct/sort/heapSort/main.go)
 
 ## 拓扑排序

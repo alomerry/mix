@@ -52,6 +52,6 @@ Source: [LeetCode 58](https://leetcode-cn.com/problems/length-of-last-word/){tar
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/58-main.cpp)
+@[code](../../../algorithm/code/leet-code/58-main.cpp)
 
-@[code cpp](../../_codes/algorithm/code/leet-code/58-index.cpp)
+@[code](../../../algorithm/code/leet-code/58-index.cpp)

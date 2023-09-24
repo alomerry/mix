@@ -46,4 +46,4 @@ Source: [LeetCode 69](https://leetcode-cn.com/problems/sqrtx/){target="_blank"}
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/69-main.cpp)
+@[code](../../../algorithm/code/leet-code/69-main.cpp)

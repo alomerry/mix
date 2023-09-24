@@ -18,6 +18,8 @@ cd blog/.vuepress
 
 ## import code
 
+[`download-import`](./scripts/download-import.js) 会在构建时将 `@[code](@_codes/${repo}/${file})` 转换成 `https://gitee.com/alomerry/${repo}/raw/${branch}/${file}` 后下载到 `src/_codes` 下对应的位置，并将 `@_codes` 修改成相对位置
+
 ## todo
 
 ## Thanks for free JetBrains Open Source license

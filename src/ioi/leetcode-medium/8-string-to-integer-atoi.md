@@ -138,4 +138,4 @@ Source: [LeetCode 8](https://leetcode-cn.com/problems/string-to-integer-atoi/){t
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/8-main.cpp)
+@[code](../../../algorithm/code/leet-code/8-main.cpp)

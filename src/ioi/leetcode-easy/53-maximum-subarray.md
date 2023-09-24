@@ -54,4 +54,4 @@ Source: [LeetCode 53](https://leetcode-cn.com/problems/maximum-subarray/){target
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/53-main.cpp)
+@[code](../../../algorithm/code/leet-code/53-main.cpp)

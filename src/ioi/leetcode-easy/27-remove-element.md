@@ -68,4 +68,4 @@ for (int i = 0; i < len; i++) {
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/27-main.cpp)
+@[code](../../../algorithm/code/leet-code/27-main.cpp)

@@ -46,4 +46,4 @@ Source: [LeetCode 67](https://leetcode-cn.com/problems/add-binary/){target="_bla
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/67-main.cpp)
+@[code](../../../algorithm/code/leet-code/67-main.cpp)

@@ -66,7 +66,7 @@ Related Topics: [字符串](https://leetcode.cn/tag/string/)
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code-weekly/83/830-main.cpp)
+@[code](../../../algorithm/code/leet-code-weekly/83/830-main.cpp)
 
 # [831\. 隐藏个人信息](https://leetcode.cn/problems/masking-personal-information/)
 
@@ -166,7 +166,7 @@ _**电话号码：**_
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code-weekly/83/831-main.cpp)
+@[code](../../../algorithm/code/leet-code-weekly/83/831-main.cpp)
 
 # [829\. 连续整数求和](https://leetcode.cn/problems/consecutive-numbers-sum/)
 
@@ -212,7 +212,7 @@ Related Topics: [数学](https://leetcode.cn/tag/math/), [枚举](https://leetco
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code-weekly/83/829-main.cpp)
+@[code](../../../algorithm/code/leet-code-weekly/83/829-main.cpp)
 
 # [828\. 统计子串中的唯一字符](https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/)
 
@@ -266,4 +266,4 @@ Related Topics: [哈希表](https://leetcode.cn/tag/hash-table/), [字符串](ht
 
 Language: **C++**
 
-@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code-weekly/83/828-main.cpp)
+@[code](../../../algorithm/code/leet-code-weekly/83/828-main.cpp)

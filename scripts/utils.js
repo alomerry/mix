@@ -65,6 +65,16 @@ function getAllDirPath(filePath) {
   return allFilePaths;
 }
 
+// 获取文件所在目录
+function getFileDir(filePath) {
+  if (fs.existsSync(filePath)) {
+    return path.parse(filePath).dir;;
+  } else {
+    console.warn(`文件【${filePath}】不存在！`);
+    return undefined;
+  }
+}
+
 // 获取下级目录列表
 function getChildDir(filePath) {
   let allChildDirPaths = [];
@@ -281,7 +291,7 @@ function tools_IOI_SiderBar_Children_Generator(path, prefix) {
 }
 
 export default {
-  getAllFilesPath, getDirFilesPath, getAllDirPath, getChildDir, existsPath, deleteFile, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
+  getAllFilesPath, getDirFilesPath, getFileDir, getAllDirPath, getChildDir, existsPath, deleteFile, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
 
 
   tools_IOI_SiderBar_Children_Generator, getAbsoluteIOIPath,

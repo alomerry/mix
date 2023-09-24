@@ -68,7 +68,7 @@ pipeline {
       steps {
         container('blog-build') {
           sh '''
-          pnpm install && pnpm build
+          pnpm install && pnpm download-import && pnpm build
           cd src/.vuepress/dist/
           tar -zcf blog.tar.gz *
           '''

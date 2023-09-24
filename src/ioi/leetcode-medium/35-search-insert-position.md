@@ -69,4 +69,4 @@ Source: [LeetCode 35](https://leetcode-cn.com/problems/search-insert-position/){
 
 ### Code
 
-@[code](../../_codes/algorithm/code/leet-code/35-main.cpp)
+@[code](../../../algorithm/code/leet-code/35-main.cpp)

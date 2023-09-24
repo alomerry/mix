@@ -54,4 +54,4 @@ Related Topics: [递归](https://leetcode.cn/tag/recursion/), [链表](https://l
 
 ### 暴力法
 
-@[code cpp](../../_codes/algorithm/code/leet-code/medium/2-violence.go)
+@[code](../../../algorithm/code/leet-code/medium/2-violence.go)

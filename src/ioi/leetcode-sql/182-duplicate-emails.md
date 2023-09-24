@@ -84,4 +84,4 @@ Person 表:
 
 Language: **MySQL**
 
-@[code](../../_codes/algorithm/code/leet-code-sql/182-1.sql)
+@[code](../../../algorithm/code/leet-code-sql/182-1.sql)

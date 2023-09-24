@@ -85,4 +85,4 @@ M             1000
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/12-map.cpp)
+@[code](../../../algorithm/code/leet-code/12-map.cpp)

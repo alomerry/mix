@@ -68,4 +68,4 @@ Source: [LeetCode 20](https://leetcode-cn.com/problems/valid-parentheses/){targe
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/20-stack.cpp)
+@[code](../../../algorithm/code/leet-code/20-stack.cpp)

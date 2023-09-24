@@ -42,4 +42,4 @@ Related Topics: [字符串](https://leetcode.cn/tag/string/), [动态规划](htt
 
 ### 动态规划
 
-@[code cpp](../../_codes/algorithm/code/leet-code/5-dp.cpp)
+@[code](../../../algorithm/code/leet-code/5-dp.cpp)

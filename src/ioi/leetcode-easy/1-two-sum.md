@@ -80,7 +80,7 @@ public:
 
 ### 暴力剪枝法
 
-@[code cpp](../../_codes/algorithm/code/leet-code/easy/1-pruning.cpp)
+@[code](../../../algorithm/code/leet-code/easy/1-pruning.cpp)
 
 可以看到时间复杂度得到了很好的优化.
 
@@ -88,4 +88,4 @@ public:
 
 ### 哈希法
 
-@[code cpp](../../_codes/algorithm/code/leet-code/easy/1-map.go)
+@[code](../../../algorithm/code/leet-code/easy/1-map.go)

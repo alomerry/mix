@@ -48,4 +48,4 @@ Source: [LeetCode 14](https://leetcode-cn.com/problems/longest-common-prefix/){t
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/14-main.cpp)
+@[code](../../../algorithm/code/leet-code/14-main.cpp)

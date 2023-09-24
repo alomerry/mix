@@ -55,4 +55,4 @@ Language: **C++**
 
 空间替换时间：使用 map 记录“链”。key 为链表的序号，value 记录 next。删除倒数 n 个数字时，只需要将 n-1 的 value 指向 n+1 即可。
 
-@[code cpp:no-line-numbers](../../_codes/algorithm/code/leet-code/19-main.cpp)
+@[code](../../../algorithm/code/leet-code/19-main.cpp)

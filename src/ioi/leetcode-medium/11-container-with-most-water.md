@@ -59,4 +59,4 @@ Source: [LeetCode 11](https://leetcode-cn.com/problems/container-with-most-water
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/11-main.cpp)
+@[code](../../../algorithm/code/leet-code/11-main.cpp)

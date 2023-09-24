@@ -64,4 +64,4 @@ set 中不存在元素时所有链表取完。
 
 ## 代码
 
-@[code cpp](../../_codes/algorithm/code/leet-code/23-main.cpp)
+@[code](../../../algorithm/code/leet-code/23-main.cpp)

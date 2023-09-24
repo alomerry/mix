@@ -55,4 +55,4 @@ Source: [LeetCode 66](https://leetcode-cn.com/problems/plus-one/){target="_blank
 
 ## Code
 
-@[code cpp](../../_codes/algorithm/code/leet-code/66-main.cpp)
+@[code](../../../algorithm/code/leet-code/66-main.cpp)
