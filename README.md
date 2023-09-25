@@ -8,7 +8,6 @@
 [![VuePress2](https://img.shields.io/static/v1?logo=vuedotjs&color=blue&label=VuePress2&message=2.0.0-beta.67)](https://v2.vuepress.vuejs.org/zh/)
 [![VuePress-Theme-Hope](https://img.shields.io/static/v1?logo=appveyor&color=blue&label=VuePress-Theme-Hope&message=2.0.0-beta.237)](https://theme-hope.vuejs.press/zh/)
 
-
 ## local git hook && [oss pusher](https://github.com/alomerry/go-tools)
 
 cd blog/.vuepress
