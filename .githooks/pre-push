@@ -17,7 +17,7 @@ if [[ $(git log HEAD..$remote_branch --oneline) ]]; then
   echo "Error: There are new commits in the remote 'develop' branch. Please rebase before pushing."
   exit 1
 else
-  echo "Your are at latest"
+  echo "Your are at latest!"
 fi
 
 exit 0
