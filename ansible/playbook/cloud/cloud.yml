@@ -4,5 +4,6 @@
     - FRP_VERSION: 0.51.3
   roles:
     # - common
-    - frps
-    # - nginx
+    # - frps
+    - nginx
+    # - dns

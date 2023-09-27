@@ -1,11 +1,13 @@
-# - name: copy dns tools
-#   copy:
-#     src: dns-tools
-#     dest: /tmp/dns-tools
-#     mode: 0700
+- name: copy dns tools
+  copy:
+    src: dns-tools
+    dest: /tmp/dns-tools
+    mode: 0700
 - name: set env
   include_vars: env.yml
 - name: site aliyun domain dns
   include_tasks: aliyun.yml
 # - name: site cloudflare domain dns
 #   include_tasks: cloudflare.yml
+
+# TODO 阿里云设置 dns 解析 404 似乎缺少 key，可能误删了，需要补上

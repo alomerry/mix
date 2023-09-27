@@ -25,3 +25,5 @@ K8S_TOOLS_VERSION=0.15.1
 TYPE=master
 [local-nodes:vars]
 TYPE=node
+
+# kubernetes.default.svc.cluster.local

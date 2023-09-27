@@ -12,16 +12,18 @@
     # - umami.alomerry.com
     # - uptime.alomerry.com
     # - waline.alomerry.com
-    - k8s.alomerry.com
+    # - k8s.alomerry.com
+    - oss.alomerry.com
 - name: copy nginx conf
   copy:
     src: conf/{{ item }}.conf
     dest: /root/apps/nginx/conf/{{ item }}.conf
   with_items:
-    - k8s.alomerry.com
+    - oss.alomerry.com
+    # - k8s.alomerry.com
     # - ci.alomerry.com
     # - bark.alomerry.com
-    # - blog.alomerry.com
+    - blog.alomerry.com
     # - resume.alomerry.com
     # - umami.alomerry.com
     # - uptime.alomerry.com

@@ -8,6 +8,8 @@
   - net-tools
   - zsh
   - git
+  - dnsutils
+  - iputils-ping
 - name: set docker
   include_tasks: docker.yml
 - name: set oh-my-zsh

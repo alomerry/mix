@@ -15,7 +15,8 @@
   shell: |
     /root/.acme.sh/acme.sh --install-cert -d alomerry.com --key-file /root/apps/nginx/cert/{{ item }}/privkey.pem --fullchain-file /root/apps/nginx/cert/{{ item }}/fullchain.pem
   with_items:
-    - k8s.alomerry.com
+    - oss.alomerry.com
+    # - k8s.alomerry.com
     # - bark.alomerry.com
     # - blog.alomerry.com
     # - ci.alomerry.com
