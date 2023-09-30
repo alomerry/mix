@@ -1,0 +1,12 @@
+- name: set cn conf
+  copy:
+    src: cn
+    dest: /root/apps/free-frpc/
+- name: set cn service
+  copy:
+    src: cn.service
+    dest: /etc/systemd/system/frp-free-cn.service
+- name: enable frpc service
+  shell: |
+    systemctl enable frp-free-cn.service
+    systemctl stop frp-free-cn.service

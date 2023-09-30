@@ -1,0 +1,4 @@
+# - name: set cn
+#   include_tasks: node/cn.yml
+- name: set hk
+  include_tasks: node/hk.yml

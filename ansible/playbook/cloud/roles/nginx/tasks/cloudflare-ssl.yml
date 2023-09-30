@@ -4,7 +4,7 @@
   register: basedir_stat
 - name: check and generate cloudflare ssl
   shell: |
-    /root/.acme.sh/acme.sh --issue --dns dns_cf -d alomerry.dev -d *.alomerry.dev
+    /root/.acme.sh/acme.sh --issue --dns dns_cf -d alomerry.dev
   when: not basedir_stat.stat.exists
 - name: renew cloudflare ssl
   shell: |

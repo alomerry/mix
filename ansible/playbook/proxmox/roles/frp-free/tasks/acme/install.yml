@@ -1,0 +1,18 @@
+- name: check acme exists
+  ansible.builtin.stat:
+    path: "/root/.acme.sh"
+  register: basedir_stat
+- name: copy acme script
+  copy:
+    src: acme/acme.sh
+    dest: /root/acme.sh
+    mode: 0700
+  when: not (basedir_stat.stat.exists and basedir_stat.stat.isdir)
+- name: install acme
+  shell: |
+    cat /root/acme.sh | sh -s -- --install-online && source /root/.bashrc
+    /root/.acme.sh/acme.sh --register-account -m alomerry.wu@gmail.com
+    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+  when: not (basedir_stat.stat.exists and basedir_stat.stat.isdir)
+- name: clean acme script
+  shell: rm -rf /root/acme.sh

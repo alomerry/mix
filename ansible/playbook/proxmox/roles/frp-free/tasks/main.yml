@@ -1,0 +1,4 @@
+- name: set frpc
+  include_tasks: frpc.yml
+- name: set acme
+  include_tasks: acme.yml

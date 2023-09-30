@@ -10,6 +10,8 @@
   - git
   - dnsutils
   - iputils-ping
+  - cron
+  - socat
 - name: set docker
   include_tasks: docker.yml
 - name: set oh-my-zsh

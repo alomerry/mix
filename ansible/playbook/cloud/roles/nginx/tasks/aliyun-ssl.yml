@@ -4,7 +4,7 @@
   register: basedir_stat
 - name: check and generate aliyun ssl
   shell: |
-    /root/.acme.sh/acme.sh --issue --dns dns_ali -d alomerry.com -d *.alomerry.com
+    /root/.acme.sh/acme.sh --issue --dns dns_ali -d alomerry.com
   when: not basedir_stat.stat.exists
 - name: renew aliyun ssl
   shell: |

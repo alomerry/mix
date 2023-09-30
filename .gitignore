@@ -19,7 +19,8 @@ cvm.ini
 proxmox.ini
 frpc.ini
 frps.ini
-
+cn.ini
+hk.ini
 
 env.yml
 

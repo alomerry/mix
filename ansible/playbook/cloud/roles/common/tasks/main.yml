@@ -21,5 +21,7 @@
   - curl
   - gnupg
   - wget
+  - cron
+  - socat
 - name: set journal
   shell: journalctl --vacuum-time=1d && journalctl --vacuum-size=30M

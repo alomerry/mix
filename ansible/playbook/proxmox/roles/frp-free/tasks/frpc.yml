@@ -1,0 +1,12 @@
+- name: init frpc
+  include_tasks: frpc/init/install.yml
+- name: set frpc conf
+  include_tasks: frpc/conf/set.yml
+- name: reload frpc service
+  shell: |
+    systemctl daemon-reload
+- name: start frpc
+  include_tasks: frpc/conf/start.yml
+- name: set frpc version
+  shell: touch /root/apps/free-frpc/{{FRP_VERSION}}.version
+  when: not (basedir_stat.stat.exists)
