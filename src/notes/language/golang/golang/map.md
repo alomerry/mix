@@ -1,7 +1,9 @@
 ---
 date: 2023-06-09
 enableFootnotePopup: true
-tag: 
+category:
+  - Golang
+tag:
   - golang
 ---
 

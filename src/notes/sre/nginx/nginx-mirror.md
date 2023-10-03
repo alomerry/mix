@@ -2,6 +2,8 @@
 title: 配合 nginx mirror 实现 bark 多设备通知
 date: 2023-03-22
 description: nginx 流量复制
+category:
+  - SRE
 tag:
   - Nginx
 ---

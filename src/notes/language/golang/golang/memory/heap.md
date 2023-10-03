@@ -1,6 +1,10 @@
 ---
 timeline: false
 article: false
+category:
+  - Golang
+tag:
+  - golang
 ---
 
 # 堆内存

@@ -1,3 +1,11 @@
+---
+article: false
+category:
+  - SRE
+tag:
+  - Ansible
+---
+
 检查多个文件是否存在
 
  - stat:

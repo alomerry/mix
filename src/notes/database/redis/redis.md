@@ -4,8 +4,8 @@ date: 2020-07-06
 category:
   - Database
 tag: 
-  - nosql
-  - redis
+  - Nosql
+  - Redis
 ---
 
 # Redis Note

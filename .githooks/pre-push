@@ -9,6 +9,8 @@
 local_branch=$(git rev-parse --abbrev-ref HEAD)
 remote_branch="origin/master"
 
+echo "Start check whether HEAD is latest ..."
+
 # Fetch the latest changes from the remote repository
 git fetch
 

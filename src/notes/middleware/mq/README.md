@@ -2,8 +2,7 @@
 article: false
 title: 消息队列
 date: 2021-08-12
-tag:
-  - NoSQL
+category:
   - MessageQueue
 ---
 

@@ -1,6 +1,8 @@
 ---
 article: false
 description:
+category:
+  - Golang
 tag:
   - golang
   - gRPC

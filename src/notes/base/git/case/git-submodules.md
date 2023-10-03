@@ -2,9 +2,9 @@
 excerpt: false
 article: false
 category:
-  - git
+  - Git
 tag: 
-  - git
+  - Git
 ---
 
 # Git submodule

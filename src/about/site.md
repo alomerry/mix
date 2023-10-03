@@ -16,7 +16,7 @@
   link: https://www.cloudflare.com/
 - icon: https://cdn.alomerry.com/blog/assets/img/about/tencent-cvm.svg
   name: 腾讯云
-  desc: CVM 供应商。
+  desc: 抢占式 CVM 供应商。
   link: https://contabo.com/
 - icon: https://vuepress.vuejs.org/hero.png
   name: VuePress
@@ -37,14 +37,6 @@
 ```
 
 :::
-
-```card
-title: 七牛云
-desc: 提供 CDN 服务。
-logo: https://cdn.alomerry.com/blog/assets/img/about/qiniu-cdn.svg
-link: https://www.cloudflare.com/
-color: rgba(253, 230, 138, 0.15)
-```
 
 ## 仓库连接
 

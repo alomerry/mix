@@ -11,14 +11,11 @@ const PUBLIC_PATH = "./src/.vuepress/public"
 
 let MD_DIR_LIST = [
   "./src/about",
-  "./src/books",
   "./src/ioi",
   "./src/links",
   "./src/notes",
   "./src/posts",
   "./src/projects",
-  "./src/space",
-  "./src/tools",
 ]
 
 const FileTypeBelongToMapper = new Map([

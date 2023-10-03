@@ -1,6 +1,8 @@
 ---
 article: false
 title: Gin Web Framework
+category:
+  - Golang
 tag:
   - golang
 ---

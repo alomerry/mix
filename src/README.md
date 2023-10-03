@@ -13,7 +13,7 @@ projects:
   - icon: cib:leetcode
     name: 算法题解
     desc: PAT、LeetCode 题解
-    link: /ioi/
+    link: /posts/ioi/
   - icon: link
     name: 收藏
     desc: 一些博客、工具
@@ -21,7 +21,7 @@ projects:
   - icon: book
     name: 文摘
     desc: 读者、文苑、知乎、微博等
-    link: /space/digest
+    link: /posts/digest
   - icon: article
     name: 文档
     desc: 常用文档汇总
@@ -29,7 +29,7 @@ projects:
   - icon: ant-design:read-outlined
     name: 书单
     desc: 个人读书列表
-    link: https://flowus.cn/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5
+    link: /links/booklists/
   # - icon: project
   #   name: 伙伴名称
   #   desc: 伙伴详细介绍

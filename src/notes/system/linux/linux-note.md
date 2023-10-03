@@ -3,6 +3,10 @@ article: false
 title: Linux Note
 description: Linux
 date: 2022-04-26
+category:
+  - System
+tag:
+  - Linux
 ---
 
 ## TODO

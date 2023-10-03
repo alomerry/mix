@@ -1,7 +1,9 @@
 ---
 date: 2022-02-26
-tag: 
-  - nginx
+category:
+  - SRE
+tag:
+  - Nginx
 ---
 
 # Nginx Note

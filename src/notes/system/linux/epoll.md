@@ -1,5 +1,9 @@
 ---
 article: false
+category:
+  - System
+tag:
+  - Linux
 ---
 
 https://zh.wikipedia.org/wiki/Epoll

@@ -2,9 +2,9 @@
 timeline: false
 date: 2020-07-06
 category:
-  - git
+  - Git
 tag: 
-  - git
+  - Git
 ---
 
 # git hook

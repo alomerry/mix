@@ -1,4 +1,6 @@
 ---
+category:
+  - SRE
 tag:
   - Nginx
   - Rtmp

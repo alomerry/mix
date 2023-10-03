@@ -2,9 +2,9 @@
 excerpt: false
 date: 2020-07-06
 category:
-  - git
+  - Git
 tag: 
-  - git
+  - Git
 ---
 
 # 修改一个过去的 Commit

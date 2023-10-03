@@ -1,20 +1,19 @@
 import { sidebar } from "vuepress-theme-hope";
-import { digest } from "./sidebar/space/digest.js"
-import { vspHome } from "./sidebar/space/vps-home.js"
+import { digest } from "./sidebar/posts/digest.js"
+import { vspHome } from "./sidebar/posts/vps-home.js"
 
 import { docker } from "./sidebar/notes/container/docker.js"
 import { nosql } from "./sidebar/notes/database/nosql.js"
 import { frontend } from "./sidebar/notes/frontend.js"
 import { golang } from "./sidebar/notes/language/golang.js"
-import { nginx } from "./sidebar/notes/nginx.js"
-import { git } from "./sidebar/notes/git.js"
+import { nginx } from "./sidebar/notes/sre/nginx.js"
+import { git } from "./sidebar/notes/base/git.js"
 import { jenkins } from "./sidebar/notes/ci/jenkins.js"
 import { network } from "./sidebar/notes/network.js"
 
-import { ioi } from "./sidebar/ioi.js"
-import { md } from "./sidebar/tools/md.js"
-import { bookGoDesign } from "./sidebar/books/go-design.js";
-import { proxy } from "./sidebar/tools/proxy.js";
+import { ioi } from "./sidebar/posts/ioi.js"
+import { md } from "./sidebar/posts/md.js"
+import { proxy } from "./sidebar/posts/proxy.js";
 import { resume } from "./sidebar/about/resume.js"
 
 export const enSidebar = sidebar({
@@ -24,26 +23,18 @@ export const enSidebar = sidebar({
 export const zhSidebar = sidebar({
   "/about/resume/": resume,
 
-  "/tools/markdown/": md,
-  "/tools/proxy/": proxy,
-
-  "/ioi/": ioi,
-
-  "/books/go-design": bookGoDesign,
-
-  // TODO
   "/notes/ci/jenkins/": jenkins,
-  "/notes/nginx/": nginx,
+  "/notes/sre/nginx/": nginx,
   "/notes/network/": network,
-
   "/notes/language/golang/golang": golang,
-  
-  // TODO
   "/notes/frontend/": frontend,
   "/notes/database/nosql": nosql,
-  "/notes/git/": git,
+  "/notes/base/git/": git,
   "/notes/container/docker/": docker,
 
-  "/space/digest/": digest,
-  "/space/vps-home/": vspHome,
+  "/posts/ioi/": ioi,
+  "/posts/markdown/": md,
+  "/posts/proxy/": proxy,
+  "/posts/digest/": digest,
+  "/posts/vps-home/": vspHome,
 });

@@ -42,10 +42,9 @@ export default hopeTheme({
     medias: {
       BiliBili: "https://space.bilibili.com/78778436",
       GitHub: "https://github.com/alomerry",
-      Gitlab: "https://gitlab.com/alomerry",
       Gmail: "mailto:alomerry.wu@gmail.com",
       Steam: "https://steamcommunity.com/id/alomerry",
-      Zhihu: "https://www.zhihu.com/people/alomerry"
+      // Zhihu: "https://www.zhihu.com/people/alomerry"
     },
   },
   encrypt: {
@@ -64,11 +63,11 @@ export default hopeTheme({
       sidebar: zhSidebar,
       blog: {
         name: "清欢",
-        description: "一个后端开发者",
-        intro: "/intro.html",
-        timeline: "时日无多", // 时间轴的顶部文字 默认值: "昨日不在"
+        description: "一个 Golang 后端开发者，目前在研究云原生相关的技术",
+        intro: "/about/intro.html",
+        timeline: "时日无多",
       },
-      copyright: `Copyright &copy; 2018-2023 <a href="https://github.com/Alomerry" target="_blank">清欢</a>`,
+      copyright: `Copyright &copy; 2018-2023 <a href="https://github.com/alomerry" target="_blank">清欢</a>`,
       metaLocales: {
         editLink: "在 GitHub 上编辑此页",
       },

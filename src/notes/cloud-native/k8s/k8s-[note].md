@@ -1,5 +1,9 @@
 ---
 article: false
+category:
+  - Cloud Native
+tag:
+  - Kubernetes
 ---
 
 # k8s

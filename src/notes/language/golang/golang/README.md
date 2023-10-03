@@ -1,6 +1,8 @@
 ---
 description: 记录 Golang 学习过程中的经验、遇到的坑点等
 date: 2020-08-10
+category:
+  - Golang
 tag:
   - golang
 ---

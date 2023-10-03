@@ -1,4 +1,6 @@
 ---
+category:
+  - Golang
 tag:
   - golang
 ---

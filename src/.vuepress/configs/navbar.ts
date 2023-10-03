@@ -25,12 +25,12 @@ export const zhNavbar = navbar([
     children: [
       {
         text: "美文文摘",
-        link: "/space/digest/",
+        link: "/posts/digest/",
         icon: "emojione:books",
-        activeMatch: "^/space/digest/$",
+        activeMatch: "^/posts/digest/$",
       },
-      { text: "算法笔记", link: "/ioi/algorithm/", icon: "cryptocurrency-color:algo" },
-      { text: "VPS Backup", link: "/space/vps-home/", icon: "bi:pc-display" },
+      { text: "算法笔记", link: "/posts/ioi/algorithm/", icon: "cryptocurrency-color:algo" },
+      { text: "VPS Backup", link: "/posts/vps-home/", icon: "bi:pc-display" },
     ],
   },
   {
