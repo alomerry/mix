@@ -7,48 +7,7 @@ timeline: false
 
 ## 优质博客
 
-::: projects
-
-```yaml
-- icon: 🧔🏻
-  name: 涛叔
-  desc: 乐乎
-  link: https://taoshu.in/
-- icon: https://avatars.githubusercontent.com/u/230646?v=4?v=3&s=88
-  name: Yukang
-  desc: 程序员的喵
-  link: https://catcoding.me/
-- icon: https://coolshell.cn/coolshell_logo.png
-  name: 陈皓
-  desc: 酷壳
-  link: https://coolshell.cn/
-- icon: https://zxh.io/img/avatar.jpg
-  name: Xiaohan Zou
-  desc: 邹笑寒
-  link: https://zxh.io
-- icon: https://wiki.eryajf.net/img/logo.png
-  name: 二丫讲梵
-  desc: 二丫讲梵
-  link: https://wiki.eryajf.net/
-- icon: https://www.luozhiyun.com/favicon.ico
-  name: luozhiyun`s Blog
-  desc: 
-  link: https://www.luozhiyun.com/
-- icon: http://xargin.com/favicon.ico
-  name: No Headback
-  desc: 
-  link: https://xargin.com/
-- icon: https://blognas.hwb0307.com/wp-content/uploads/cropped-bbmb-logo-05-192x192.jpg
-  name: Bensz
-  desc: 
-  link: https://blognas.hwb0307.com/
-- icon: https://blog.k8s.li/images/avatar.png
-  name: Reimu
-  desc: 
-  link: https://blog.k8s.li/about.html
-```
-
-:::
+<!-- @include: ./blog.snippet.md -->
 
 - 音乐解锁 https://demo.unlock-music.dev/
 
@@ -88,7 +47,15 @@ timeline: false
 - icon: line-md:iconify1
   name: iconify
   desc: 开源矢量图标集
-  link: https://iconify.design/
+  link: https://icon-sets.iconify.design/
+- icon: 📚
+  name: Anna’s Archive
+  desc: The world’s largest open-source open-data library.
+  link: https://annas-archive.org/
+- icon: https://www.gstatic.com/android/keyboard/emojikitchen/20210521/u1fa84/u1fa84_u1fa84.png
+  name: emoji kitchen
+  desc: emoji 表情组合
+  link: https://emoji.supply/kitchen/
 ```
 
 :::

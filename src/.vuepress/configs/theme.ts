@@ -116,15 +116,16 @@ export default hopeTheme({
         presets: ["ts", "vue"],
       },
       presentation: ["highlight", "math", "search", "notes", "zoom"],
+      // https://plugin-md-enhance.vuejs.press/zh/guide/stylize.html#%E4%BD%BF%E7%94%A8
       stylize: [
         {
-          matcher: "Recommended",
+          matcher: "TODO",
           replacer: ({ tag }) => {
             if (tag === "em")
               return {
                 tag: "Badge",
                 attrs: { type: "tip" },
-                content: "Recommended",
+                content: "TODO",
               };
           },
         },

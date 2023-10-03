@@ -42,11 +42,11 @@ func main() {
 `newproc1`[^newproc1] 旨在创建一个状态是 `_Grunable` 的 g
 
 - 锁住 g 对应的 m，禁止 m 被抢占，因为在后续逻辑中可能会将 p 保存到局部变量中
-- 调用 `gfget` 获取空闲 g，如果未获取到则调用 `malg`[^malg] 创建一个 g，分配栈空间，并添加到 `allgs` 中，调用 `casgstatus` g 状态从 `_Gidle` 转为 `_Gdead` <Badge text="TODO" type="tip"/>，并添加到[^allgadd] `allg` 中
-- 如果协程入口有参数如何处理 <Badge text="TODO" type="tip"/>
+- 调用 `gfget` 获取空闲 g，如果未获取到则调用 `malg`[^malg] 创建一个 g，分配栈空间，并添加到 `allgs` 中，调用 `casgstatus` g 状态从 `_Gidle` 转为 `_Gdead` *TODO*，并添加到[^allgadd] `allg` 中
+- 如果协程入口有参数如何处理 *TODO*
 - 计算栈指针，并将程序及乎其设置为 `goexit` 函数地址入口加上 1 指令大小[^newproc1.setpc]，然后调用 `gostartcallfn`，最终会调用 `gostartcall`[^gostartcallfn]，在该函数中，将栈指针下移一位后并写入 pc 的值，这意味着在入栈了一个新的栈帧，原 pc 成为了返回地址，且新的 pc 被设置成协程函数入口。因此协程函数最终执行完后会返回到 `goexit` 并回收参数等资源，就仿佛是从 `goexit` 中调用了协程函数却没有执行一样
 - `casgstatus` 更新 g 的状态为 `_Grunnable`
-- `gcController.addScannableStack(pp, int64(newg.stack.hi-newg.stack.lo))` <Badge text="TODO" type="tip"/>
+- `gcController.addScannableStack(pp, int64(newg.stack.hi-newg.stack.lo))` *TODO*
 - 释放 m 的锁
 
 `gfget`[^gfget] 旨在获取一个空闲的 g
@@ -83,17 +83,17 @@ TEXT runtime·mstart(SB),NOSPLIT|TOPFRAME|NOFRAME,$0
 
 `schedule`[^schedule] 每执行一次，就表示发生了一次调度
 
-- 执行一些检测[^schedule_check]，例如：当前 m 是否持有锁（`newproc`）、m 是否被 g 绑定（<Badge text="TODO" type="tip"/>） <!-- TODO 绑定的 m 无法执行其他 g （TODO 哪些时候绑定，为什么会绑定 -->
+- 执行一些检测[^schedule_check]，例如：当前 m 是否持有锁（`newproc`）、m 是否被 g 绑定（*TODO*） <!-- TODO 绑定的 m 无法执行其他 g （TODO 哪些时候绑定，为什么会绑定 -->
 - 进入一个循环中[^schedule_top]，直到获取可执行的 g 并执行
   - 首先获取当前 m 的 p 并设置 `p.preempt` 为 false 禁止 p 被抢占（因为已经被调度到了，无需再抢占了）
   - 安全检查如果 m 处于自旋状态，p 不应有任何任何待执行的 g
   - 调用 `findRunnable` 获取一个可执行的 g 找到待执行的 g
     - `inheritTime`（表示从 `p.runnext` 中窃取，则可以继承时间片，未继承时间片时说明执行了一次 `schedule`，则 `p.schedtick` 会增加）
-    - `tryWakeP` 表示找到的是特殊的 g（GC worker、tracereader 为什么特殊）<Badge text="TODO" type="tip"/>
+    - `tryWakeP` 表示找到的是特殊的 g（GC worker、tracereader 为什么特殊）*TODO*
   - 获取到可执行 g 后原本自旋的 m 可以停止自旋 `resetspinning`
   - `sched.disable.user && !schedEnabled(gp)` 找到 g 后调度器检测是否允许调度用户协程，如果不允许则将该 g 放入调度器的 disable 队列暂存，并重新寻找可执行的 g，等到允许调度用户协程后，将 disable 队列中的 g 重新加入 runq 中
-  - `tryWakeP` 为 true 就会调用 `wakeup`[^wakeup] 唤醒 p 以保证有足够线程来调度 TraceReader 和 GC Worker <Badge text="TODO" type="tip"/>
-  - `startlockedm` ((如果 g 有绑定 m 则调用 `startlockedm`[^startlockedm] 唤醒对应绑定的 m 执行 g 且当前线程也要重新查找待执行的 g；如果 g 没有绑定的 m 则调用 `execute`[^execute] 执行 <Badge text="TODO" type="tip"/>
+  - `tryWakeP` 为 true 就会调用 `wakeup`[^wakeup] 唤醒 p 以保证有足够线程来调度 TraceReader 和 GC Worker *TODO*
+  - `startlockedm` ((如果 g 有绑定 m 则调用 `startlockedm`[^startlockedm] 唤醒对应绑定的 m 执行 g 且当前线程也要重新查找待执行的 g；如果 g 没有绑定的 m 则调用 `execute`[^execute] 执行 *TODO*
   - 调用 `execute` 执行 g
 
 ### `findRunnable`
@@ -110,11 +110,11 @@ TEXT runtime·mstart(SB),NOSPLIT|TOPFRAME|NOFRAME,$0
 - 执行安全点检查 `runSafePointFn`[^runSafePointFn]
 - `checkTimers`[^checkTimers] 会运行当前 p 上所有已经达到触发时间的计时器 <!-- （TODOODODODO 如何处理的？如何唤醒对应额 goroutine 的，计时器变更了怎么办） -->
   >now and pollUntil are saved for work stealing later, which may steal timers. It's important that between now and then, nothing blocks, so these numbers remain mostly relevant.
-- gcBlackenEnabled traceReader 这两种是非正常协程 <Badge text="TODO" type="tip"/>
+- gcBlackenEnabled traceReader 这两种是非正常协程 *TODO*
 - 为了公平[^findRunnable_fairness]，每调用 `schedule` 函数 61 次就要调用 `globrunqget` 从全局可运行 G 队列中获取 1 个，保证效率的基础上兼顾公平性，防止本地队列上的两个持续唤醒的 goroutine 造成全局队列一直得不到调度 <!-- // Wake up the finalizer G. TODOODODO -->
 - 从本地队列获取 g `runqget`[^runqget]
 - 从全局 runq 中获取 g `globrunqget`
-- 执行 `netpull` 从网络 I/O 轮询器获取 glist，若返回值非空则将第一个 g 从列表中弹出，将剩余的尝试按本地 runq、全局 runq 的顺序插入 <Badge text="TODO" type="tip"/>
+- 执行 `netpull` 从网络 I/O 轮询器获取 glist，若返回值非空则将第一个 g 从列表中弹出，将剩余的尝试按本地 runq、全局 runq 的顺序插入 *TODO*
 - 判断 p 是否可以窃取其他 p 的 runq，需要满足两个条件[^findRunnable_steal_check]：当前 m 处于自旋等待或者出于自旋的 m 要小于处于工作中 p 的一半。这样是为了防止程序中 p 很大，但是并发性很低时，CPU 不必要的消耗
 - 满足窃取 g 条件时[^findRunnable_steal]，将 m 标记为自旋并调用 `stealWork` 窃取 g
 - // gcBlackenEnabled != 0 && gcMarkWorkAvailable(pp) && gcController.addIdleMarkWorker()
@@ -138,7 +138,7 @@ TEXT runtime·mstart(SB),NOSPLIT|TOPFRAME|NOFRAME,$0
 
 - 尝试窃取四次，前三次会从其他 p 的 runq 中窃取，最后一次会查找其他 p 的 timer[^checkTimers]。
   - 窃取 p 的 runq 时使用 `randomOrder`[^stealOrder] <!-- TODODOOD --> 结构尝试随机窃取某个 p，找到 p 后判断 p 是否空闲[^stealWork_check_p_idle]，如果非空闲，则调用 `runqsteal`[^runqsteal] 窃取[^runqgrab]，窃取成功则返回该 g
-  - 窃取 timer <Badge text="TODO" type="tip"/>
+  - 窃取 timer *TODO*
 
 <!-- // 从 p2 窃取计时器。 对 checkTimers 的调用是我们可以锁定不同 P 的计时器的唯一地方。 我们在检查 runnext 之前在最后一次传递中执行此操作，因为从其他 P 的 runnext 窃取应该是最后的手段，因此如果有计时器要窃取，请首先执行此操作。 我们只在一次窃取迭代中检查计时器，因为 now 中存储的时间在此循环中不会改变，并且使用相同的 now 值多次检查每个 P 的计时器可能是浪费时间。timerpMask 告诉我们是否 P可能有定时器。 如果不能的话，根本不需要检查。 -->
 
@@ -737,7 +737,7 @@ var (
 
 ## 相关函数
 
-- `runtime.systemstack`[^systemstack]<Badge text="TODO" type="tip"/> 该函数旨在临时性切换至当前 M 的 g0 栈，完成操作后再切换回原来的协程栈，主要用于执行触发栈增长函数。如果处于 gsignal??? 或 g0 栈上，则 `systemstack` 不会产生作用（当从 g0 切换回 g 后，会丢弃 g0 栈上的内容<Badge text="TODO" type="tip"/>）
+- `runtime.systemstack`[^systemstack]*TODO* 该函数旨在临时性切换至当前 M 的 g0 栈，完成操作后再切换回原来的协程栈，主要用于执行触发栈增长函数。如果处于 gsignal??? 或 g0 栈上，则 `systemstack` 不会产生作用（当从 g0 切换回 g 后，会丢弃 g0 栈上的内容*TODO*）
 - `runtime.mcall`[^mcall] 和 `systemstack` 类似，但是不可以在 g0 栈上调用，也不会切换回 g。作用？？？将自己挂起
 - `runtime.gosave`[^gosave]
 

@@ -44,3 +44,14 @@ ul.sidebar-links>li>section.sidebar-group>button.sidebar-heading>span.title {
   margin-block-end: 0px;
   margin-block-start: 0px;
 }
+
+// 覆盖 booklists 中 card 圆形样式
+.booklists .theme-container > .vp-card {
+  max-width: 600px;
+}
+
+.booklists .theme-hope-content > .vp-card > .vp-card-logo {
+  border-radius: 3%;
+  width: 7em;
+  height: 10em;
+}

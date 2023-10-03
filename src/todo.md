@@ -389,6 +389,11 @@ https://riris.cn/archives/page/2/#board
 - go-daily-lib https://github.com/darjun/go-daily-lib
 - [双拼](https://digua.moe/posts/20220514-shuangpin.html) https://github.com/BlueSky-07/Shuang
 - [五笔输入法](https://www.xiebruce.top/1261.html)
+- openssl 命令将.cer 格式的证书转化为.crt
+  - https://www.jianshu.com/p/3e660cb3cf32
+  - https://blog.csdn.net/weixin_50512016/article/details/109477058
+  - https://www.cnblogs.com/xiaoli-ya/p/16144791.html
+- 来此加密 https://letsencrypt.osfipin.com/user-0408/order/detail?id=6e1vq0
 
 ## Reference
 

@@ -7,8 +7,6 @@ date: 2022-02-14
 
 <!-- more -->
 
-<!-- <PDF url="https://cdn.alomerry.com/blog/assets/pdf/books/gopl.pdf" /> -->
-
 ## 入门
 
 格式化字符串：

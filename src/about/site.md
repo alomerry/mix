@@ -18,10 +18,6 @@
   name: 腾讯云
   desc: CVM 供应商。
   link: https://contabo.com/
-- icon: https://image.liubing.me/2023/02/11/50994f9710667.ico
-  name: 宝塔 Linux 面板
-  desc: 用来管理 VPS
-  link: https://cn.vuejs.org/
 - icon: https://vuepress.vuejs.org/hero.png
   name: VuePress
   desc: 博客驱动引擎。
