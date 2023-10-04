@@ -26,9 +26,9 @@ func lengthOfLongestSubstring(s string) int {
 	return max
 }
 
-func main() {
-	print(lengthOfLongestSubstring("abcabcbb"))
-}
+//func main() {
+//	print(lengthOfLongestSubstring("abcabcbb"))
+//}
 
 // #include <iostream>
 // #include <algorithm>
