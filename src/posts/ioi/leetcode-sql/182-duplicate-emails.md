@@ -26,17 +26,6 @@ insert into Person (id, email) values ('3', 'a@b.com')
 
 * * *
 
-
-<span>Pandas Schema</span>
-
-```sql
-data = [[1, 'a@b.com'], [2, 'c@d.com'], [3, 'a@b.com']]
-Person = pd.DataFrame(data, columns=['id', 'email']).astype({'id':'Int64', 'email':'object'})
-```
-
-* * *
-
-
 <meta charset="UTF-8">
 
 表: `Person`
@@ -84,4 +73,4 @@ Person 表:
 
 Language: **MySQL**
 
-@[code](../../../../algorithm/code/leet-code-sql/182-1.sql)
+@[code](../../../../algorithm/code/leet-code-sql/182.sql)

@@ -32,7 +32,7 @@ function getSiderBarChildren(changeType) {
     children: [
 ` + newSideBarChildren + `
     ],`
-  const ioiSideBarConfig = "./src/.vuepress/configs/sidebar/ioi.ts"
+  const ioiSideBarConfig = "./src/.vuepress/configs/sidebar/posts/ioi.ts"
   replaceSideBar(ioiSideBarConfig, changeType, newContent)
 }
 

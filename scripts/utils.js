@@ -244,7 +244,7 @@ function removeDir(dir) {
 }
 
 function getAbsoluteIOIPath() {
-  return resolve('./src/ioi/');
+  return resolve('./src/posts/ioi/');
 }
 
 // 仅拷贝文件
