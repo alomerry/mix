@@ -2,16 +2,6 @@
 .idea
 .vscode
 .env
-frpc/algolia/.env
-frpc/space-on-premises/config
-frpc/jenkins/data
-frpc/uptime-kuma/data
-frpc/umami/db-data
-frpc/umami/sql
-frpc/mysql/*
-!frpc/mysql/docker-compose.yml
-
-vps-home.iml
 
 vps.ini
 master.ini
@@ -21,12 +11,13 @@ frpc.ini
 frps.ini
 cn.ini
 hk.ini
+*.local.yml
+*.local.ini
+*.local.env
 
 env.yml
 
 **/*.DS_Store
-**/*.local.ini
-**/*.local.env
 
 ansible/roles/frpc/**/*.ini
 ansible/roles/frps/**/*.ini

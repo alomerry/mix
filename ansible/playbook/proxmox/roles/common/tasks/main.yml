@@ -16,3 +16,6 @@
   include_tasks: docker.yml
 - name: set oh-my-zsh
   include_tasks: zsh.yml
+- name: set localtime
+  shell: |
+    cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
