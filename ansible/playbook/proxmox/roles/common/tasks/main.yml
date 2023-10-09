@@ -12,6 +12,7 @@
   - iputils-ping
   - cron
   - socat
+  - lsof
 - name: set docker
   include_tasks: docker.yml
 - name: set oh-my-zsh

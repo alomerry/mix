@@ -5,7 +5,10 @@ metadata:
   namespace: alomerry
 spec:
   ports:
-  - port: 3306
+  - name: mysql
+    port: 3306
+    targetPort: mysql
+    protocol: TCP
   selector:
     app: mysql
 ---
@@ -50,6 +53,7 @@ spec:
           value: ""
         ports:
         - containerPort: 3306
+          protocol: TCP
           name: mysql
         volumeMounts:
         - name: mysql-config
