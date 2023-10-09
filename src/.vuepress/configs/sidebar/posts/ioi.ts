@@ -200,6 +200,7 @@ export const ioi = arraySidebar([
       '177-nth-highest-salary.md',
       '178-rank-scores.md',
       '180-consecutive-numbers.md',
+      '181-employees-earning-more-than-their-managers.md',
       '182-duplicate-emails.md',
     ],
   },
