@@ -3,13 +3,14 @@ import { digest } from "./sidebar/posts/digest.js"
 import { vspHome } from "./sidebar/posts/vps-home.js"
 
 import { docker } from "./sidebar/notes/container/docker.js"
-import { nosql } from "./sidebar/notes/database/nosql.js"
 import { frontend } from "./sidebar/notes/frontend.js"
 import { golang } from "./sidebar/notes/language/golang.js"
 import { nginx } from "./sidebar/notes/sre/nginx.js"
 import { git } from "./sidebar/notes/base/git.js"
 import { jenkins } from "./sidebar/notes/ci/jenkins.js"
 import { network } from "./sidebar/notes/network.js"
+import { nosql } from "./sidebar/notes/database/nosql.js"
+import { mysql } from "./sidebar/notes/database/mysql.js"
 
 import { ioi } from "./sidebar/posts/ioi.js"
 import { md } from "./sidebar/posts/md.js"
@@ -29,6 +30,7 @@ export const zhSidebar = sidebar({
   "/notes/language/golang/golang": golang,
   "/notes/frontend/": frontend,
   "/notes/database/nosql": nosql,
+  "/notes/database/mysql": mysql,
   "/notes/base/git/": git,
   "/notes/container/docker/": docker,
 

@@ -48,8 +48,6 @@ MySQL 一行记录是怎么存储的？
 
 InnoDB 提供了 4 种行格式，分别是 Redundant、Compact、Dynamic和 Compressed 行格式。
 
-
-
 :::
 
 COMPACT 行格式长什么样？
