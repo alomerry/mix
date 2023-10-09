@@ -134,6 +134,7 @@ export const ioi = arraySidebar([
       '104-maximum-depth-of-binary-tree.md',
       '169-majority-element.md',
       '1920-build-array-from-permutation.md',
+      '2578-split-with-minimum-sum.md',
     ],
   },
   {

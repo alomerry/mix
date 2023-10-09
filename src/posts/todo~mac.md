@@ -7,6 +7,8 @@ tag:
   - Mac
 ---
 
+/bin/launchctl setenv MTL_HUD_ENABLED 1
+
 ## 激活后必被操作
 
 - 安装 git
