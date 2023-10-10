@@ -10,7 +10,7 @@ containerClass: booklists
 
 [flowus](https://flowus.cn/alomerry/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5)
 
-一本好书时长会让人呢有
+一本好书时长会让人呢有 初闻大道，不胜自喜
 
 :::
 

@@ -169,6 +169,7 @@ export const ioi = arraySidebar([
       '189-rotate-array.md',
       '207-course-schedule.md',
       '721-accounts-merge.md',
+      '2512-reward-top-k-students.md',
     ],
   },
   {

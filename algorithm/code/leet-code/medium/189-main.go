@@ -19,6 +19,6 @@ func rotate(nums []int, k int) {
 	//fmt.Println()
 }
 
-func main() {
-	rotate([]int{1, 2, 3, 4, 5, 6, 7}, 4)
-}
+//func main() {
+//	rotate([]int{1, 2, 3, 4, 5, 6, 7}, 4)
+//}
