@@ -4,13 +4,11 @@ timeline: false
 containerClass: booklists
 ---
 
-# 书单
+# [书单](https://flowus.cn/alomerry/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5)
 
 ::: tip
 
-[flowus](https://flowus.cn/alomerry/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5)
-
-一本好书时长会让人呢有 初闻大道，不胜自喜
+每每寻得一本好书时常会有“初闻大道，不胜自喜”的感觉，记录于此，与君共勉。
 
 :::
 
@@ -47,8 +45,14 @@ logo: https://cdn.alomerry.com/blog/assets/img/links/booklists/how-mysql-work.jp
 link: https://book.douban.com/subject/35231266/
 ```
 
+```card
+title: Redis5 设计与源码分析
+desc: 多名专家联袂推荐，资深专家联合撰写，深入理解 Redis 5 设计精髓。本书系统讲解 Redis 5设计、数据结构、底层命令实现，以及持久化、主从复制、集群的实现。
+logo: https://cdn.alomerry.com/blog/assets/img/links/booklists/redis5-design-and-source-code-analysis.jpg
+link: https://book.douban.com/subject/34804798/
+```
+
 - MongoDB 权威指南
-- Redis5 设计与源码分析
 
 ### 编程语言
 
