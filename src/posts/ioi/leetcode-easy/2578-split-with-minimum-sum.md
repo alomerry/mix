@@ -45,4 +45,4 @@ Related Topics: [贪心](https://leetcode.cn/tag/https://leetcode.cn/tag/greedy/
 
 Language: **Golang**
 
-@[code](../../../../algorithm/code/leet-code/2578.go)
+@[code](../../../../algorithm/code/leet-code/easy/2578.go)

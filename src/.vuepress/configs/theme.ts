@@ -49,11 +49,7 @@ export default hopeTheme({
   },
   encrypt: {
     config: {
-      "/about/resume": "alone",
-      "/about/resume.html": "alone",
-      "/about/resume/8gu.html": "alomerry",
-      "/about/own.html": "alone",
-      "/notes/golang/go-interview.html": "alomerry",
+      // "/about/resume": "alone",
     }
   },
   // 主题的多语言配置 https://theme-hope.vuejs.press/zh/config/theme/i18n.html
