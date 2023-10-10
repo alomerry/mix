@@ -13,7 +13,15 @@ export const golang = arraySidebar([
   "concurrency/semaphore",
   "concurrency/channel",
   "concurrency/goroutine/goroutine",
-  "books",
-  "compile",
-  "gc"
+  {
+    text: "Compile",
+    collapsible: true,
+    prefix: "compile/",
+    children: [
+      "boot",
+      "cmd",
+      "compile",
+      "main",
+    ],
+  },
 ]);

@@ -17,12 +17,16 @@ import { md } from "./sidebar/posts/md.js"
 import { proxy } from "./sidebar/posts/proxy.js";
 import { resume } from "./sidebar/about/resume.js"
 
+import { links } from "./sidebar/links.js"
+
 export const enSidebar = sidebar({
   "/en/": [],
 });
 
 export const zhSidebar = sidebar({
   "/about/resume/": resume,
+
+  "/links/": links,
 
   "/notes/ci/jenkins/": jenkins,
   "/notes/sre/nginx/": nginx,
