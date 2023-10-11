@@ -2,6 +2,16 @@ import { hopeTheme } from "vuepress-theme-hope";
 import { enSidebar, zhSidebar } from "./sidebar.js";
 import { enNavbar, zhNavbar } from "./navbar.js";
 
+const BADGE_TYPES = ["TIP", "TODO", "DANGER", "WARNING", "INFO", "VERSION"];
+let BADGE_TYPES_DICT = new Map([
+  ["TODO", 'tip'],
+  ["TIP", 'tip'],
+  ["DANGER",'danger'],
+  ["WARNING", 'warning'],
+  ["INFO", 'info'],
+  ["VERSION", 'tip'],
+])
+
 export default hopeTheme({
   hostname: "https://blog.alomerry.com",
 
@@ -90,36 +100,30 @@ export default hopeTheme({
 
     // all features are enabled for demo, only preserve features you need here
     mdEnhance: {
-      card: true,
-      align: true,
-      attrs: true,
-      chart: true,
-      codetabs: true,
-      demo: true,
-      echarts: true,
-      figure: true,
-      flowchart: true,
-      gfm: true,
-      imgLazyload: true,
-      imgSize: true,
-      include: true,
-      katex: true,
-      mark: true,
-      mermaid: true,
-      linkify: true,
+      card: true, align: true, attrs: true, chart: true, codetabs: true, demo: true, echarts: true, figure: true, flowchart: true, gfm: true, imgLazyload: true, imgSize: true, include: true, katex: true, mark: true, mermaid: true, linkify: true,
       playground: {
         presets: ["ts", "vue"],
       },
       // https://plugin-md-enhance.vuejs.press/zh/guide/stylize.html#%E4%BD%BF%E7%94%A8
       stylize: [
         {
-          matcher: "TODO",
-          replacer: ({ tag }) => {
+          matcher: "/^(TODO|TIP|DANGER|WARNING|INFO|VERSION)/",
+          replacer: ({ tag, attrs, content }) => {
+            let tType = "";
+            let result = content;
             if (tag === "em")
+              BADGE_TYPES.forEach(badgeType => {
+                if (content.startsWith(badgeType)) {
+                  tType = badgeType;
+                  if (content.startsWith(badgeType+"_")) {
+                    result = result.replace(tType+"_", '');
+                  }
+                }
+              });
               return {
                 tag: "Badge",
-                attrs: { type: "tip" },
-                content: "TODO",
+                attrs: { type: BADGE_TYPES_DICT.get(tType) },
+                content: result,
               };
           },
         },

@@ -21,6 +21,8 @@ cd blog/.vuepress
 
 ## todo
 
+- pnpm dlx vp-update
+
 https://github.com/orgs/vuepress-theme-hope/discussions/3393#discussioncomment-6910096
 
 ## Thanks for free JetBrains Open Source license

@@ -8,7 +8,9 @@ tag:
   - Redis
 ---
 
-# Redis
+# Redis 
+
+*VERSION7.2.1*
 
 ## Redis 高级
 

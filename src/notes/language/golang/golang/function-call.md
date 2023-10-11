@@ -16,7 +16,6 @@ tag:
 
 :::
 
-
 <!-- https://ask.qcloudimg.com/developer-images/article/7988120/sy1cud3w67.png?imageView2/2/w/1200 -->
 
 了解 go 的函数调用底层逻辑，能更清晰的理解 defer、recover、panic 的工作方式，以及函数执行时的xxx
@@ -285,6 +284,23 @@ func main() {
 |...|
 
 :::
+
+```go
+type A struct {
+}
+
+func (a A) Name(name string) string {
+  return ""
+}
+
+func Name(a A, name string) string {
+  return "name"
+}
+
+func main() {
+  fmt.Println(reflect.TypeOf(Name) == reflect.TypeOf(Name))
+}
+```
 
 ## 基于寄存器 <Badge text="1.17+" type="tip"/>
 

@@ -5,7 +5,7 @@ export const redis = arraySidebar([
   {
     text: "结构",
     collapsible: true,
-    prefix: "books/",
+    prefix: "struct/",
     children: [
       "skiplist",
     ],
@@ -15,7 +15,7 @@ export const redis = arraySidebar([
     collapsible: true,
     prefix: "books/",
     children: [
-      "how-mysql-work-understand-mysql-from-root",
+      "redis5-design-and-source-code-analysis",
     ],
   },
 ]);
