@@ -11,9 +11,7 @@ frpc.ini
 frps.ini
 cn.ini
 hk.ini
-*.local.yml
-*.local.ini
-*.local.env
+*.local.*
 
 env.yml
 

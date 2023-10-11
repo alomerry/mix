@@ -1,3 +1,4 @@
 - name: start frpc service
   shell: |
     systemctl start frp-free-hk.service
+    systemctl start frp-free-cn.service
