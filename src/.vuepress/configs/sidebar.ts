@@ -9,7 +9,7 @@ import { nginx } from "./sidebar/notes/sre/nginx.js"
 import { git } from "./sidebar/notes/base/git.js"
 import { jenkins } from "./sidebar/notes/ci/jenkins.js"
 import { network } from "./sidebar/notes/network.js"
-import { nosql } from "./sidebar/notes/database/nosql.js"
+import { redis } from "./sidebar/notes/database/redis.js"
 import { mysql } from "./sidebar/notes/database/mysql.js"
 
 import { ioi } from "./sidebar/posts/ioi.js"
@@ -33,8 +33,10 @@ export const zhSidebar = sidebar({
   "/notes/network/": network,
   "/notes/language/golang/golang": golang,
   "/notes/frontend/": frontend,
-  "/notes/database/nosql": nosql,
+
+  "/notes/database/redis": redis,
   "/notes/database/mysql": mysql,
+  
   "/notes/base/git/": git,
   "/notes/container/docker/": docker,
 

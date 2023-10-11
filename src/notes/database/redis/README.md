@@ -8,7 +8,7 @@ tag:
   - Redis
 ---
 
-# Redis Note
+# Redis
 
 ## Redis 高级
 

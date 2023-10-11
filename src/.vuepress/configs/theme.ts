@@ -110,7 +110,6 @@ export default hopeTheme({
       playground: {
         presets: ["ts", "vue"],
       },
-      presentation: ["highlight", "math", "search", "notes", "zoom"],
       // https://plugin-md-enhance.vuejs.press/zh/guide/stylize.html#%E4%BD%BF%E7%94%A8
       stylize: [
         {
