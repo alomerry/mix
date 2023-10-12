@@ -1,6 +1,6 @@
 <template>
   <div class="alomerry-project-panel-wrapper">
-    <img src="https://cdn.alomerry.com/blog/github-contributions-snake.svg"/>
+    <img src="https://cdn.alomerry.com/blog/github-contribution-grid-snake.svg"/>
     <ProjectPanel />
   </div>
 </template>

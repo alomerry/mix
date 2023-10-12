@@ -12,7 +12,7 @@ function run() {
 // 下载 github 瓷砖图 https://github.com/alomerry/github-yearly-contributions
 function downloadGithubYearlyControbution() {
   let tmp = fs.createWriteStream(
-    constant.PUBLIC_PATH + "/github-contributions-snake.svg"
+    constant.PUBLIC_PATH + "/github-contribution-grid-snake.svg"
   );
   let svg =
     "https://gitee.com/alomerry/github-yearly-contributions/raw/output/github-contribution-grid-snake.svg";

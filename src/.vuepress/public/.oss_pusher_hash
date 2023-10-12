@@ -92,6 +92,10 @@ assets/img/notes/container/docker/sharing-layers.jpg[@]21133d5dc07e6fdc837d1dfb5
 assets/img/notes/database/mysql/COMPACT-row-format.webp[@]4cfcbc7df1ac477c006e880d0a7c737e
 assets/img/notes/database/mysql/mysql-query.webp[@]d18f3691fe38a3f8b326447e297b7468
 assets/img/notes/database/mysql/table-struct.webp[@]a5e198a119ce4775018569c84271f4a0
+assets/img/notes/database/redis/redis-sds-api.png[@]6bd1312de0caab8d42a52ed66cb79a40
+assets/img/notes/database/redis/redis-sds-cat-sds.png[@]93474e505bf602180698103d8ee1646f
+assets/img/notes/database/redis/redis-sdshdr16.png[@]12a91462e9554d9d9e9454c61cbe6c72
+assets/img/notes/database/redis/redis-sdshdr5.png[@]8c5dafec048ee47faaa5fc7a71fc99bc
 assets/img/notes/database/sql/COMPACT-row-format.webp[@]4cfcbc7df1ac477c006e880d0a7c737e
 assets/img/notes/database/sql/mysql-query.webp[@]d18f3691fe38a3f8b326447e297b7468
 assets/img/notes/database/sql/table-struct.webp[@]a5e198a119ce4775018569c84271f4a0
@@ -166,6 +170,7 @@ assets/img/posts/vscode-matepad-preview.jpg[@]acee7486351dc4987500343d2de3d076
 assets/pdf/books/gopl.pdf[@]e0c6d6e2c7bcf43882815a1bf1ee6a60
 avatar.png[@]d24bc920f390aad9a245fe938a08703d
 favicon.ico[@]018a42eaeac45af687ca3bacbbae4c53
-github-contributions-snake.svg[@]d41d8cd98f00b204e9800998ecf8427e
+github-contribution-grid-snake.svg[@]02901ead3d4121b6ac64ad24eba48cef
+github-contributions-snake.svg[@]
 logo.png[@]b8db9a73459e10b591a9b3ca3940de48
 logo.svg[@]aaaeba3342f3c579b93ac3a39ee19834
