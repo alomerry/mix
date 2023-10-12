@@ -2,6 +2,8 @@
 date: 2023-10-04
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [169\. 多数元素](https://leetcode.cn/problems/majority-element/)

@@ -9,9 +9,9 @@ head:
       content: C++ 常用的函数
     - name: author
       content: Alomerry 清欢
-tag:
-  - IOI
+category:
   - Algorithm
+tag:
   - STL
   - C++
 ---

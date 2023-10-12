@@ -5,6 +5,8 @@ date: 2023-01-03
 description: 
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 ## [Description](https://leetcode.cn/problems/generate-parentheses/)

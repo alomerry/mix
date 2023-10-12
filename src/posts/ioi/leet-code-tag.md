@@ -1,5 +1,7 @@
 ---
 article: false
+category:
+  - LeetCode
 ---
 
 # LeetCode Tag

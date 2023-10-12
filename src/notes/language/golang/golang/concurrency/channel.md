@@ -3,8 +3,6 @@ enableFootnotePopup: true
 date: 2023-07-17
 category:
   - Golang
-tag:
-  - golang
 ---
 
 # channel

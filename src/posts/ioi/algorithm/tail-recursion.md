@@ -1,7 +1,8 @@
 ---
 date: 2022-08-10
-tag:
+category:
   - Algorithm
+tag:
   - DP
 ---
 

@@ -4,9 +4,9 @@ timeline: false
 article: false
 category:
   - Database
-tag:
   - Redis
   - NoSQL
+tag:
   - 读书笔记
 ---
 

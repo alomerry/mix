@@ -2,6 +2,8 @@
 date: 2023-10-04
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [189\. 轮转数组](https://leetcode.cn/problems/rotate-array/)

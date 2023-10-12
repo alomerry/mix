@@ -2,6 +2,8 @@
 date: 2023-10-08
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [176\. 第二高的薪水](https://leetcode.cn/problems/second-highest-salary/)

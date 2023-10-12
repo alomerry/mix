@@ -1,6 +1,8 @@
 ---
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # 数据结构知识点总结和罗列

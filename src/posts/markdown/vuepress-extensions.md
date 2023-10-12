@@ -1,6 +1,8 @@
 ---
 timeline: false
 article: false
+category:
+  - Markdown
 ---
 
 # VuePress 扩展语法

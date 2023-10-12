@@ -3,14 +3,16 @@ date: 2023-10-10
 enableFootnotePopup: true
 category:
   - Database
-tag:
   - Redis
   - NoSQL
+tag:
   - SkipList
   - C
 ---
 
 # SkipList
+
+[skiplist](https://github.com/redis/redis/blob/b26e8e321346518574ed7093df1fb6b8be9fd7d9/src/t_zset.c#L75)
 
 ```diff
 -#define ZSKIPLIST_MAXLEVEL 64 /* Should be enough for 2^64 elements */

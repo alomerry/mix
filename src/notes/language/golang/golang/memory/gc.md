@@ -4,7 +4,7 @@ article: false
 category:
   - Golang
 tag:
-  - golang
+  - GC
 ---
 
 # GC

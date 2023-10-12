@@ -1,7 +1,6 @@
 ---
 category:
   - System
-tag:
   - Shell
 ---
 

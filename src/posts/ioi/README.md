@@ -2,6 +2,8 @@
 description: Share personal leetcode, pat and csp solution and make not for learning algorithm.
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # 算法题解

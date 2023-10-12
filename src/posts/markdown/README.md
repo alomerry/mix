@@ -1,7 +1,7 @@
 ---
 title: Markdown 语法
 date: 2022-03-08
-tag:
+category:
   - Markdown
 ---
 

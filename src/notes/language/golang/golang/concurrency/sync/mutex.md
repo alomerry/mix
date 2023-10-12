@@ -1,9 +1,8 @@
 ---
 date: 2023-06-20
 enableFootnotePopup: true
-tag: 
-  - golang
-  - mutex
+category:
+  - Golang
 ---
 
 # Sync.Mutex

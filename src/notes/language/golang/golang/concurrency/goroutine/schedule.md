@@ -4,5 +4,5 @@ article: false
 category:
   - Golang
 tag:
-  - golang
+  - Goroutine
 ---

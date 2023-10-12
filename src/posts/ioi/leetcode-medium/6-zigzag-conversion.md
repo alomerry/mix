@@ -5,6 +5,8 @@ problem_no: 6
 description: 
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 <!-- Description. -->

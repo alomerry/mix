@@ -3,8 +3,6 @@ enableFootnotePopup: true
 date: 2023-07-11
 category:
   - Golang
-tag:
-  - golang
 ---
 
 # 延迟调用

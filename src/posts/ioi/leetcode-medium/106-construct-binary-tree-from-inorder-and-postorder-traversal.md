@@ -5,6 +5,8 @@ date: 2022-09-27
 description: 
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 ## [Description](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)

@@ -2,6 +2,8 @@
 date: 2023-10-04
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [80\. 删除有序数组中的重复项 II](https://leetcode.cn/problems/remove-duplicates-from-sorted-array-ii/)

@@ -1,6 +1,8 @@
 ---
 timeline: false
 article: false
+category:
+  - Markdown
 ---
 
 # Markdown Enhance 插件增强语法

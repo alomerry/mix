@@ -3,8 +3,6 @@ date: 2023-07-17
 enableFootnotePopup: false
 category:
   - Golang
-tag:
-  - golang
 ---
 
 # sema

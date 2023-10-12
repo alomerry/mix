@@ -1,6 +1,8 @@
 ---
 timeline: false
 article: false
+category:
+  - Markdown
 ---
 
 # 绘图

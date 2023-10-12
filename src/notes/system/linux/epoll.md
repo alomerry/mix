@@ -2,8 +2,9 @@
 article: false
 category:
   - System
-tag:
   - Linux
+tag:
+  - epoll
 ---
 
 https://zh.wikipedia.org/wiki/Epoll

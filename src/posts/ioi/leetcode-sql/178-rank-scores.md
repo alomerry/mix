@@ -2,6 +2,8 @@
 date: 2023-10-08
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [178\. 分数排名](https://leetcode.cn/problems/rank-scores/)

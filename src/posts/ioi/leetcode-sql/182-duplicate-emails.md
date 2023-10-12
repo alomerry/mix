@@ -3,6 +3,8 @@ problem_no: 182
 date: 2023-08-25
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [182\. 查找重复的电子邮箱](https://leetcode.cn/problems/duplicate-emails/)

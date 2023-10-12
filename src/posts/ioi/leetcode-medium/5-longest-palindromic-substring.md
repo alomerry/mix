@@ -3,6 +3,8 @@ problem_no: 5
 date: 2020-07-23
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [5\. 最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/)

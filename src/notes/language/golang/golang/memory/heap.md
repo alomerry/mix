@@ -4,7 +4,7 @@ article: false
 category:
   - Golang
 tag:
-  - golang
+  - Heap
 ---
 
 # 堆内存

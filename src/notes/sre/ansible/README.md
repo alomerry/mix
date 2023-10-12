@@ -2,7 +2,6 @@
 article: false
 category:
   - SRE
-tag:
   - Ansible
 ---
 

@@ -2,8 +2,6 @@
 article: false
 category:
   - Golang
-tag:
-  - golang
 ---
 
 https://ask.qcloudimg.com/developer-images/article/6550629/nn1q6mewym.png?imageView2/2/w/1200

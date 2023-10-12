@@ -5,6 +5,8 @@ date: 2023-01-23
 description: 
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 ## [Description](https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/)

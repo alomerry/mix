@@ -2,6 +2,8 @@
 date: 2023-10-08
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [175\. 组合两个表](https://leetcode.cn/problems/combine-two-tables/)

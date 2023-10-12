@@ -2,12 +2,17 @@
 date: 2023-10-11
 category:
   - Database
+  - Redis
+  - NoSQL
 tag: 
   - Nosql
   - Redis
+  - C
 ---
 
 # 简单动态字符串
+
+[sds](https://github.com/redis/redis/blob/31c3172d9b205d12216c27493806b6ac2b4986bd/src/sds.c)
 
 ```c
 /* Note: sdshdr5 is never used, we just access the flags byte directly.

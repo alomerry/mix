@@ -2,6 +2,8 @@
 date: 2023-10-08
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [180\. Consecutive Numbers](https://leetcode.cn/problems/consecutive-numbers/)

@@ -4,6 +4,8 @@ date: 2022-09-13
 description: 
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # [830\. 较大分组的位置](https://leetcode.cn/problems/positions-of-large-groups/)

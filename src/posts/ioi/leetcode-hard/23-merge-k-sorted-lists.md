@@ -4,6 +4,8 @@ problem_no: 23
 description:
 timeline: false
 article: false
+category:
+  - LeetCode
 ---
 
 # 23. 合并K个升序链表
