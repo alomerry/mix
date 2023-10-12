@@ -6,15 +6,15 @@
 192.168.31.195:22
 192.168.31.159:22
 
-[pve-k8s-master]
+[k8s-master]
 192.168.31.100:22
 
-[pve-k8s-nodes]
+[k8s-nodes]
 192.168.31.100:22
 192.168.31.195:22
 192.168.31.159:22
 
-[pve-k8s-nodes:vars]
+[k8s-nodes:vars]
 
 [local:vars]
 ENV=LOCAL

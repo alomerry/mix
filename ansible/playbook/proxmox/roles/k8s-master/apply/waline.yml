@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waline-deployment
+  namespace: alomerry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: waline
+  template:
+    metadata:
+      labels:
+        app: waline
+    spec:
+      containers:
+      - image: lizheming/waline:latest
+        name: waline
+        env:
+        - name: TZ
+          value: "Asia/Shanghai"
+        - name: MYSQL_ROOT_HOST
+          value: ""
+        ports:
+        - containerPort: 8360
+          name: waline-port

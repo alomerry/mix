@@ -13,6 +13,4 @@
       --cri-socket=unix:///var/run/containerd/containerd.sock
   when: not (has_init.stat.exists)
 
-
-
   TODO hostnamectl set-hostname<newhostname>

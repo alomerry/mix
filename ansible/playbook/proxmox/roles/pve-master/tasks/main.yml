@@ -1,2 +1,0 @@
-- name: set proxmox frpc local home
-  include_tasks: frpc.yml
