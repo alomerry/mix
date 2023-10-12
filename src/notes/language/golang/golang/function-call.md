@@ -18,11 +18,9 @@ tag:
 
 <!-- https://ask.qcloudimg.com/developer-images/article/7988120/sy1cud3w67.png?imageView2/2/w/1200 -->
 
-了解 go 的函数调用底层逻辑，能更清晰的理解 defer、recover、panic 的工作方式，以及函数执行时的xxx
+了解 go 的函数调用底层逻辑，能更清晰的理解 defer、recover、panic 的工作方式
 
-## 基于栈 <Badge text="1.16" type="tip"/>
-
-![golang-function-stack-frame](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/golang-function-stack-frame.png)
+## 基础
 
 - 局部标量
 - 调用函数返回值
@@ -60,6 +58,10 @@ ret 指令
 
 - 弹出调用前入栈的返回地址
 - 跳转到该返回地址
+
+## 基于栈 <Badge text="1.16" type="tip"/>
+
+![golang-function-stack-frame](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/golang-function-stack-frame.png)
 
 ### 传值/传指针
 

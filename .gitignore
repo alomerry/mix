@@ -15,7 +15,7 @@ src/.vuepress/ossPusher
 src/.vuepress/core.toml
 src/.vuepress/dist
 
-src/.vuepress/public/github-contributions-snake.svg
+src/.vuepress/public/github-contribution-grid-snake.svg
 
 # need to delete
 src/_codes
