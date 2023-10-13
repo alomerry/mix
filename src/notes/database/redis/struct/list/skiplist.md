@@ -7,7 +7,8 @@ category:
   - NoSQL
 tag:
   - SkipList
-  - C
+timeline: false
+article: false
 ---
 
 # SkipList

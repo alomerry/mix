@@ -4,15 +4,32 @@ category:
   - Database
   - Redis
   - NoSQL
-tag: 
-  - Nosql
-  - Redis
-  - C
 ---
 
 # 简单动态字符串
 
+
+结构中的每个成员变量分别介绍下：
+
+- len，记录了字符串长度。这样获取字符串长度的时候，只需要返回这个成员变量值就行，时间复杂度只需要 O（1）。
+- alloc，分配给字符数组的空间长度。这样在修改字符串的时候，可以通过 alloc - len 计算出剩余的空间大小，可以用来判断空间是否满足修改需求，如果不满足的话，就会自动将 SDS 的空间扩展至执行修改所需的大小，然后才执行实际的修改操作，所以使用 SDS 既不需要手动修改 SDS 的空间大小，也不会出现前面所说的缓冲区溢出的问题。
+- flags，用来表示不同类型的 SDS。一共设计了 5 种类型，分别是 sdshdr5、sdshdr8、sdshdr16、sdshdr32 和 sdshdr64，后面在说明区别之处。
+- buf[]，字符数组，用来保存实际数据。不仅可以保存字符串，也可以保存二进制数据。
+
+- O（1）复杂度获取字符串长度
+- 二进制安全
+- 不会发生缓冲区溢出
+
+SDS 扩容
+
+- 如果所需的 sds 长度小于 1 MB，那么最后的扩容是按照翻倍扩容来执行的
+- 如果所需的 sds 长度超过 1 MB，那么最后的扩容长度应该是 newlen + 1MB
+
 [sds](https://github.com/redis/redis/blob/31c3172d9b205d12216c27493806b6ac2b4986bd/src/sds.c)
+
+## Reference
+
+- https://xiaolincoding.com/redis/data_struct/data_struct.html#sds
 
 ```c
 /* Note: sdshdr5 is never used, we just access the flags byte directly.
