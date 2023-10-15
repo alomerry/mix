@@ -19,12 +19,12 @@
     src: conf/{{ item }}.conf
     dest: /root/apps/nginx/conf/{{ item }}.conf
   with_items:
-    - oss.alomerry.com
+    # - oss.alomerry.com
     # - k8s.alomerry.com
     # - ci.alomerry.com
     # - bark.alomerry.com
-    - blog.alomerry.com
+    # - blog.alomerry.com
     # - resume.alomerry.com
     # - umami.alomerry.com
     # - uptime.alomerry.com
-    # - waline.alomerry.com
+    - waline.alomerry.com

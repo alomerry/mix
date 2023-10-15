@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: waline-service
+  namespace: alomerry
+spec:
+  ports:
+  - name: waline-port
+    port: 8360
+    targetPort: waline-port
+  selector:
+    app: waline
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,7 +32,15 @@ spec:
         env:
         - name: TZ
           value: "Asia/Shanghai"
-        - name: MYSQL_ROOT_HOST
+        - name: MYSQL_HOST
+          value: "127.0.0.1"
+        - name: MYSQL_PORT
+          value: "3306"
+        - name: MYSQL_DB
+          value: ""
+        - name: MYSQL_USER
+          value: ""
+        - name: MYSQL_PASSWORD
           value: ""
         ports:
         - containerPort: 8360

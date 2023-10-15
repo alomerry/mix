@@ -6,4 +6,4 @@
     # - common
     # - frps
     - nginx
-    - dns
+    # - dns

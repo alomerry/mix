@@ -2,5 +2,5 @@
   copy:
     src: aliyun.toml
     dest: /tmp/domains.toml
-- name: set aliyun dns
-  shell: env ALI_AK="{{ ali.AK }}" ALI_SK="{{ ali.SK }}" /tmp/dns-tools --f /tmp/domains.toml
+# - name: set aliyun dns
+#   shell: env ALI_AK="{{ ali.AK }}" ALI_SK="{{ ali.SK }}" /tmp/dns-tools --f /tmp/domains.toml
