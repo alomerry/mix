@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func createSmallHeap(arr []int) []int {
 	for i := len(arr) / 2; i >= 0; i-- {
 		downSmallAdjust(i, &arr)
@@ -44,7 +42,7 @@ func smallHeapSort(arr []int) []int {
 	return arr
 }
 
-func main() {
-	arr := []int{1, 45, 65, 12, 26, 79, 15}
-	fmt.Println(smallHeapSort(arr))
-}
+//func main() {
+//	arr := []int{1, 45, 65, 12, 26, 79, 15}
+//	fmt.Println(smallHeapSort(arr))
+//}

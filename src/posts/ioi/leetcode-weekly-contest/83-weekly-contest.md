@@ -8,9 +8,9 @@ category:
   - LeetCode
 ---
 
-# [830\. 较大分组的位置](https://leetcode.cn/problems/positions-of-large-groups/)
+## [830\. 较大分组的位置](https://leetcode.cn/problems/positions-of-large-groups/)
 
-## Description
+### Description
 
 Difficulty: **简单**
 
@@ -64,15 +64,15 @@ Related Topics: [字符串](https://leetcode.cn/tag/string/)
 *   `s` 仅含小写英文字母
 
 
-## Solution
+### Solution
 
 Language: **C++**
 
 @[code](../../../../algorithm/code/leet-code-weekly/83/830-main.cpp)
 
-# [831\. 隐藏个人信息](https://leetcode.cn/problems/masking-personal-information/)
+## [831\. 隐藏个人信息](https://leetcode.cn/problems/masking-personal-information/)
 
-## Description
+### Description
 
 Difficulty: **中等**
 
@@ -164,15 +164,15 @@ _**电话号码：**_
     *   `s` 是由数字、空格、字符 `'('`、`')'`、`'-'` 和 `'+'` 组成
 
 
-## Solution
+### Solution
 
 Language: **C++**
 
 @[code](../../../../algorithm/code/leet-code-weekly/83/831-main.cpp)
 
-# [829\. 连续整数求和](https://leetcode.cn/problems/consecutive-numbers-sum/)
+## [829\. 连续整数求和](https://leetcode.cn/problems/consecutive-numbers-sum/)
 
-## Description
+### Description
 
 Difficulty: **困难**
 
@@ -210,15 +210,15 @@ Related Topics: [数学](https://leetcode.cn/tag/math/), [枚举](https://leetco
 *   1 <= n <= 10<sup>9</sup>​​​​​​​
 
 
-## Solution
+### Solution
 
 Language: **C++**
 
 @[code](../../../../algorithm/code/leet-code-weekly/83/829-main.cpp)
 
-# [828\. 统计子串中的唯一字符](https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/)
+## [828\. 统计子串中的唯一字符](https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/)
 
-## Description
+### Description
 
 Difficulty: **困难**
 
@@ -264,7 +264,7 @@ Related Topics: [哈希表](https://leetcode.cn/tag/hash-table/), [字符串](ht
 *   `s` 只包含大写英文字符
 
 
-## Solution
+### Solution
 
 Language: **C++**
 
