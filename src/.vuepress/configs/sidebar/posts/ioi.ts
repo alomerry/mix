@@ -170,6 +170,7 @@ export const ioi = arraySidebar([
       '189-rotate-array.md',
       '207-course-schedule.md',
       '721-accounts-merge.md',
+      '1488-avoid-flood-in-the-city.md',
       '2512-reward-top-k-students.md',
     ],
   },
@@ -190,6 +191,7 @@ export const ioi = arraySidebar([
     prefix: "leetcode-weekly-contest/",
     children: [
       '83-weekly-contest.md',
+      '367.md',
     ],
   },
   {
