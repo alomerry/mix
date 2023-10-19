@@ -7,7 +7,7 @@ const ReadingTrack: FunctionalComponent = () =>
     { class: "nav-item vp-repo" },
     h("a", {
       class: "vp-repo-link",
-      href: "https://flowus.cn/alomerry/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5",
+      href: "https://flowus.cn/alomerry/share/a6612a85-ca8d-432b-8c9a-7018bc382dfb",
       target: "_blank",
       rel: "noopener noreferrer",
       "aria-label": "reading-track",
