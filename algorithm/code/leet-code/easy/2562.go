@@ -20,6 +20,6 @@ func findTheArrayConcVal(nums []int) int64 {
 	return res
 }
 
-func main() {
-	println(findTheArrayConcVal([]int{5, 14, 13, 8, 12}))
-}
+//func main() {
+//	println(findTheArrayConcVal([]int{5, 14, 13, 8, 12}))
+//}
