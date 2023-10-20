@@ -41,19 +41,19 @@ function replaceSideBar(config, changeType, newContent) {
     let reg;
     switch (changeType) {
       case "leetcode-easy":
-        reg = /prefix: "leetcode-easy\/",\n    children: \[\n(( )*'(\w)+-(\S)*',\n)+( )+\],/
+        reg = /prefix: "leetcode-easy\/",\n    children: \[\n(( )*'(\w)(\S)*',\n)+( )+\],/
         break
       case "leetcode-medium":
-        reg = /prefix: "leetcode-medium\/",\n    children: \[\n(( )*'(\w)+-(\S)*',\n)+( )+\],/
+        reg = /prefix: "leetcode-medium\/",\n    children: \[\n(( )*'(\w)(\S)*',\n)+( )+\],/
         break
       case "leetcode-hard":
-        reg = /prefix: "leetcode-hard\/",\n    children: \[\n(( )*'(\w)+-(\S)*',\n)+( )+\],/
+        reg = /prefix: "leetcode-hard\/",\n    children: \[\n(( )*'(\w)(\S)*',\n)+( )+\],/
         break
       case "leetcode-weekly-contest":
-        reg = /prefix: "leetcode-weekly-contest\/",\n    children: \[\n(( )*'(\w)+-(\S)*',\n)+( )+\],/
+        reg = /prefix: "leetcode-weekly-contest\/",\n    children: \[\n(( )*'(\w)(\S)*',\n)+( )+\],/
         break
       case "leetcode-sql":
-        reg = /prefix: "leetcode-sql\/",\n    children: \[\n(( )*'(\w)+-(\S)*',\n)+( )+\],/
+        reg = /prefix: "leetcode-sql\/",\n    children: \[\n(( )*'(\w)(\S)*',\n)+( )+\],/
         break
       default:
         return

@@ -49,11 +49,11 @@ func reverse(head *ListNode) (*ListNode, *ListNode) {
 	return tail, cat
 }
 
-func main() {
-	root := &ListNode{Val: 1, Next: &ListNode{Val: 2, Next: &ListNode{Val: 3, Next: &ListNode{Val: 4, Next: &ListNode{Val: 5}}}}}
-	root = reverseBetween(root, 2, 4)
-	for root != nil {
-		print(root.Val)
-		root = root.Next
-	}
-}
+//func main() {
+//	root := &ListNode{Val: 1, Next: &ListNode{Val: 2, Next: &ListNode{Val: 3, Next: &ListNode{Val: 4, Next: &ListNode{Val: 5}}}}}
+//	root = reverseBetween(root, 2, 4)
+//	for root != nil {
+//		print(root.Val)
+//		root = root.Next
+//	}
+//}
