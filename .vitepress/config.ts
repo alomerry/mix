@@ -1,7 +1,7 @@
-import { createRequire } from 'module'
-import { defineConfig, type DefaultTheme } from 'vitepress'
-const require = createRequire(import.meta.url)
-const pkg = require('vitepress/package.json')
+import { defineConfig } from 'vitepress'
+
+import navbar from './navbar.js'
+import { SidebarConfig, SidebarType} from './sidebar/index.js'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -9,57 +9,17 @@ export default defineConfig({
   description: "A VitePress Site",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    nav: nav(),
+    nav: navbar.nav(),
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
+    sidebar: {
+      '/8gu/': { base: '/8gu/', items: SidebarConfig.Get(SidebarType.BaGu) },
+    },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+      { icon: 'github', link: 'https://github.com/alomerry/docs' }
+    ],
+  },
+  markdown: {
+    math: true,
   }
 })
-
-function nav(): DefaultTheme.NavItem[] {
-  return [
-    { text: 'Home', link: '/' },
-    {
-      text: '八股',
-      items: [
-        {
-          text: 'MongoDB',
-          link: '/8gu/README.md'
-        },
-        {
-          text: 'ElasticSearch',
-          link: '/8gu/elastic-search.md'
-        }
-      ]
-    },
-    {
-      text: 'Reference',
-      link: '/reference/site-config',
-      activeMatch: '/reference/'
-    },
-    {
-      text: pkg.version,
-      items: [
-        {
-          text: 'Changelog',
-          link: 'https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md'
-        },
-        {
-          text: 'Contributing',
-          link: 'https://github.com/vuejs/vitepress/blob/main/.github/contributing.md'
-        }
-      ]
-    }
-  ]
-}
