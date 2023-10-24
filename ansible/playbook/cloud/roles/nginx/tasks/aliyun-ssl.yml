@@ -17,7 +17,8 @@
   with_items:
     # - oss.alomerry.com
     # - k8s.alomerry.com
-    - bark.alomerry.com
+    - docs.alomerry.com
+    # - bark.alomerry.com
     # - blog.alomerry.com
     # - ci.alomerry.com
     # - resume.alomerry.com

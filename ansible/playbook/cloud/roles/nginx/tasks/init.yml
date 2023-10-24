@@ -13,7 +13,8 @@
     # - uptime.alomerry.com
     # - waline.alomerry.com
     # - k8s.alomerry.com
-    - oss.alomerry.com
+    # - oss.alomerry.com
+    - docs.alomerry.com
 - name: copy nginx conf
   copy:
     src: conf/{{ item }}.conf
@@ -27,4 +28,5 @@
     # - resume.alomerry.com
     # - umami.alomerry.com
     # - uptime.alomerry.com
-    - waline.alomerry.com
+    # - waline.alomerry.com
+    - docs.alomerry.com
