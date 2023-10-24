@@ -62,3 +62,6 @@ https://blog.51cto.com/u_11555417/6065133
 ## 手册
 
 https://cloud-atlas.readthedocs.io/zh_CN/latest/kubernetes/administer/remove_node.html
+
+
+K8s集群服务器性能配置指南 https://learnku.com/articles/73131

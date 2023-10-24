@@ -5,6 +5,11 @@ tag:
   - Kubernetes
 ---
 
+- 云原生资料库 https://lib.jimmysong.io/#books
+- 管理日志采集sidecar容器最佳实 https://openkruise.io/zh/docs/best-practices/log-container-sidecarset/#efk--sidecarsetfilebeat%E5%AE%9E%E8%B7%B5
+- 详解 Kubernetes StatefulSet 实现原理 https://draveness.me/kubernetes-statefulset/
+- SkyWalking
+- 
 - kubernets 相关技术调研 https://blog.k8s.li/k8s-01.html#CI-x2F-CD-%E6%96%B9%E6%A1%88
 - https://imroc.cc/k8s/best-practice/containerd-dind/
 - https://www.qikqiak.com/k8strain2/containerd/build/
