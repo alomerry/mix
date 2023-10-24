@@ -1,6 +1,6 @@
 # Golang
 
-## 结构
+## struct
 
 ### map
 

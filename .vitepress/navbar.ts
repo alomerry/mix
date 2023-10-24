@@ -1,6 +1,6 @@
 import { type DefaultTheme } from 'vitepress'
 
-function nav(): DefaultTheme.NavItem[] {
+function Nav(): DefaultTheme.NavItem[] {
   return [
     { text: 'Home', link: '/' },
     {
@@ -8,26 +8,44 @@ function nav(): DefaultTheme.NavItem[] {
       items: [
         {
           text: 'Golang',
-          link: '/8gu/golang/README.md'
+          link: '/8gu/golang/'
         },
         {
           text: 'MongoDB',
-          link: '/8gu/mongodb/README.md'
+          link: '/8gu/mongodb/'
         },
         {
           text: 'ElasticSearch',
-          link: '/8gu/elastic-search/README.md'
+          link: '/8gu/elastic-search/'
         }
       ]
     },
+  ]
+}
+
+function Nav_Zh(): DefaultTheme.NavItem[] {
+  return [
+    { text: '主页', link: '/zh/' },
     {
-      text: 'Reference',
-      link: '/reference/site-config',
-      activeMatch: '/reference/'
+      text: '八股文',
+      items: [
+        {
+          text: 'Golang',
+          link: '/zh/8gu/golang/'
+        },
+        {
+          text: 'MongoDB',
+          link: '/zh/8gu/mongodb/'
+        },
+        {
+          text: 'ElasticSearch',
+          link: '/zh/8gu/elastic-search/'
+        }
+      ]
     },
   ]
 }
 
 export default {
-  nav
+  Nav, Nav_Zh
 }

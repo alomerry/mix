@@ -69,7 +69,7 @@ pipeline {
       steps {
         container('docs-build') {
           sh '''
-          pnpm install && pnpm docs:build
+          pnpm install && pnpm build
           cd .vitepress/dist/
           tar -zcf docs.tar.gz *
           '''

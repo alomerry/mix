@@ -5,15 +5,23 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "postinstall": "node scripts/cmd.js setup-i18n",
+    "preview": "vitepress preview"
+  },
+  "engines": {
+    "node": ">=19",
+    "pnpm": ">=8"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "markdown-it-mathjax3": "^4.3.2",
     "vitepress": "1.0.0-rc.23"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.8"
   }
 }
