@@ -45,6 +45,7 @@ https://jimmysong.io/kubernetes-handbook/cloud-native/cloud-native-local-quick-s
 - https://pj1987111.github.io/posts/k8s/nginx+ingress-controller%E8%A7%A3%E5%86%B3l7%E5%A4%96%E7%BD%91web%E6%9C%8D%E5%8A%A1%E6%9A%B4%E9%9C%B2%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/
 - https://cloud.tencent.com/developer/article/1856854
 
+## k8s EFK
 
 ## others
 

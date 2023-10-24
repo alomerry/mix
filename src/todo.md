@@ -1,14 +1,12 @@
 # TODO
 
-字体加大一点
-
 ## 
 
 5AM Club https://newzone.top/posts/2023-03-31-efficient_morning_5am_club.html#_5-%E7%82%B9%E8%B5%B7-%E8%BA%AB%E4%BD%93%E5%8F%97%E5%BE%97%E4%BA%86%E5%90%97
 
 读写内存屏障
 
-- vps-tencent 迁移 uptime，waline 再考虑一下
+- vps-tencent 迁移 uptime 再考虑一下
 - [ ] https://colobu.com/2020/12/27/go-with-os-exec/
 - [ ] 检查 md 中包含大于小于号的部分，做转义
 - [ ] goroutine 一节切换 sidebar 会卡，需要排查一下
