@@ -95,7 +95,7 @@ pipeline {
             '''
           sshPut remote: remote, from: 'src/.vuepress/dist/docs.tar.gz', into: '/root/apps/nginx/site/docs.alomerry.com/'
           sshCommand remote: remote, command: "cd /root/apps/nginx/site/docs.alomerry.com && tar -xf docs.tar.gz"
-          sshRemove remote: remote, path: '/root/apps/nginx/site/docs.alomerry.com/blog.tar.gz'
+          sshRemove remote: remote, path: '/root/apps/nginx/site/docs.alomerry.com/docs.tar.gz'
         }
       }
     }
