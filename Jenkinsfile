@@ -24,7 +24,7 @@ pipeline {
       printPostContent: false,
       tokenCredentialId: 'webhook-trigger-token',
       regexpFilterText: '$name@$branch',
-      regexpFilterExpression: 'docs@refs/heads/develop',
+      regexpFilterExpression: 'docs@refs/heads/master',
       causeString: ' Triggered on $branch' ,
     )
   }
