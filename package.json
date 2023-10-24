@@ -5,9 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "postinstall": "node scripts/cmd.js setup-i18n",
+    "dev": "NODE_ENV=development vitepress dev",
+    "build": "node scripts/cmd.js setup-i18n && vitepress build",
     "preview": "vitepress preview"
   },
   "engines": {

@@ -5,19 +5,12 @@ const OPERATIONS = {
 }
 
 const COMMANDS_MAPPER = new Map([
-  [OPERATIONS.SETUP_i18n, "设置 i18n ..."],
+  [OPERATIONS.SETUP_i18n, "setup i18n ..."],
 ])
-
-const WORK_ON_BUILD = [
-  OPERATIONS.SETUP_i18n
-]
 
 process.argv.forEach((val, index) => {
   if (index < 2) {
     return
-  }
-  if (WORK_ON_BUILD.includes(val) && process.env.NODE_ENV !== "production") {
-    return;
   }
   console.log(COMMANDS_MAPPER.get(val));
   switch (val) {

@@ -4,19 +4,28 @@ function Sidebar(): DefaultTheme.SidebarItem[] {
   return [
     { text: '8gu', link: '/' },
     {
+      text: 'Case',
+      base: '/8gu/case/',
+      collapsed: false,
+      items: [
+        { text: 'Didi 一面', link: 'didi' },
+      ]
+    },
+    {
       text: 'Language',
       collapsed: false,
       items: [
-        { text: 'Golang', link: 'golang/' },
+        { text: 'Golang', link: 'language/golang/' },
       ]
     },
     {
       text: 'Database',
       collapsed: false,
+      link: 'database/',
       items: [
-        { text: 'MySQL', link: 'mysql/' },
-        { text: 'Redis', link: 'redis/' },
-        { text: 'MongoDB', link: 'mongodb/' },
+        { text: 'MySQL', link: 'database/mysql/' },
+        { text: 'Redis', link: 'database/redis/' },
+        { text: 'MongoDB', link: 'database/mongodb/' },
       ]
     },
     {
@@ -52,19 +61,20 @@ function SidebarZh(): DefaultTheme.SidebarItem[] {
   return [
     { text: '八股文', link: '/' },
     {
-      text: '变成语言',
+      text: '编程语言',
       collapsed: false,
       items: [
-        { text: 'Golang', link: 'golang/' },
+        { text: 'Golang', link: 'language/golang/' },
       ]
     },
     {
       text: '数据库',
       collapsed: false,
+      link: 'database/',
       items: [
-        { text: 'MySQL', link: 'mysql/' },
-        { text: 'Redis', link: 'redis/' },
-        { text: 'MongoDB', link: 'mongodb/' },
+        { text: 'MySQL', link: 'database/mysql/' },
+        { text: 'Redis', link: 'database/redis/' },
+        { text: 'MongoDB', link: 'database/mongodb/' },
       ]
     },
     {

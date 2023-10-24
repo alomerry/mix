@@ -33,6 +33,7 @@ export default defineConfig({
         nav: navbar.Nav(), // https://vitepress.dev/reference/default-theme-config
         sidebar: {
           '/8gu/': { base: '/8gu/', items: SidebarConfig.Get(SidebarType.BaGu) },
+          '/knowledge/': { base: '/knowledge/', items: SidebarConfig.Get(SidebarType.Knowledge) },
         },
       },
     },
@@ -44,6 +45,7 @@ export default defineConfig({
         nav: navbar.Nav_Zh(),
         sidebar: {
           '/zh/8gu/': { base: '/zh/8gu/', items: SidebarConfig.Get(SidebarType.BaGu_Zh) },
+          '/zh/knowledge/': { base: '/zh/knowledge/', items: SidebarConfig.Get(SidebarType.Knowledge_Zh) },
         },
       },
     }

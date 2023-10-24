@@ -7,17 +7,26 @@ function Nav(): DefaultTheme.NavItem[] {
       text: '8gu',
       items: [
         {
-          text: 'Golang',
-          link: '/8gu/golang/'
+          text: 'Case',
+          link: '/8gu/case/'
         },
         {
-          text: 'MongoDB',
-          link: '/8gu/mongodb/'
+          text: 'Language',
+          link: '/8gu/language/'
         },
         {
-          text: 'ElasticSearch',
-          link: '/8gu/elastic-search/'
-        }
+          text: 'Database',
+          link: '/8gu/database/'
+        },
+      ]
+    },
+    {
+      text: 'Knowledge',
+      items: [
+        {
+          text: 'Database',
+          link: '/knowledge/database/'
+        },
       ]
     },
   ]
@@ -30,17 +39,26 @@ function Nav_Zh(): DefaultTheme.NavItem[] {
       text: '八股文',
       items: [
         {
-          text: 'Golang',
-          link: '/zh/8gu/golang/'
+          text: '面经',
+          link: '/zh/8gu/case/'
         },
         {
-          text: 'MongoDB',
-          link: '/zh/8gu/mongodb/'
+          text: '编程语言',
+          link: '/zh/8gu/language/'
         },
         {
-          text: 'ElasticSearch',
-          link: '/zh/8gu/elastic-search/'
-        }
+          text: '数据库',
+          link: '/zh/8gu/database/'
+        },
+      ]
+    },
+    {
+      text: '知识',
+      items: [
+        {
+          text: '数据库',
+          link: '/zh/knowledge/database/'
+        },
       ]
     },
   ]

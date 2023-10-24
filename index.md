@@ -4,22 +4,22 @@ layout: home
 
 hero:
   name: "Docs"
-  text: "A VitePress Site"
-  tagline: My great project tagline
+  text: "Knowledge site"
+  tagline: Alomerry Wu's personal knowledge and 8gu site, help you become a better programmer
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 8gu
+      link: /8gu/
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: knowledge
+      link: /knowledge
 
 features:
   - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: TODO
   - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: TODO
   - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: TODO
 ---
 
