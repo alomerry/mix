@@ -39,7 +39,7 @@ pipeline {
           service: jenkins-builder-blog
       spec:
         containers:
-        - name: blog-build
+        - name: docs-build
           image: registry.cn-hangzhou.aliyuncs.com/alomerry/base-frontend:v20.5.1
           imagePullPolicy: Always
       '''
@@ -93,7 +93,7 @@ pipeline {
             shopt -s extglob
             rm -rf !(.htaccess|.user.ini|.well-known|favicon.ico|docs.tar.gz)
             '''
-          sshPut remote: remote, from: 'src/.vuepress/dist/docs.tar.gz', into: '/root/apps/nginx/site/docs.alomerry.com/'
+          sshPut remote: remote, from: '.vitepress/dist/docs.tar.gz', into: '/root/apps/nginx/site/docs.alomerry.com/'
           sshCommand remote: remote, command: "cd /root/apps/nginx/site/docs.alomerry.com && tar -xf docs.tar.gz"
           sshRemove remote: remote, path: '/root/apps/nginx/site/docs.alomerry.com/docs.tar.gz'
         }
