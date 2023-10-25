@@ -41,7 +41,7 @@ export default hopeTheme({
   navbarLayout: {
     start: ["Brand"],
     center: ["Links"],
-    end: ["Language", "Repo", "UmamiLink", "ReadingTrack", "Outlook", "Search"],
+    end: ["Language", "Repo", "UmamiLink", "ReadingTrack", "Search"],
   },
 
   blog: {
@@ -65,6 +65,20 @@ export default hopeTheme({
   // 主题的多语言配置 https://theme-hope.vuejs.press/zh/config/theme/i18n.html
   locales: {
     "/": {
+      navbar: enNavbar,
+      sidebar: enSidebar,
+      blog: {
+        name: "清欢",
+        description: "一个 Golang 后端开发者，目前在研究云原生相关的技术",
+        intro: "/about/intro.html",
+        timeline: "时日无多",
+      },
+      copyright: `Copyright &copy; 2018-2023 <a href="https://github.com/alomerry" target="_blank">清欢</a>`,
+      metaLocales: {
+        editLink: "在 GitHub 上编辑此页",
+      },
+    },
+    "/zh/": {
       navbar: zhNavbar,
       sidebar: zhSidebar,
       blog: {
@@ -78,10 +92,6 @@ export default hopeTheme({
         editLink: "在 GitHub 上编辑此页",
       },
     },
-    // "/en/": {
-    //   navbar: enNavbar,
-    //   sidebar: enSidebar,
-    // },
   },
   footer: `Powered by <a href="https://v2.vuepress.vuejs.org" target="_blank">VuePress</a> & Theme by <a href="https://theme-hope.vuejs.press/zh/" target="_blank">Hope</a><br> CDN by <a href="https://s.qiniu.com/FZnEze" target="_blank">七牛云</a> & CVM by <a href="https://url.cn/fBO4QBaH" target="_blank">腾讯云</a>`,
   displayFooter: true,

@@ -19,8 +19,29 @@ import { resume } from "./sidebar/about/resume.js"
 
 import { links } from "./sidebar/links.js"
 
+// TODO
 export const enSidebar = sidebar({
-  "/en/": [],
+  "/about/resume/": resume,
+
+  "/links/": links,
+
+  "/notes/ci/jenkins/": jenkins,
+  "/notes/sre/nginx/": nginx,
+  "/notes/network/": network,
+  "/notes/language/golang/golang": golang,
+  "/notes/frontend/": frontend,
+
+  "/notes/database/redis": redis,
+  "/notes/database/mysql": mysql,
+  
+  "/notes/base/git/": git,
+  "/notes/container/docker/": docker,
+
+  "/posts/ioi/": ioi,
+  "/posts/markdown/": md,
+  "/posts/proxy/": proxy,
+  "/posts/digest/": digest,
+  "/posts/vps-home/": vspHome,
 });
 
 export const zhSidebar = sidebar({

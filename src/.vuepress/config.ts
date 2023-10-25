@@ -8,8 +8,8 @@ const __dirname = getDirname(import.meta.url);
 export default defineUserConfig({
   base: "/",
   locales: {
-    "/": { lang: "zh-CN", title: "$ cd /home/", description: "时日无多" },
-    // "/en/": { lang: "en-US", title: "$ cd /home/", description: "Time ebbs away" },
+    "/": { lang: "en-US", title: "$ cd /home/", description: "Time ebbs away" },
+    "/zh/": { lang: "zh-CN", title: "$ cd /home/", description: "时日无多" },
   },
   pagePatterns: [
     "**/*.md",
@@ -21,8 +21,6 @@ export default defineUserConfig({
   ],
   markdown: {},
   theme,
-  // Enable it with pwa
-  // shouldPrefetch: false,
   plugins: configPlugins,
   alias: {
     '@components': path.resolve(__dirname, './components'),

@@ -2,7 +2,7 @@
 home: true
 layout: BlogHome
 icon: home
-title: 主页
+title: Home
 # heroImage: https://cdn.alomerry.com/blog/avatar.png
 heroImageStyle: "border-radius: 50%;"
 heroText: 时日无多
@@ -11,23 +11,23 @@ bgImage: https://api.kdcc.cn/
 heroFullScreen: false
 projects:
   - icon: cib:leetcode
-    name: 算法题解
-    desc: PAT、LeetCode 题解
+    name: LeetCode
+    desc: PAT、LeetCode solutions
     link: /posts/ioi/
   - icon: link
-    name: 收藏
-    desc: 一些博客、工具
+    name: Star
+    desc: Some blog and tools
     link: /links/stars/
   - icon: book
-    name: 文摘
+    name: Digest
     desc: 读者、文苑、知乎、微博等
     link: /posts/digest
   - icon: article
-    name: 文档
+    name: Docs
     desc: 常用文档汇总
     link: /links/docs/
   - icon: ant-design:read-outlined
-    name: 书单
+    name: Booklists
     desc: 个人读书列表
     link: /links/booklists/
   # - icon: project

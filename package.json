@@ -8,11 +8,10 @@
   "type": "module",
   "repository": "https://github.com/alomerry/blog.git",
   "scripts": {
-    "build": "vuepress build src",
+    "build": "node scripts/cmd.js downloadImportCode setupI18n && vuepress build src",
     "clean-dev": "vuepress dev src --clean-cache",
     "dev": "vuepress dev src",
     "update-package": "pnpm dlx vp-update",
-    "postinstall": "node scripts/cmd.js",
     "postbuild": "node scripts/cmd.js addUmamiTrace",
     "convert-cdn": "node scripts/cmd.js convertCDN",
     "auto-add-ioi": "node scripts/cmd.js autoGenIOISidebar",
@@ -29,19 +28,26 @@
     "request": "2.88.2"
   },
   "dependencies": {
+    "@vue/repl": "^2.5.8",
     "@vuepress/client": "2.0.0-beta.67",
     "@vuepress/plugin-container": "2.0.0-beta.67",
     "@vuepress/shared": "2.0.0-beta.67",
     "@vuepress/utils": "2.0.0-beta.67",
+    "flowchart.ts": "^1.0.1",
     "js-yaml": "4.1.0",
+    "katex": "^0.16.9",
     "markdown-it": "13.0.1",
+    "mathjax-full": "^3.2.2",
+    "mermaid": "^10.6.0",
+    "reveal.js": "^4.6.1",
     "sass-loader": "13.3.0",
-    "vue": "^3.3.4",
+    "vue": "^3.3.7",
     "vue-router": "^4.2.5",
     "vuepress": "2.0.0-beta.67",
-    "vuepress-plugin-components": "2.0.0-beta.238",
-    "vuepress-plugin-search-pro": "2.0.0-beta.238",
-    "vuepress-shared": "2.0.0-beta.238",
-    "vuepress-theme-hope": "2.0.0-beta.238"
+    "vuepress-plugin-components": "2.0.0-beta.239",
+    "vuepress-plugin-md-enhance": "2.0.0-beta.239",
+    "vuepress-plugin-search-pro": "2.0.0-beta.239",
+    "vuepress-shared": "2.0.0-beta.239",
+    "vuepress-theme-hope": "2.0.0-beta.239"
   }
 }

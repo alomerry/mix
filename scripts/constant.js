@@ -9,14 +9,15 @@ const ASSETS_PATH = "./src/.vuepress/public/assets"
 
 const PUBLIC_PATH = "./src/.vuepress/public"
 
-let MD_DIR_LIST = [
-  "./src/about",
-  "./src/ioi",
-  "./src/links",
-  "./src/notes",
-  "./src/posts",
-  "./src/projects",
+const CATEGORIES = [
+  "about",
+  "links",
+  "notes",
+  "posts",
+  "projects",
 ]
+
+let MD_DIR_LIST = CATEGORIES.map(category => `./src/${category}`)
 
 const FileTypeBelongToMapper = new Map([
   ["png", "img"], ["gif", "img"], ["jpg", "img"], ["jpeg", "img"], ["svg", "img"], ["webp", "img"],
@@ -26,5 +27,5 @@ const FileTypeBelongToMapper = new Map([
 ])
 
 export default {
-  CDN_BLOG_URL, ORIGIN_FONT_PATH, VUEPRESS_PATH, MD_DIR_LIST, ASSETS_PATH, PUBLIC_PATH, FileTypeBelongToMapper
+  CDN_BLOG_URL, ORIGIN_FONT_PATH, VUEPRESS_PATH, MD_DIR_LIST, CATEGORIES, ASSETS_PATH, PUBLIC_PATH, FileTypeBelongToMapper
 }

@@ -208,7 +208,6 @@ export const setupFootnotePopup = () => {
     document.querySelectorAll('.footnotes-list').forEach((foot) => {
       foot.classList.add("code-popup-display-none")
     })
-    console.log("setup success!");
   }
 
   const clean = () => {
