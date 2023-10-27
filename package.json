@@ -45,10 +45,10 @@
     "vue": "^3.3.7",
     "vue-router": "^4.2.5",
     "vuepress": "2.0.0-beta.67",
-    "vuepress-plugin-components": "2.0.0-beta.240",
-    "vuepress-plugin-md-enhance": "2.0.0-beta.240",
-    "vuepress-plugin-search-pro": "2.0.0-beta.240",
-    "vuepress-shared": "2.0.0-beta.240",
-    "vuepress-theme-hope": "2.0.0-beta.240"
+    "vuepress-plugin-components": "2.0.0-beta.242",
+    "vuepress-plugin-md-enhance": "2.0.0-beta.242",
+    "vuepress-plugin-search-pro": "2.0.0-beta.242",
+    "vuepress-shared": "2.0.0-beta.242",
+    "vuepress-theme-hope": "2.0.0-beta.242"
   }
 }
