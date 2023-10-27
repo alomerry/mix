@@ -20,7 +20,7 @@ const COMMANDS_MAPPER = new Map([
   [OPERATIONS.CONVERT_CDN, "执行转换 @CDN 并复制 assets 到 public 路径"],
   [OPERATIONS.SETUP_I18n, "setup i18n..."],
   [OPERATIONS.DOWNLOAD_IMPORT_CODE, "执行从 gitee 下载代码到 _codes"],
-  // [OPERATIONS.SPLIT_FONTS, "执行字体切割"],
+  [OPERATIONS.SPLIT_FONTS, "执行字体切割"],
   [OPERATIONS.MODIFY_SPLIT_FONTS_CSS, "执行字体 CSS 修改成 CDN 地址"],
   [OPERATIONS.ADD_UMAMI_TRACE, "执行添加 umami 访问跟踪"],
   [OPERATIONS.AUTO_GEN_SIDEBAR, "自动生成 sidebar 配置"],
@@ -33,12 +33,12 @@ process.argv.forEach((val, index) => {
 
   console.log(COMMANDS_MAPPER.get(val))
   switch (val) {
-    case OPERATIONS.ADD_UMAMI_TRACE: umami.run()
-    // case SPLIT_FONTS: splitFonts.run()
-    case OPERATIONS.MODIFY_SPLIT_FONTS_CSS: modifySplitFontsCss.run()
-    case OPERATIONS.DOWNLOAD_IMPORT_CODE: downloadImport.run()
-    case OPERATIONS.CONVERT_CDN: convertCDN.run()
-    case OPERATIONS.AUTO_GEN_SIDEBAR: autoAddSidebar.run()
-    case OPERATIONS.SETUP_I18n: tmpCopyZh.run()
+    case OPERATIONS.ADD_UMAMI_TRACE: umami.run(); break;
+    case OPERATIONS.SPLIT_FONTS: splitFonts.run(); break;
+    case OPERATIONS.MODIFY_SPLIT_FONTS_CSS: modifySplitFontsCss.run(); break;
+    case OPERATIONS.DOWNLOAD_IMPORT_CODE: downloadImport.run(); break;
+    case OPERATIONS.CONVERT_CDN: convertCDN.run(); break;
+    case OPERATIONS.AUTO_GEN_SIDEBAR: autoAddSidebar.run(); break;
+    case OPERATIONS.SETUP_I18n: tmpCopyZh.run(); break;
   }
 })

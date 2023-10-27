@@ -3,13 +3,14 @@ import { navbar } from "vuepress-theme-hope";
 export const zhNavbar = navbar([
   {
     text: "首页",
-    link: "/",
+    link: "/zh/",
     // icon: "fa-fort-awesome"
     icon: "svg-spinners:blocks-scale"
   },
   {
     text: "博客",
     icon: "line-md:star-pulsating-twotone-loop",
+    prefix: "/zh",
     children: [
       { text: "Site", link: "/about/site.md", icon: "maki:picnic-site" },
       { text: "Intro", link: "/about/intro.md", icon: "fa-brands:microblog" },
@@ -22,6 +23,7 @@ export const zhNavbar = navbar([
   {
     text: "空间",
     icon: "line-md:sunny-filled-loop",
+    prefix: "/zh",
     children: [
       {
         text: "美文文摘",
@@ -35,7 +37,7 @@ export const zhNavbar = navbar([
   },
   {
     text: "笔记",
-    prefix: "/notes/",
+    prefix: "/zh/notes/",
     icon: "svg-spinners:clock",
     children: [
       {

@@ -33,7 +33,7 @@ export const enSidebar = sidebar({
 
   "/notes/database/redis": redis,
   "/notes/database/mysql": mysql,
-  
+
   "/notes/base/git/": git,
   "/notes/container/docker/": docker,
 
@@ -45,25 +45,25 @@ export const enSidebar = sidebar({
 });
 
 export const zhSidebar = sidebar({
-  "/about/resume/": resume,
+  "/zh/about/resume/": resume,
 
-  "/links/": links,
+  "/zh/links/": links,
 
-  "/notes/ci/jenkins/": jenkins,
-  "/notes/sre/nginx/": nginx,
-  "/notes/network/": network,
-  "/notes/language/golang/golang": golang,
-  "/notes/frontend/": frontend,
+  "/zh/notes/ci/jenkins/": jenkins,
+  "/zh/notes/sre/nginx/": nginx,
+  "/zh/notes/network/": network,
+  "/zh/notes/language/golang/golang": golang,
+  "/zh/notes/frontend/": frontend,
 
-  "/notes/database/redis": redis,
-  "/notes/database/mysql": mysql,
-  
-  "/notes/base/git/": git,
-  "/notes/container/docker/": docker,
+  "/zh/notes/database/redis": redis,
+  "/zh/notes/database/mysql": mysql,
 
-  "/posts/ioi/": ioi,
-  "/posts/markdown/": md,
-  "/posts/proxy/": proxy,
-  "/posts/digest/": digest,
-  "/posts/vps-home/": vspHome,
+  "/zh/notes/base/git/": git,
+  "/zh/notes/container/docker/": docker,
+
+  "/zh/posts/ioi/": ioi,
+  "/zh/posts/markdown/": md,
+  "/zh/posts/proxy/": proxy,
+  "/zh/posts/digest/": digest,
+  "/zh/posts/vps-home/": vspHome,
 });

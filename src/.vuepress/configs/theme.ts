@@ -57,11 +57,6 @@ export default hopeTheme({
       // Zhihu: "https://www.zhihu.com/people/alomerry"
     },
   },
-  encrypt: {
-    config: {
-      // "/about/resume": "alone",
-    }
-  },
   // 主题的多语言配置 https://theme-hope.vuejs.press/zh/config/theme/i18n.html
   locales: {
     "/": {

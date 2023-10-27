@@ -2,16 +2,23 @@
 import fs from "fs";
 import utils from "./utils.js"
 import constant from "./constant.js";
+import log from "./log.js";
+
+// @CDN
+// @IOI
 
 // TODO 检查 public 下的 assets 能否对应文章目录下的 assets
-
 function run() {
-  convertCDNAlias2URL()
+  let convertQueue = [];
+  convertCDNAlias2URL(convertQueue)
+  convertIOIAlias2Link(convertQueue)
+  Promise.all(convertQueue).then(res => {
+    console.log(log.SuccessBg("convert cdn/ioi alias complete."))
+  })
 }
 
 // 将 markdown 中的 @CDN 替换成 url
-function convertCDNAlias2URL() {
-  let convertQueue = []
+function convertCDNAlias2URL(convertQueue) {
   constant.MD_DIR_LIST.forEach(function (mdPath) {
     let p = new Promise((resolve, reject) => {
       copySourceFile(mdPath)
@@ -19,11 +26,31 @@ function convertCDNAlias2URL() {
     })
     convertQueue.push(p)
   })
-  Promise.all(convertQueue).then(res => {
-    console.log("convert cdn alias complete")
+}
+
+// 将 [code](@IOI/xxx.go) => [code](../algorithm/leet-code/xxx.go)
+function convertIOIAlias2Link(convertQueue) {
+  const IOIDir = [
+    "./src/posts/ioi",
+    "./src/zh/posts/ioi"
+  ];
+  IOIDir.forEach((ioiDir) => {
+    let dirPaths = utils.getAllDirPath(ioiDir) // 获取 ioi 下的所有子目录
+    dirPaths.forEach(dirPath => {
+      if (dirPath.indexOf("leetcode") !== -1) {
+        utils.getDirFilesPath(dirPath).forEach((markdownPath) => {
+          let p = new Promise((resolve, reject) => {
+            convertIOIAlias(markdownPath);
+            resolve();
+          })
+          convertQueue.push(p)
+        })
+      }
+    })
   })
 }
 
+// 将 @CDN 的文件复制到 public 目录下，并替换 markdown 中的 @CDN/fileName 为 url，后续需要执行 pnpm oss 上传到 oss 中
 function copySourceFile(mdPath) {
   let sonsDirPath = utils.getAllDirPath(mdPath)
   let dirQueue = [];
@@ -50,7 +77,7 @@ function copySourceFile(mdPath) {
           if (!utils.checkMD5(assetPath, toPath)) {
             utils.copy(assetPath, toPath)
           } else {
-            // console.log(`${utils.getFileName(assetPath)} not change.`)
+            console.log(`${utils.getFileName(assetPath)} not change.`)
           }
         })
         utils.getDirFilesPath(dirPath + "/..").forEach(function (markdownPath) {
@@ -105,12 +132,47 @@ function replaceCDN(markdownPath, fileName2BelongMap) {
       let url = constant.CDN_BLOG_URL + "/assets/" + belongTo + "/" + getOutputFilePrefix(markdownPath) + "/" + fileName
       mdContent = mdContent.replace("@CDN/" + fileName, url)
       fs.writeFileSync(markdownPath, mdContent, 'utf8')
-    } else if (mdContent.match("@CDN/") != null){
-      console.log(markdownPath, " not found resources")
+    } else if (mdContent.match("@CDN/") != null) {
+      console.log(`  ${log.Error(" not found resources")}`)
     }
   })
 }
 
 export default {
   run
+}
+
+function convertIOIAlias(markdownPath) {
+  let mdContent = fs.readFileSync(markdownPath, 'utf8');
+  if (mdContent.match(/@\[code\]\(@IOI/) != null) {
+    let category = getLeetCodeCategoryByPath(markdownPath);
+    let rootPrefix = utils.GetReturnRootPrefix(markdownPath);
+    console.log(`${log.File(markdownPath)}`)
+    if (category && rootPrefix) {
+      let res = rootPrefix+"algorithm/code/"+category;
+      console.log(`  ${log.Success("convert done")}: ${log.Blue("@IOI")} => ${log.Path(res)}`)
+      mdContent = mdContent.replace("@IOI", res)
+      fs.writeFileSync(markdownPath, mdContent, 'utf8')
+    } else {
+      console.log(`  ${log.Error("unsupported category: "+ category)}`)
+    }
+  }
+}
+
+// 获取 leetcode 分类（easy/medium/hard/sql/weekly）
+function getLeetCodeCategoryByPath(markdownPath) {
+  let res = "";
+  new Map([
+    ['easy', "leet-code/easy"],
+    ['medium', "leet-code/medium"],
+    ['hard', "leet-code/hard"],
+    ['sql', "leet-code-sql"],
+    ['weekly', "leet-code-weekly"],
+  ]).forEach((path, category)=>{
+    if (markdownPath.indexOf(category) !== -1) {
+      res = path;
+    }
+  });
+
+  return res;
 }

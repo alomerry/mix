@@ -94,6 +94,25 @@ function getChildDir(filePath) {
   return allChildDirPaths;
 }
 
+/**
+* 获取文件返回到根目录的前缀。
+*
+* @param {string} filePath - 待分析的文件路径
+* @returns {string} 前缀字符串
+*/
+function GetReturnRootPrefix(filePath) {
+  let path = getFileDir(filePath)
+  let prefix = "";
+  let pathArr = path.split("/");
+  for (let i = pathArr.length -1; i >= 0; i--) {
+    if (pathArr[i] === ".") {
+      break;
+    }
+    prefix += "../";
+  }
+  return prefix;
+}
+
 function getFileType(filePath) {
   if (fs.existsSync(filePath)) {
     let stats = fs.lstatSync(filePath);
@@ -291,7 +310,9 @@ function tools_IOI_SiderBar_Children_Generator(path, prefix) {
 }
 
 export default {
-  getAllFilesPath, getDirFilesPath, getFileDir, getAllDirPath, getChildDir, existsPath, deleteFile, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
+  GetReturnRootPrefix,
+
+  getAllFilesPath, getDirFilesPath, getFileDir, getAllDirPath, getChildDir, deleteFile, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
 
 
   tools_IOI_SiderBar_Children_Generator, getAbsoluteIOIPath,
