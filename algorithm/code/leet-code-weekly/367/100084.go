@@ -54,8 +54,3 @@ func shortestBeautifulSubstring(s string, k int) string {
 
 	return ""
 }
-
-//func main() {
-//	fmt.Println(shortestBeautifulSubstring("11000111", 1)) // [100011 11001]
-//	//fmt.Println(shortestBeautifulSubstring("00", 1)) // [100011 11001]
-//}

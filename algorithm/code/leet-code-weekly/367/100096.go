@@ -18,7 +18,3 @@ func absSub(a, b int) int {
 	}
 	return a - b
 }
-
-//func main() {
-//	fmt.Println(findIndices([]int{1, 2, 3}, 2, 4))
-//}

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math/big"
 )
 
@@ -69,11 +68,4 @@ func cal(i, j int, grid *[][]int) *big.Int {
 		}
 	}
 	return res
-}
-
-func main() {
-	fmt.Println(constructProductMatrix([][]int{{12345, 12345}}))
-	fmt.Println(constructProductMatrix([][]int{{1, 2}, {3, 4}}))
-	fmt.Println(constructProductMatrix([][]int{{12345}, {2}, {1}}))
-	fmt.Println(constructProductMatrix([][]int{{10, 20}, {18, 16}, {17, 14}, {16, 9}, {14, 6}, {16, 5}, {14, 8}, {20, 13}, {16, 10}, {14, 17}}))
 }
