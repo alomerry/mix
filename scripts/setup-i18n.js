@@ -2,7 +2,7 @@ import fs from "fs";
 const RootLang = "en" // TODO: translate zh-cn to en, after translate success
 
 const CATEGORIES = [
-  "8gu"
+  "8gu", "ioi",
 ]
 
 const LANGS = [

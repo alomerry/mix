@@ -18,14 +18,15 @@ export function BaGuZh(): DefaultTheme.SidebarItem[] {
         { text: 'MySQL', link: 'database/mysql/' },
         { text: 'Redis', link: 'database/redis/' },
         { text: 'MongoDB', link: 'database/mongodb/' },
+        { text: 'ElasticSearch', link: 'database/elastic-search/' }
       ]
     },
     {
-      text: '中间件',
+      text: '消息队列',
       collapsed: false,
+      link: 'message-queue/',
       items: [
-        { text: 'MessageQueue', link: 'message-queue/' },
-        { text: 'ElasticSearch', link: 'elastic-search/' }
+        { text: 'RocketMQ', link: '' },
       ]
     },
     {

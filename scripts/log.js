@@ -5,7 +5,7 @@ function Warn(msg) {
 }
 
 function WarnBg(msg) {
-  return chalk.bgYellow(msg)
+  return chalk.bgYellowBright(msg)
 }
 
 function Error(msg) {
@@ -21,7 +21,7 @@ function Success(msg) {
 }
 
 function SuccessBg(msg) {
-  return chalk.bgGreen(msg)
+  return chalk.bgGreenBright(msg)
 }
 
 function Bold(msg) {

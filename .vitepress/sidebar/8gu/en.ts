@@ -26,14 +26,15 @@ export function BaGu(): DefaultTheme.SidebarItem[] {
         { text: 'MySQL', link: 'database/mysql/' },
         { text: 'Redis', link: 'database/redis/' },
         { text: 'MongoDB', link: 'database/mongodb/' },
+        { text: 'ElasticSearch', link: 'database/elastic-search/' }
       ]
     },
     {
-      text: 'Middleware',
+      text: 'MessageQueue',
       collapsed: false,
+      link: 'message-queue/',
       items: [
-        { text: 'MessageQueue', link: 'message-queue/' },
-        { text: 'ElasticSearch', link: 'elastic-search/' }
+        { text: 'RocketMQ', link: '' },
       ]
     },
     {

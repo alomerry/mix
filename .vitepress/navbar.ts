@@ -14,12 +14,8 @@ function Nav(): DefaultTheme.NavItem[] {
     {
       text: 'IOI',
       items: [
-        { text: 'PAT', link: '/ioi/pat-a/' },
-        { text: 'LeetCode Easy', link: '/ioi/leetcode-easy/1' },
-        { text: 'LeetCode Medium', link: '/ioi/leetcode-medium/2' },
-        { text: 'LeetCode Hard', link: '/ioi/leetcode-hard/4' },
-        { text: 'LeetCode Weekly', link: '/ioi/leetcode-weekly/83' },
-        { text: 'LeetCode SQL', link: '/ioi/leetcode-sql/175' },
+        { text: 'LeetCode', link: '/ioi/leetcode-easy/1' },
+        { text: 'PAT', link: '/ioi/pat-a/1001' },
       ]
     },
   ]
@@ -40,11 +36,7 @@ function Nav_Zh(): DefaultTheme.NavItem[] {
       text: 'IOI',
       items: [
         { text: 'PAT', link: '/zh/ioi/pat-a/' },
-        { text: '力扣 简单', link: '/zh/ioi/leetcode-easy/' },
-        { text: '力扣 中等', link: '/zh/ioi/leetcode-medium/' },
-        { text: '力扣 困难', link: '/zh/ioi/leetcode-hard/' },
-        { text: '力扣 周赛', link: '/zh/ioi/leetcode-weekly/' },
-        { text: '力扣 SQL', link: '/zh/ioi/leetcode-sql/' },
+        { text: '力扣', link: '/zh/ioi/leetcode-easy/1' },
       ]
     },
   ]

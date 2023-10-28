@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "NODE_ENV=development vitepress dev --host 0.0.0.0",
     "build": "node scripts/cmd.js setup-i18n && vitepress build",
+    "autoIoiSidebar": "node scripts/cmd.js auto-ioi-sidebar",
     "preview": "vitepress preview"
   },
   "engines": {

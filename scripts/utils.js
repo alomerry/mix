@@ -263,7 +263,7 @@ function removeDir(dir) {
 }
 
 function getAbsoluteIOIPath() {
-  return resolve('./src/posts/ioi/');
+  return resolve('./ioi/');
 }
 
 // 仅拷贝文件
@@ -288,6 +288,7 @@ function copy(from, to) {
   }
 }
 
+// 获取目录下所有文件文件名，并组合成数组
 function tools_IOI_SiderBar_Children_Generator(path, prefix) {
   var mapper = new Map();
   var indexSet = new Set()
