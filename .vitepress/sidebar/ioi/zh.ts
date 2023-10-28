@@ -2,7 +2,7 @@ import { type DefaultTheme } from 'vitepress'
 
 export function IOIZh(): DefaultTheme.SidebarItem[] {
   return [
-    { text: 'IOI', link: '/ioi/' },
+    { text: 'IOI', link: '/' },
     {
       text: 'PAT 甲级',
       base: '/ioi/pat-a/',

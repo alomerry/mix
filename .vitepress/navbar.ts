@@ -15,17 +15,11 @@ function Nav(): DefaultTheme.NavItem[] {
       text: 'IOI',
       items: [
         { text: 'PAT', link: '/ioi/pat-a/' },
-        { text: 'LeetCode Easy', link: '/ioi/leetcode-easy/' },
-        { text: 'LeetCode Medium', link: '/ioi/leetcode-medium/' },
-        { text: 'LeetCode Hard', link: '/ioi/leetcode-hard/' },
-        { text: 'LeetCode Weekly', link: '/ioi/leetcode-weekly/' },
-        { text: 'LeetCode SQL', link: '/ioi/leetcode-sql/' },
-      ]
-    },
-    {
-      text: 'Knowledge',
-      items: [
-        { text: 'Database', link: '/knowledge/database/' },
+        { text: 'LeetCode Easy', link: '/ioi/leetcode-easy/1' },
+        { text: 'LeetCode Medium', link: '/ioi/leetcode-medium/2' },
+        { text: 'LeetCode Hard', link: '/ioi/leetcode-hard/4' },
+        { text: 'LeetCode Weekly', link: '/ioi/leetcode-weekly/83' },
+        { text: 'LeetCode SQL', link: '/ioi/leetcode-sql/175' },
       ]
     },
   ]
@@ -51,12 +45,6 @@ function Nav_Zh(): DefaultTheme.NavItem[] {
         { text: '力扣 困难', link: '/zh/ioi/leetcode-hard/' },
         { text: '力扣 周赛', link: '/zh/ioi/leetcode-weekly/' },
         { text: '力扣 SQL', link: '/zh/ioi/leetcode-sql/' },
-      ]
-    },
-    {
-      text: '知识',
-      items: [
-        { text: '数据库', link: '/zh/knowledge/database/' },
       ]
     },
   ]

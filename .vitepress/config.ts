@@ -5,7 +5,7 @@ import { SGet, SidebarType} from './sidebar/index.js'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "8gu",
+  title: "CS KB",
   themeConfig:{
     outline: 2,
     footer: {
@@ -23,6 +23,29 @@ export default defineConfig({
       // { icon: 'youtube', link: '' },
       // { icon: { svg: "" }, link: '' },
     ],
+    search: {
+			provider: 'local',
+			options: {
+				locales: {
+					zh: {
+						translations: {
+							button: {
+								buttonText: '搜索文档',
+								buttonAriaLabel: '搜索文档',
+							},
+							modal: {
+								noResultsText: '无法找到相关结果',
+								resetButtonTitle: '清除查询条件',
+								footer: {
+									selectText: '选择',
+									navigateText: '切换',
+								},
+							},
+						},
+					},
+				},
+			},
+		},
   },
   locales: {
     root: {
@@ -34,7 +57,6 @@ export default defineConfig({
         sidebar: {
           '/8gu/': { base: '/8gu/', items: SGet(SidebarType.BaGu) },
           '/ioi/': { base: '/ioi/', items: SGet(SidebarType.IOI) },
-          '/knowledge/': { base: '/knowledge/', items: SGet(SidebarType.Knowledge) },
         },
       },
     },
@@ -47,7 +69,6 @@ export default defineConfig({
         sidebar: {
           '/zh/8gu/': { base: '/zh/8gu/', items: SGet(SidebarType.BaGuZh) },
           '/zh/ioi/': { base: '/zh/ioi/', items: SGet(SidebarType.IOIZh) },
-          '/zh/knowledge/': { base: '/zh/knowledge/', items: SGet(SidebarType.KnowledgeZh) },
         },
       },
     }

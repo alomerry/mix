@@ -5,15 +5,12 @@ import { IOIZh, IOI } from "./ioi/index.js"
 
 export enum SidebarType {
   BaGu, BaGuZh,
-  Knowledge, KnowledgeZh,
   IOI, IOIZh,
 }
 
 const Sidebar = new Map<SidebarType, DefaultTheme.SidebarItem[]>([
   [SidebarType.BaGu, [...BaGu()]],
   [SidebarType.BaGuZh, [...BaGuZh()]],
-  [SidebarType.Knowledge, [...knowledge.Sidebar()]],
-  [SidebarType.KnowledgeZh, [...knowledge.SidebarZh()]],
   [SidebarType.IOI, [...IOI()]],
   [SidebarType.IOIZh, [...IOIZh()]],
 ])
