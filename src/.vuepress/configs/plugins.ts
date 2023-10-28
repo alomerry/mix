@@ -8,7 +8,7 @@ import { renderProjects } from '../containers/projects'
 
 export const configPlugins: PluginConfig = [
   searchProPlugin({
-    indexContent: true
+    indexContent: false
   }),
 
   // 谷歌统计插件

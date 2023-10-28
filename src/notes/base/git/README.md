@@ -28,6 +28,8 @@ tag:
 git config --global user.name "xxx xxx"
 git config --global user.email "xxx@xxx.xxx"
 git config --global core.editor vim
+git config --global gpg.format ssh
+git config --global user.signingkey ~/.ssh/id_rsa.pub
 ```
 
 **生成 SSH 公钥**

@@ -13,7 +13,7 @@ projects:
   - icon: cib:leetcode
     name: LeetCode
     desc: PAT、LeetCode solutions
-    link: /posts/ioi/
+    link: https://docs.alomerry.com/ioi/
   - icon: link
     name: Star
     desc: Some blog and tools
@@ -30,6 +30,10 @@ projects:
     name: Booklists
     desc: 个人读书列表
     link: /links/booklists/
+  - icon: article
+    name: CS KB
+    desc: 计算机八股文
+    link: https://docs.alomerry.com/8gu/
   # - icon: project
   #   name: 伙伴名称
   #   desc: 伙伴详细介绍
