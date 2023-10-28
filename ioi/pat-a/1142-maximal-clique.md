@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1142](){target="_blank"}
+Source: [PAT 1142]
 
 ### Description
 
@@ -78,7 +78,7 @@ Not a Clique
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

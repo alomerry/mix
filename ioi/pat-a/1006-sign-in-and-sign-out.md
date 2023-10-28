@@ -49,7 +49,7 @@ where times are given in the format `HH:MM:SS`, and `ID_number` is a string with
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1099](){target="_blank"}
+Source: [PAT 1099]
 
 ### Description
 
@@ -69,7 +69,7 @@ by a space, with no extra space at the end of the line.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

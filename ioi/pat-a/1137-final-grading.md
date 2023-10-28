@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1137](){target="_blank"}
+Source: [PAT 1137]
 
 ### Description
 
@@ -90,7 +90,7 @@ wehu8 300 55 84 84
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 ```cpp
 #include <iostream>

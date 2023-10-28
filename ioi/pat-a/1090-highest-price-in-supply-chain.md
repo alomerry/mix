@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1090](){target="_blank"}
+Source: [PAT 1090]
 
 ### Description
 
@@ -59,7 +59,7 @@ Dfs或者层次遍历 看着很简单 不知道为啥我小问题好多，卡了
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

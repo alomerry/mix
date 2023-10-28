@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1125](){target="_blank"}
+Source: [PAT 1125]
 
 ### Description
 
@@ -54,7 +54,7 @@ result must be rounded to the nearest integer that is no greater than the maximu
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

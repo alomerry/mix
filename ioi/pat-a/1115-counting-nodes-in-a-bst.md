@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1115](){target="_blank"}
+Source: [PAT 1115]
 
 ### Description
 
@@ -57,7 +57,7 @@ where n1 is the number of nodes in the lowest level, n2 is that of the level abo
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

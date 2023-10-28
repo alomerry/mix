@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1145](){target="_blank"}
+Source: [PAT 1145]
 
 ### Description
 
@@ -59,7 +59,7 @@ input number. Finally print in a line the average search time for all the M keys
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

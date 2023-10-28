@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1066](){target="_blank"}
+Source: [PAT 1066]
 
 ### Description
 
@@ -65,7 +65,7 @@ For each test case, print the root of the resulting AVL tree in one line.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

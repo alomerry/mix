@@ -23,4 +23,3 @@ IOI赛制：每道题提交之后都有反馈，可以看到“通过”、“�
 IOI赛制的比赛：PAT、团体程序设计天梯赛、CCF CCSP、洛谷月赛。
 
 - [PTA](https://pintia.cn/problem-sets/dashboard)
-- [LeetCode]()

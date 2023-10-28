@@ -48,7 +48,7 @@ For each test case you should output the product of $A$ and $B$ in one line, wit
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

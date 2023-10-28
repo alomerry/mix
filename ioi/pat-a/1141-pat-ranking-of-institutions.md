@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1141](){target="_blank"}
+Source: [PAT 1141]
 
 ### Description
 
@@ -79,7 +79,7 @@ A03274 45 hypu
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

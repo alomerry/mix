@@ -70,7 +70,7 @@ If all the 4 digits of $N$ are the same, print in one line the equation `N - N =
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

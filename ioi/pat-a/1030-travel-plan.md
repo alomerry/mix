@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1030](){target="_blank"}
+Source: [PAT 1030]
 
 ### Description
 
@@ -60,7 +60,7 @@ be no extra space at the end of output.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 ::: code-tabs
 

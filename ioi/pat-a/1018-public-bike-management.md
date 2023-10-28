@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT ](){target="_blank"}
+Source: [PAT ]
 
 ### Description
 
@@ -78,7 +78,7 @@ PBMC. The judge’s data guarantee that such a path is unique.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 dijsktra + dfs

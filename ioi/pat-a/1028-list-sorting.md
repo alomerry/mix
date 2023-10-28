@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1028](){target="_blank"}
+Source: [PAT 1028]
 
 ### Description
 
@@ -100,7 +100,7 @@ same name or grade, they must be sorted according to their ID's in increasing or
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1079](){target="_blank"}
+Source: [PAT 1079]
 
 ### Description
 
@@ -71,7 +71,7 @@ place. It is guaranteed that the number will not exceed 10<sup>10</sup>.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

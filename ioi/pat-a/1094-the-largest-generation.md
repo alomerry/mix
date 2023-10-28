@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT ](){target="_blank"}
+Source: [PAT ]
 
 ### Description
 
@@ -67,7 +67,7 @@ assumed that such a generation is unique, and the root level is defined to be 1.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

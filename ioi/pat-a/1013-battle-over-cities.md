@@ -60,7 +60,7 @@ For each of the _*K*_ cities, output in a line the number of highways need to be
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1138](){target="_blank"}
+Source: [PAT 1138]
 
 ### Description
 
@@ -53,7 +53,7 @@ tree.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

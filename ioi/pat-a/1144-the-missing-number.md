@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1144](){target="_blank"}
+Source: [PAT 1144]
 
 ## Description
 
@@ -46,9 +46,6 @@ Print in a line the smallest positive integer that is missing from the input lis
 - set插入数字然后从头往后算，第一个没出现的正数就输出
 
 ## Code
-
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
-
 
 ```cpp
 #include <iostream>

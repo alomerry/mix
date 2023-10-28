@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1154](){target="_blank"}
+Source: [PAT 1154]
 
 ### Description
 
@@ -75,7 +75,7 @@ No
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

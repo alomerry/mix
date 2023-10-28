@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1122](){target="_blank"}
+Source: [PAT 1122]
 
 ### Description
 

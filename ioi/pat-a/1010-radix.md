@@ -61,7 +61,7 @@ equation is impossible, print `Impossible`. If the solution is not unique, outpu
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

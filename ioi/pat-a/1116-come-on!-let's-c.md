@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1116](){target="_blank"}
+Source: [PAT 1116]
 
 ### Description
 
@@ -73,7 +73,7 @@ is not in the ranklist, print `Are you kidding?` instead. If the ID has been che
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

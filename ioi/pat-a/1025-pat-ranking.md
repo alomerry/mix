@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1025](){target="_blank"}
+Source: [PAT 1025]
 
 ### Description
 
@@ -81,7 +81,7 @@ numbers.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ::: code-tabs

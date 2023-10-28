@@ -88,7 +88,7 @@ If a solution exists, print in a line in ascending order the indices of the two 
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1126](){target="_blank"}
+Source: [PAT 1126]
 
 ### Description
 
@@ -116,7 +116,7 @@ Non-Eulerian
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

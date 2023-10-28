@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1121](){target="_blank"}
+Source: [PAT 1121]
 
 ### Description
 
@@ -52,7 +52,7 @@ First print in a line the total number of lonely guests. Then in the next line, 
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

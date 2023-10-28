@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1064](){target="_blank"}
+Source: [PAT 1064]
 
 ### Description
 
@@ -55,7 +55,7 @@ tree. All the numbers in a line must be separated by a space, and there must be 
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

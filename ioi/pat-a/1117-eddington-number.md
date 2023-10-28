@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1117](){target="_blank"}
+Source: [PAT 1117]
 
 ### Description
 
@@ -52,7 +52,7 @@ For each case, print in a line the Eddington number for these N days.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp

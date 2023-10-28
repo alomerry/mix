@@ -13,7 +13,7 @@ category:
 
 ## Problem
 
-Source: [PAT 1106](){target="_blank"}
+Source: [PAT 1106]
 
 ### Description
 
@@ -71,7 +71,7 @@ is guaranteed that the all the prices will not exceed 10^10^.
 
 ## Code
 
-[Github (C++)](https://github.com/Alomerry/algorithm/blob/master/pat/a/){button.button--outline-info.button--rounded}{target="_blank"}
+
 
 
 ```cpp
