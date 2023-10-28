@@ -44,11 +44,10 @@ function convertIOIAlias(markdownPath) {
     let category = getLeetCodeCategoryByPath(markdownPath);
     console.log(`${log.File(markdownPath)}`)
     if (category) {
-      let res = "<<< @/algorithm/code/"+category;
+      let res = "<<< @/algorithm/"+category;
       console.log(`  ${log.Success("convert done")}: ${log.Blue("@IOI")} => ${log.Path(res)}`)
       mdContent = mdContent.replace("@IOI", res)
-      console.log(mdContent)
-      // fs.writeFileSync(markdownPath, mdContent, 'utf8')
+      fs.writeFileSync(markdownPath, mdContent, 'utf8')
     } else {
       console.log(`  ${log.Error("unsupported category: "+ category)}`)
     }
