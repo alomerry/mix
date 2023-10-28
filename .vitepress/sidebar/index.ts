@@ -1,28 +1,23 @@
 import { type DefaultTheme } from 'vitepress'
 import knowledge from "./knowledge.js"
-import baGu from "./8gu.js"
+import { BaGuZh, BaGu } from "./8gu/index.js"
+import { IOIZh, IOI } from "./ioi/index.js"
 
 export enum SidebarType {
-  BaGu,
-  BaGu_Zh,
-  Knowledge,
-  Knowledge_Zh,
+  BaGu, BaGuZh,
+  Knowledge, KnowledgeZh,
+  IOI, IOIZh,
 }
 
-export const SidebarConfig = ({
-  Get(name: SidebarType):DefaultTheme.SidebarItem[] {
-    switch (name) {
-      // TODO: refine suffix
-      case SidebarType.BaGu:
-        return [...baGu.Sidebar()];
-      case SidebarType.BaGu_Zh:
-        return [...baGu.SidebarZh()];
-      case SidebarType.Knowledge:
-        return [...knowledge.Sidebar()];
-      case SidebarType.Knowledge_Zh:
-        return [...knowledge.SidebarZh()];
-      default:
-        return [];
-    }
-  }
-})
+const Sidebar = new Map<SidebarType, DefaultTheme.SidebarItem[]>([
+  [SidebarType.BaGu, [...BaGu()]],
+  [SidebarType.BaGuZh, [...BaGuZh()]],
+  [SidebarType.Knowledge, [...knowledge.Sidebar()]],
+  [SidebarType.KnowledgeZh, [...knowledge.SidebarZh()]],
+  [SidebarType.IOI, [...IOI()]],
+  [SidebarType.IOIZh, [...IOIZh()]],
+])
+
+export function SGet(sidebarType: SidebarType): DefaultTheme.SidebarItem[] {
+  return Sidebar.get(sidebarType) || [] as DefaultTheme.SidebarItem[];
+}

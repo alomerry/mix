@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 import navbar from './navbar.js'
-import { SidebarConfig, SidebarType} from './sidebar/index.js'
+import { SGet, SidebarType} from './sidebar/index.js'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -32,8 +32,9 @@ export default defineConfig({
       themeConfig: {
         nav: navbar.Nav(), // https://vitepress.dev/reference/default-theme-config
         sidebar: {
-          '/8gu/': { base: '/8gu/', items: SidebarConfig.Get(SidebarType.BaGu) },
-          '/knowledge/': { base: '/knowledge/', items: SidebarConfig.Get(SidebarType.Knowledge) },
+          '/8gu/': { base: '/8gu/', items: SGet(SidebarType.BaGu) },
+          '/ioi/': { base: '/ioi/', items: SGet(SidebarType.IOI) },
+          '/knowledge/': { base: '/knowledge/', items: SGet(SidebarType.Knowledge) },
         },
       },
     },
@@ -44,8 +45,9 @@ export default defineConfig({
       themeConfig: {
         nav: navbar.Nav_Zh(),
         sidebar: {
-          '/zh/8gu/': { base: '/zh/8gu/', items: SidebarConfig.Get(SidebarType.BaGu_Zh) },
-          '/zh/knowledge/': { base: '/zh/knowledge/', items: SidebarConfig.Get(SidebarType.Knowledge_Zh) },
+          '/zh/8gu/': { base: '/zh/8gu/', items: SGet(SidebarType.BaGuZh) },
+          '/zh/ioi/': { base: '/zh/ioi/', items: SGet(SidebarType.IOIZh) },
+          '/zh/knowledge/': { base: '/zh/knowledge/', items: SGet(SidebarType.KnowledgeZh) },
         },
       },
     }

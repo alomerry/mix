@@ -1,0 +1,1 @@
+select res.email from (select email,count(email) as count from Person group by email) as res where count >= 2;
