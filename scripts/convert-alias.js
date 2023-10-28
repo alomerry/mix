@@ -7,12 +7,12 @@ import log from "./log.js";
 function run() {
   let convertQueue = [];
   convertIOIAlias2Link(convertQueue)
-  Promise.all(convertQueue).then(res => {
-    console.log(log.SuccessBg("convert cdn/ioi alias complete."))
-  })
+  // Promise.all(convertQueue).then(res => {
+  //   console.log(log.SuccessBg("convert cdn/ioi alias complete."))
+  // })
 }
 
-// 将 [code](@IOI/xxx.go) => [code](../algorithm/leet-code/xxx.go)
+// 将 [code](@IOI/xxx.go) => [code](<<< @/algorithm/leet-code/xxx.go)
 function convertIOIAlias2Link(convertQueue) {
   const IOIDir = [
     "./ioi",
@@ -40,15 +40,15 @@ export default {
 
 function convertIOIAlias(markdownPath) {
   let mdContent = fs.readFileSync(markdownPath, 'utf8');
-  if (mdContent.match(/@\[code\]\(@IOI/) != null) {
+  if (mdContent.match(/@IOI/) != null) {
     let category = getLeetCodeCategoryByPath(markdownPath);
-    let rootPrefix = utils.GetReturnRootPrefix(markdownPath);
     console.log(`${log.File(markdownPath)}`)
-    if (category && rootPrefix) {
-      let res = rootPrefix+"algorithm/code/"+category;
+    if (category) {
+      let res = "<<< @/algorithm/code/"+category;
       console.log(`  ${log.Success("convert done")}: ${log.Blue("@IOI")} => ${log.Path(res)}`)
       mdContent = mdContent.replace("@IOI", res)
-      fs.writeFileSync(markdownPath, mdContent, 'utf8')
+      console.log(mdContent)
+      // fs.writeFileSync(markdownPath, mdContent, 'utf8')
     } else {
       console.log(`  ${log.Error("unsupported category: "+ category)}`)
     }
