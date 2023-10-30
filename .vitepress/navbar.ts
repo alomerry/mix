@@ -7,8 +7,8 @@ function Nav(): DefaultTheme.NavItem[] {
       text: '8gu',
       items: [
         { text: 'Case', link: '/8gu/case/' },
-        { text: 'Language', link: '/8gu/language/' },
-        { text: 'Database', link: '/8gu/database/' },
+        { text: 'Language', link: '/8gu/language/golang/' },
+        { text: 'Database', link: '/8gu/database/mysql/' },
       ]
     },
     {
@@ -28,14 +28,14 @@ function Nav_Zh(): DefaultTheme.NavItem[] {
       text: '八股文',
       items: [
         { text: '面经', link: '/zh/8gu/case/' },
-        { text: '编程语言', link: '/zh/8gu/language/' },
-        { text: '数据库', link: '/zh/8gu/database/' },
+        { text: '编程语言', link: '/zh/8gu/language/golang/' },
+        { text: '数据库', link: '/zh/8gu/database/mysql/' },
       ]
     },
     {
       text: 'IOI',
       items: [
-        { text: 'PAT', link: '/zh/ioi/pat-a/' },
+        { text: 'PAT', link: '/zh/ioi/pat-a/1001' },
         { text: '力扣', link: '/zh/ioi/leetcode-easy/1' },
       ]
     },

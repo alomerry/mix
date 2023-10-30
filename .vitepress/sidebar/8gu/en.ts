@@ -5,10 +5,15 @@ export function BaGu(): DefaultTheme.SidebarItem[] {
     { text: '8gu', link: '/' },
     {
       text: 'Case',
-      base: '/8gu/case/',
+      link: 'case/index',
       collapsed: false,
       items: [
-        { text: 'Didi 一面', link: 'didi' },
+        { text: 'ucloud', link: 'case/ucloud' },
+        { text: 'mihoyo', link: 'case/mihoyo' },
+        { text: '智慧树', link: 'case/zhihuishu' },
+        { text: '流利说', link: 'case/liulishuo' },
+        { text: '悠星', link: 'case/yostar' },
+        { text: '趋动科技', link: 'case/virtaitech' },
       ]
     },
     {

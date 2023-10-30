@@ -1,5 +1,4 @@
 import { type DefaultTheme } from 'vitepress'
-import knowledge from "./knowledge.js"
 import { BaGuZh, BaGu } from "./8gu/index.js"
 import { IOIZh, IOI } from "./ioi/index.js"
 
