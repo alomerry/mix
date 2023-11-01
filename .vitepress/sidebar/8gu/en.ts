@@ -1,4 +1,5 @@
 import { type DefaultTheme } from 'vitepress'
+import { BaGuLanguage } from "./language/index.js"
 
 export function BaGu(): DefaultTheme.SidebarItem[] {
   return [
@@ -19,9 +20,7 @@ export function BaGu(): DefaultTheme.SidebarItem[] {
     {
       text: 'Language',
       collapsed: false,
-      items: [
-        { text: 'Golang', link: 'language/golang/' },
-      ]
+      items: BaGuLanguage()
     },
     {
       text: 'Database',

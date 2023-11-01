@@ -1,4 +1,5 @@
 import { type DefaultTheme } from 'vitepress'
+import { BaGuZhLanguage } from "./language/index.js"
 
 export function BaGuZh(): DefaultTheme.SidebarItem[] {
   return [
@@ -19,9 +20,7 @@ export function BaGuZh(): DefaultTheme.SidebarItem[] {
     {
       text: '编程语言',
       collapsed: false,
-      items: [
-        { text: 'Golang', link: 'language/golang/' },
-      ]
+      items: BaGuZhLanguage()
     },
     {
       text: '数据库',

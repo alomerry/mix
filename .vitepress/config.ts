@@ -7,7 +7,7 @@ import { SGet, SidebarType} from './sidebar/index.js'
 export default defineConfig({
   title: "CS KB",
   themeConfig:{
-    outline: 2,
+    outline: [2, 3],
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2023-present Alomerry Wu',
