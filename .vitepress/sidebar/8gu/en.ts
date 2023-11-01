@@ -1,5 +1,4 @@
 import { type DefaultTheme } from 'vitepress'
-import { BaGuLanguage } from "./language/index.js"
 
 export function BaGu(): DefaultTheme.SidebarItem[] {
   return [
@@ -7,35 +6,46 @@ export function BaGu(): DefaultTheme.SidebarItem[] {
     {
       text: 'Case',
       link: 'case/index',
-      collapsed: false,
+      base: 'case/',
+      collapsed: true,
       items: [
-        { text: 'ucloud', link: 'case/ucloud' },
-        { text: 'mihoyo', link: 'case/mihoyo' },
-        { text: '智慧树', link: 'case/zhihuishu' },
-        { text: '流利说', link: 'case/liulishuo' },
-        { text: '悠星', link: 'case/yostar' },
-        { text: '趋动科技', link: 'case/virtaitech' },
+        { text: 'ucloud', link: 'ucloud' },
+        { text: 'mihoyo', link: 'mihoyo' },
+        { text: '智慧树', link: 'zhihuishu' },
+        { text: '流利说', link: 'liulishuo' },
+        { text: '悠星', link: 'yostar' },
+        { text: '趋动科技', link: 'virtaitech' },
       ]
     },
     {
       text: 'Language',
-      collapsed: false,
-      items: BaGuLanguage()
+      collapsed: true,
+      base: 'language/golang/',
+      items: [
+        { 
+          text: 'Golang',
+          link: '/',
+          items: [
+            { text: 'Function Call', link: 'function-call' },
+          ]
+        },
+      ]
     },
     {
       text: 'Database',
-      collapsed: false,
-      link: 'database/',
+      collapsed: true,
+      link: '/',
+      base: 'database/',
       items: [
-        { text: 'MySQL', link: 'database/mysql/' },
-        { text: 'Redis', link: 'database/redis/' },
-        { text: 'MongoDB', link: 'database/mongodb/' },
-        { text: 'ElasticSearch', link: 'database/elastic-search/' }
+        { text: 'MySQL', link: 'mysql/' },
+        { text: 'Redis', link: 'redis/' },
+        { text: 'MongoDB', link: 'mongodb/' },
+        { text: 'ElasticSearch', link: 'elastic-search/' }
       ]
     },
     {
       text: 'MessageQueue',
-      collapsed: false,
+      collapsed: true,
       link: 'message-queue/',
       items: [
         { text: 'RocketMQ', link: '' },
@@ -43,7 +53,7 @@ export function BaGu(): DefaultTheme.SidebarItem[] {
     },
     {
       text: 'CloudNative',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'Docker', link: '' },
         { text: 'Kubernetes', link: '' },
@@ -52,7 +62,7 @@ export function BaGu(): DefaultTheme.SidebarItem[] {
     },
     {
       text: 'CS',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'System', link: 'system/' },
         { text: 'Network', link: 'network/' },

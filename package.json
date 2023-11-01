@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "NODE_ENV=development vitepress dev --host 0.0.0.0",
     "build": "node scripts/cmd.js prebuild && vitepress build",
-    "autoIoiSidebar": "node scripts/cmd.js auto-ioi-sidebar",
+    "autoSidebar": "node scripts/cmd.js auto-sidebar",
     "convertAlias": "node scripts/cmd.js convert-alias",
     "preview": "vitepress preview"
   },

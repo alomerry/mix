@@ -45,6 +45,25 @@ function getDirFilesPath(dirPath) {
   return allFilePaths;
 }
 
+// 获取当前目录下子目录名称
+function getSubDir(dirPath) {
+  let subDirs = [];
+  if (fs.existsSync(dirPath)) {
+    const files = fs.readdirSync(dirPath);
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i]; // 文件名称（不包含文件路径）
+      let currentFilePath = dirPath + '/' + file;
+      let stats = fs.lstatSync(currentFilePath);
+      if (stats.isDirectory()) {
+        subDirs.push(file);
+      }
+    }
+  } else {
+    // console.warn(`指定的目录${dirPath}不存在！`);
+  }
+  return subDirs;
+}
+
 // 获取路径里的全部目录相对地址
 function getAllDirPath(filePath) {
   let allFilePaths = [];
@@ -262,9 +281,11 @@ function removeDir(dir) {
   fs.rmdirSync(dir)//如果文件夹是空的，就将自己删除掉
 }
 
-function getAbsoluteIOIPath() {
-  return resolve('./ioi/');
+function getAbsolutePath(path) {
+  return resolve(path);
 }
+
+
 
 // 仅拷贝文件
 function copy(from, to) {
@@ -316,5 +337,5 @@ export default {
   getAllFilesPath, getDirFilesPath, getFileDir, getAllDirPath, getChildDir, deleteFile, deleteDir, clearDir, existsPath, makeDir, getFileType, getFileName, copy, getMD5, checkMD5,
 
 
-  tools_IOI_SiderBar_Children_Generator, getAbsoluteIOIPath,
+  tools_IOI_SiderBar_Children_Generator, getAbsolutePath, getSubDir,
 }

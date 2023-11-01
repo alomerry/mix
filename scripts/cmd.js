@@ -1,12 +1,12 @@
 import setupI18n from "./setup-i18n.js"
 import convertAlias from "./convert-alias.js"
-import autoAddSidebar from "./auto-add-sidebar.js"
+import autoSidebar from "./auto-sidebar.js"
 
 const OPERATIONS = {
   PREBUILD: "prebuild",
   SETUP_i18n: "setup-i18n",
   CONVERT_ALIAS: "convert-alias",
-  AutoIOISidebar: "auto-ioi-sidebar",
+  AutoSidebar: "auto-sidebar",
 }
 
 const COMMANDS_MAPPER = new Map([
@@ -25,8 +25,8 @@ process.argv.forEach((val, index) => {
     case OPERATIONS.CONVERT_ALIAS:
       convertAlias.run();
       break;
-    case OPERATIONS.AutoIOISidebar:
-      autoAddSidebar.run();
+    case OPERATIONS.AutoSidebar:
+      autoSidebar.run();
       break;
     case OPERATIONS.PREBUILD:
       setupI18n.run();

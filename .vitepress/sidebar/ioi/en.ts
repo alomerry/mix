@@ -2,11 +2,10 @@ import { type DefaultTheme } from 'vitepress'
 
 export function IOI(): DefaultTheme.SidebarItem[] {
   return [
-    { text: 'IOI', link: '/' },
+    { text: 'IOI', link: '/ioi/' },
     {
       text: 'LeetCode Easy',
       base: '/ioi/leetcode-easy/',
-      collapsed: false,
       items: [
         { text: '1\. 两数之和', link: '1' },
         { text: '7\. Reverse Integer', link: '7' },
@@ -40,7 +39,7 @@ export function IOI(): DefaultTheme.SidebarItem[] {
     {
       text: 'LeetCode Medium',
       base: '/ioi/leetcode-medium/',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: '2\. 两数相加', link: '2' },
         { text: '3\. 无重复字符的最长子串', link: '3' },
@@ -79,7 +78,7 @@ export function IOI(): DefaultTheme.SidebarItem[] {
     {
       text: 'LeetCode Hard',
       base: '/ioi/leetcode-hard/',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: '4\. 寻找两个正序数组的中位数', link: '4' },
         { text: '10\. Regular Expression Matching', link: '10' },
@@ -91,7 +90,7 @@ export function IOI(): DefaultTheme.SidebarItem[] {
     {
       text: 'LeetCode SQL',
       base: '/ioi/leetcode-sql/',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: '175\. 组合两个表', link: '175' },
         { text: '176\. 第二高的薪水', link: '176' },
@@ -106,7 +105,7 @@ export function IOI(): DefaultTheme.SidebarItem[] {
     {
       text: 'PAT 甲级',
       base: '/ioi/pat-a/',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'xxx', link: '1001' },
       ]

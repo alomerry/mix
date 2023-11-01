@@ -1,5 +1,4 @@
 import { type DefaultTheme } from 'vitepress'
-import { BaGuZhLanguage } from "./language/index.js"
 
 export function BaGuZh(): DefaultTheme.SidebarItem[] {
   return [
@@ -7,7 +6,7 @@ export function BaGuZh(): DefaultTheme.SidebarItem[] {
     {
       text: '面经',
       link: 'case/index',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: '优刻得', link: 'case/ucloud' },
         { text: '米哈游', link: 'case/mihoyo' },
@@ -19,40 +18,52 @@ export function BaGuZh(): DefaultTheme.SidebarItem[] {
     },
     {
       text: '编程语言',
-      collapsed: false,
-      items: BaGuZhLanguage()
+      collapsed: true,
+      items: [
+        { 
+          text: 'Golang',
+          link: 'language/golang/',
+          items: [
+            { text: '函数调用', link: 'language/golang/function-call' },
+          ]
+        },
+      ]
     },
     {
       text: '数据库',
-      collapsed: false,
-      link: 'database/',
+      collapsed: true,
+      link: '/',
+      base: '/zh/8gu/database/',
       items: [
-        { text: 'MySQL', link: 'database/mysql/' },
-        { text: 'Redis', link: 'database/redis/' },
-        { text: 'MongoDB', link: 'database/mongodb/' },
-        { text: 'ElasticSearch', link: 'database/elastic-search/' }
+        { text: 'MySQL', link: 'mysql/' },
+        { text: 'Redis', link: 'redis/' },
+        { text: 'MongoDB', link: 'mongodb/' },
+        { text: 'ElasticSearch', link: 'elastic-search/' }
       ]
     },
     {
       text: '消息队列',
-      collapsed: false,
-      link: 'message-queue/',
+      collapsed: true,
+      link: '/',
+      base: '/zh/8gu/message-queue/',
       items: [
         { text: 'RocketMQ', link: '' },
       ]
     },
     {
       text: '云原生',
-      collapsed: false,
+      collapsed: true,
+      base: '/zh/8gu/cloud-native/',
       items: [
         { text: 'Docker', link: '' },
         { text: 'Kubernetes', link: '' },
-        { text: 'CAP', link: 'cloud-native/cap' },
+        { text: 'CAP', link: 'cap' },
       ]
     },
     {
       text: '计算机基础',
-      collapsed: false,
+      collapsed: true,
+      base: '/zh/8gu/',
       items: [
         { text: '操作系统', link: 'system/' },
         { text: '计算机网络', link: 'network/' },

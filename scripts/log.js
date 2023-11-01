@@ -1,5 +1,17 @@
 import chalk from "chalk"
 
+const debug = true;
+
+function Log(msg) {
+  console.log(msg);
+}
+
+function Debug(msg) {
+  if (debug) {
+    console.log(msg);
+  }
+}
+
 function Warn(msg) {
   return chalk.yellow(msg)
 }
@@ -49,6 +61,7 @@ function File(msg) {
 }
 
 export default {
+  Debug, Log,
   Blue,
   Warn, WarnBg,
   Error, ErrorBg,
