@@ -33,3 +33,5 @@ Jetbrains IDE 工具，可以统一下载更新旗下的 IDE、参与测试等
 ## mos
 
 ## bark
+
+- https://github.com/gildas-lormeau/SingleFile
