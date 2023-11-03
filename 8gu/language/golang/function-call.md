@@ -1,7 +1,5 @@
 ---
 date: 2023-07-04
-sidebar: false
-navbar: false
 head:
   - - meta
     - name: description

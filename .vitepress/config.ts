@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-
+import todo from 'markdown-it-task-lists'
 import navbar from './navbar.js'
 import { SGet, SidebarType} from './sidebar/index.js'
 
@@ -74,6 +74,9 @@ export default defineConfig({
     }
   },
   markdown: {
+    config: (md) => {
+      md.use(todo)
+    },
     math: true,
   },
   lastUpdated: true
