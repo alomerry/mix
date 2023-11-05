@@ -12,7 +12,7 @@ function run() {
   // })
 }
 
-// 将 [code](@IOI/xxx.go) => [code](<<< @/algorithm/leet-code/xxx.go)
+// 将 [code](@IOI/xxx.go) => [code](<<< @/others/algorithm/leet-code/xxx.go)
 function convertIOIAlias2Link(convertQueue) {
   const IOIDir = [
     "./ioi",
@@ -44,7 +44,7 @@ function convertIOIAlias(markdownPath) {
     let category = getLeetCodeCategoryByPath(markdownPath);
     console.log(`${log.File(markdownPath)}`)
     if (category) {
-      let res = "<<< @/algorithm/"+category;
+      let res = "<<< @/others/algorithm/"+category;
       console.log(`  ${log.Success("convert done")}: ${log.Blue("@IOI")} => ${log.Path(res)}`)
       mdContent = mdContent.replace("@IOI", res)
       fs.writeFileSync(markdownPath, mdContent, 'utf8')
