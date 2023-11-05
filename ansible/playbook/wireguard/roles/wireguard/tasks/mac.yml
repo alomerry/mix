@@ -1,0 +1,17 @@
+- name: init private key
+  shell: |
+    wg genkey | tee /etc/wireguard/privatekey | wg pubkey | tee /etc/wireguard/publickey
+    echo "net.ipv4.ip_forward = 1" >>
+- name: copy wg0.conf
+  shell: |
+    cp xxx
+- name: update wg0.conf
+  shell: |
+    sed -i "s/SERVER_PRIVATE_KEY/${privatekey}/g" wg0.conf
+- name: update wireguard privileges
+  shell: |
+    chmod 600 /etc/wireguard/{privatekey,wg0.conf}
+    wg-quick up wg0
+    wg show wg0 
+    # ip a show wg0
+    # ufw allow 51820/udp
