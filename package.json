@@ -21,7 +21,7 @@
   "dependencies": {
     "markdown-it-mathjax3": "^4.3.2",
     "markdown-it-task-lists": "^2.1.1",
-    "vitepress": "1.0.0-rc.23"
+    "vitepress": "1.0.0-rc.24"
   },
   "devDependencies": {
     "@types/node": "^20.8.8",

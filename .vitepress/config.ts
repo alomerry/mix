@@ -1,12 +1,13 @@
 import { defineConfig } from 'vitepress'
 import todo from 'markdown-it-task-lists'
 import navbar from './navbar.js'
-import { SGet, SidebarType} from './sidebar/index.js'
+import { BaGuIndex } from './sidebar/8gu/index.js'
+import { IOIIndex } from './sidebar/ioi/index.js'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "CS KB",
-  themeConfig:{
+  themeConfig: {
     outline: [2, 3],
     footer: {
       message: 'Released under the MIT License.',
@@ -24,28 +25,31 @@ export default defineConfig({
       // { icon: { svg: "" }, link: '' },
     ],
     search: {
-			provider: 'local',
-			options: {
-				locales: {
-					zh: {
-						translations: {
-							button: {
-								buttonText: '搜索文档',
-								buttonAriaLabel: '搜索文档',
-							},
-							modal: {
-								noResultsText: '无法找到相关结果',
-								resetButtonTitle: '清除查询条件',
-								footer: {
-									selectText: '选择',
-									navigateText: '切换',
-								},
-							},
-						},
-					},
-				},
-			},
-		},
+      provider: 'local',
+      options: {
+        locales: {
+          zh: {
+            translations: {
+              button: {
+                buttonText: '搜索文档',
+                buttonAriaLabel: '搜索文档',
+              },
+              modal: {
+                noResultsText: '无法找到相关结果',
+                resetButtonTitle: '清除查询条件',
+                footer: {
+                  selectText: '选择',
+                  navigateText: '切换',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  sitemap: {
+    hostname: 'https://docs.alomerry.com'
   },
   locales: {
     root: {
@@ -53,10 +57,10 @@ export default defineConfig({
       lang: 'en',
       description: "8gu docs",
       themeConfig: {
-        nav: navbar.Nav(), // https://vitepress.dev/reference/default-theme-config
+        nav: navbar.Nav(),
         sidebar: {
-          '/8gu/': { base: '/8gu/', items: SGet(SidebarType.BaGu) },
-          '/ioi/': { base: '/ioi/', items: SGet(SidebarType.IOI) },
+          ...BaGuIndex(),
+          ...IOIIndex(),
         },
       },
     },
@@ -67,8 +71,8 @@ export default defineConfig({
       themeConfig: {
         nav: navbar.Nav_Zh(),
         sidebar: {
-          '/zh/8gu/': { base: '/zh/8gu/', items: SGet(SidebarType.BaGuZh) },
-          '/zh/ioi/': { base: '/zh/ioi/', items: SGet(SidebarType.IOIZh) },
+          // '/zh/8gu/': { base: '/zh/8gu/', items: SGet(SidebarType.BaGuZh) },
+          // '/zh/ioi/': { base: '/zh/ioi/', items: SGet(SidebarType.IOIZh) },
         },
       },
     }
