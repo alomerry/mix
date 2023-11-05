@@ -394,6 +394,10 @@ https://riris.cn/archives/page/2/#board
   - https://www.cnblogs.com/xiaoli-ya/p/16144791.html
 - 来此加密 https://letsencrypt.osfipin.com/user-0408/order/detail?id=6e1vq0
 
+## 知乎
+
+- 如何查询英语四六级证书编号：可以登陆官方网站[中国教育考试网](http://www.neea.edu.cn/)，注册账号后，点击[补办成绩证书](http://bbcjzm.neea.edu.cn)，直接选择你想要补办的成绩证书，然后支付宝付20元，可以直接帮你邮寄新证书，同时也会出现证书相关信息（包括准考证号，成绩证书编号），非常人性化服务，很多人都不知道，同学们可以收藏网站备用一下！
+
 ## Reference
 
 - https://roadmap.sh/
