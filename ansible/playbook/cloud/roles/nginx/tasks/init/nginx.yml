@@ -1,0 +1,15 @@
+- name: init nginx workspace
+  shell: |
+    mkdir /root/apps/nginx/site -p
+    mkdir /root/apps/nginx/cert -p
+    mkdir /root/apps/nginx/logs -p
+    mkdir /root/apps/nginx/conf -p
+- name: copy nginx service
+  copy:
+    src: nginx.service
+    dest: /etc/systemd/system/nginx.service
+- name: copy nginx conf
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    mode: 0644

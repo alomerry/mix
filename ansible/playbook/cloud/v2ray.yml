@@ -1,0 +1,4 @@
+- hosts: v2ray
+  remote_user: root
+  roles:
+    - v2ray

@@ -1,0 +1,14 @@
+- name: init v2ray
+  shell: |
+    mkdir /root/downloads
+- name: set v2ray install script
+  copy:
+    src: install-release.sh
+    dest: /root/downloads/install-release.sh
+- name: change mod
+  shell: |
+    chmod /root/downloads/install-release.sh
+- name: set config
+  copy:
+    src: config.json
+    dest: /usr/local/etc/v2ray/config.json

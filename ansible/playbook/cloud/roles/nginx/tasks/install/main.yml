@@ -1,0 +1,6 @@
+# - name: set dependence
+#   include_tasks: install/dependence.yml
+# - name: set nginx
+#   include_tasks: install/nginx.yml
+- name: install acme
+  include_tasks: install/acme.yml

@@ -1,0 +1,8 @@
+# - hosts: cvm
+#   remote_user: root
+#   roles:
+#     - nginx
+- hosts: vps
+  remote_user: root
+  roles:
+    - nginx

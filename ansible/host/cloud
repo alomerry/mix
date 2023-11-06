@@ -1,8 +1,3 @@
-[tencent-cvm]
-cvm.alomerry.com:22
-
-[vps-master]
-vps.alomerry.com:22
 [vps-local]
 192.168.3.110:22
 
@@ -19,3 +14,12 @@ vps-local
 TYPE=master
 [vps-local:vars]
 TYPE=node
+
+[v2ray]
+vps.alomerry.com
+
+[vps]
+vps.alomerry.com
+
+[cvm]
+cvm.alomerry.com

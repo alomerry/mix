@@ -4,27 +4,15 @@
   register: basedir_stat
 - name: check and generate aliyun ssl
   shell: |
-    /root/.acme.sh/acme.sh --issue --dns dns_ali -d alomerry.com
+    /root/.acme.sh/acme.sh --issue --dns dns_ali -d *.alomerry.com
   when: not basedir_stat.stat.exists
 - name: renew aliyun ssl
   shell: |
     /root/.acme.sh/acme.sh --renew -d alomerry.com
   when: basedir_stat.stat.exists
   ignore_errors: true
-- name: install aliyun ssl
+- name: install vps ssl
   shell: |
     /root/.acme.sh/acme.sh --install-cert -d alomerry.com --key-file /root/apps/nginx/cert/{{ item }}/privkey.pem --fullchain-file /root/apps/nginx/cert/{{ item }}/fullchain.pem
   with_items:
-    # - oss.alomerry.com
-    # - k8s.alomerry.com
-    # - docs.alomerry.com
-    - ssh.alomerry.com
-    # - bark.alomerry.com
-    # - blog.alomerry.com
-    # - ci.alomerry.com
-    # - resume.alomerry.com
-    # - umami.alomerry.com
-    # - uptime.alomerry.com
-    # - waline.alomerry.com
-
-
+    - proxy.alomerry.com

@@ -6999,7 +6999,7 @@ installOnline() {
     _branch="master"
   fi
 
-  target="https://ghproxy.com/$PROJECT/archive/$_branch.tar.gz"
+  target="$PROJECT/archive/$_branch.tar.gz"
   _info "Downloading $target"
   localname="$_branch.tar.gz"
   if ! _get "$target" >$localname; then
