@@ -1,7 +1,8 @@
 [tencent-cvm]
 cvm.alomerry.com:22
 
-[vps]
+[vps.hk]
+vps.hk.alomerry.com:22
 
 [vps-master]
 vps.alomerry.com:22

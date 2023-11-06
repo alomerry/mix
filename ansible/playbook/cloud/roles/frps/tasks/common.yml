@@ -1,0 +1,14 @@
+- name: install common debs
+  apt:
+    name: '{{ item }}'
+  with_items:
+  - tree
+  - aptitude
+  - ca-certificates
+  - curl
+  - gnupg
+  - wget
+  - cron
+  - lsof
+- name: set journal
+  shell: journalctl --vacuum-time=1d && journalctl --vacuum-size=30M

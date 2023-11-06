@@ -1,8 +1,6 @@
-- hosts: tencent-cvm
+- hosts: vps.hk
   remote_user: root
   vars:
     - FRP_VERSION: 0.51.3
   roles:
-    # - common
-    - nginx
-    # - dns
+    - frps
