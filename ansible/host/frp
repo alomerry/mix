@@ -1,8 +1,11 @@
 [frps-vps.hk]
-vps.alomerry.com:22
+vps.alomerry.com
 
 [frps-cvm]
-cvm.alomerry.com:22
+cvm.alomerry.com
 
 [frp-client]
-192.168.31.100:22
+192.168.31.100
+
+[frp-client-remote]
+cvm.alomerry.com ansible_ssh_port=60022
