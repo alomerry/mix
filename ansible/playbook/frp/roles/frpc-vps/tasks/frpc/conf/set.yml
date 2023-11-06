@@ -1,0 +1,12 @@
+- name: set conf
+  copy:
+    src: vps
+    dest: /root/apps/frpc-vps/
+- name: set service
+  copy:
+    src: vps.service
+    dest: /etc/systemd/system/frpc-vps.service
+- name: enable frpc service
+  shell: |
+    systemctl enable frpc-vps.service
+    systemctl stop frpc-vps.service

@@ -1,6 +1,6 @@
-- hosts: frps-vps.hk
+- hosts: frp-client
   remote_user: root
   vars:
     - FRP_VERSION: 0.51.3
   roles:
-    - frps
+    - frpc-vps

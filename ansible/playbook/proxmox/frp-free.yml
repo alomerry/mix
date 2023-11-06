@@ -1,6 +1,0 @@
-- hosts: pve-k8s-master
-  remote_user: root
-  vars:
-    - FRP_VERSION: 0.49.0
-  roles:
-    - frp-free
