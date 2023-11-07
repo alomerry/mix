@@ -32,7 +32,7 @@ projects:
     link: /links/booklists/
   - icon: article
     name: CS KB
-    desc: 计算机八股文
+    desc: 计算机学习笔记
     link: https://docs.alomerry.com/8gu/
   # - icon: project
   #   name: 伙伴名称

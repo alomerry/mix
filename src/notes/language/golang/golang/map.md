@@ -7,14 +7,14 @@ tag:
   - Map
 ---
 
-# [字典](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)
+# [map](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)
 
 ::: tip 本文基于 Golang 1.20.3
 :::
 
-## 结构
+## struct
 
-![map 结构](https://img.draveness.me/2020-10-18-16030322432679/hmap-and-buckets.png)
+![map struct](https://img.draveness.me/2020-10-18-16030322432679/hmap-and-buckets.png)
 
 map 在运行时对应的结构是 `hmap`：
 
