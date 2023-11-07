@@ -54,7 +54,7 @@ export function BaGu(): DefaultTheme.SidebarItem[] {
           collapsed: false,
           items: [
             { text: 'Kubernetes', link: '/8gu/cloud-native/k8s/' },
-            // { text: 'CAP', link: '/8gu/cloud-native/cap' },
+            { text: 'CAP', link: '/8gu/cloud-native/cap' },
           ]
         },
         {
