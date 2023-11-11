@@ -11,7 +11,7 @@ export default defineConfig({
     outline: [2, 3],
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2023-present Alomerry Wu',
+      copyright: '<a href="http://beian.miit.gov.cn/" rel="noopener noreferrer" target="_blank">备案号: 苏ICP备19037502号-3</a> | Copyright © 2023-present Alomerry Wu',
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/alomerry/docs' },
