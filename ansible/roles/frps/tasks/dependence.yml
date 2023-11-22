@@ -1,0 +1,12 @@
+- name: install frps debs
+  apt:
+    name: '{{ item }}'
+  with_items:
+  - tree
+  - aptitude
+  - ca-certificates
+  - curl
+  - gnupg
+  - wget
+  - cron
+  - lsof

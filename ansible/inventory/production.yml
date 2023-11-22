@@ -1,0 +1,53 @@
+all:
+  children:
+    aws:
+      hosts:
+        52.195.38.31
+    tencent:
+      hosts:
+        101.34.246.43
+    hostyun:
+      hosts:
+        45.159.50.206
+    justhost-vps:
+      hosts:
+        45.136.245.166
+    local-master:
+      hosts:
+        192.168.31.100
+    local-node1:
+      hosts:
+        192.168.31.195
+    local-node2:
+      hosts:
+        192.168.31.159
+    frps:
+      children:
+        aws:
+        tencent:
+        hostyun:
+        justhost-vps:
+    frpc:
+      children:
+        local-master:
+    frpc-remote:
+      children:
+        local-master:
+    cloud:
+      children:
+        aws:
+        tencent:
+        hostyun:
+        justhost-vps:
+    local-remote:
+    k8s:
+      vars:
+        K8S_VERSION: 1.28.1
+        K8S_TOOLS_VERSION: 0.15.1
+    local:
+      children:
+        hosts:
+          local-master:
+          local-node1:
+          local-node2:
+          

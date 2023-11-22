@@ -1,5 +1,8 @@
-ansible all -m ping -i ./ansible/hosts
+# 最佳实践
 
-ansible-playbook -i host/hosts playbook/common.yml
+- 拥有版本控制
+- 拥有可重复性
+- 从基本的 playbook 目录结构和静态的主机清单来构建 roles
+- 后续可以自己开发模块和插件
 
-https://cloud.tencent.com/document/product/1207/45596
+ansible-playbook -i host/cloud playbook/cloud/nginx.yml 
