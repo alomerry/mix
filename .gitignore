@@ -2,30 +2,9 @@
 .idea
 .fleet
 .vscode
+.obsidian
 
 # macos cache
 **/*.DS_Store
 
-# npm install
-!codes/*.md
 node_modules
-src/.vuepress/.cache
-src/.vuepress/.temp
-src/.vuepress/ossPusher
-src/.vuepress/core.toml
-src/.vuepress/dist
-
-src/.vuepress/public/github-contribution-grid-snake.svg
-
-# need to delete
-src/_codes
-
-# need to delete
-src/about/resume/todo.md
-src/about/resume/youxing.html
-
-scripts/test.js
-
-src/**/*/assets/*.*
-
-src/.vuepress/public/assets/*

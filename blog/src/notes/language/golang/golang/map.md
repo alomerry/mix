@@ -187,11 +187,11 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
 
 ## 写入
 
-在 [访问](./map.md#访问) 中可以知道，在赋值时会转为 `mapassign`[^mapassign] 方法
+在 [访问](blog/src/notes/language/golang/golang/map.md#访问) 中可以知道，在赋值时会转为 `mapassign`[^mapassign] 方法
 
 - 检查 map 是否在写入，有写入会直接终止程序
 - 通过种子和 key 通过对应的类型的 hash 函数计算出 hash 值，并更新 flags 标记 map 正在写入
-- 如果 bucket 为空则初始化 bucket（对应着[运行时的处理](./map.md#运行时的处理)中的逻辑，map 初始化阶段如无元素，则会在写入阶段初始化）
+- 如果 bucket 为空则初始化 bucket（对应着[运行时的处理](blog/src/notes/language/golang/golang/map.md#运行时的处理)中的逻辑，map 初始化阶段如无元素，则会在写入阶段初始化）
 - 将 hash 和 `1<<b-1` 执行与操作来获得 bucket 桶号
   - 如果 map 正在执行扩容，则对该 bucket 执行一次扩容迁移
 - 将 bucket 序号和每个 bucket 的 size 相乘的结果从 map 桶起始地址做偏移，获得 bucket 序号桶的地址

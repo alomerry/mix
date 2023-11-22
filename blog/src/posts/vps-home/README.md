@@ -69,7 +69,7 @@ TODO 检查抢占式信号 https://cloud.tencent.com/document/product/213/37970
 
 - [配置 git](../../notes/git/README.md#配置)
 - 安装 [clash](https://github.com/Fndroid/clash_for_windows_pkg/releases/latest)
-- [zsh/oh-my-zsh](../../posts/installation-manual.md#zshoh-my-zsh)
+- [zsh/oh-my-zsh](blog/src/posts/installation-manual.md#zshoh-my-zsh)
 - [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
   - 安装 node、pnpm
 - [gvm](https://github.com/moovweb/gvm#installing)
@@ -81,7 +81,7 @@ TODO 检查抢占式信号 https://cloud.tencent.com/document/product/213/37970
 - [jetbrains tools](https://www.jetbrains.com/toolbox-app/)
 - [todesk](https://www.todesk.com/download.html)
 - [frp](https://github.com/fatedier/frp)
-- [docker](../../notes/container/docker/README.md#Install)
+- [docker](blog/src/notes/container/docker/README.md#Install)
 ### 可选
 
 - 安装 duf [`wget http://cdn.alomerry.com/packages/duf/duf_0.8.1_linux_amd64.deb`](https://github.com/muesli/duf#installation)

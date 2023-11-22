@@ -24,7 +24,7 @@ tag:
 - Jetbrains Tools
     - Goland
     - Webstorm
-- Karabiner 
+- Karabiner
 - Warp 终端
 - ClashX pro 代理
 - AltTab 程序切换
@@ -111,6 +111,20 @@ G604
 ### Karabiner
 
 change <kbd>Caplock</kbd> to <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Option</kbd>+<kbd>Shift</kbd>
+
+## aws
+
+移除 root 不能登录
+
+```sh
+no-port-forwarding,no-agent-forwarding,no-X11-forwarding,command="echo 'Please login as the
+ user \"ubuntu\" rather than the user \"root\".';echo;sleep 10;exit 142" ssh-rsa xxxx= id_rsa
+```
+
+- sshd_config
+  - PermitRootLogin prohibit-password
+  - PubkeyAuthentication
+- /etc/init.d/ssh restart
 
 ## Reference
 

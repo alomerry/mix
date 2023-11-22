@@ -1,5 +1,41 @@
 # Alomerry Wu's Blog
 
+### Hi there 👋
+
+<p>
+  <img src="https://github-readme-stats.vercel.app/api?username=alomerry&show_icons=true&theme=slateorange&count_private=true&hide_border=true" height="170">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Alomerry&layout=compact&theme=slateorange&count_private=true&hide=html&exclude_repo=WorkCode,Alomerry.github.io,dev-template,Blog,blogBackup&langs_count=6&hide_border=true&v=2" height="170">
+</p>
+
+<img
+  src="https://api.githubtrends.io/user/svg/Alomerry/langs?time_range=one_year&theme=dark"
+  alt="githubtrends"
+  align="right"
+/>
+
+Here are some ideas to get you started:
+
+- 🔭 I’m currently working on ...
+- 🌱 I’m currently learning ...
+- 👯 I’m looking to collaborate on ...
+- 🤔 I’m looking for help with ...
+- 💬 Ask me about ...
+- 📫 How to reach me: ...
+- 😄 Pronouns: ...
+- ⚡ Fun fact: ...
+
+
+---
+
+🌟
+```
+    // | |
+   //__| |    //  ___      _   __      ___      __      __
+  / ___  |   // //   ) ) // ) )  ) ) //___) ) //  ) ) //  ) ) //   / /
+ //    | |  // //   / / // / /  / / //       //      //      ((___/ /
+//     | | // ((___/ / // / /  / / ((____   //      //           / /
+```
+
 [![Build Status](https://ci.alomerry.com/buildStatus/icon?job=vuepress-blog)](https://ci.alomerry.com/job/vuepress-blog/)
 [![License](https://img.shields.io/static/v1?label=License&message=MIT&color=red)](./LICENSE)
 [![Build](https://uptime.alomerry.com/api/badge/7/ping/24?color=pink)](https://uptime.alomerry.com/status/dashboard)
@@ -17,7 +53,7 @@ cd blog/.vuepress
 
 ## import code
 
-[`download-import`](./scripts/download-import.js) 会在构建时将 `@[code](@_codes/${repo}/${file})` 转换成 `https://gitee.com/alomerry/${repo}/raw/${branch}/${file}` 后下载到 `src/_codes` 下对应的位置，并将 `@_codes` 修改成相对位置
+[`download-import`](download-import.js) 会在构建时将 `@[code](@_codes/${repo}/${file})` 转换成 `https://gitee.com/alomerry/${repo}/raw/${branch}/${file}` 后下载到 `src/_codes` 下对应的位置，并将 `@_codes` 修改成相对位置
 
 ## todo
 

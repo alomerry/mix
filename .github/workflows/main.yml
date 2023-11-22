@@ -18,9 +18,9 @@ jobs:
         uses: Yikun/hub-mirror-action@master
         if: env.dst_key && env.dst_token
         with:
-          src: github/alomerry
-          dst: gitee/alomerry
+          src: github/mix
+          dst: gitee/mix
           force_update: true
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
           dst_token: ${{ secrets.GITEE_TOKEN }}
-          static_list: blog
+          static_list: alomerry

@@ -8,6 +8,9 @@ date: 2022-04-26
 
 ### [homebrew](https://brew.sh/)
 
+- https://supergithuber.github.io/tips/brewInstallCertainVersion.html
+- https://makeoptim.com/tool/brew-install-specific-version/
+
 #### 安装
 
 ::: code-tabs
@@ -168,7 +171,7 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
 ### zsh/[oh-my-zsh](https://ohmyz.sh/)
 
 - ubuntu 安装 `sudo apt-get install -y zsh`
-- mac os 安装 
+- mac os 安装
   - 直接安装 `sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
   - 镜像安装 `REMOTE=https://gitee.com/mirrors/oh-my-zsh.git sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"`
   - 镜像安装 `sh -c "$(wget -O- https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"`
