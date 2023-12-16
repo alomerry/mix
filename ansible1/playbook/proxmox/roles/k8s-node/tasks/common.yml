@@ -1,0 +1,21 @@
+- name: install common debs
+  apt:
+    name: '{{ item }}'
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - conntrack
+- name: check crictl exists
+  ansible.builtin.stat:
+    path: "/usr/local/bin/crictl"
+  register: basedir_stat
+- name: copy crictl
+  copy:
+    src: crictl-v1.28.0-linux-amd64.bin
+    dest: /usr/local/bin/crictl
+  when: not (basedir_stat.stat.exists)
+- name: add excute permission
+  shell: |
+    chmod +x /usr/local/bin/crictl
+  when: not (basedir_stat.stat.exists)

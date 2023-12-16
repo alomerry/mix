@@ -1,0 +1,12 @@
+# - hosts: frps-vps.hk
+#   remote_user: root
+#   vars:
+#     - FRP_VERSION: 0.51.3
+#   roles:
+#     - frps
+# - hosts: frps-cvm
+#   remote_user: root
+#   vars:
+#     - FRP_VERSION: 0.51.3
+#   roles:
+#     - frps

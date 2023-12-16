@@ -1,0 +1,20 @@
+- shell: rm -rf /root/apps/frps
+  when: not (frpsStats.stat.exists)
+- name: Download file from a file path
+  ansible.builtin.get_url:
+    url: https://github.com/fatedier/frp/releases/download/v{{frp.version}}/frp_{{frp.version}}_linux_amd64.tar.gz
+    dest: /root/apps/frps/frps.tar.gz
+    mode: '0640'
+  when: not (frpsStats.stat.exists)
+- name: download frps bin
+  shell: |
+    tar -xf /root/apps/frps/frps.tar.gz --strip-components 1 -C /root/apps/frps/
+    # clean cache
+    rm -rf /root/apps/frps/frps.tar.gz 
+    rm -rf /root/apps/frps/frpc
+    rm -rf /root/apps/frps/frpc_full.ini 
+    rm -rf /root/apps/frps/frps_full.ini
+    rm -rf /root/apps/frps/frpc.ini
+  when: not (frpsStats.stat.exists)
+- name: test command
+  command: head /etc/passwd -n 1 creates=/tmp/check.txt

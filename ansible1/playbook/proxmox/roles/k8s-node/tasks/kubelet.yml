@@ -1,0 +1,22 @@
+- name: check kubelet exists
+  shell: kubelet --version
+  register: existsResult
+  ignore_errors: true
+- name: copy kubectl bin
+  copy:
+    src: "kubelet/kubelet-linux-amd64-{{K8S_VERSION}}.bin"
+    dest: /root/kubelet
+  when: existsResult.rc != 0
+- name: install kubelet
+  shell: | 
+    install -o root -g root -m 0755 kubelet /usr/local/bin/kubelet
+  when: existsResult.rc != 0
+- name: copy kubelet service
+  copy:
+    src: "kubelet/kubelet-v{{K8S_TOOLS_VERSION}}.service"
+    dest: /root/kubelet.service
+- name: set kubelet service
+  shell: | 
+    cat /root/kubelet.service | sed "s:/usr/bin:/usr/local/bin/:g" | tee /etc/systemd/system/kubelet.service
+- name: clear bin
+  shell: rm -rf /root/kubelet /root/kubelet.service

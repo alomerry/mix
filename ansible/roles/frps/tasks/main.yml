@@ -1,0 +1,6 @@
+- name: check frps exists
+  ansible.builtin.stat:
+    path: "{{frp.version}}{{frp.frpsPath}}.version"
+  register: frpsStats
+- name: clean & install frps
+  include_tasks: clean&install.yml

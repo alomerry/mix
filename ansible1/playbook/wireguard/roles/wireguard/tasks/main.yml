@@ -1,0 +1,10 @@
+- name: get system platform
+  shell: |
+    echo $(uname -a) | cut -d' ' -f1
+  register: platform
+- name: Linux
+  include_tasks: linux.yml
+  when: platform.stdout == "Linux"
+- name: MacOS
+  include_tasks: mac.yml
+  when: platform.stdout == "Darwin"

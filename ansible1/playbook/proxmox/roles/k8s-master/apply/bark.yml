@@ -1,0 +1,44 @@
+# https://day.app/2018/06/bark-server-document/
+# create database bark;
+# create user 'bark'@'%' identified by 'xxx';
+# grant all on bark.* to 'bark'@'%' with grant option;
+# flush privileges;
+apiVersion: v1
+kind: Service
+metadata:
+  name: bark-server-service
+  namespace: alomerry
+spec:
+  ports:
+  - name: bark-port
+    port: 8639
+    targetPort: bark-port
+  selector:
+    app: bark-server
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bark-server-deployment
+  namespace: alomerry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bark-server
+  template:
+    metadata:
+      labels:
+        app: bark-server
+    spec:
+      containers:
+      - image: finab/bark-server:v2.1.5
+        name: bark-server
+        env:
+        - name: TZ
+          value: "Asia/Shanghai"
+        - name: BARK_SERVER_DSN
+          value: "bark:xxx@tcp(mysql-service:3306)/bark"
+        ports:
+        - name: bark-port
+          containerPort: 8080

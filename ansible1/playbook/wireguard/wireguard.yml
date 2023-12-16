@@ -1,0 +1,12 @@
+- hosts: wireguard
+  remote_user: root
+  vars:
+  roles:
+    # - common
+    - wireguard
+- hosts: wireguard-mac
+  remote_user: alomerry
+  vars:
+  roles:
+    # - common
+    - wireguard

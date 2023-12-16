@@ -1,0 +1,8 @@
+- name: set frps configuration
+  copy:
+    src: frps.ini
+    dest: /root/apps/frps/frps.ini
+- name: set frps service
+  copy:
+    src: frps.service
+    dest: /etc/systemd/system/frps.service

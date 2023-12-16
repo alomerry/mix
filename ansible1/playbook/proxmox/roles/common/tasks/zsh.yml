@@ -1,0 +1,17 @@
+- name: check on-my-zsh exists
+  ansible.builtin.stat:
+      path: "/root/.oh-my-zsh"
+  register: ozsh_stat
+- name: install on-my-zsh
+  shell: echo Y | REMOTE=https://gitee.com/mirrors/oh-my-zsh.git sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"
+  when: not (ozsh_stat.stat.exists)
+- name: set plugins
+  shell: |
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  when: not (ozsh_stat.stat.exists)
+- name: copy zshrc
+  copy:
+    src: .zshrc
+    dest: /root/.zshrc
+    mode: 0644

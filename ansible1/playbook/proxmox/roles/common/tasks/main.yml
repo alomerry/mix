@@ -1,0 +1,22 @@
+- name: install common debs
+  apt:
+    name: '{{ item }}'
+  with_items:
+  - tree
+  - curl
+  - wget
+  - net-tools
+  - zsh
+  - git
+  - dnsutils
+  - iputils-ping
+  - cron
+  - socat
+  - lsof
+- name: set docker
+  include_tasks: docker.yml
+- name: set oh-my-zsh
+  include_tasks: zsh.yml
+- name: set localtime
+  shell: |
+    cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime

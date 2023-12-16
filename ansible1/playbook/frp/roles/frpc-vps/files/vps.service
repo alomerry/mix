@@ -1,0 +1,13 @@
+[Unit]
+Description=frpc vps service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5s
+ExecStart=/root/apps/frpc-vps/frpc -c /root/apps/frpc-vps/vps/vps.ini
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+- name: copy acme dns config
+  copy:
+    src: acme/account.conf
+    dest: /root/.acme.sh/account.conf
+    mode: 0700
+- name: set hk ssl
+  include_tasks: acme/ssl/hk.yml
+# scp -r root@192.168.31.100:/root/apps/nginx/cert /root/apps/nginx/cert/

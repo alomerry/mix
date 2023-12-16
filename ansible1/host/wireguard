@@ -1,0 +1,8 @@
+[wireguard-server]
+cvm.alomerry.com:22
+[wireguard-client-linux]
+192.168.31.195:22
+192.168.31.159:22
+192.168.31.193:22
+[wireguard-mac]
+127.0.0.1:22

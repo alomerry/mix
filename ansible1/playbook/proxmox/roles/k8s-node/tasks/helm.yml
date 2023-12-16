@@ -1,0 +1,8 @@
+- name: copy helm
+  copy:
+    src: helm-v3.12.3
+    dest: /root/helm
+- name: install helm
+  shell: | 
+    install -m 755 /root/helm  /usr/local/bin/helm
+    rm -rf /root/helm

@@ -1,0 +1,15 @@
+[Unit]
+Description=nginx service
+After=network.target
+
+[Service]
+Type=forking
+User=root
+Restart=always
+RestartSec=5s
+ExecStart=/usr/sbin/nginx 
+ExecStop=/usr/sbin/nginx -s quit
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

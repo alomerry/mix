@@ -1,0 +1,25 @@
+- name: check nocturnal-chorus.com cert exists
+  ansible.builtin.stat:
+    path: "/root/.acme.sh/nocturnal-chorus.com_ecc"
+  register: basedir_stat
+# - name: check and generate tencent ssl
+#   shell: |
+#     /root/.acme.sh/acme.sh --issue --dns dns_dp -d *.nocturnal-chorus.com
+#   when: not basedir_stat.stat.exists
+# - name: renew tencent ssl
+#   shell: |
+#     /root/.acme.sh/acme.sh --renew -d nocturnal-chorus.com
+#   when: basedir_stat.stat.exists
+  # ignore_errors: true
+- name: install tencent ssl
+  shell: |
+    mkdir -p /root/apps/nginx/cert/{{ item }}
+    touch /root/apps/nginx/cert/{{ item }}/privkey.pem
+    touch /root/apps/nginx/cert/{{ item }}/cert.pem
+    touch /root/apps/nginx/cert/{{ item }}/key.pem
+    touch /root/apps/nginx/cert/{{ item }}/fullchain.pem
+    /root/.acme.sh/acme.sh --install-cert -d {{ item }} --cert-file /root/apps/nginx/cert/{{ item }}/cert.pem --key-file /root/apps/nginx/cert/{{ item }}/key.pem --fullchain-file /root/apps/nginx/cert/{{ item }}/fullchain.pem
+  with_items:
+    - consumer-api.nocturnal-chorus.com
+    - oss.nocturnal-chorus.com
+    - minio.nocturnal-chorus.com

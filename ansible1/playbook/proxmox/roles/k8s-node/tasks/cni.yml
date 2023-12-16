@@ -1,0 +1,26 @@
+- name: copy cin bin
+  copy:
+    src: cni-plugins-v1.3.0/
+    dest: /opt/cni/bin/
+- name: add excute permission
+  shell: |
+    chmod +x "/opt/cni/bin/{{ item }}"
+  with_items:
+    - bandwidth
+    - bridge
+    - dhcp
+    - firewall
+    - dummy
+    - host-device
+    - host-local
+    - ipvlan
+    - loopback
+    - macvlan
+    - portmap
+    - ptp
+    - sbr
+    - tap
+    - static
+    - tuning
+    - vlan
+    - vrf

@@ -1,0 +1,7 @@
+- name: install frps
+  hosts: all:&frps
+  vars:
+    testName: alomerry-test
+  tasks:
+  - name: Ensure apache is at the latest version
+    

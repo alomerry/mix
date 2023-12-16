@@ -1,0 +1,7 @@
+ansible_ssh_user: root
+k8s:
+  version: 1.28.1
+  toolVersion: 0.15.1
+frp:
+  version: 0.51.3
+  frpsPath: /root/apps/frps/
