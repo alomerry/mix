@@ -10,6 +10,9 @@
     mode: 0644
 - name: 启动 nfs server
   shell: |
+    exportfs -arv
     systemctl stop nfs-kernel-server
     sleep 1
     systemctl start nfs-kernel-server
+    # https://www.linuxprobe.com/ubuntu-configure-nfs.html
+    # https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.3/html/storage/persistent-storage-using-nfs

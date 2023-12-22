@@ -14,6 +14,10 @@
   192.168.31.0/24 dev vmbr0 proto kernel scope link src 192.168.31.2
   ```
 
+## 存储
+
+- pve admin nfs
+ 
 ## reference
 
 - https://www.lixueduan.com/posts/tekton/01-deploy-tekton/

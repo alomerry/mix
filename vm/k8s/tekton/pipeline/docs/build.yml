@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-frontend
+spec:
+  description: build frontend project.
+  workspaces:
+  - name: source
+  steps:
+    - name: build
+      image: registry.cn-hangzhou.aliyuncs.com/alomerry/base-frontend:v20.5.1
+      script: |
+        #!/bin/sh
+        cd $(workspaces.source.path)/docs
+        pnpm install && pnpm build
+        echo $(pwd)

@@ -12,6 +12,7 @@ install_depandence() {
     socat \
     lsof \
     qemu-guest-agent
+    # nfs
 }
 
 install_qemu_guest() {
