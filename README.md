@@ -1,6 +1,6 @@
 # Alomerry Wu's Blog
 
-### Hi there 👋
+###
 
 <p>
   <img src="https://github-readme-stats.vercel.app/api?username=alomerry&show_icons=true&theme=slateorange&count_private=true&hide_border=true" height="170">
@@ -12,22 +12,8 @@
   alt="githubtrends"
   align="right"
 />
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
-
-
 ---
 
-🌟
 ```
     // | |
    //__| |    //  ___      _   __      ___      __      __
@@ -35,14 +21,6 @@ Here are some ideas to get you started:
  //    | |  // //   / / // / /  / / //       //      //      ((___/ /
 //     | | // ((___/ / // / /  / / ((____   //      //           / /
 ```
-
-[![Build Status](https://ci.alomerry.com/buildStatus/icon?job=vuepress-blog)](https://ci.alomerry.com/job/vuepress-blog/)
-[![License](https://img.shields.io/static/v1?label=License&message=MIT&color=red)](./LICENSE)
-[![Build](https://uptime.alomerry.com/api/badge/7/ping/24?color=pink)](https://uptime.alomerry.com/status/dashboard)
-[![Build](https://uptime.alomerry.com/api/badge/7/upTime/24h?color=green)](https://uptime.alomerry.com/status/dashboard)
-
-[![VuePress2](https://img.shields.io/static/v1?logo=vuedotjs&color=blue&label=VuePress2&message=2.0.0-beta.67)](https://v2.vuepress.vuejs.org/zh/)
-[![VuePress-Theme-Hope](https://img.shields.io/static/v1?logo=appveyor&color=blue&label=VuePress-Theme-Hope&message=2.0.0-beta.247)](https://theme-hope.vuejs.press/zh/)
 
 ## local git hook && [oss pusher](https://github.com/alomerry/go-tools)
 
