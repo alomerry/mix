@@ -497,6 +497,6 @@ exit 0
 
 ## Reference
 
-[^git-filter-branch]: [https://git-scm.com/docs/git-filter-branch](https://git-scm.com/docs/git-filter-branch)
-[^remove-git-big-object-1]: [https://www.cnblogs.com/oloroso/p/13367120.html]
-[^remove-git-big-object-2]: [https://blog.hudongdong.com/skill/1105.html]
+<!-- [^git-filter-branch]: [https://git-scm.com/docs/git-filter-branch](https://git-scm.com/docs/git-filter-branch) -->
+<!-- [^remove-git-big-object-1]: [https://www.cnblogs.com/oloroso/p/13367120.html] -->
+<!-- [^remove-git-big-object-2]: [https://blog.hudongdong.com/skill/1105.html] -->

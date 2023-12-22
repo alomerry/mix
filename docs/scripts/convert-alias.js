@@ -44,7 +44,7 @@ function convertIOIAlias(markdownPath) {
     let category = getLeetCodeCategoryByPath(markdownPath);
     console.log(`${log.File(markdownPath)}`)
     if (category) {
-      let res = "<<< @/others/algorithm/"+category;
+      let res = "<<< @/.others/algorithm/"+category;
       console.log(`  ${log.Success("convert done")}: ${log.Blue("@IOI")} => ${log.Path(res)}`)
       mdContent = mdContent.replace("@IOI", res)
       fs.writeFileSync(markdownPath, mdContent, 'utf8')
