@@ -1,0 +1,15 @@
+- name: download frpc bin
+  shell: |
+    export http_proxy=http://192.168.31.193:7890 https_proxy=http://192.168.31.193:7890
+    mkdir {{frp.frpcPath}} -p
+    wget -P {{frp.frpcPath}} https://github.com/fatedier/frp/releases/download/v{{frp.version}}/frp_{{frp.version}}_linux_amd64.tar.gz -O {{frp.frpcPath}}/frpc.tar.gz
+    unset http_proxy https_proxy
+- name: extract frp tar
+  shell: tar -xf {{frp.frpcPath}}/frpc.tar.gz --strip-components 1 -C {{frp.frpcPath}}/
+# - name: set k8s-master configration
+#   include_tasks: frp-master.yml
+# - name: enable and start frp-master frpc service
+#   shell: |
+#     systemctl daemon-reload
+#     systemctl start frp-master.service
+- shell: touch {{frp.frpcPath}}/{{frp.version}}.version

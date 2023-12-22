@@ -1,0 +1,2 @@
+- name: pve admin 安装 nfs server
+  include_tasks: nfs.yml

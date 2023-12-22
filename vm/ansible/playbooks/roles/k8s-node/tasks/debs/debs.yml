@@ -1,0 +1,8 @@
+- name: 安装 k8s 依赖
+  apt:
+    name: '{{ item }}'
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - conntrack

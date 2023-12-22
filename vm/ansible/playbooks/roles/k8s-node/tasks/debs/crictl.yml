@@ -1,0 +1,7 @@
+- name: copy install script
+  copy:
+    src: install/crictl.sh
+    dest: /tmp/crictl.sh
+    mode: 0744
+- name: 安装 crictl
+  shell: "/tmp/crictl.sh {{ k8s.crictl_version}}"

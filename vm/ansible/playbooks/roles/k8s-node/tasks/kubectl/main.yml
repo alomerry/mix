@@ -1,0 +1,7 @@
+- name: 复制 kubectl 安装脚本
+  copy:
+    src: install/kubectl.sh
+    dest: /tmp/kubectl.sh
+    mode: 0744
+- name: 安装 kubectl
+  shell: "/tmp/kubectl.sh {{ k8s.version}}"

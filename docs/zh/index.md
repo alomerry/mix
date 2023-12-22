@@ -3,16 +3,19 @@
 layout: home
 
 hero:
-  name: "Docs"
-  text: "A VitePress Site"
-  tagline: My great project tagline
+  name: CS KB
+  text: 计算机知识库
+  tagline: 清欢的个人计算机知识库，包括后端八股文，助你成为更优秀的程序员
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 关于本站
+      link: /
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 团队
+      link: /about/team
+  image:
+    src: /vitepress-logo-large.webp
+    alt: VitePress
 
 features:
   - title: Feature A

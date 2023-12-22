@@ -1,2 +1,0 @@
-- name: sshd confg/restart
-  shell: TODO allow root passwd login

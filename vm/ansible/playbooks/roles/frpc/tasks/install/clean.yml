@@ -1,0 +1,8 @@
+- name: clean cache
+  shell: |
+    rm -rf {{frp.frpcPath}}/frpc.tar.gz 
+    rm -rf {{frp.frpcPath}}/frps
+    rm -rf {{frp.frpcPath}}/frps.ini
+    rm -rf {{frp.frpcPath}}/frpc_full.ini 
+    rm -rf {{frp.frpcPath}}/frps_full.ini
+    rm -rf {{frp.frpcPath}}/frpc.ini

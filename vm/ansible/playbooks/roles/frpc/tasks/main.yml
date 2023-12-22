@@ -1,0 +1,7 @@
+- name: install frpc
+  include_tasks: install/main.yml
+- name: install frpc
+  include_tasks: '{{ item }}/main.yml'
+  with_items:
+    # - aws
+    - host

@@ -8,3 +8,8 @@
 .main div.vp-doc h3 > a {
   text-decoration:none;
 }
+
+:root {
+  --vp-font-family-base: 'LXGW WenKai GB', 'DM Mono', 'Input Mono', 'Fira Code', monospace;
+  /* --vp-font-family-mono: code font */
+}

@@ -1,4 +1,0 @@
-# todo
-
-- [ ] redis
-- [ ] mysql

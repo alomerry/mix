@@ -1,0 +1,28 @@
+- name: copy install script
+  copy:
+    src: install/cni.sh
+    dest: /tmp/cni.sh
+    mode: 0744
+- shell: "/tmp/cni.sh {{ k8s.cni_version}}"
+- name: add excute permission
+  shell: |
+    chmod +x "/opt/cni/bin/{{ item }}"
+  with_items:
+    - bandwidth
+    - bridge
+    - dhcp
+    - firewall
+    - dummy
+    - host-device
+    - host-local
+    - ipvlan
+    - loopback
+    - macvlan
+    - portmap
+    - ptp
+    - sbr
+    - tap
+    - static
+    - tuning
+    - vlan
+    - vrf

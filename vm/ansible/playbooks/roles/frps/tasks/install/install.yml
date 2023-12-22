@@ -1,0 +1,10 @@
+- shell: mkdir /root/apps/frps -p
+- name: download frps bin
+  ansible.builtin.get_url:
+    url: https://github.com/fatedier/frp/releases/download/v{{frp.version}}/frp_{{frp.version}}_linux_amd64.tar.gz
+    dest: /root/apps/frps/frps.tar.gz
+    mode: 0640
+- name: extract frp tar
+  shell: tar -xf /root/apps/frps/frps.tar.gz --strip-components 1 -C /root/apps/frps/
+- name: set frpc version
+  shell: touch /root/apps/frps/{{frp.version}}.version

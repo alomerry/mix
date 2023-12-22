@@ -1,23 +1,13 @@
-# npm install
-!codes/*.md
 node_modules
-src/.vuepress/.cache
-src/.vuepress/.temp
-src/.vuepress/ossPusher
-src/.vuepress/core.toml
-src/.vuepress/dist
-
-src/.vuepress/public/github-contribution-grid-snake.svg
-
-# need to delete
-src/_codes
-
-# need to delete
-src/about/resume/todo.md
-src/about/resume/youxing.html
-
-scripts/test.js
-
-src/**/*/assets/*.*
-
-src/.vuepress/public/assets/*
+dist
+*.local
+.presite
+dist-ssr
+.vite-ssg-temp
+components.d.ts
+auto-imports.d.ts
+temp
+sponsors.*
+drafts
+public/og
+*.log

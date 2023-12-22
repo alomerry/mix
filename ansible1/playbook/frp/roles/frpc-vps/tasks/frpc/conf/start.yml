@@ -1,3 +1,0 @@
-- name: start frpc service
-  shell: |
-    systemctl start frpc-vps.service

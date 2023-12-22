@@ -1,0 +1,5 @@
+- name: set v2ray
+  hosts: all:&pve-admin
+  vars:
+  roles:
+    - v2ray

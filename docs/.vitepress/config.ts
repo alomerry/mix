@@ -1,8 +1,11 @@
-import { defineConfig } from 'vitepress'
-import todo from 'markdown-it-task-lists'
-import navbar from './navbar.js'
-import { BaGuIndex } from './sidebar/8gu/index.js'
-import { IOIIndex } from './sidebar/ioi/index.js'
+import { defineConfig } from 'vitepress';
+import todo from 'markdown-it-task-lists';
+import { 
+  Lang,
+  Nav,
+  BaGuIndex as BaGu,
+  IOIIndex as IOI,
+} from './i18n';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -11,7 +14,7 @@ export default defineConfig({
     outline: [2, 3],
     footer: {
       message: 'Released under the MIT License.',
-      copyright: '<a href="http://beian.miit.gov.cn/" rel="noopener noreferrer" target="_blank">备案号: 苏ICP备19037502号-3</a> | Copyright © 2023-present Alomerry Wu',
+      copyright: 'Copyright © 2023-present Alomerry Wu',
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/alomerry/docs' },
@@ -57,10 +60,10 @@ export default defineConfig({
       lang: 'en',
       description: "8gu docs",
       themeConfig: {
-        nav: navbar.Nav(),
+        nav: Nav(Lang.EN),
         sidebar: {
-          ...BaGuIndex(),
-          ...IOIIndex(),
+          ...BaGu(Lang.EN),
+          ...IOI(Lang.EN),
         },
       },
     },
@@ -69,10 +72,10 @@ export default defineConfig({
       lang: 'zh-CN',
       link: '/zh/',
       themeConfig: {
-        nav: navbar.Nav_Zh(),
+        nav: Nav(Lang.ZH_CN),
         sidebar: {
-          // '/zh/8gu/': { base: '/zh/8gu/', items: SGet(SidebarType.BaGuZh) },
-          // '/zh/ioi/': { base: '/zh/ioi/', items: SGet(SidebarType.IOIZh) },
+          ...BaGu(Lang.ZH_CN),
+          ...IOI(Lang.ZH_CN),
         },
       },
     }

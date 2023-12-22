@@ -1,0 +1,7 @@
+- name: prepare v2ray
+  include_tasks: init.yml
+- name: install and enable v2ray
+  shell: |
+    /root/downloads/install-release.sh
+    systemctl enable v2ray
+    systemctl start v2ray

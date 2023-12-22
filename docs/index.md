@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: About
-      link: /
+      link: /about/site
     - theme: alt
       text: Team
       link: /about/team

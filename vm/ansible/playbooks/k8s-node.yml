@@ -1,0 +1,5 @@
+- name: setup k8s
+  hosts: all:&k8s
+  vars:
+  roles:
+    - k8s-node

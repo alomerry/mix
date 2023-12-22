@@ -1,0 +1,4 @@
+- name: 安装 k8s 依赖
+  include_tasks: debs.yml
+- name: crictl
+  include_tasks: crictl.yml
