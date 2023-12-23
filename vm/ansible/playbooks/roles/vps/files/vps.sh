@@ -74,7 +74,7 @@ install_ssl() {
       /root/.acme.sh/acme.sh --renew -d alomerry.com
     ;;
     issue)
-      i/root/.acme.sh/acme.sh --issue --dns dns_cf -d alomerry.com -d *.alomerry.com
+      /root/.acme.sh/acme.sh --issue --dns dns_cf -d alomerry.com -d *.alomerry.com
     ;;
   esac
   
