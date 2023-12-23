@@ -1,0 +1,6 @@
+- name: install frps
+  hosts: all:&frps
+  vars:
+    testName: alomerry-test
+  roles:
+    - frps

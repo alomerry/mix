@@ -1,6 +1,0 @@
-- name: install debs
-  include_tasks: debs.yml
-- name: install nginx
-  include_tasks: nginx.yml
-- name: install acme
-  include_tasks: acme.yml

@@ -1,6 +1,4 @@
-- name: install frps
-  hosts: all:&frps
-  vars:
-    testName: alomerry-test
+- name: 安装 acme、nginx
+  hosts: all:&hostyun
   roles:
-    - frps
+    - vps
