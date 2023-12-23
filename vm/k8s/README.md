@@ -14,6 +14,18 @@
   192.168.31.0/24 dev vmbr0 proto kernel scope link src 192.168.31.2
   ```
 
+## Tekton
+
+- 安装 k8s
+- 安装 tekton-pipeline、tekton-dashboard
+- 配置 ingress 暴露 tekton
+
+### Tasks
+
+- [git-clone](https://hub.tekton.dev/tekton/task/rsync)
+- [rsync](https://hub.tekton.dev/tekton/task/rsync)
+- build-mix
+
 ## 存储
 
 - pve admin nfs

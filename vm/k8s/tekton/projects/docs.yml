@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tekton-pvc-docs
+spec:
+  selector:
+    matchLabels:
+      service: tekton
+      project: docs
+  resources:
+    requests:
+      storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: docs-deploy-
+spec:
+  pipelineRef:
+    name: deploy-mix
+  podTemplate:
+    securityContext:
+      fsGroup: 65532
+  workspaces:
+  - name: ssh-creds
+    secret:
+      secretName: rsync-ssh-credentials
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: tekton-pvc-docs
+  params:
+  - name: repo-url
+    value: https://gitee.com/alomerry/mix.git
+  - name: mix-module
+    value: docs
+  - name: build-output-path
+    value: docs/.vitepress/dist/

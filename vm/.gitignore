@@ -1,16 +1,3 @@
-.env
-
-vps.ini
-master.ini
-cvm.ini
-proxmox.ini
-frpc.ini
-frps.ini
-vps.ini
-*.local.*
-
-env.yml
-
 **/*.DS_Store
 
 ansible/roles/frpc/**/*.ini
