@@ -14,17 +14,27 @@
   192.168.31.0/24 dev vmbr0 proto kernel scope link src 192.168.31.2
   ```
 
-## Tekton
+## tekton
 
-- 安装 k8s
-- 安装 tekton-pipeline、tekton-dashboard
-- 配置 ingress 暴露 tekton
+删除失败的管道运行：
 
-### Tasks
+kubectl -n target-namespace delete pipelinerun $(kubectl -n target-namespace get pipelinerun -o jsonpath='{range .items[?(@.status.conditions[*].status=="False")]}{.metadata.name}{"\n"}{end}')
 
-- [git-clone](https://hub.tekton.dev/tekton/task/rsync)
-- [rsync](https://hub.tekton.dev/tekton/task/rsync)
-- build-mix
+
+删除成功的管道
+
+kubectl -n xxxx delete pipelinerun $(kubectl -n xxx get pipelinerun -o jsonpath='{range .items[?(@.status.conditions[*].status=="True")]}{.metadata.name}{"\n"}{end}')
+
+## argocd
+
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+需要配置 configMap 将 server.insecure =》 true
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+对于任何感兴趣的人来说，删除此资源的解决方法是删除在 kubernetes 集群中创建的密钥。
 
 ## 存储
 
