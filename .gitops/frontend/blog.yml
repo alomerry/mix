@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: blog-deploy-
+spec:
+  selector:
+    project: blog
+  pipelineRef:
+    name: deploy-mix
+  podTemplate:
+    securityContext:
+      fsGroup: 65532
+  workspaces:
+  - name: ssh-creds
+    secret:
+      secretName: rsync-ssh-credentials
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: tekton-pvc-blog
+  params:
+  - name: repo-url
+    value: https://gitee.com/alomerry/mix.git
+  - name: mix-module
+    value: blog
+  - name: build-output-path
+    value: blog/dist/
