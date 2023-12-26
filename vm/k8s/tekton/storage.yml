@@ -31,3 +31,36 @@ spec:
     path: /mnt/nvme0n1p1/tekton/blog
     server: 192.168.31.2
   persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tekton-pvc-blog
+  namespace: argocd
+spec:
+  selector:
+    matchLabels:
+      service: tekton
+      project: blog
+  resources:
+    requests:
+      storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tekton-pvc-docs
+spec:
+  selector:
+    matchLabels:
+      service: tekton
+      project: docs
+  resources:
+    requests:
+      storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
