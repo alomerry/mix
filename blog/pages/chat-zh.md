@@ -1,7 +1,6 @@
 ---
 title: 和 Alomerry Wu 聊聊天！
 display: 聊聊天！
-image: https://antfu.me/og-chat.png
 ---
 
 [English](/chat)

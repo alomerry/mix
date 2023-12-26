@@ -135,3 +135,8 @@ no-port-forwarding,no-agent-forwarding,no-X11-forwarding,command="echo 'Please l
 brew install dust https://github.com/bootandy/dust
 
 brew install duf https://github.com/muesli/duf
+
+## macos14 清除 dns
+
+sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+

@@ -46,6 +46,16 @@ cards:
 [Alomerry Wu](https://github.com/alomerry)
 
 
+## 2023.11 切换 antfu.me
+
+## vuepress-themo-hope
+
+import code
+
+[`download-import`](download-import.js) 会在构建时将 `@[code](@_codes/${repo}/${file})` 转换成 `https://gitee.com/alomerry/${repo}/raw/${branch}/${file}` 后下载到 `src/_codes` 下对应的位置，并将 `@_codes` 修改成相对位置
+
+## 2020-至今 使用 vuepress@next
+
 https://waline.js.org/reference/server/env.html#%E6%98%BE%E7%A4%BA
 
 ::: tip 2023.04 更新
@@ -53,9 +63,6 @@ https://waline.js.org/reference/server/env.html#%E6%98%BE%E7%A4%BA
 guniar 维护不够及时，vuepress next 更新比较频繁，无法使用新特性
 
 :::
-
-
-## 2020-至今 使用 vuepress@next
 
 ### gunir
 

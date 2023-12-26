@@ -1,10 +1,8 @@
 ---
-title: Alomerry Wu
+title: 清欢
 description: TODO
 plum: true
 ---
-
-[中文](./index_zh.md)
 
 Hey, I am Alomerry Wu, a backend developer.
 

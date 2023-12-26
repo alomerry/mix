@@ -6,10 +6,10 @@ import MarkdownIt from 'markdown-it'
 import type { FeedOptions, Item } from 'feed'
 import { Feed } from 'feed'
 
-const DOMAIN = 'https://antfu.me'
+const DOMAIN = 'https://blog.alomerry.com'
 const AUTHOR = {
   name: 'Alomerry Wu',
-  email: 'hi@antfu.me',
+  email: 'alomerrt.wu@gmail.com',
   link: DOMAIN,
 }
 const markdown = MarkdownIt({
@@ -28,13 +28,13 @@ async function buildBlogRSS() {
   const options = {
     title: 'Alomerry Wu',
     description: 'Alomerry Wu\' Blog',
-    id: 'https://antfu.me/',
-    link: 'https://antfu.me/',
-    copyright: '2018 © Alomerry Wu',
+    id: 'https://blog.alomerry.com/',
+    link: 'https://blog.alomerry.com/',
+    copyright: '2019 © Alomerry Wu',
     feedLinks: {
-      json: 'https://antfu.me/feed.json',
-      atom: 'https://antfu.me/feed.atom',
-      rss: 'https://antfu.me/feed.xml',
+      json: 'https://blog.alomerry.com/feed.json',
+      atom: 'https://blog.alomerry.com/feed.atom',
+      rss: 'https://blog.alomerry.com/feed.xml',
     },
   }
   const posts: any[] = (
@@ -71,8 +71,8 @@ async function buildBlogRSS() {
 
 async function writeFeed(name: string, options: FeedOptions, items: Item[]) {
   options.author = AUTHOR
-  options.image = 'https://antfu.me/avatar.png'
-  options.favicon = 'https://antfu.me/logo.png'
+  options.image = 'https://blog.alomerry.com/avatar.png'
+  options.favicon = 'https://blog.alomerry.com/logo.png'
 
   const feed = new Feed(options)
 
