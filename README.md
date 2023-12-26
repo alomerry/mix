@@ -1,5 +1,9 @@
 # Alomerry Wu's Site
 
+<img src="./.github/metrics/classic.svg" />
+<img src="./.github/metrics/isocalendar.svg" />
+<img src="./.github/metrics/languages.svg" />
+
 - [blog](./blog/README.md)
 - [docs](./docs/README.md)
 - [vm](./vm/README.md)
