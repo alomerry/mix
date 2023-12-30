@@ -137,15 +137,23 @@
   color: var(--fg-deep);
   font-weight: 600;
   font-size: 0.875em;
+
+  /* 定制 code 背景 */
+  border-radius: 4px;
+  padding: 2px 6px;
+  background-color: #f6f6f7;
 }
-.prose code::before {
+
+/* .prose code::before {
   content: '`';
 }
 .prose code::after {
   content: '`';
-}
+} */
+
 .prose a code {
   color: #111827;
+  
 }
 .prose pre {
   color: #e5e7eb;

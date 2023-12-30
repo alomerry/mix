@@ -1,7 +1,7 @@
 ---
 date: 2022-08-10T16:00:00.000+00:00
 title: 尾递归
-lang: en
+lang: zh
 duration: 10min
 ---
 

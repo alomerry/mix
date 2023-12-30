@@ -15,27 +15,38 @@ date: 2022-04-26
 
 几次重装下来的干货，基本算是个人必备，仅供参考
 
+## Arc Browser
+
+- 左右分割
+- broost
+- 搜索
+- 好看
+
 ## Jetbrains Tools
 
 Jetbrains IDE 工具，可以统一下载更新旗下的 IDE、参与测试等
 
 ![jetbrains-tools-01](https://cdn.alomerry.com/blog/assets/img/posts/apps-intro-jetbrains-tools-01.jpg)
 
+- 安装清理很方便
+- 可以控制全局
+
 ## Karabiner
 
+- mac 替换外设兼容苹果
+
 ## SoundSource
+
+- 调控每个 app 的音量
+- boost 音量
 
 ## alttab
 
 ## ucltter
 
-## Slidepad
-
 ## bartender 4
 
 ## istats
-
-## arc browser
 
 ## mos
 
