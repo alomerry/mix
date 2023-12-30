@@ -1209,7 +1209,7 @@ https://blog.csdn.net/u010066807/article/details/80307484
 
 ## golang 获取随机数
 
-```golang
+```go
 基本随机数
 
 a := rand.Int()
@@ -1241,7 +1241,7 @@ fmt.Println(n)
 
 ### 大量字符串拼接性能测试
 
-```golang
+```go
 // fmt.Printf
 func BenchmarkFmtSprintfMore(b *testing.B) {
 var s string

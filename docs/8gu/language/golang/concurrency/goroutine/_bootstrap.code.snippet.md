@@ -1,6 +1,6 @@
 [^_rt0_amd64]:
 
-    ```armasm
+    ```asm
     TEXT _rt0_amd64(SB),NOSPLIT,$-8
       MOVQ	0(SP), DI	// argc
       LEAQ	8(SP), SI	// argv
@@ -9,7 +9,7 @@
 
 [^rt0_go]:
 
-    ```armasm
+    ```asm
     TEXT runtime·rt0_go(SB),NOSPLIT|TOPFRAME,$0
       CALL	runtime·check(SB)
 

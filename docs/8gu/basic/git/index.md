@@ -40,6 +40,11 @@ cat ~/.ssh/id_rsa.pub
 - -t = The type of the key to generate 密钥的类型
 - -C = comment to identify the key 用于识别这个密钥的注释
 
+**设置 SSH 秘钥签名提交**
+
+- git config gpg.format ssh
+- git config user.signingkey /PATH/TO/.SSH/KEY.PUB
+
 ## 基础
 
 ### 操作

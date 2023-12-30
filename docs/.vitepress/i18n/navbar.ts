@@ -14,5 +14,5 @@ export function Nav(lang: Lang): DT.NavItem[] {
     type: 'nav',
   };
 
-  return pack(cfg) || [];
+  return pack(cfg) as (DT.NavItem[] | undefined) || [];
 }

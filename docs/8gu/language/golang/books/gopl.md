@@ -46,7 +46,7 @@ func newInt() *int {
 
 每次调用 new 函数都是返回一个新的变量的地址，因此下面两个地址是不同的：
 
-```golang
+```go
 p := new(int)
 q := new(int)
 fmt.Println(q == p) // false

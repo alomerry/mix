@@ -849,7 +849,7 @@
 
 [^mcall]:
 
-    ```armasm
+    ```asm
     // func mcall(fn func(*g))
     // Switch to m->g0's stack, call fn(g).
     // Fn must never return. It should gogo(&g->sched)

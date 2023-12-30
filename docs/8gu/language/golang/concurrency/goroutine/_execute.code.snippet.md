@@ -53,7 +53,7 @@
 
 [^gogo]:
 
-    ```armasm
+    ```asm
     // func gogo(buf *gobuf)
     // restore state from Gobuf; longjmp
     TEXT runtime·gogo(SB), NOSPLIT, $0-8

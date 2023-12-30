@@ -137,6 +137,13 @@ export function BaGuIndex(lang: Lang): DT.SidebarMulti {
         ]
       },
     ],
+    'language/rust': [
+      {
+        text: 'Rust',
+        link: `index`,
+        base: `${lang}8gu/language/rust/`
+      },
+    ],
     'database/mysql': [
       {
         text: 'MySQL',
@@ -215,8 +222,8 @@ function BaGu(collapsed: boolean, lang: Lang): DT.SidebarItem[] {
           base: `${lang}8gu/language/`,
           items: [
             { text: 'Golang', link: `golang/` },
+            { text: 'Rust', link: `rust/` },
             // { text: 'Python', link: `${prefix}language/golang/` },
-            // { text: 'Rust', link: `${prefix}language/golang/` },
             // { text: 'Java', link: `${prefix}language/golang/` },
             // { text: 'C++', link: `${prefix}language/golang/` },
             // { text: 'C', link: `${prefix}language/golang/` },

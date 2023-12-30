@@ -73,7 +73,7 @@ func main() {
 
 ## 启动 m
 
-```armasm
+```asm
 TEXT runtime·mstart(SB),NOSPLIT|TOPFRAME|NOFRAME,$0
 	CALL	runtime·mstart0(SB)
 	RET // not reached
@@ -750,7 +750,7 @@ var (
 
 ### `systemstack`
 
-```armasm
+```asm
 // systemstack runs fn on a system stack.
 // If systemstack is called from the per-OS-thread (g0) stack, or
 // if systemstack is called from the signal handling (gsignal) stack,

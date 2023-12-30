@@ -15,7 +15,7 @@
 
 [^runtime·goexit]:
 
-    ```armasm
+    ```asm
     // The top-most function running on a goroutine
     // returns to goexit+PCQuantum.
     TEXT runtime·goexit(SB),NOSPLIT|TOPFRAME|NOFRAME,$0-0
