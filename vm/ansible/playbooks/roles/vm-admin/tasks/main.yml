@@ -1,2 +1,5 @@
 - name: pve admin 安装 nfs server
   include_tasks: nfs.yml
+
+
+# 局域网访问 k8s 集群 ip route add 10.1.0.0/16 via 192.168.31.199 dev vmbr0 | true

@@ -17,6 +17,8 @@ ansible-playbook -i host/cloud playbook/cloud/nginx.yml
 - master 安装 frpc
 - 安装 pve
 
+https://atbug.com/deploy-vm-on-proxmox-with-terraform/
+
 ## TODO
 
 P2 lock version
