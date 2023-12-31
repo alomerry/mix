@@ -1,0 +1,15 @@
+apiVersion: v1
+   metadata:
+     name: kodo-csi-pv-secret
+   kind: Secret
+   type: Opaque
+   data:
+     accesskey: "<Qiniu Access Key>"                  # 必填, 必须是 BASE64 格式
+     secretkey: "<Qiniu Secret Key>"                  # 必填, 必须是 BASE64 格式
+   stringData:
+     bucketname: "alomerry"                           # 必填
+     ucendpoint: "https://kodo-config.qiniuapi.com"   # 必填 在公有云中，该字段可以填写为 https://kodo-config.qiniuapi.com
+     storageclass: "STANDARD"                         # 可选 默认为 STANDARD，可选值为 STANDARD，LINE，GLACIER，DEEP_ARCHIVE
+     region: "z0"                                     # 可选 默认为 z0 代表华东区
+     subdir: ""                                       # 可选 仅挂载子目录，适用于通过 Bucket Policy 授权子目录的用户
+     s3forcepathstyle: "false"                        # 可选 是否仅使用 Path Style 调用 S3 API，适用于私有云环境

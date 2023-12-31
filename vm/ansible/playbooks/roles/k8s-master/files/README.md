@@ -38,6 +38,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ## 存储
 
+### mysql
+
 - pve admin nfs
  
 ## reference
