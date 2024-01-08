@@ -1,5 +1,0 @@
-- name: setup frpc
-  hosts: all:&frpc
-  vars:
-  roles:
-    - frpc

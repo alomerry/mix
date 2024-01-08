@@ -1,4 +1,0 @@
-- name: 安装 frps
-  include_tasks: install/main.yml
-- name: 配置 frps 配置
-  include_tasks: vps/main.yml

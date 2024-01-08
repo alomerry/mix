@@ -1,9 +1,0 @@
-- name: check frpc exists
-  ansible.builtin.stat:
-    path: "{{frp.frpcPath}}/{{frp.version}}.version"
-  register: frpc_check
-- shell: rm -rf {{frp.frpcPath}}
-  when: not (frpc_check.stat.exists)
-- include_tasks: install/frpc.yml
-  when: not (frpc_check.stat.exists)
-- include_tasks: clean.yml

@@ -1,7 +1,0 @@
-- name: clean cache
-  shell: |
-    rm -rf /root/apps/frps/frps.tar.gz 
-    rm -rf /root/apps/frps/frpc
-    rm -rf /root/apps/frps/frpc_full.ini 
-    rm -rf /root/apps/frps/frps_full.ini
-    rm -rf /root/apps/frps/frpc.ini

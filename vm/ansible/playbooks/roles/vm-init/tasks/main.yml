@@ -1,6 +1,0 @@
-- name: 复制 vm-init 脚本
-  copy:
-    src: vm-init.sh
-    dest: /tmp/vm-init.sh
-    mode: 0744
-- shell: "/tmp/vm-init.sh"

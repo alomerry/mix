@@ -1,4 +1,0 @@
-- name: 安装 acme、nginx
-  hosts: all:&hostyun
-  roles:
-    - vps

@@ -1,5 +1,0 @@
-- name: setup pve vm
-  hosts: all:&pve-vm
-  vars:
-  roles:
-    - vm-init
