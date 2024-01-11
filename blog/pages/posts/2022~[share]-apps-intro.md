@@ -1,19 +1,38 @@
 ---
-date: 2020-02-14T16:00:00.000+00:00
-title: 搭建科学上网教程
-lang: en
+date: 2020-04-26T16:00:00.000+00:00
+title: 实用/特殊应用介绍
+lang: zh
 duration: 10min
 type: talk+note
-place: test
 tocAlwaysOn: true
 ---
 
-# Apps Introduction
-
-description: App 介绍
-date: 2022-04-26
+[[toc]]
 
 几次重装下来的干货，基本算是个人必备，仅供参考
+
+
+## Proifier
+
+### [Proifier](https://www.proxifier.com/) 介绍
+
+![Proifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier.png)
+
+- 作用：允许不支持通过代理服务器工作的应用程序使用代理。
+- 工作方式：当一个应用程序没有内置代理功能，又不能像 chrome 等内置插件来支持代理时，我们想在程序内访问一个受 GFW 限制的网站时通常是开启全局模式代理以破除限制。Proxifier 可以接管指定程序的请求，根据设置的规则通过对应代理。
+
+### 开始
+
+- 安装 Proxifier
+- 添加已有的代理，具体见本机 clash、shadowsocks 等对应的设置
+  ![Proifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_proxies.png)
+- 添加代理规则，选择需要代理的软件，如 chrome、chromium、arc 等，添加需要代理的域名 `translate.googleapis.com`，应用规则选择上一步创建的代理 proxy
+  ![Proifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_rules.png)
+
+:::tip
+设置过程中，发现在 Mac OS 上 chrome 发起全文翻译软件是 `com.google.Chrome.helper`。如果平台不同，注意可以在 Proxifier 设置测试代理和规则，代理所有软件的所有请求域名，然后触发全文翻译，基本上失败的请求域名和请求软件就是所需代理的。（Advanced-connections 设置中勾选 `Handle direct connections`，同事测试的 rules 需要置顶，以便优先触发）
+:::
+
 
 ## Arc Browser
 
@@ -56,6 +75,8 @@ Jetbrains IDE 工具，可以统一下载更新旗下的 IDE、参与测试等
 
 
 ## GK64 键盘客制化
+
+### skn 青龙
 
 ### 套件
 
