@@ -12,3 +12,8 @@ layout: false
 - 3
 
 // TODO 中文版 ioi copy
+
+
+vscode 
+
+- "window.title": "${activeEditorShort}${separator}${rootName}${separator}${profileName}",
