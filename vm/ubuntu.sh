@@ -6,10 +6,10 @@ GIT_RAW_URL=https://raw.githubusercontent.com
 BRANCH=master
 MIX_REPOSITORY=alomerry/mix
 MIX_VM_VPS_STATIC=vm/scripts
-NGINX_PATH=${GIT_RAW_URL}/${MIX_REPOSITY}/${BRANCH}/${MIX_VM_VPS_STATIC}/nginx
-ACME_PATH=${GIT_RAW_URL}/${MIX_REPOSITY}/${BRANCH}/${MIX_VM_VPS_STATIC}/acme
-V2RAY_PATH=${GIT_RAW_URL}/${MIX_REPOSITY}/${BRANCH}/${MIX_VM_VPS_STATIC}/v2ray
-FRP_PATH=${GIT_RAW_URL}/${MIX_REPOSITY}/${BRANCH}/${MIX_VM_VPS_STATIC}/frp
+NGINX_PATH=${GIT_RAW_URL}/${MIX_REPOSITORY}/${BRANCH}/${MIX_VM_VPS_STATIC}/nginx
+ACME_PATH=${GIT_RAW_URL}/${MIX_REPOSITORY}/${BRANCH}/${MIX_VM_VPS_STATIC}/acme
+V2RAY_PATH=${GIT_RAW_URL}/${MIX_REPOSITORY}/${BRANCH}/${MIX_VM_VPS_STATIC}/v2ray
+FRP_PATH=${GIT_RAW_URL}/${MIX_REPOSITORY}/${BRANCH}/${MIX_VM_VPS_STATIC}/frp
 
 NODE_VERSION=${NODE_VERSION:-"20.10.0"}
 NVM_VERSION=${NVM_VERSION:-"0.39.7"}
@@ -82,7 +82,9 @@ install_v2ray() {
 
   case "$1" in
   client)
+    mkdir /usr/local/etc/v2ray/ -p
     wget -P /usr/local/etc/v2ray/ $V2RAY_PATH/client.json
+    wget -P /etc/systemd/system $V2RAY_PATH/v2ray.service
     mv /usr/local/etc/v2ray/client.json /usr/local/etc/v2ray/config.json
     ansible-vault decrypt --vault-id ~/.ansible/.vault /usr/local/etc/v2ray/config.json
     ;;
