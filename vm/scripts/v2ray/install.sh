@@ -293,10 +293,10 @@ get_version() {
 download_v2ray() {
   DOWNLOAD_LINK="https://github.com/v2fly/v2ray-core/releases/download/$RELEASE_VERSION/v2ray-linux-$MACHINE.zip"
   echo "Downloading V2Ray archive: $DOWNLOAD_LINK"
-  if ! curl -x "${PROXY}" -R -H 'Cache-Control: no-cache' -o "$ZIP_FILE" "$DOWNLOAD_LINK"; then
-    echo 'error: Download failed! Please check your network or try again.'
-    return 1
-  fi
+  # if ! curl -x "${PROXY}" -R -H 'Cache-Control: no-cache' -o "$ZIP_FILE" "$DOWNLOAD_LINK"; then
+  #   echo 'error: Download failed! Please check your network or try again.'
+  #   return 1
+  # fi
   echo "Downloading verification file for V2Ray archive: $DOWNLOAD_LINK.dgst"
   if ! curl -x "${PROXY}" -sSR -H 'Cache-Control: no-cache' -o "$ZIP_FILE.dgst" "$DOWNLOAD_LINK.dgst"; then
     echo 'error: Download failed! Please check your network or try again.'
@@ -562,12 +562,12 @@ main() {
     NUMBER="$?"
     if [[ "$NUMBER" -eq '0' ]] || [[ "$FORCE" -eq '1' ]] || [[ "$NUMBER" -eq 2 ]]; then
       echo "info: Installing V2Ray $RELEASE_VERSION for $(uname -m)"
-      download_v2ray
-      if [[ "$?" -eq '1' ]]; then
-        "rm" -r "$TMP_DIRECTORY"
-        echo "removed: $TMP_DIRECTORY"
-        exit 1
-      fi
+      # download_v2ray
+      # if [[ "$?" -eq '1' ]]; then
+      #   "rm" -r "$TMP_DIRECTORY"
+      #   echo "removed: $TMP_DIRECTORY"
+      #   exit 1
+      # fi
       install_software 'unzip' 'unzip'
       decompression "$ZIP_FILE"
     elif [[ "$NUMBER" -eq '1' ]]; then

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# export http_proxy=127.0.0.1:7890 https_proxy=127.0.0.1:7890
+# unset http_proxy https_proxy
+
 PROXY=127.0.0.1:7890
 
 GIT_RAW_URL=https://raw.githubusercontent.com
@@ -14,6 +17,7 @@ FRP_PATH=${GIT_RAW_URL}/${MIX_REPOSITORY}/${BRANCH}/${MIX_VM_VPS_STATIC}/frp
 NODE_VERSION=${NODE_VERSION:-"20.10.0"}
 NVM_VERSION=${NVM_VERSION:-"0.39.7"}
 FRP_VERSION=${FRP_VERSION:-"0.51.3"}
+JAVA_VERSION=${JAVA_VERSION:-"8"}
 
 init() {
   echo "y" | apt-get install tree aptitude ca-certificates curl gnupg wget cron lsof;
@@ -56,7 +60,7 @@ install_acme() {
   wget -P /root/.acme.sh/ $ACME_PATH/account.conf
 }
 
-install_ssl() {
+set_ssl() {
   case "$1" in
   renew)
     /root/.acme.sh/acme.sh --renew -d alomerry.com
@@ -97,6 +101,31 @@ install_v2ray() {
 
   systemctl enable v2ray
   systemctl start v2ray
+}
+
+install_java() {
+  # 检验命令是否存在
+  if ! command -v javac > /dev/null 2>&1; then
+    apt-get install openjdk-${JAVA_VERSION}-jdk-headless -y
+  fi
+
+  if ! command -v javac > /dev/null 2>&1; then
+    apt-get install openjdk-${JAVA_VERSION}-jre-headless -y
+  fi
+}
+
+install_rust() {
+  install_java
+
+  if command -v cargo > /dev/null 2>&1; then
+    return;
+  fi
+  export RUSTUP_DIST_SERVER="https://rsproxy.cn"
+  export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
+
+  curl --proto '=https' --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh | sh
+  # 此处需要回车
+  source "$HOME/.cargo/env"
 }
 
 install_frp() {
@@ -215,6 +244,12 @@ setup() {
   esac
 }
 
+install() {
+  for module in $@ ; do
+    eval "install_$module"
+  done
+}
+
 main() {
   # ATTENTION: 安装 ansible 以使用 ansible-vault 解密
   case "$1" in
@@ -227,20 +262,18 @@ main() {
   frp)
     install_frp $2
     ;;
-  nginx)
-    install_nginx
-    ;;
-  acme)
-    install_acme
-    ;;
   ssl)
-    install_ssl $2
+    set_ssl $2
     ;;
   nvm)
     install_nvm ${@:2}
     ;;
   build-mix)
     build_mix ${@:2}
+    ;;
+  install)
+    # acme rust nginx java
+    install ${@:2}
     ;;
   setup)
     setup ${@:2}
