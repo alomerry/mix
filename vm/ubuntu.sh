@@ -126,6 +126,7 @@ install_rust() {
   curl --proto '=https' --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh | sh
   # 此处需要回车
   source "$HOME/.cargo/env"
+  # https://rsproxy.cn/#getStarted
 }
 
 install_frp() {
