@@ -130,9 +130,33 @@ install_rust() {
 }
 
 install_frp() {
-  if [ -f ${FRP_VERSION}.version ]; then
+  case "$1" in
+  unlock) 
+    ansible-vault decrypt --vault-id ~/.ansible/.vault /root/workspace/mix/vm/scripts/frp/frpc.ini
+    ;;
+  lock)
+    ansible-vault encrypt --vault-id ~/.ansible/.vault /root/workspace/mix/vm/scripts/frp/frpc.ini
+    ;;
+  
+  esac
+
+
+  case "$1" in
+  client)
+    if [ -f /root/apps/frpc/${FRP_VERSION}.version ]; then
+      return
+    fi
+    ;;
+  server)
+    if [ -f /root/apps/frps/${FRP_VERSION}.version ]; then
+      return
+    fi
+    ;;
+  *)
     return
-  fi
+    ;;
+  esac
+
 
   wget -P /tmp/ https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/frp_${FRP_VERSION}_linux_amd64.tar.gz
 

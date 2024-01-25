@@ -1,5 +1,27 @@
 # VPS Home
 
+## 2024 规划
+
+### 网关
+
+- 网关调研
+  - traefik.io
+  - https://github.com/luraproject/lura
+  - https://github.com/easegress-io/easegress
+  - https://github.com/eolinker/apinto
+  - https://github.com/alibaba/higress/issues
+- 目的
+  - frp 仅代理网关，由网关转发请求到各个服务
+
+## 路由
+
+- 路由调研
+  - 旁路由
+  - 软路由
+  - mac mini surge
+
+## old
+
 promox
 
 k8s

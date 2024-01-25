@@ -2,7 +2,7 @@ name: Metrics
 on:
   schedule: [{cron: "0 0 * * *"}]
   workflow_dispatch:
-  # push: { branches: ["master"]  }
+  # push: { branches: ["out"]  }
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
@@ -17,6 +17,7 @@ jobs:
           filename: .github/metrics/classic.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, repositories
+          output_action: none
           plugin_lines: yes
       - name: Half-year calendar
         uses: lowlighter/metrics@latest
@@ -24,6 +25,7 @@ jobs:
           filename: .github/metrics/isocalendar.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
+          output_action: none
           plugin_isocalendar: yes
       - name: Indepth analysis
         uses: lowlighter/metrics@latest
@@ -31,6 +33,7 @@ jobs:
           filename: .github/metrics/languages.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
+          output_action: none
           plugin_languages: yes
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, yaml,
