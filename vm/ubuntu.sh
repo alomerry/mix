@@ -20,17 +20,17 @@ FRP_VERSION=${FRP_VERSION:-"0.51.3"}
 JAVA_VERSION=${JAVA_VERSION:-"8"}
 
 init() {
-  echo "y" | apt-get install tree aptitude ca-certificates curl gnupg wget cron lsof;
+  echo "y" | apt-get install tree aptitude ca-certificates curl gnupg wget cron lsof crontab;
   journalctl --vacuum-time=1d && journalctl --vacuum-size=30M
 }
 
 install_nginx() {
-  if [ -f /usr/sbin/nginx ]; then
+  if ! command -v nginx > /dev/null 2>&1; then
     return;
   fi
   
-  # https://raw.githubusercontent.com/alomerry/mix/master/vm/vps/static/nginx
-  curl -fsSL $NGINX_PATH/install.sh | sh
+  # https://raw.githubusercontent.com/alomerry/mix/master/vm/scripts/nginx
+  curl -fsSL $NGINX_PATH/install.sh | bash
 
   mkdir /root/apps/nginx/{site,cert,conf,logs} -p
   mkdir /root/apps/nginx/site/{docs,blog,empty}.alomerry.com -p
@@ -47,7 +47,7 @@ install_nginx() {
 }
 
 install_acme() {
-  if [ -f /root/.acme.sh/acme.sh ]; then
+  if command -v acme.sh; then
     /root/.acme.sh/acme.sh --upgrade
     return
   fi
@@ -57,7 +57,13 @@ install_acme() {
   /root/.acme.sh/acme.sh --register-account -m alomerry.wu@gmail.com
   /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 
+  if ! command -v ansible > /dev/null 2>&1; then
+    apt_install ansible
+  fi
+
+  rm /root/.acme.sh/account.conf
   wget -P /root/.acme.sh/ $ACME_PATH/account.conf
+  ansible-vault decrypt --vault-id ~/.ansible/.vault /root/.acme.sh/account.conf
 }
 
 set_ssl() {
@@ -70,19 +76,17 @@ set_ssl() {
     ;;
   esac
 
-  if [ $? -e 0 ]; then
-    /root/.acme.sh/acme.sh --install-cert -d alomerry.com --key-file /root/apps/nginx/cert/privkey.pem --fullchain-file /root/apps/nginx/cert/fullchain.pem
-  fi
+  /root/.acme.sh/acme.sh --install-cert -d alomerry.com --key-file /root/apps/nginx/cert/privkey.pem --fullchain-file /root/apps/nginx/cert/fullchain.pem
 }
 
 # https://iitii.github.io/2020/02/04/1/
 install_v2ray() {
-  if [ -f /usr/local/bin/v2ray ]; then
-    return
+  if command -v v2ray > /dev/null 2>&1; then
+    return;
   fi
 
-  # https://raw.githubusercontent.com/alomerry/mix/master/vm/vps/static/v2ray
-  curl -fsSL $V2RAY_PATH/install.sh | sh
+  # https://raw.githubusercontent.com/alomerry/mix/master/vm/scripts/v2ray
+  curl -fsSL $V2RAY_PATH/install-v2ray.sh | sh
 
   case "$1" in
   client)
@@ -106,17 +110,16 @@ install_v2ray() {
 install_java() {
   # 检验命令是否存在
   if ! command -v javac > /dev/null 2>&1; then
-    apt-get install openjdk-${JAVA_VERSION}-jdk-headless -y
+    apt_install openjdk-${JAVA_VERSION}-jdk-headless
   fi
 
   if ! command -v javac > /dev/null 2>&1; then
-    apt-get install openjdk-${JAVA_VERSION}-jre-headless -y
+    apt_install openjdk-${JAVA_VERSION}-jre-headless
   fi
 }
 
 install_rust() {
   install_java
-
   if command -v cargo > /dev/null 2>&1; then
     return;
   fi
@@ -129,7 +132,14 @@ install_rust() {
   # https://rsproxy.cn/#getStarted
 }
 
+apt_install() {
+  echo "y" | apt-get ${@:1};
+}
+
 install_frp() {
+  if ! command -v ansible > /dev/null 2>&1; then
+    apt_install ansible
+  fi
   case "$1" in
   unlock) 
     ansible-vault decrypt --vault-id ~/.ansible/.vault /root/workspace/mix/vm/scripts/frp/frpc.ini
@@ -166,7 +176,7 @@ install_frp() {
     tar -xf /tmp/frp_${FRP_VERSION}_linux_amd64.tar.gz --strip-components 1 -C /root/apps/frpc/
     wget -P /etc/systemd/system/ $FRP_PATH/frpc.service
 
-    # 下载配置并解析，需要提前安装 ansible
+    rm /root/apps/frpc/frpc.ini
     wget -P /root/apps/frpc/ $FRP_PATH/frpc.ini
     wget -P /root/apps/frpc/ $FRP_PATH/frpc_conf.ini
     ansible-vault decrypt --vault-id ~/.ansible/.vault /root/apps/frpc/frpc.ini
@@ -180,6 +190,7 @@ install_frp() {
     tar -xf /tmp/frp_${FRP_VERSION}_linux_amd64.tar.gz --strip-components 1 -C /root/apps/frps/
     wget -P /etc/systemd/system/ $FRP_PATH/frps.service
     
+    rm /root/apps/frps/frps.ini
     wget -P /root/apps/frps/ $FRP_PATH/frps.ini
     ansible-vault decrypt --vault-id ~/.ansible/.vault /root/apps/frps/frps.ini
 
@@ -288,6 +299,7 @@ main() {
     install_frp $2
     ;;
   ssl)
+    # renew issue
     set_ssl $2
     ;;
   nvm)
@@ -301,6 +313,7 @@ main() {
     install ${@:2}
     ;;
   setup)
+    # TODO 区分 server home
     setup ${@:2}
     ;;
   *)
