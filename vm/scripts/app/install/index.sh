@@ -37,3 +37,14 @@ install() {
     eval "install_$module"
   done
 }
+
+install_usage() {
+  command=(acme frp_server frp_client java nginx nvm rust v2ray_server v2ray_client)
+  desc=(acme frp_server frp_client java nginx nvm rust v2ray_server v2ray_client)
+  echo "usage: alomerry.sh install 安装软件"
+  echo -e "\nOptions:"
+  for idx in 0 1 2 3 4 5 6 7 8; do
+    printf "  - %-20s %-20s\n" ${command[$idx]} ${desc[$idx]}
+  done
+  exit 1
+}

@@ -26,10 +26,18 @@ JAVA_VERSION=${JAVA_VERSION:-"8"}
 
 boot() {
   # https://raw.githubusercontent.com/alomerry/mix/master/vm/scripts/app/tools.sh
-  wget $SCRIPTS_PATH/app/tools.sh -O /tmp/tools.sh
-  wget $SCRIPTS_PATH/app/setup.sh -O /tmp/setup.sh
-  wget $SCRIPTS_PATH/app/build.sh -O /tmp/build.sh
-  wget $SCRIPTS_PATH/app/install/index.sh -O /tmp/install.sh
+  if [ ! -f /tmp/tools.sh ]; then
+    wget $SCRIPTS_PATH/app/tools.sh -O /tmp/tools.sh
+  fi
+  if [ ! -f /tmp/setup.sh ]; then
+    wget $SCRIPTS_PATH/app/setup.sh -O /tmp/setup.sh
+  fi
+  if [ ! -f /tmp/build.sh ]; then
+    wget $SCRIPTS_PATH/app/build.sh -O /tmp/build.sh
+  fi
+  if [ ! -f /tmp/install.sh ]; then
+    wget $SCRIPTS_PATH/app/install/index.sh -O /tmp/install.sh
+  fi
   # https://blog.csdn.net/Renard_H/article/details/121458554
   source /tmp/tools.sh
   source /tmp/install.sh
@@ -37,18 +45,51 @@ boot() {
   source /tmp/setup.sh
 }
 
+usage() {
+  case "$1" in
+  setup)
+    setup_usage ${@:1}
+    ;;
+  build)
+    build_usage ${@:1}
+    ;;
+  install)
+    install_usage ${@:1}
+    ;;
+  *)
+    echo "usage: alomerry.sh"
+    echo -e "\nOptions:"
+    echo "  - setup"
+    echo "  - build"
+    echo "  - install"
+    exit 1
+    ;;
+  esac
+}
+
 main() {
+  args=$#
   boot
+  # TODO 单独先处理一遍参数
+  if [ ${!args} == -h ]; then
+    usage ${@:1:`expr ${args} - 1`}
+    return
+  fi
+
   # ATTENTION: 安装 ansible 以使用 ansible-vault 解密
   case "$1" in
-  setup) # server local ssh ssl ssl_{issue,renew}
+  setup)
     setup ${@:2}
     ;;
-  build) # blog,docs
+  build)
     build ${@:2}
     ;;
-  install) # acme rust nginx java frp_{server,client} v2ray_{server,client} nvm
+  install)
     install ${@:2}
+    ;;
+  update)
+    rm -rf /tmp/tools.sh /tmp/setup.sh /tmp/build.sh /tmp/install.sh
+    boot
     ;;
   *)
     echo "Done!"
@@ -57,6 +98,3 @@ main() {
 }
 
 main $@
-
-# run.sh setup server
-# run.sh install frp_client

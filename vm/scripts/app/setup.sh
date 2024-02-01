@@ -37,3 +37,14 @@ setup() {
     eval "setup_$module"
   done
 }
+
+setup_usage() {
+  command=(server local ssh ssl_issue ssl_renew)
+  desc=(设置服务器 设置家庭 将本地ssh-key添加到服务器 初始化https证书 续签https证书)
+  echo "usage: alomerry.sh setup 设置系统"
+  echo -e "\nOptions:"
+  for idx in 0 1 2 3 4; do
+    printf "  - %-20s %-20s\n" ${command[$idx]} ${desc[$idx]}
+  done
+  exit 1
+}

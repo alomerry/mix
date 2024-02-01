@@ -38,3 +38,14 @@ build() {
     eval "build_$module"
   done
 }
+
+build_usage() {
+  command=(blog docs)
+  desc=(博客 文档)
+  echo "usage: alomerry.sh build 本地构建"
+  echo -e "\nOptions:"
+  for idx in 0 1; do
+    printf "  - %-20s %-20s\n" ${command[$idx]} ${desc[$idx]}
+  done
+  exit 1
+}
