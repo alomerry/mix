@@ -10,8 +10,8 @@ install_v2ray_client() {
   curl -fsSL $V2RAY_PATH/v2ray.sh | bash
 
   mkdir /usr/local/etc/v2ray/ -p
-  wget -P /usr/local/etc/v2ray/ $V2RAY_PATH/client.json
-  wget -P /etc/systemd/system $V2RAY_PATH/v2ray.service
+  wget $V2RAY_PATH/client.json -O /usr/local/etc/v2ray/client.json
+  wget $V2RAY_PATH/v2ray.service -O /etc/systemd/system/v2ray.service
   mv /usr/local/etc/v2ray/client.json /usr/local/etc/v2ray/config.json
   ansible-vault decrypt --vault-id ~/.ansible/.vault /usr/local/etc/v2ray/config.json
 
@@ -27,7 +27,7 @@ install_v2ray_server() {
   # https://raw.githubusercontent.com/alomerry/mix/master/vm/scripts/install/v2ray.sh
   curl -fsSL $V2RAY_PATH/v2ray.sh | sh
 
-  wget -P /usr/local/etc/v2ray/ $V2RAY_PATH/server.json
+  wget $V2RAY_PATH/server.json -O /usr/local/etc/v2ray/server.json
   mv /usr/local/etc/v2ray/server.json /usr/local/etc/v2ray/config.json
   ansible-vault decrypt --vault-id ~/.ansible/.vault /usr/local/etc/v2ray/config.json
 

@@ -13,9 +13,9 @@ install_nginx() {
   mkdir /root/apps/nginx/site/{docs,blog,empty}.alomerry.com -p
   touch /root/apps/nginx/cert/{privkey,fullchain}.pem
 
-  wget -P /etc/systemd/system/    $NGINX_PATH/nginx.service
-  wget -P /etc/nginx/             $NGINX_PATH/nginx.conf
-  wget -P /root/apps/nginx/conf/  $NGINX_PATH//website.conf
+  wget $NGINX_PATH/nginx.service -O /etc/systemd/system/nginx.service
+  wget $NGINX_PATH/nginx.conf -O /etc/nginx/nginx.conf
+  wget $NGINX_PATH/website.conf -O /root/apps/nginx/conf/website.conf
   chmod 644 /etc/nginx/nginx.conf
 
   systemctl daemon-reload
