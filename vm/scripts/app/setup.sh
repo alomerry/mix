@@ -28,7 +28,7 @@ setup_ssh() {
 }
 
 setup_basic() {
-  echo "y" | apt-get install tree aptitude ca-certificates curl gnupg wget cron lsof;
+  echo "y" | apt-get install tree aptitude ca-certificates curl gnupg wget cron lsof git;
   journalctl --vacuum-time=1d && journalctl --vacuum-size=30M
 }
 

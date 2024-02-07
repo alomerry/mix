@@ -11,20 +11,24 @@ install_depandence() {
     cron \
     socat \
     lsof \
-    qemu-guest-agent
+    netcat-openbsd
     # nfs
 }
 
 install_qemu_guest() {
-  echo "y" | apt-get install qemu-guest-agent
-  systemctl enable qemu-guest-agent
+  echo "y" | apt-get install qemu-guest-agent; \
+  systemctl enable qemu-guest-agent; \
   systemctl restart qemu-guest-agent
+}
+
+init_pve_vm() {
+  journalctl --vacuum-time=1d && journalctl --vacuum-size=30M; \
+    timedatectl set-timezone "Asia/Shanghai"
 }
 
 main() {
   apt-get update
-  journalctl --vacuum-time=1d && journalctl --vacuum-size=30M
-  timedatectl set-timezone "Asia/Shanghai"
+  init_pve_vm
   install_depandence
   install_qemu_guest
 }

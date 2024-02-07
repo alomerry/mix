@@ -5,14 +5,14 @@ install_frp_server() {
     return
   fi
 
-  wget https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/frp_${FRP_VERSION}_linux_amd64.tar.gz -O /tmp/frp.tar.gz
+  wget https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/frp_${FRP_VERSION}_linux_amd64.tar.gz -qO /tmp/frp.tar.gz
 
   rm -rf /root/apps/frps && mkdir /root/apps/frps -p
   tar -xf /tmp/frp.tar.gz --strip-components 1 -C /root/apps/frps/
-  wget $FRP_PATH/frps.service -O /etc/systemd/system/frps.service
+  wget $FRP_PATH/frps.service -qO /etc/systemd/system/frps.service
     
   rm /root/apps/frps/*.ini /root/apps/frpc/LICENSE
-  wget $FRP_PATH/frps.ini -O /root/apps/frps/frps.ini
+  wget $FRP_PATH/frps.ini -qO /root/apps/frps/frps.ini
   ansible-vault decrypt --vault-id ~/.ansible/.vault /root/apps/frps/frps.ini
 
   touch /root/apps/frps/${FRP_VERSION}.version
@@ -33,11 +33,11 @@ install_frp_client() {
 
   rm -rf /root/apps/frpc && mkdir /root/apps/frpc -p
   tar -xf /tmp/frp.tar.gz --strip-components 1 -C /root/apps/frpc/
-  wget $FRP_PATH/frpc.service -O /etc/systemd/system/frpc.service
+  wget $FRP_PATH/frpc.service -qO /etc/systemd/system/frpc.service
 
   rm /root/apps/frpc/*.ini /root/apps/frpc/LICENSE
-  wget $FRP_PATH/frpc.ini -O /root/apps/frpc/frpc.ini
-  wget $FRP_PATH/frpc_conf.ini -O /root/apps/frpc/frpc_conf.ini
+  wget $FRP_PATH/frpc.ini -qO /root/apps/frpc/frpc.ini
+  wget $FRP_PATH/frpc_conf.ini -qO /root/apps/frpc/frpc_conf.ini
   ansible-vault decrypt --vault-id ~/.ansible/.vault /root/apps/frpc/frpc.ini
 
   touch /root/apps/frpc/${FRP_VERSION}.version

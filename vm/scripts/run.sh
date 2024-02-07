@@ -27,16 +27,16 @@ JAVA_VERSION=${JAVA_VERSION:-"8"}
 boot() {
   # https://raw.githubusercontent.com/alomerry/mix/master/vm/scripts/app/tools.sh
   if [ ! -f /tmp/tools.sh ]; then
-    wget $SCRIPTS_PATH/app/tools.sh -O /tmp/tools.sh
+    wget $SCRIPTS_PATH/app/tools.sh -qO /tmp/tools.sh
   fi
   if [ ! -f /tmp/setup.sh ]; then
-    wget $SCRIPTS_PATH/app/setup.sh -O /tmp/setup.sh
+    wget $SCRIPTS_PATH/app/setup.sh -qO /tmp/setup.sh
   fi
   if [ ! -f /tmp/build.sh ]; then
-    wget $SCRIPTS_PATH/app/build.sh -O /tmp/build.sh
+    wget $SCRIPTS_PATH/app/build.sh -qO /tmp/build.sh
   fi
   if [ ! -f /tmp/install.sh ]; then
-    wget $SCRIPTS_PATH/app/install/index.sh -O /tmp/install.sh
+    wget $SCRIPTS_PATH/app/install/index.sh -qO /tmp/install.sh
   fi
   # https://blog.csdn.net/Renard_H/article/details/121458554
   source /tmp/tools.sh
