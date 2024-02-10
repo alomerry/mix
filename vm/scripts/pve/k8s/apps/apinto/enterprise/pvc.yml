@@ -1,0 +1,145 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: redis-app
+  name: redis-data-redis-app-0
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200M
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: redis-app
+  name: redis-data-redis-app-1
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200M
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: redis-app
+  name: redis-data-redis-app-2
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200M
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: redis-app
+  name: redis-data-redis-app-3
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200M
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: redis-app
+  name: redis-data-redis-app-4
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200M
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: redis-app
+  name: redis-data-redis-app-5
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200M
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 30G
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: influxdb-pvc
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 15G
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: apikit-user-center-pvc
+  namespace: apinto
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1G
+  volumeMode: Filesystem
+  storageClassName: nfs-csi

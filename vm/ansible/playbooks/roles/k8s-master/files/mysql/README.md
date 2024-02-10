@@ -1,5 +1,0 @@
-- namespace
-- pvc
-- pv
-- secret
-- mysql.yml

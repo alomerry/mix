@@ -1,0 +1,81 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations: {}
+  labels:
+    k8s.kuboard.cn/name: apinto-gateway-stateful
+  name: apinto-gateway-stateful
+  namespace: apinto
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/name: apinto-gateway-stateful
+  serviceName: apinto-gateway-stateful
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/name: apinto-gateway-stateful
+    spec:
+      containers:
+        - env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+            - name: SVC_NAME
+              value: apinto-gateway-stateful
+            - name: SVC_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: APINTO_ADMIN_PORT
+              value: '9401'
+            - name: SVC_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: token
+                  name: apinto-token
+          image: 'eolinker/apinto-gateway'
+          imagePullPolicy: Always
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - nohup bash /apinto/join.sh >nohup.out 2>&1 &
+            preStop:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - bash /apinto/leave.sh
+          name: apinto-gateway-stateful
+          volumeMounts:
+            - mountPath: /var/lib/apinto
+              name: apinto-gateway-app
+              subPath: data/
+            - mountPath: /var/log/apinto
+              name: apinto-gateway-app
+              subPath: log/
+      restartPolicy: Always
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      annotations:
+        k8s.kuboard.cn/pvcType: Dynamic
+      name: apinto-gateway-app
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5G
+      storageClassName: nfs-csi
+      volumeMode: Filesystem
