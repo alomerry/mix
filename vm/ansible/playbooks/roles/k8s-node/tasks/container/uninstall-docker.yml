@@ -1,5 +1,0 @@
-- shell: |
-    apt-get autoremove docker docker-ce docker-engine docker.io containerd runc
-    apt-get autoremove docker-ce-*
-    dpkg -l | grep ^rc | awk '{print $2}' | xargs dpkg -P
-    rm -rf /var/lib/docker

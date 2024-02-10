@@ -1,4 +1,0 @@
-# - name: install docker
-#   include_tasks: docker.yml
-- name: install containerd
-  include_tasks: d.yml

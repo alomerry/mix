@@ -1,11 +1,6 @@
 import { defineConfig } from 'vitepress';
 import todo from 'markdown-it-task-lists';
-import { 
-  Lang,
-  Nav,
-  BaGuIndex as BaGu,
-  IOIIndex as IOI,
-} from './i18n';
+import { BaGuIndex as BaGu, DocsIndex as Docs, IOIIndex as IOI, Lang, Nav, } from './i18n';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -64,6 +59,7 @@ export default defineConfig({
         sidebar: {
           ...BaGu(Lang.EN),
           ...IOI(Lang.EN),
+          ...Docs(Lang.EN),
         },
       },
     },
@@ -76,6 +72,7 @@ export default defineConfig({
         sidebar: {
           ...BaGu(Lang.ZH_CN),
           ...IOI(Lang.ZH_CN),
+          ...Docs(Lang.ZH_CN),
         },
       },
     }

@@ -2,8 +2,41 @@
 
 K8S_VERSION=${K8S_VERSION:-"1.28.1"}
 
-install_k8s() {
+_install_k8s_setup() {
   swapoff -a
+  apt-get install -y apt-transport-https \
+    ca-certificates \
+    curl \
+    conntrack
+
+  cat <<EOF | tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+  cat << EOF > /etc/modules-load.d/containerd.conf
+overlay
+br_netfilter
+EOF
+
+  modprobe overlay
+  modprobe br_netfilter
+
+  cat << EOF > /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+user.max_user_namespaces=28633
+EOF
+
+  sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
+  # sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+  sysctl --system
+}
+
+install_k8s() {
+  _install_k8s_setup
+
   curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
   tee /etc/apt/sources.list.d/kubernetes.list <<-'EOF'
 deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
@@ -13,6 +46,12 @@ EOF
   apt-mark hold kubelet kubeadm kubectl
 
   systemctl enable kubelet.service
+}
+
+install_k8s_required() {
+  mkdir -p /root/k8s/
+  wget https://raw.githubusercontent.com/alomerry/mix/master/vm/scripts/pve/k8s/apply/flannel.yml -qO /root/k8s/flannel.yml
+  wget https://raw.githubusercontent.com/alomerry/mix/master/vm/scripts/pve/k8s/apply/cert-manager.yml -qO /root/k8s/cert-manager.yml
 }
 
 # ???

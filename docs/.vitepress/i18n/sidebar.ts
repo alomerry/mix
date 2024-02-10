@@ -191,7 +191,7 @@ export function BaGuIndex(lang: Lang): DT.SidebarMulti {
     'cloud-native/k8s': [
       {
         text: 'Kubernetes',
-        link: `${lang}8gu/cloud-native/k8s/`,
+        link: `index`,
         base: `${lang}8gu/cloud-native/k8s/`,
         items: [
           { text: 'Index', link: `index` },
@@ -436,6 +436,41 @@ function IOI(lang: Lang): DT.SidebarItem[] {
       text: 'PAT Advance',
       base: `${lang}ioi/pat-a/`,
       link: `1001`,
+    },
+  ]
+}
+
+export function DocsIndex(lang: Lang): DT.SidebarMulti {
+  const sidebar = {
+    'k8s/': [
+      { text: 'k8s 安装手册', link: `${lang}docs/k8s/install` },
+      { text: 'Apinto 安装手册', link: `${lang}docs/k8s/apinto` },
+      { text: 'k8s 使用手册', link: `${lang}docs/k8s/notes` },
+    ],
+  };
+  const cfg: Scfg = {
+    lang: lang,
+    group: 'docs',
+    rootSide: Docs(false, lang),
+    subSide: Docs(true, lang),
+    sideMulti: sidebar,
+  }
+  return warp(cfg);
+}
+
+function Docs(collapsed: boolean, lang: Lang): DT.SidebarItem[] {
+  return [
+    {
+      text: 'Docs',
+      link: `${lang}docs/`,
+      collapsed: collapsed,
+      items: [
+        {
+          text: 'k8s',
+          collapsed: collapsed,
+          link: `${lang}docs/k8s/1.28.1`,
+        },
+      ]
     },
   ]
 }

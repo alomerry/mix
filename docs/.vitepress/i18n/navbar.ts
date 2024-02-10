@@ -6,6 +6,7 @@ export function Nav(lang: Lang): DT.NavItem[] {
     { text: 'Home', link: `${lang}` },
     { text: '8gu', link: `${lang}8gu/` },
     { text: 'IOI', link: `${lang}ioi/` },
+    { text: 'Docs', link: `${lang}docs/k8s/apinto` },
   ];
   const cfg: Lcfg = {
     lang: lang,
