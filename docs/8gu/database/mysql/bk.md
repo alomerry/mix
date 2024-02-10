@@ -134,5 +134,12 @@ update 表名 set col_name1=new_value1, col_name2=new_value2, ... where conditio
 
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'your_password';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'your_password'; // 8 失败
 FLUSH PRIVILEGES;
+
+
+update user set host='%' where user='root';
+
+GRANT ALL ON *.* TO 'root'@'%';
+
+ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';

@@ -466,11 +466,11 @@ function Docs(collapsed: boolean, lang: Lang): DT.SidebarItem[] {
       collapsed: collapsed,
       items: [
         {
-          text: 'k8s',
+          text: 'Kubernetes',
           link: `${lang}docs/k8s/install`,
         },
         {
-          text: 'k8s',
+          text: 'PVE',
           link: `${lang}docs/pve/notes`,
         },
       ]

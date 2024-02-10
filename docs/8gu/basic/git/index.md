@@ -456,6 +456,29 @@ git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch *.go'
 > _Some kinds of filters will generate empty commits that leave the tree untouched. This switch
 allows_ `git-filter-branch` _to ignore such commits …_
 
+### git ssh 代理设置
+
+**git 代理**
+
+设置 `git config --global http.https://github.com.proxy socks5://127.0.0.1:1086`
+
+设置完成后，`~/.gitconfig` 文件中会增加以下条目:
+
+```
+[http "https://github.com"]
+    proxy = socks5://127.0.0.1:1086
+```
+
+**ssh 代理**
+
+修改 `~/.ssh/config` 文件
+
+```
+Host github.com
+    User git
+    ProxyCommand nc -v -x 127.0.0.1:1086 %h %p
+```
+
 ## 工具
 
 ### 高级合并

@@ -83,7 +83,7 @@ apt-get install -y apt-transport-https \
   
   :::
 
-使用 [aliyun 镜像]((https://developer.aliyun.com/mirror/kubernetes))安装 kubeadm、kubelet、kubectl
+使用 [aliyun 镜像](https://developer.aliyun.com/mirror/kubernetes)安装 kubeadm、kubelet、kubectl
 
 ```shell
 curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
@@ -295,3 +295,4 @@ spec:
 - [How to Install NFS Server on Debian 12 Step-by-Step](https://www.linuxtechi.com/how-to-install-nfs-server-on-debian/#google_vignette)
 - [csi driver example](https://github.com/kubernetes-csi/csi-driver-nfs/blob/master/deploy/example/README.md#csi-driver-example)
 - [使用 NFS 的持久性存储](https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.3/html/storage/persistent-storage-using-nfs)
+- [k8s 学习笔记之 StorageClass + NFS ](https://www.cnblogs.com/panwenbin-logs/p/12196286.html)
