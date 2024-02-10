@@ -444,15 +444,15 @@ export function DocsIndex(lang: Lang): DT.SidebarMulti {
   const sidebar = {
     'k8s/': [
       { text: 'k8s 安装手册', link: `${lang}docs/k8s/install` },
-      { text: 'Apinto 安装手册', link: `${lang}docs/k8s/apinto` },
       { text: 'k8s 使用手册', link: `${lang}docs/k8s/notes` },
+      { text: 'Apinto 安装手册', link: `${lang}docs/k8s/apinto` },
     ],
   };
   const cfg: Scfg = {
     lang: lang,
     group: 'docs',
     rootSide: Docs(false, lang),
-    subSide: Docs(true, lang),
+    subSide: Docs(false, lang),
     sideMulti: sidebar,
   }
   return warp(cfg);
@@ -467,8 +467,11 @@ function Docs(collapsed: boolean, lang: Lang): DT.SidebarItem[] {
       items: [
         {
           text: 'k8s',
-          collapsed: collapsed,
-          link: `${lang}docs/k8s/1.28.1`,
+          link: `${lang}docs/k8s/install`,
+        },
+        {
+          text: 'k8s',
+          link: `${lang}docs/pve/notes`,
         },
       ]
     },

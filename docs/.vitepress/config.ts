@@ -12,7 +12,7 @@ export default defineConfig({
       copyright: 'Copyright © 2023-present Alomerry Wu',
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/alomerry/docs' },
+      { icon: 'github', link: 'https://github.com/alomerry/mix' },
       // { icon: 'discord', link: '' },
       // { icon: 'facebook', link: '' },
       // { icon: 'instagram', link: '' },
