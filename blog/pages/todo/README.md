@@ -2,8 +2,16 @@
 
 ## 2024 规划
 
+## frp
+
+- 升至最新版
+- 使用 frpPannel
+  - https://github.com/VaalaCat/frp-panel?tab=readme-ov-file
+  - https://vaala.cat/posts/frp-panel-doc/
+
 ### 网关
 
+- terrform 代替手动创建 pve 虚拟机
 - 网关调研
   - traefik.io
   - https://github.com/luraproject/lura
@@ -13,7 +21,7 @@
 - 目的
   - frp 仅代理网关，由网关转发请求到各个服务
 
-## 路由
+### 路由
 
 - 路由调研
   - 旁路由
