@@ -34,8 +34,13 @@ build_blog() {
 }
 
 build() {
+  validProjects=(blog docs)
   for module in $@ ; do
-    eval "build_$module"
+    # 使用 grep 命令查找元素
+    if printf '%s\n' "${validProjects[@]}" | grep -q -w "$module"; then
+      eval "build_$module"
+    fi
+    
   done
 }
 

@@ -1,9 +1,13 @@
 #!/bin/bash
 
+NVM_VERSION=${NVM_VERSION:-"0.39.7"}
+NVM_DIR=${NVM_DIR:-"/root/.nvm"}
+NODE_VERSION=${NODE_VERSION:-"20.10.0"}
+
 install_nvm() {
   # TODO
   if [ ! -d /root/.nvm ]; then
-    curl -o- ${GIT_RAW_URL}/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
     source ~/.bashrc
   fi
 
