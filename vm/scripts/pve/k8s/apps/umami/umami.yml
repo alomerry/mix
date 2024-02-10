@@ -1,0 +1,64 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: umami-service
+  namespace: alomerry
+spec:
+  ports:
+  - name: umami
+    port: 3000
+    targetPort: umami
+    protocol: TCP
+  selector:
+    app: umami
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: umami-deployment
+  namespace: alomerry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: umami
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: umami
+    spec:
+      containers:
+      # ghcr.lank8s.cn/umami-software/umami:mysql-latest
+      # registry.cn-hangzhou.aliyuncs.com/alomerry/k8s-umami:latest
+      - image: registry.cn-hangzhou.aliyuncs.com/alomerry/k8s-umami:latest
+        imagePullPolicy: Always
+        name: umami
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: mysql-umami-cfg
+              key: dsn
+        - name: APP_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: mysql-umami-cfg
+              key: secret
+        - name: DATABASE_TYPE
+          value: mysql
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+          name: umami
+        volumeMounts:
+        - name: localtime
+          readOnly: true
+          mountPath: /etc/localtime
+      volumes:
+      - name: localtime
+        hostPath:
+          type: File
+          path: /etc/localtime
