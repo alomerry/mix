@@ -5,17 +5,25 @@ description: List of projects that I am proud of
 plum: true
 wrapperClass: 'text-center'
 others:
-  Current Focus:
-    - name: 'Bookmarks'
+  关于:
+    - name: '本站'
+      link: '/pinned/about/site'
+      desc: 'The intuitive Vue Framework. (Team member)'
+      icon: 'i-maki-picnic-site saturate-0'
+    - name: '我'
+      link: '/'
+      desc: 'The intuitive Vue Framework. (Team member)'
+      icon: 'i-maki-picnic-site saturate-0'
+    - name: '书单'
       link: '/pinned/bookmarks'
       desc: 'Interactive Playground for learning Nuxt'
       icon: 'i-material-symbols-light-bookmarks saturate-0'
-    - name: 'Reading Trace'
-      link: 'https://flowus.cn/alomerry/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5'
-      desc: 'Unleash Nuxt Developer Experience'
-      icon: 'i-fluent-reading-list-16-filled saturate-0'
+    - name: '计划'
+      link: '/pinned/todo/'
+      desc: 'Interactive Playground for learning Nuxt'
+      icon: 'i-material-symbols-light-bookmarks saturate-0'
 
-  Golang Ecosystem:
+  Golang 相关:
     - name: 'go-pusher'
       link: 'https://github.com/alomerry/go-pusher'
       desc: 'Collection of Composition API utils for Vue 2 and 3'
@@ -29,19 +37,17 @@ others:
       desc: 'Template as Promise in Vue'
       icon: 'i-ic-twotone-monitor-heart'
 
-  About:
-    - name: 'Site'
-      link: '/pinned/about/site'
-      desc: 'The intuitive Vue Framework. (Team member)'
-      icon: 'i-maki-picnic-site saturate-0'
-
-  Website:
-    - name: 'Docs'
+  站点与工具:
+    - name: '文档'
       link: '/pinned/website/docs'
       desc: 'Unified plugin system for Vite, Rollup, and Webpack'
       icon: 'i-simple-icons:materialformkdocs'
-    - name: 'Website'
+    - name: '网站'
       link: '/pinned/website/website'
+      desc: 'Unified plugin system for Vite, Rollup, and Webpack'
+      icon: 'i-simple-icons:materialformkdocs'
+    - name: '密码生成器'
+      link: 'https://1password.com/zh-cn/password-generator/'
       desc: 'Unified plugin system for Vite, Rollup, and Webpack'
       icon: 'i-simple-icons:materialformkdocs'
 

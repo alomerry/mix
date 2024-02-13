@@ -7,7 +7,7 @@ tocAlwaysOn: true
 
 [[toc]]
 
-[书单](https://flowus.cn/alomerry/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5)
+[阅读计划](https://flowus.cn/alomerry/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5)
 
 >每每寻得一本好书时常会有“初闻大道，不胜自喜”的感觉，记录于此，与君共勉。
 

@@ -1,32 +1,16 @@
-# VPS Home
+title: Twitch API
+date: 2023-02-21
 
-## 2024 规划
+- https://github.com/tmijs/tmi.js/releases?page=1
+- https://banana.eotones.net/main.js?20221004
+- https://github.com/tmijs/tmi.js/issues/71
+- https://github.com/tmijs/tmi.js/issues/19
+- https://github.com/tmijs/tmi.js/issues/151
+- https://gist.github.com/AlcaDesign/742d8cb82e3e93ad4205
 
-## frp
+毕业后很久没有回家好好过年，今年尤其的想家，年迈的父母，他们真的苍老了很多；工作多年来已经久不觉年味的我，突然在今天雨停之后的上海有了额外的一丝感知，往日拥堵的中环，已经清冷，夜晚同事们都在打车，只有迟迟不到、无处可循的滴滴司机
+- 犯得事
 
-- 升至最新版
-- 使用 frpPannel
-  - https://github.com/VaalaCat/frp-panel?tab=readme-ov-file
-  - https://vaala.cat/posts/frp-panel-doc/
-
-### 网关
-
-- terrform 代替手动创建 pve 虚拟机
-- 网关调研
-  - traefik.io
-  - https://github.com/luraproject/lura
-  - https://github.com/easegress-io/easegress
-  - https://github.com/eolinker/apinto
-  - https://github.com/alibaba/higress/issues
-- 目的
-  - frp 仅代理网关，由网关转发请求到各个服务
-
-### 路由
-
-- 路由调研
-  - 旁路由
-  - 软路由
-  - mac mini surge
 
 ## old
 

@@ -1,10 +1,13 @@
 ---
 date: 2019-07-21T16:00:00.000+00:00
 title: C++ 常用的函数 algorithm/stdlib/string/STL 库函数
-lang: en
+lang: zh
+type: posts+algorithm
 duration: 10min
+tocAlwaysOn: true
 ---
 
+[[toc]]
 
 在做一些算法的时候会用到一些好用的库函数、STL 函数，总结整理一下
 
@@ -27,23 +30,21 @@ duration: 10min
 
 ### `string`
 
-- getline
-- find 用于搜索字符串中的特定字符。它返回字符的第一个实例的索引或 string::npos 如果不存在
-
-[在 C++ 中将 char 转换为字符串的 10 种方法](https://www.techiedelight.com/zh/convert-char-to-string-cpp/)
+- `getline`
+- `find` 用于搜索字符串中的特定字符。它返回字符的第一个实例的索引或 `string::npos` 如果不存在
 
 ### `ctype.h`
 
-- tolower()/toupper() // 值并没有改变
-- isalpha
-- isalnum
-- isdigit()、isprint()
-- isalpha （字母，包括大写、小写）
-- islower（小写字母）
-- isupper（大写字母）
-- isalnum（字母大写小写+数字）
-- isblank（space和\t）
-- isspace（space、\t、\r、\n）
+- `tolower()/toupper()` PS 值并没有改变
+- `isalpha`
+- `isalnum`
+- `isdigit()、isprint()`
+- `isalpha` （字母，包括大写、小写）
+- `islower`（小写字母）
+- `isupper`（大写字母）
+- `isalnum`（字母大写小写 + 数字）
+- `isblank`（`space` 和 `\t`）
+- `isspace`（`space`、`\t`、`\r`、`\n`）
 
 ### `math.h`
 
@@ -59,13 +60,11 @@ duration: 10min
 
 ## STL
 
-### vector
+- vector
+- map
+- set
 
-### map
-
-### set
-
-## 各个类型的转换
+## 类型的转换
 
 ### 使用 stringstream
 
@@ -80,7 +79,7 @@ ss>>b;
 
 ## 常见技巧 case
 
-### 最大公约数（公倍数 两数相乘  除以公约数）
+### 最大公约数（公倍数、两数相乘、除以公约数）
 
 ```cpp
 #include<bits/stdc++.h>
@@ -93,7 +92,7 @@ int main()
 }
 ```
 
-### accumulate 求和
+### `accumulate` 求和
 
 ```cpp
 #include<numeric>
@@ -110,7 +109,7 @@ int main()
 }
 ```
 
-### bitset 实现十进制和二进制的互换
+### `bitset` 实现十进制和二进制的互换
 
 ```cpp
 #include<iostream>
@@ -126,7 +125,7 @@ int main()
 }
 ```
 
-### count
+### `count`
 
 ```cpp
 /*
@@ -150,7 +149,7 @@ int main()
 }
 ```
 
-### copy
+### `copy`
 
 ```cpp
 /*
@@ -174,7 +173,7 @@ int main()
 }
 ```
 
-### find_if
+### `find_if`
 
 ```cpp
 find_if()
@@ -210,7 +209,7 @@ int main()
 }
 ```
 
-### find
+### `find`
 
 ```cpp
 find
@@ -235,7 +234,7 @@ int main()
 
 ```
 
-### for_each()
+### `for_each()`
 
 ```cpp
 for_each()
@@ -255,4 +254,6 @@ int main()
 }
 ```
 
-...待更新
+## Reference
+
+- [在 C++ 中将 char 转换为字符串的 10 种方法](https://www.techiedelight.com/zh/convert-char-to-string-cpp/)
