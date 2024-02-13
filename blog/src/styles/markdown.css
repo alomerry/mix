@@ -91,6 +91,11 @@ html.dark .prose {
   --fg-deeper: #fff;
 }
 
+/* 暗黑模式下单行代码 */
+html.dark .prose code{
+  --fg-deep: #070000;
+}
+
 a.item {
   transition: 0.2s all ease-out;
   text-decoration: none;

@@ -1,0 +1,47 @@
+.prose [class*='language-'] > button.copy {
+  /*rtl:ignore*/
+  direction: ltr;
+  position: absolute;
+  top: 10px;
+  /*rtl:ignore*/
+  right: 10px;
+  z-index: 3;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  background-color: var(--vp-code-copy-code-bg);
+  opacity: 0;
+  cursor: pointer;
+  background-image: var(--alomerry-icon-copy);
+  background-position: 50%;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  transition:
+    border-color 0.25s,
+    background-color 0.25s,
+    opacity 0.25s;
+}
+
+
+.prose [class*='language-']:hover > button.copy,
+.prose [class*='language-'] > button.copy:focus {
+  opacity: 1;
+}
+
+.prose [class*='language-'] > button.copy:hover,
+.prose [class*='language-'] > button.copy.copied {
+  background-color: var(--vp-code-copy-code-hover-bg);
+}
+
+.prose [class*='language-'] > button.copy.copied,
+.prose [class*='language-'] > button.copy:hover.copied {
+  /*rtl:ignore*/
+  border-radius: 4px;
+  background-image: var(--alomerry-icon-copied);
+}
+
+.prose .vp-adaptive-theme[class*='language-']:has(button.copy),
+.prose .blocks .vp-adaptive-theme[class*='language-']:has(button.copy),
+.prose .custom-block .vp-adaptive-theme[class*='language-']:has(button.copy){
+  position: relative;
+}

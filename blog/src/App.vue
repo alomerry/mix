@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useCodeGroup } from './alomerry/codeGroup'
+import { useCopyCode } from './alomerry/copyCode'
+
 const route = useRoute()
 
 const imageModel = ref<HTMLImageElement>()
@@ -27,6 +30,9 @@ useEventListener('click', async (e) => {
   imageModel.value = first as HTMLImageElement
 })
 
+useCodeGroup()
+useCopyCode()
+
 onKeyStroke('Escape', (e) => {
   if (imageModel.value) {
     imageModel.value = undefined
@@ -37,6 +43,7 @@ onKeyStroke('Escape', (e) => {
 
 <template>
   <NavBar />
+
   <main class="px-7 py-10 of-x-hidden">
     <RouterView />
     <Footer :key="route.path" />

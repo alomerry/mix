@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { formatDate } from '~/logics'
+import { formatDateByAlomerry } from '~/alomerry'
 
 const { frontmatter } = defineProps({
   frontmatter: {
@@ -7,14 +7,16 @@ const { frontmatter } = defineProps({
     required: true,
   },
 })
-
+const displayWaline = ref(false)
 const router = useRouter()
 const route = useRoute()
 const content = ref<HTMLDivElement>()
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 
-const base = 'https://blog.alomerry.com'
-const tweetUrl = computed(() => `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Reading @antfu7\'s ${base}${route.path}\n\nI think...`)}`)
-const elkUrl = computed(() => `https://elk.zone/intent/post?text=${encodeURIComponent(`Reading @antfu@m.webtoo.ls\'s ${base}${route.path}\n\nI think...`)}`)
+function reverseWaline() {
+  displayWaline.value = !displayWaline.value
+}
 
 onMounted(() => {
   const navigate = () => {
@@ -91,7 +93,10 @@ onMounted(() => {
       v-if="frontmatter.date"
       class="opacity-50 !-mt-6 slide-enter-50"
     >
-      {{ formatDate(frontmatter.date, false) }} <span v-if="frontmatter.duration">· {{ frontmatter.duration }}</span>
+      {{ formatDateByAlomerry(frontmatter.date, false) }} <span v-if="frontmatter.duration">· {{ frontmatter.duration }}</span>
+      <span> ·
+        <span class="waline-pageview-count i-carbon-view-filled" :data-path="route.path">12px</span>
+      </span>
     </p>
     <p v-if="frontmatter.place" class="mt--4!">
       <span op50>at </span>
@@ -119,19 +124,23 @@ onMounted(() => {
     <slot />
   </article>
   <div v-if="route.path !== '/'" class="prose m-auto mt-8 mb-8 slide-enter animate-delay-500 print:hidden">
-    <template v-if="frontmatter.duration">
-      <span font-mono op50>> </span>
-      <span op50>comment on </span>
-      <a :href="elkUrl" target="_blank" op50>mastodon</a>
-      <span op25> / </span>
-      <a :href="tweetUrl" target="_blank" op50>twitter</a>
-    </template>
-    <br>
-    <span font-mono op50>> </span>
+    <span font-mono op50 class="i-mingcute-right-fill" />&nbsp;
     <RouterLink
-      :to="route.path.split('/').slice(0, -1).join('/') || '/'"
+      :to="route.path.split('/').slice(0, 2).join('/') || '/'"
       class="font-mono op50 hover:op75"
       v-text="'cd ..'"
     />
+    <br>
+    <template v-if="frontmatter.duration">
+      <div
+        @click="reverseWaline()"
+      >
+        <span font-mono op50 :class="displayWaline ? 'i-mingcute-down-fill' : 'i-mingcute-right-fill' " />
+        <span font-mono op50 hover:op75 style="color: var(--fg-deeper);">&nbsp;comment..</span>
+      </div>
+      <Transition>
+        <!-- <Waline v-show="displayWaline" :dark="!isDark && toggleDark" /> -->
+      </Transition>
+    </template>
   </div>
 </template>

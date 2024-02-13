@@ -1,4 +1,4 @@
-import { basename, dirname, resolve } from 'node:path'
+import { basename, resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import fs from 'fs-extra'
 import Pages from 'vite-plugin-pages'
@@ -15,12 +15,30 @@ import LinkAttributes from 'markdown-it-link-attributes'
 import GitHubAlerts from 'markdown-it-github-alerts'
 import UnoCSS from 'unocss/vite'
 import SVG from 'vite-svg-loader'
-import MarkdownItShikiji from 'markdown-it-shikiji'
-import { rendererRich, transformerTwoSlash } from 'shikiji-twoslash'
+
+// https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs
+// @ts-expect-error missing types
+import { full as emojiPlugin } from 'markdown-it-emoji'
+import MarkdownItShiki from '@shikijs/markdown-it'
+import { rendererRich, transformerTwoslash } from '@shikijs/twoslash'
 
 // @ts-expect-error missing types
 import TOC from 'markdown-it-table-of-contents'
+
+import {
+  transformerMetaHighlight,
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+} from '@shikijs/transformers'
 import { slugify } from './scripts/slugify'
+import { containerPlugin } from './scripts/md/container'
+import { preWrapperPlugin } from './scripts/md/preWrapper'
+import { footnote } from './scripts/md/footnote'
+import { sup } from './scripts/md/sup'
+import { sub } from './scripts/md/sub'
 
 const promises: Promise<any>[] = []
 
@@ -80,8 +98,9 @@ export default defineConfig({
       markdownItOptions: {
         quotes: '""\'\'',
       },
+
       async markdownItSetup(md) {
-        md.use(await MarkdownItShikiji({
+        md.use(await MarkdownItShiki({
           themes: {
             dark: 'vitesse-dark',
             light: 'vitesse-light',
@@ -89,10 +108,19 @@ export default defineConfig({
           defaultColor: false,
           cssVariablePrefix: '--s-',
           transformers: [
-            transformerTwoSlash({
+            transformerTwoslash({
               explicitTrigger: true,
               renderer: rendererRich(),
             }),
+            transformerNotationFocus({
+              classActiveLine: 'has-focus',
+              classActivePre: 'has-focused-lines',
+            }),
+            transformerMetaHighlight(),
+            transformerNotationWordHighlight(),
+            transformerNotationDiff(),
+            transformerNotationErrorLevel(),
+            transformerNotationHighlight(),
           ],
         }))
 
@@ -103,6 +131,14 @@ export default defineConfig({
             renderAttrs: () => ({ 'aria-hidden': 'true' }),
           }),
         })
+
+        // 自定义容器
+        md.use(containerPlugin)
+        md.use(preWrapperPlugin)
+        md.use(footnote)
+        md.use(sup)
+        md.use(sub)
+        md.use(emojiPlugin)
 
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),

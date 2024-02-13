@@ -3,12 +3,18 @@ import 'floating-vue/dist/style.css'
 import 'markdown-it-github-alerts/styles/github-colors-light.css'
 import 'markdown-it-github-alerts/styles/github-colors-dark-class.css'
 import 'markdown-it-github-alerts/styles/github-base.css'
-import 'shikiji-twoslash/style-rich.css'
+import '@shikijs/twoslash/style-rich.css'
 import './styles/font.css'
 import './styles/main.css'
 import './styles/prose.css'
 import './styles/markdown.css'
+import './styles/alomerry.css'
 import './styles/container.css'
+import './styles/vitepress/vars.css'
+import './styles/vitepress/vp-code-group.css'
+import './styles/vitepress/custom-block.css'
+import './styles/vitepress/alomerry.css'
+import './styles/vitepress/vp-copy-code.css'
 
 import 'uno.css'
 
@@ -55,7 +61,6 @@ export const createApp = ViteSSG(
         },
         behavior: 'auto',
       })
-
       router.beforeEach(() => {
         NProgress.start()
       })

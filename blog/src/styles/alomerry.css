@@ -1,0 +1,53 @@
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.prose .wl-footer a {
+  border-bottom: unset;
+}
+
+.prose .wl-footer a[title*='Markdown Guide'] {
+  width: 16px !important;
+}
+
+.prose .wl-footer img,
+.prose .wl-reaction img {
+  margin-top: unset;
+  margin-bottom: unset;
+}
+
+.prose .wl-reaction ul > li {
+  position: unset;
+  padding-left: unset;
+}
+
+.prose .wl-reaction ul {
+  margin-top: unset;
+  margin-bottom: unset;
+  list-style-type: unset;
+}
+
+.wl-reaction {
+  margin-bottom: unset !important;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
