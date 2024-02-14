@@ -20,6 +20,7 @@ import SVG from "vite-svg-loader";
 // @ts-expect-error missing types
 import { full as emojiPlugin } from "markdown-it-emoji";
 import MarkdownItShiki from "@shikijs/markdown-it";
+import { tasklist } from "@mdit/plugin-tasklist";
 import { rendererRich, transformerTwoslash } from "@shikijs/twoslash";
 
 // @ts-expect-error missing types
@@ -44,9 +45,7 @@ const promises: Promise<any>[] = [];
 
 export default defineConfig({
   resolve: {
-    alias: [
-      { find: "~/", replacement: `${resolve(__dirname, "src")}/` },
-    ],
+    alias: [{ find: "~/", replacement: `${resolve(__dirname, "src")}/` }],
   },
   optimizeDeps: {
     include: [
@@ -139,6 +138,7 @@ export default defineConfig({
         md.use(preWrapperPlugin);
         md.use(footnote);
         md.use(sup);
+        md.use(tasklist);
         md.use(sub);
         md.use(emojiPlugin);
 

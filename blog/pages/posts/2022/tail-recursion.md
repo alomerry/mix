@@ -2,6 +2,7 @@
 date: 2022-08-10T16:00:00.000+00:00
 title: 尾递归
 lang: zh
+type: posts+algorithm
 duration: 10min
 ---
 
@@ -11,11 +12,9 @@ duration: 10min
 
 `1 1 2 3 5 8...`
 
-<details>
+::: code-group
 
-<summary>递归版</summary>
-
-```cpp
+```cpp [递归版]
 int fib(int n){
     if (n <= 1){
         return 1;
@@ -26,13 +25,7 @@ int fib(int n){
 fib(100)
 ```
 
-</details>
-
-<details>
-
-<summary>尾递归版</summary>
-
-```cpp
+```cpp [尾递归版]
 int fib(int a, b, n){
     if (n == 0){
         return n1;
@@ -43,7 +36,7 @@ int fib(int a, b, n){
 fib(1, 1, 100)
 ```
 
-</details>
+:::
 
 递归相当于外层调用依赖内层调用的结果，然后再做进一步的操作，最终由最外层的方法收口操作，返回最终结果
 
@@ -51,4 +44,6 @@ fib(1, 1, 100)
 
 尾递归是一种形式, 只是用这种形式表达出的概念可以被某些编译器优化
 
-- [Golang 是否优化尾递归的验证](https://zhuanlan.zhihu.com/p/212125255)
+## Reference
+
+- [golang 是否优化尾递归的验证](https://zhuanlan.zhihu.com/p/212125255)

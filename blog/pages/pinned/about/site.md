@@ -2,7 +2,6 @@
 title: About this site - Alomerry Wu
 display: About this site
 subtitle: 一个基于 xxx 的博客，主要记录开发笔记。
-tocAlwaysOn: true
 cards:
   components:
     - name: '七牛云'

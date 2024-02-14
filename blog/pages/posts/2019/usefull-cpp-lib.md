@@ -4,7 +4,8 @@ title: C++ 常用的函数 algorithm/stdlib/string/STL 库函数
 lang: zh
 type: posts+algorithm
 duration: 10min
-tocAlwaysOn: true
+todoNext:
+  - 文字过少
 ---
 
 [[toc]]

@@ -3,7 +3,6 @@ date: 2023-12-22T16:00:00.000+00:00
 title: Tekton Pipeline
 lang: zh
 duration: 10min
-tocAlwaysOn: true
 ---
 
 - 安装 k8s
@@ -20,7 +19,7 @@ tocAlwaysOn: true
 - https://juejin.cn/post/7142758521988186143
 
 
-### argocd 
+### argocd
 
 - https://devops-blog.virtualtech.jp/entry/20220509/1652081784
 - https://www.cnblogs.com/xunweidezui/p/17180195.html

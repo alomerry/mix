@@ -1,28 +1,26 @@
 ---
-description: 已停更
-date: 2020-01-17
-head:
-  - - meta
-    - name: keywords
-      content: typecho handsome Skymo 插件 主题 美化
-    - name: description
-      content: typecho 主题 handsome 美化插件 Skymo
-    - name: author
-      content: Alomerry 清欢
-tag:
-  - Typecho
+date: 2020-01-17T16:00:00.000+00:00
+title: Typecho 主题 handsome 美化插件 Skymo
+lang: zh
+type: posts
+duration: 1min
+desc: 已停止更新
 ---
 
-# typecho 主题 handsome 美化插件 Skymo
+[[toc]]
 
 ::: danger Attention
-第一次搭博客使用的 typecho，并且使用了很久，装上 [handsome](https://www.ihewro.com/archives/489/) 主题，折腾了很多花里胡哨的特效和装饰。一直持续到 2021
-年毕业入职，可能是因为成为了社畜的原因，心态、追求也发生了一些变化，所以在 2022 年初，选择了更为直接的
+
+第一次搭博客使用的 Typecho，并且使用了很久，装上 [handsome](https://www.ihewro.com/archives/489/) 主题，折腾了很多花里胡哨的特效和装饰。一直持续到
+2021 年毕业入职，可能是因为成为了社畜的原因，心态、追求也发生了一些变化，所以在 2022 年初，选择了更为直接的
 vuepress，所以这个插件应该大概率基本是也不会再更新了，这个插件中的很多代码是来源于网络，被我整合到一个插件中，大家可以自己动手修改。
+
 :::
 
 ::: tip Version
+
 插件最新更新时间：2021/02/24（已停止更新）
+
 :::
 
 ## 后续更新计划
@@ -37,7 +35,7 @@ vuepress，所以这个插件应该大概率基本是也不会再更新了，这
 
 ## 主要特色
 
-- 自定义字体以及生效位置（V1.2）。
+- 自定义字体以及生效位置（v1.2）。
   - ZCOOL XiaoWei
   - Manaco
 - 添加背景流动彩带。
@@ -56,49 +54,39 @@ vuepress，所以这个插件应该大概率基本是也不会再更新了，这
 
 ## 说明
 
-- 本插件带有一些额外样式优化，可能会和已有的插件样式冲突，如果有请在 GitHub 提交 issue。
+- 本插件带有一些额外样式优化，可能会和已有的插件样式冲突，如果有请在 gitHub 提交 issue。
 
 ## 安装步骤
 
-- 下载本插件，解压到 `usr/plugins/` 目录中。
-- 修改文件夹名字为 SkyMo<Badge type="danger" text="!"/>。
-- 进入网站后台-控制台-插件-激活插件。
-- 启用或关闭部分动效。
-- [`Github下载地址`](https://github.com/Alomerry/SkyMo)
+- 下载本插件，解压到 `usr/plugins/` 目录中
+- 修改文件夹名字为 `SkyMo`
+- 进入网站后台-控制台-插件-激活插件
+- 启用或关闭部分动效
+
+[github下载地址](https://github.com/Alomerry/SkyMo)
 
 ## 更新
 
-**1.2.2（2020.10.04）**<Badge type="tip" text="latest" />
-
-***
+**1.2.2（2020.10.04）**
 
 - feature
   - 添加 Wawa 字体。
 
 1.2.0（2020.10.04）
 
-***
-
 - feature
   - 添加字体选择和字体生效位置。
 
 1.1.0（2020.07.06）
 
-***
-
 - feature
   - 将插件设计成可配置启动/关闭。
 
-
 1.0.0（2020.01.17）
-
-***
 
 - feature
   - 添加动效
   - 添加背景
-
----
 
 ## 修改
 
@@ -149,7 +137,7 @@ this._options = {
 };
 ```
 
-设置彩带CSS
+设置彩带 css
 
 ```js
 this._canvas = document.createElement("canvas");

@@ -20,6 +20,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",
     "@iconify/json": "^2.2.180",
+    "@mdit/plugin-tasklist": "^0.8.0",
     "@octokit/rest": "^20.0.2",
     "@shikijs/markdown-it": "^1.0.0-rc.0",
     "@shikijs/transformers": "^1.1.2",

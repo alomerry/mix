@@ -1,19 +1,20 @@
 ---
-date: 2020-10-03
-description: 《代码整洁之道》读书笔记和日常写代码、读代码对于代码风格的总结
-category:
-  - Reading
-tag: 
-  - Code Style
+date: 2020-10-03T16:00:00.000+00:00
+title: 代码整洁之道 / Go 箴言笔记 TODO
+lang: zh
+type: posts
+duration: 25min
+desc: 《代码整洁之道》读书笔记和日常写代码、读代码对于代码风格的总结
+todoNext:
+  - 没处理完
+  - 内容过多
 ---
 
-# Clean Code
+[[toc]]
 
-## 《代码整洁之道》笔记
+## 有意义的命名
 
-### 有意义的命名
-
-**名副其实，避免误导** 
+**名副其实，避免误导**
 
 代码需要简洁，但是不能模糊。例如下面两个变量：
 
@@ -25,35 +26,35 @@ XYZControllerForEfficientHoldingOfStrings
 
 <small>_在区分两个变量的意思时需要反复对比，是很痛苦的。避免细微之处有不同。_</small>
 
-**方法名** 
+**方法名**
 
 方法名应该是动词或动词短语。属性访问器、修改器和断言应该根据其值命名。
 
-### 函数
+## 函数
 
-**只做一件事** 
+**只做一件事**
 
 函数应该做一件事。做好这件事。只做这一件事。
 
-**switch 语句** 
+**switch 语句**
 
 遵循 单一权责原则，开放闭合原则
 
-**函数参数-减少参数数量** 
+**函数参数-减少参数数量**
 
 避免使用标识参数，如 `bool` 型参数，一旦使用，就表明方法中会因为 true 和 false 做不同的事。
 
-**函数参数-动词和关键词** 
+**函数参数-动词和关键词**
 
 一元函数应当形成一种良好的动词/名词对形式。_例如： `write(name)`、`writeField(name)`。
 
 函数名称展示关键字形式可以减轻记忆参数顺序的负担。_例如：`assertEqual(expected,actual)` 修改成 `assertExpectedEqualsActual(expected,actual)`。
 
-**无副作用** 
+**无副作用**
 
 避免做函数承诺的以外的事情。
 
-**分隔指令和询问** 
+**分隔指令和询问**
 
 函数应该修改某对象的状态，或是返回某对象的相关信息，但两者不可兼得。例如：
 
@@ -80,7 +81,7 @@ public enum Error {
 
 这样的类就是一块**依赖磁铁（dependency magnet）**。其它类都导入和使用它。当 Error 枚举修改时，所有这些其它的类需要重新编译和部署。使用异常代替错误码，新异常就可以从异常类派生出来。
 
-### 对象和数据结构
+## 对象和数据结构
 
 **数据、对象的反对称性**
 
@@ -88,7 +89,7 @@ public enum Error {
 
 过程式代码难以添加新数据结构，因为必须修改所有函数。面向对象代码难以添加新函数，因为必须修改所有子类。
 
-### 处理异常
+## 处理异常
 
 **使用不可控异常**
 
@@ -108,7 +109,7 @@ public enum Error {
 
 将错误处理隔离看待，独立于主要逻辑之外，就能写出强固而整洁的代码。做到这一步就能单独处理错误，提高了代码的可维护性。
 
-### 类
+## 类
 
 **类应该短小**
 
@@ -122,7 +123,7 @@ public enum Error {
 
 保持函数和参数列表短小，有时会导致一组子集方法所用的实体变量数增加，这时尝试将变量和方法拆分到多个类中，让新的类更为内聚。
 
-### 系统
+## 系统
 
 **将系统的构造与使用分开**
 
@@ -156,7 +157,7 @@ public Service getService() {
 
 > 软件系统与物理系统可以类比。它们的架构都可以递增式地增长，只要我们持续将关注面恰当的切分。
 
-### 迭进
+## 迭进
 
 **表达力**
 
@@ -173,7 +174,7 @@ public Service getService() {
 
 避免过度使用消除重复、代码表达力和 SRP 等基础的概念。目标是保持函数和类短小的同时，保持整个系统短小精悍。
 
-### 并发编程
+## 并发编程
 
 - 并发总能改进性能。并发有时能改进性能，但只在多个线程或多处理器之间能分享大量等待时间的时候管用。事情没那么简单。
 - 编写并发程序无需修改设计。事实上，并发算法的设计有可能与单线程系统的设计极不相同。目的与时机的解耦往往对系统结构产生巨大的影响。
@@ -238,7 +239,7 @@ DRY 原则（Don't Repeat Yourself）
 
 **避免传递浏览**
 
-### Java
+## Java
 
 **不要继承常量**
 
@@ -267,11 +268,7 @@ DRY 原则（Don't Repeat Yourself）
 >
 > 该函数不只是获取了一个 oos，如果 oos 不存在，还会创建一个。所以，更好的名字大概是 `createOrReturnOos`。
 
-
-
-## golang advice
-
-### Go 箴言
+## go 箴言[^go-proverbs]
 
 - 不要通过共享内存进行通信，通过通信共享内存
 - 并发不是并行
@@ -293,9 +290,7 @@ DRY 原则（Don't Repeat Yourself）
 - 文档是供用户使用的
 - 不要（在生产环境）使用 `panic()`
 
-https://go-proverbs.github.io/
-
-### Go 之禅
+## go 之禅[^go-dhyana]
 
 - 每个 package 实现单一的目的
 - 显式处理错误
@@ -308,133 +303,115 @@ https://go-proverbs.github.io/
 - 如果你觉得慢，先编写 benchmark 来证明
 - 适度是一种美德
 - 可维护性
-
-https://the-zen-of-go.netlify.com/
-
-- 名字的长度没有逻辑限制，但是Go语言的风格是尽量使用短小
-的名字，对于局部变量尤其是这样；你会经常看到之类的短名
-宇，而不是元长的theLoopindex命名。通常来说，如果一个名
-宇的作用域比较大，生命周期也比较长，那么用长的名字将会
-更有意义《The Go Programming Language》
+- 名字的长度没有逻辑限制，但是Go语言的风格是尽量使用短小的名字，对于局部变量尤其是这样；你会经常看到之类的短名宇，而不是元长的theLoopindex命名。通常来说，如果一个名宇的作用域比较大，生命周期也比较长，那么用长的名字将会更有意义
 
 ### 代码
 
-#### 多个 if 语句可以折叠成 switch
+- 多个 if 语句可以折叠成 switch
 
-```go
-package main
+  ::: code-group
 
-var (
-  bar = "bar"
-  baz = "baz"
-)
+  ```go [main]
+  package main
 
-func foo() bool {
-  return true
-}
+  var (
+    bar = "bar"
+    baz = "baz"
+  )
 
-// NOT BAD
-func f1() {
-  if foo() {
-    // ...
-  } else if bar == baz {
-    // ...
-  } else {
-    // ...
+  func foo() bool {
+    return true
   }
-}
+  ```
 
-// BETTER
-func f2() {
-  switch {
-  case foo():
-    // ...
-  case bar == baz:
-    // ...
-  default:
-    // ...
+  ```go [NOT BAD]
+  func f1() {
+    if foo() {
+      // ...
+    } else if bar == baz {
+      // ...
+    } else {
+      // ...
+    }
   }
-}
-```
+  ```
 
-#### 用 `chan struct{}` 来传递信号, `chan bool` 表达的不够清楚
+  ```go [BETTER]
+  func f2() {
+    switch {
+    case foo():
+      // ...
+    case bar == baz:
+      // ...
+    default:
+      // ...
+    }
+  }
+  ```
 
-当你在结构中看到 `chan bool` 的定义时，有时不容易理解如何使用该值，例如：
+  :::
 
-```go
-package main
+- 用 `chan struct{}` 来传递信号, `chan bool` 表达的不够清楚。当你在结构中看到 `chan bool` 的定义时，有时不容易理解如何使用该值，例如：
 
-type Service struct {
-  deleteCh chan bool // what does this bool mean?
-}
-```
+  ```go
+  type Service struct {
+    deleteCh chan bool // what does this bool mean?
+  }
+  ```
 
-但是我们可以将其改为明确的 `chan struct {}` 来使其更清楚：我们不在乎值（它始终是 `struct {}`），我们关心可能发生的事件，例如：
+  但是我们可以将其改为明确的 `chan struct {}` 来使其更清楚：我们不在乎值（它始终是 `struct {}`），我们关心可能发生的事件，例如：
 
-```go
-package main
+  ```go
+  type Service struct {
+    deleteCh chan struct{} // ok, if event than delete something.
+  }
+  ```
 
-type Service struct {
-  deleteCh chan struct{} // ok, if event than delete something.
-}
-```
+- `30 * time.Second` 比 `time.Duration(30) * time.Second` 更好。你不需要将无类型的常量包装成类型，编译器会找出来。 另外最好将常量移到第一位：
 
-#### `30 * time.Second` 比 `time.Duration(30) * time.Second` 更好
+  ```go
+  var (
+    delay = time.Second * 60 * 24 * 60 // BAD
+    delay = 60 * time.Second * 60 * 24 // VERY BAD
+    delay = 24 * 60 * 60 * time.Second // GOOD
+  )
+  ```
 
-你不需要将无类型的常量包装成类型，编译器会找出来。 另外最好将常量移到第一位：
+  用 `time.Duration` 代替 `int64` + 变量名
 
-```go
-package main
+  ```go
+  var (
+    delayMillis int64         = 15000            // BAD
+    delay       time.Duration = 15 * time.Second // GOOD
+  )
+  ```
 
-import "time"
+- 按类型分组 `const` 声明，按逻辑和/或类型分组 `var`
 
-var (
-  delay = time.Second * 60 * 24 * 60 // BAD
-  delay = 60 * time.Second * 60 * 24 // VERY BAD
-  delay = 24 * 60 * 60 * time.Second // GOOD
-)
-```
+  ```go
+  // BAD
+  const (
+    foo     = 1
+    bar     = 2
+    message = "warn message"
+  )
 
-#### 用 `time.Duration` 代替 `int64` + 变量名
+  // MOSTLY BAD
+  const foo = 1
+  const bar = 2
+  const message = "warn message"
 
-```go
-package main
+  // GOOD
+  const (
+    foo = 1
+    bar = 2
+  )
 
-import "time"
+  const message = "warn message"
 
-var (
-  delayMillis int64         = 15000            // BAD
-  delay       time.Duration = 15 * time.Second // GOOD
-)
-```
+  ```
 
-#### 按类型分组 `const` 声明，按逻辑和/或类型分组 `var`
-
-```go
-package main
-
-// BAD
-const (
-  foo     = 1
-  bar     = 2
-  message = "warn message"
-)
-
-// MOSTLY BAD
-const foo = 1
-const bar = 2
-const message = "warn message"
-
-// GOOD
-const (
-  foo = 1
-  bar = 2
-)
-
-const message = "warn message"
-```
-
-这个模式也适用于 `var`。
+  这个模式也适用于 `var`。
 
 - 每个阻塞或者 IO 函数操作应该是可取消的或者至少是可超时的
 - 为整型常量值实现 `Stringer` 接口
@@ -442,36 +419,36 @@ const message = "warn message"
 - 检查 `defer` 中的错误
 
 ```go
-package main
+  package main
 
-func main() {
-  defer func() {
-    //err := ocp.Close()
-    //if err != nil {
-    //  rerr = err
-    //}
-  }()
-}
-```
+  func main() {
+    defer func() {
+      //err := ocp.Close()
+      //if err != nil {
+      //  rerr = err
+      //}
+    }()
+  }
+  ```
 
 - 不要在 `checkErr` 函数中使用 `panic()` 或 `os.Exit()`
 - 仅仅在很特殊情况下才使用 panic, 你必须要去处理 error
 - 不要给枚举使用别名，因为这打破了类型安全
   - https://play.golang.org/p/MGbeDwtXN3
 
-```go
-  package main
+  ```go
+    package main
 
-type Status = int
-type Format = int // remove `=` to have type safety
+  type Status = int
+  type Format = int // remove `=` to have type safety
 
-const A Status = 1
-const B Format = 1
+  const A Status = 1
+  const B Format = 1
 
-func main() {
-  println(A == B)
-}
-```
+  func main() {
+    println(A == B)
+  }
+  ```
 
 - 如果你想省略返回参数，你最好表示出来
   - `_ = f()` 比 `f()` 更好
@@ -1014,7 +991,6 @@ func main() {
 - 从一个 slice 生成简单的随机元素
   - `[]string{"one", "two", "three"}[rand.Intn(3)]`
 
-
 ## 通用
 
 ### 保持一致
@@ -1046,3 +1022,6 @@ func main() {
 
 https://zhuanlan.zhihu.com/p/143621809
 
+
+[^go-proverbs]: [go 箴言](https://go-proverbs.github.io/)
+[^go-dhyana]: [go 之禅](https://the-zen-of-go.netlify.app/)

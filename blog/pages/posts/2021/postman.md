@@ -1,10 +1,14 @@
 ---
-date: 2021-03-15
-tag:
-  - Postman
+date: 2021-03-04T16:00:00.000+00:00
+title: postman 使用技巧
+lang: zh
+type: posts
+duration: 3min
+todoNext:
+  - 文字过少
 ---
 
-# Postman 使用技巧
+[[toc]]
 
 ## Environments
 
@@ -56,7 +60,7 @@ pm.environment.set('lastResponseStatus', pm.response.code);
 
 ![pre-request](https://cdn.alomerry.com/blog/assets/img/posts/postman-variable-value.png)
 
-## Case 
+## Case
 
 ### 使用 Environment、Pre-request Script 注入请求参数
 
@@ -65,7 +69,7 @@ pm.environment.set('lastResponseStatus', pm.response.code);
 pre-request script 代码[^js-random-string]：
 
 ```javascript
-let randomId = (new Date()).toISOString()+Math.random().toString(36).slice(-8);
+let randomId = (new Date()).toISOString() + Math.random().toString(36).slice(-8);
 pm.environment.set('randomId', randomId);
 ```
 

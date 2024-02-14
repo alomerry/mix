@@ -135,7 +135,7 @@ onMounted(() => {
   </div>
   <article
     ref="content"
-    :class="[frontmatter.tocAlwaysOn ? 'toc-always-on' : '', frontmatter.class]"
+    :class="[!frontmatter.tocAlwaysOn ? '' : 'toc-always-on', frontmatter.class]"
   >
     <slot />
   </article>

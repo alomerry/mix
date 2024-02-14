@@ -34,6 +34,9 @@ devDependencies:
   '@iconify/json':
     specifier: ^2.2.180
     version: 2.2.182
+  '@mdit/plugin-tasklist':
+    specifier: ^0.8.0
+    version: 0.8.0(markdown-it@14.0.0)
   '@octokit/rest':
     specifier: ^20.0.2
     version: 20.0.2
@@ -962,6 +965,19 @@ packages:
 
   /@mdit-vue/types@2.0.0:
     resolution: {integrity: sha512-1BeEB+DbtmDMUAfvbNUj5Hso8cSl2sBVK2iTyOMAqhfDVLdh+/9+D0JmQHaCeUk/vuJoMhOwbweZvh55wHxm4w==}
+    dev: true
+
+  /@mdit/plugin-tasklist@0.8.0(markdown-it@14.0.0):
+    resolution: {integrity: sha512-vfOTZdXIL/jk/ConUqCODI5WuqgB9qiBGc+wIa7UMhe73KcpwFeGFJVQZm9AvjhXDDYqznJxSMVRP/TN7TxVVw==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      markdown-it: ^14.0.0
+    peerDependenciesMeta:
+      markdown-it:
+        optional: true
+    dependencies:
+      '@types/markdown-it': 13.0.7
+      markdown-it: 14.0.0
     dev: true
 
   /@nodelib/fs.scandir@2.1.5:

@@ -3,7 +3,6 @@ date: 2022-08-23T16:00:00.000+00:00
 title: 搭建 vscode web
 lang: zh
 duration: 10min
-tocAlwaysOn: true
 ---
 
 [[toc]]

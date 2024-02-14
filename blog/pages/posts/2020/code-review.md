@@ -1,18 +1,20 @@
 ---
-article: false
-title: Code Review 注意事项
-description: 在公司中学习到一些规范和流程
-date: 2020-07-06
-tag:
-  - TODO
+date: 2020-07-06T16:00:00.000+00:00
+title: code review 注意事项
+lang: zh
+type: posts
+duration: 3min
+desc: 在公司中学习到一些规范和流程
+todoNext:
+  - 缺少个人简介
 ---
 
-<!-- Description. -->
-
-<!-- more -->
+[[toc]]
 
 :::tip
+
 内容来源于工作时一些规则和心得，记录下来品读和再总结，站在巨人的肩膀。
+
 :::
 
 
@@ -43,12 +45,6 @@ $(description)
 - 审查者 review 代码。有疑问或是建议的地方要留评论；提交者修正后要解决讨论；互相从中学习；有问题 assign 给提交者处理。
 - 提交者相应评论。有问题则修复，同时减少不必要的 commit 历史；如果不同意，可以和审查者讨论；修正后 assign 给审查者 review；来回 assign 或留评论都是沟通机制，二选一，没道理都做。
 
-:::warning
-test
-:::
-
 ## Reference
 
-- 沟通技巧[^1]
-
-[^1]: [tech note](https://github.com/inetfuture/technote)
+- [tech note](https://github.com/inetfuture/technote?tab=readme-ov-file#code-review)

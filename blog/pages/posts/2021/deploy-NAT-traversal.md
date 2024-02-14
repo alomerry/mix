@@ -3,7 +3,8 @@ date: 2021-07-11T16:00:00.000+00:00
 title: 搭建内网穿透教程
 lang: zh
 duration: 10min
-tocAlwaysOn: true
+todoNext:
+  - 具体代理应用配置
 ---
 
 [[toc]]

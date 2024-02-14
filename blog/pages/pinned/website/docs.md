@@ -2,7 +2,6 @@
 title: 文档/规范 - Alomerry Wu
 display: 文档/规范
 subtitle: 一个基于 xxx 的博客，主要记录开发笔记。
-tocAlwaysOn: true
 cards:
   cloud-native:
     - icon: 'i-logos:kubernetes'

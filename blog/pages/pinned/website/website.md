@@ -2,7 +2,6 @@
 title: 好站 - Alomerry Wu
 display: 好站
 subtitle: 一个基于 xxx 的博客，主要记录开发笔记。
-tocAlwaysOn: true
 cards:
   website:
     - icon: 'https://static.pintia.cn/sparkling-daydream/icons/PTA-logo.svg'
