@@ -1,89 +1,83 @@
-export function useCopyCode() {
-  const timeoutIdMap = new WeakMap()
-  window.addEventListener('click', (e) => {
-    const el = e.target as HTMLElement
-    if (el.matches('div[class*="language-"] > button.copy')) {
-      const parent = el.parentElement
-      const sibling = el.nextElementSibling
-      if (!parent || !sibling)
-        return
+export function useCopyCode(e: Event, timeoutIdMap: WeakMap<any, any>) {
+  const el = e.target as HTMLElement;
+  if (el.matches('div[class*="language-"] > button.copy')) {
+    const parent = el.parentElement;
+    const sibling = el.nextElementSibling;
+    if (!parent || !sibling) return;
 
-      const isShell = /language-(shellscript|shell|bash|sh|zsh)/.test(
-        parent.className,
-      )
+    const isShell = /language-(shellscript|shell|bash|sh|zsh)/.test(
+      parent.className,
+    );
 
-      const ignoredNodes = ['.vp-copy-ignore', '.diff.remove']
+    const ignoredNodes = [".vp-copy-ignore", ".diff.remove"];
 
-      // Clone the node and remove the ignored nodes
-      const clone = sibling.cloneNode(true) as HTMLElement
-      clone
-        .querySelectorAll(ignoredNodes.join(','))
-        .forEach(node => node.remove())
+    // Clone the node and remove the ignored nodes
+    const clone = sibling.cloneNode(true) as HTMLElement;
+    clone
+      .querySelectorAll(ignoredNodes.join(","))
+      .forEach((node) => node.remove());
 
-      let text = clone.textContent || ''
-      if (isShell)
-        text = text.replace(/^ *(\$|>) /gm, '').trim()
-      copyToClipboard(text).then(() => {
-        el.classList.add('copied')
-        // el.classList.add('i-fa-check')
-        // el.classList.add('text-green')
-        // el.classList.remove('i-icon-park-solid-copy-link')
-        clearTimeout(timeoutIdMap.get(el))
-        const timeoutId = setTimeout(() => {
-          el.classList.remove('copied')
-          // el.classList.remove('i-fa-check')
-          // el.classList.remove('text-green')
-          // el.classList.add('i-icon-park-solid-copy-link')
-          el.blur()
-          timeoutIdMap.delete(el)
-        }, 2000)
-        timeoutIdMap.set(el, timeoutId)
-      })
-    }
-  })
+    let text = clone.textContent || "";
+    if (isShell) text = text.replace(/^ *(\$|>) /gm, "").trim();
+    copyToClipboard(text).then(() => {
+      el.classList.add("copied");
+      // el.classList.add('i-fa-check')
+      // el.classList.add('text-green')
+      // el.classList.remove('i-icon-park-solid-copy-link')
+      clearTimeout(timeoutIdMap.get(el));
+      const timeoutId = setTimeout(() => {
+        el.classList.remove("copied");
+        // el.classList.remove('i-fa-check')
+        // el.classList.remove('text-green')
+        // el.classList.add('i-icon-park-solid-copy-link')
+        el.blur();
+        timeoutIdMap.delete(el);
+      }, 2000);
+      timeoutIdMap.set(el, timeoutId);
+    });
+  }
 }
 
 async function copyToClipboard(text: string) {
   try {
-    return navigator.clipboard.writeText(text)
-  }
-  catch {
-    const element = document.createElement('textarea')
-    const previouslyFocusedElement = document.activeElement
+    return navigator.clipboard.writeText(text);
+  } catch {
+    const element = document.createElement("textarea");
+    const previouslyFocusedElement = document.activeElement;
 
-    element.value = text
+    element.value = text;
 
     // Prevent keyboard from showing on mobile
-    element.setAttribute('readonly', '')
+    element.setAttribute("readonly", "");
 
-    element.style.contain = 'strict'
-    element.style.position = 'absolute'
-    element.style.left = '-9999px'
-    element.style.fontSize = '12pt' // Prevent zooming on iOS
+    element.style.contain = "strict";
+    element.style.position = "absolute";
+    element.style.left = "-9999px";
+    element.style.fontSize = "12pt"; // Prevent zooming on iOS
 
-    const selection = document.getSelection()
+    const selection = document.getSelection();
     const originalRange = selection
       ? selection.rangeCount > 0 && selection.getRangeAt(0)
-      : null
+      : null;
 
-    document.body.appendChild(element)
-    element.select()
+    document.body.appendChild(element);
+    element.select();
 
     // Explicit selection workaround for iOS
-    element.selectionStart = 0
-    element.selectionEnd = text.length
+    element.selectionStart = 0;
+    element.selectionEnd = text.length;
 
-    document.execCommand('copy')
-    document.body.removeChild(element)
+    document.execCommand("copy");
+    document.body.removeChild(element);
 
     if (originalRange) {
-      selection!.removeAllRanges() // originalRange can't be truthy when selection is falsy
-      selection!.addRange(originalRange)
+      selection!.removeAllRanges(); // originalRange can't be truthy when selection is falsy
+      selection!.addRange(originalRange);
     }
 
     // Get the focus back on the previously focused element, if any
     if (previouslyFocusedElement) {
-      ;(previouslyFocusedElement as HTMLElement).focus()
+      (previouslyFocusedElement as HTMLElement).focus();
     }
   }
 }

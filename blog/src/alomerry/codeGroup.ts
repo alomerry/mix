@@ -5,39 +5,32 @@
 //   el.children[0].classList.add('active')
 // })
 
-export function useCodeGroup() {
-  window.addEventListener('click', (e) => {
-    const el = e.target as HTMLInputElement
+export function useCodeGroup(e:Event) {
+  const el = e.target as HTMLInputElement;
 
-    if (el.matches('.vp-code-group input')) {
-      // input <- .tabs <- .vp-code-group
-      const group = el.parentElement?.parentElement
-      if (!group)
-        return
+  if (el.matches(".vp-code-group input")) {
+    // input <- .tabs <- .vp-code-group
+    const group = el.parentElement?.parentElement;
+    if (!group) return;
 
-      const i = Array.from(group.querySelectorAll('input')).indexOf(el)
-      if (i < 0)
-        return
+    const i = Array.from(group.querySelectorAll("input")).indexOf(el);
+    if (i < 0) return;
 
-      const blocks = group.querySelector('.blocks')
-      if (!blocks)
-        return
+    const blocks = group.querySelector(".blocks");
+    if (!blocks) return;
 
-      const current = Array.from(blocks.children).find(child =>
-        child.classList.contains('active'),
-      )
-      if (!current)
-        return
+    const current = Array.from(blocks.children).find((child) =>
+      child.classList.contains("active"),
+    );
+    if (!current) return;
 
-      const next = blocks.children[i]
-      if (!next || current === next)
-        return
+    const next = blocks.children[i];
+    if (!next || current === next) return;
 
-      current.classList.remove('active')
-      next.classList.add('active')
+    current.classList.remove("active");
+    next.classList.add("active");
 
-      const label = group?.querySelector(`label[for="${el.id}"]`)
-      label?.scrollIntoView({ block: 'nearest' })
-    }
-  })
+    const label = group?.querySelector(`label[for="${el.id}"]`);
+    label?.scrollIntoView({block: "nearest"});
+  }
 }
