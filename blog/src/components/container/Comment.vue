@@ -3,7 +3,7 @@ import { Waline } from "@waline/client/component";
 import "@waline/client/style";
 
 defineProps<{
-  dark?: string;
+  lang?: string;
 }>();
 
 const serverURL = "https://waline-blog.alomerry.com";
@@ -24,15 +24,21 @@ const emoji = [
   "//unpkg.com/@waline/emojis@1.2.0/qq",
   "//unpkg.com/@waline/emojis@1.2.0/bilibili",
 ];
+onMounted(() => {
+  const el = document.querySelector(".wl-reaction-img>img");
+  if (el) {
+    el.classList.add("no-preview");
+  }
+});
 </script>
 
 <template>
   <Waline
-    :dark="dark || 'auto'"
+    dark='html[class="dark"]'
     :search="false"
-    :pageview="true"
     :server-u-r-l="serverURL"
     :path="path"
+    :lang="lang"
     :reaction="reaction"
     :emoji="emoji"
   />

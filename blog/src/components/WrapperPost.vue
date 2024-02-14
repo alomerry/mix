@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { formatDateByAlomerry } from "~/alomerry";
+import {
+  ALOMERRY_BLOG_WALINE_DOMAIN,
+  displayComment,
+  formatDateByAlomerry,
+  setDefaultDisplayComment,
+} from "~/alomerry";
 import Comment from "~/components/container/Comment.vue";
+import { pageviewCount } from "@waline/client";
 
 const { frontmatter } = defineProps({
   frontmatter: {
@@ -8,14 +14,14 @@ const { frontmatter } = defineProps({
     required: true,
   },
 });
-const displayWaline = ref(false);
+
+const displayWaline = ref(displayComment());
 const router = useRouter();
 const route = useRoute();
 const content = ref<HTMLDivElement>();
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
 
 function reverseWaline() {
+  setDefaultDisplayComment(!displayWaline.value);
   displayWaline.value = !displayWaline.value;
 }
 
@@ -70,6 +76,11 @@ onMounted(() => {
   setTimeout(() => {
     if (!navigate()) setTimeout(navigate, 1000);
   }, 1);
+
+  pageviewCount({
+    serverURL: ALOMERRY_BLOG_WALINE_DOMAIN,
+    path: window.location.pathname,
+  });
 });
 </script>
 
@@ -89,12 +100,8 @@ onMounted(() => {
       {{ formatDateByAlomerry(frontmatter.date, false) }}
       <span v-if="frontmatter.duration">· {{ frontmatter.duration }}</span>
       <span>
-        ·
-        <span
-          class="waline-pageview-count i-carbon-view-filled"
-          :data-path="route.path"
-          >12px</span
-        >
+        · <span class="i-carbon-view-filled" />
+        <span class="waline-pageview-count" ml-1 />
       </span>
     </p>
     <p v-if="frontmatter.place" class="mt--4!">
@@ -157,7 +164,7 @@ onMounted(() => {
         >
       </div>
       <Transition>
-        <Comment v-show="displayWaline" :dark="!isDark && toggleDark" />
+        <Comment v-show="displayWaline" :lang="frontmatter.lang" />
       </Transition>
     </template>
   </div>
