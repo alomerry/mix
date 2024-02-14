@@ -7,7 +7,7 @@
 .v-leave-to {
   opacity: 0;
 }
-
+.prose .wl-login-info a,
 .prose .wl-footer a {
   border-bottom: unset;
 }
@@ -15,7 +15,7 @@
 .prose .wl-footer a[title*='Markdown Guide'] {
   width: 16px !important;
 }
-
+.prose .wl-avatar img,
 .prose .wl-footer img,
 .prose .wl-reaction img {
   margin-top: unset;
