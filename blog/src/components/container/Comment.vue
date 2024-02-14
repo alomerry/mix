@@ -25,10 +25,10 @@ const emoji = [
   "//unpkg.com/@waline/emojis@1.2.0/bilibili",
 ];
 onMounted(() => {
-  const el = document.querySelector(".wl-reaction-img>img");
-  if (el) {
+  const els = document.querySelectorAll(".wl-reaction-img>img");
+  els.forEach((el) => {
     el.classList.add("no-preview");
-  }
+  });
 });
 </script>
 
