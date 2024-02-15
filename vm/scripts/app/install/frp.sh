@@ -1,5 +1,7 @@
 #!/bin/bash
 
+FRP_VERSION=${FRP_VERSION:-"0.51.3"}
+
 install_frp_server() {
   if [ -f /root/apps/frps/${FRP_VERSION}.version ]; then
     return
