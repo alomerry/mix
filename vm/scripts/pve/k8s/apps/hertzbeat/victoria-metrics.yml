@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: victoria-metrics-pvc-alomerry
+  namespace: hertzbeat
+spec:
+  resources:
+    requests:
+      storage: 10G
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: victoria-metrics-service
+  namespace: hertzbeat
+spec:
+  ports:
+  - name: vm-port
+    port: 8428
+    protocol: "TCP"
+    targetPort: 8428
+  selector:
+    app: victoria-metrics
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: victoria-metrics-deployment
+  namespace: hertzbeat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: victoria-metrics
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: victoria-metrics
+    spec:
+      containers:
+      - image: victoriametrics/victoria-metrics:v1.95.1
+        name: victoriametrics
+        ports:
+        - containerPort: 8428
+          protocol: TCP
+          name: victoriametrics
+        volumeMounts:
+        - name: victoria-metrics-pv
+          mountPath: /victoria-metrics-data
+        - name: localtime
+          readOnly: true
+          mountPath: /etc/localtime
+      volumes:
+      - name: victoria-metrics-pv
+        persistentVolumeClaim:
+          claimName: victoria-metrics-pvc-alomerry
+      - name: localtime
+        hostPath:
+          type: File
+          path: /etc/localtime

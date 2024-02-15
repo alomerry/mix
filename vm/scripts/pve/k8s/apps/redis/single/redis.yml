@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment-s
+  namespace: alomerry
+  labels:
+    app: redis6-s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis6-s
+  template:
+    metadata:
+      labels:
+        app: redis6-s
+    spec:
+      containers:
+      - name: redis
+        image: redis:6.2.7
+        command:
+          - "redis-server"
+        args:
+          - "/etc/redis/redis.conf"
+          - "--protected-mode"
+          - "no"
+        ports:
+          - name: redis
+            containerPort: 6379
+            protocol: "TCP"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 1024Mi
+        livenessProbe:
+          tcpSocket:
+            port: 6379
+          initialDelaySeconds: 300
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 6379
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        volumeMounts:
+        - name: "redis-conf"
+          mountPath: "/etc/redis"
+        - name: "redis-pvc"
+          mountPath: "/var/lib/redis"
+      volumes:
+      - name: redis-pvc
+        persistentVolumeClaim:
+          claimName: redis-pvc-s
+      - name: "redis-conf"
+        configMap:
+          name: "redis-config-s"
+          items:
+            - key: "redis.conf"
+              path: "redis.conf"

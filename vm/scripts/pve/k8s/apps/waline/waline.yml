@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waline-blog-deployment
+  namespace: waline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: waline-blog
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: waline-blog
+    spec:
+      containers:
+      - image: lizheming/waline:1.31.11
+        name: waline-blog
+        env:
+        - name: MYSQL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: waline-conf
+              key: Blog_MySQL_HOST
+        - name: MYSQL_DB
+          valueFrom:
+            secretKeyRef:
+              name: waline-conf
+              key: Blog_MySQL_DB
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: waline-conf
+              key: Blog_MySQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: waline-conf
+              key: Blog_MySQL_PASSWORD
+        - name: SITE_NAME
+          value: Alomerry's Blog
+        - name: SITE_URL
+          value: 'https://waline-blog.alomerry.com'
+        - name: SECURE_DOMAINS
+          value: 'blog.alomerry.com,admin.alomerry.com'
+        ports:
+        - containerPort: 8360
+          protocol: TCP
+          name: waline
+        volumeMounts:
+        - name: localtime
+          readOnly: true
+          mountPath: /etc/localtime
+      volumes:
+      - name: localtime
+        hostPath:
+          type: File
+          path: /etc/localtime
