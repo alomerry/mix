@@ -1,7 +1,6 @@
 ---
 date: 2020-07-06T16:00:00.000+00:00
 title: code review 注意事项
-lang: zh
 type: posts
 duration: 3min
 desc: 在公司中学习到一些规范和流程

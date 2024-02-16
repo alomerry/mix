@@ -1,7 +1,6 @@
 ---
 date: 2019-07-18T16:00:00.000+00:00
 title: 国内网站备案细节
-lang: zh
 type: posts
 duration: 1min
 desc: 记录 2019 年 alomerry.com 腾讯云备案流程和细节

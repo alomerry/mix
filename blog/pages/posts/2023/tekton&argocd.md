@@ -1,7 +1,6 @@
 ---
 date: 2023-12-22T16:00:00.000+00:00
 title: Tekton Pipeline
-lang: zh
 duration: 10min
 ---
 

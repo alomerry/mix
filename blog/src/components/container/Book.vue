@@ -16,7 +16,6 @@ onMounted(() => {
       <img class="book-card-logo" :src="logo">
       <div class="book-card-content">
         <div class="book-card-title">{{ title }}</div>
-        <hr>
         <div class="book-card-desc">
           {{ desc }}
         </div>

@@ -1,7 +1,6 @@
 ---
 date: 2020-01-17T16:00:00.000+00:00
 title: Typecho 主题 handsome 美化插件 Skymo
-lang: zh
 type: posts
 duration: 1min
 desc: 已停止更新

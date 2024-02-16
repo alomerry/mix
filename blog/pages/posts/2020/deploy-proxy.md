@@ -1,7 +1,6 @@
 ---
 date: 2020-02-14T16:00:00.000+00:00
 title: 搭建科学上网教程
-lang: zh
 duration: 10min
 todoNext:
   - 探索透明代理

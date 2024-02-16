@@ -1,7 +1,6 @@
 ---
 date: 2020-10-03T16:00:00.000+00:00
 title: 代码整洁之道 / Go 箴言笔记 TODO
-lang: zh
 type: posts
 duration: 25min
 desc: 《代码整洁之道》读书笔记和日常写代码、读代码对于代码风格的总结

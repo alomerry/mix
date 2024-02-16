@@ -7,6 +7,7 @@ import {
 } from "~/alomerry";
 import Comment from "~/components/container/Comment.vue";
 import { pageviewCount } from "@waline/client";
+import { DEFAULT_LANG } from "~/alomerry/setting";
 
 const { frontmatter } = defineProps({
   frontmatter: {
@@ -135,7 +136,10 @@ onMounted(() => {
   </div>
   <article
     ref="content"
-    :class="[!frontmatter.tocAlwaysOn ? '' : 'toc-always-on', frontmatter.class]"
+    :class="[
+      !(frontmatter.tocAlwaysOn || false) ? 'toc-always-on' : '',
+      frontmatter.class,
+    ]"
   >
     <slot />
   </article>
@@ -164,7 +168,10 @@ onMounted(() => {
         >
       </div>
       <Transition>
-        <Comment v-show="displayWaline" :lang="frontmatter.lang" />
+        <Comment
+          v-show="displayWaline"
+          :lang="frontmatter.lang || DEFAULT_LANG"
+        />
       </Transition>
     </template>
   </div>

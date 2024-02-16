@@ -1,7 +1,6 @@
 ---
 date: 2019-07-21T16:00:00.000+00:00
 title: C++ 常用的函数 algorithm/stdlib/string/STL 库函数
-lang: zh
 type: posts+algorithm
 duration: 10min
 todoNext:

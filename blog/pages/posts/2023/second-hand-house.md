@@ -1,7 +1,7 @@
 ---
 date: 2023-09-30T16:00:00.000+00:00
 title: 二手房笔记
-lang: en
+type: todoNext
 duration: 10min
 ---
 
