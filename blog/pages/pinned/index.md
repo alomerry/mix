@@ -4,6 +4,7 @@ display: Pinned
 description: List of projects that I am proud of
 plum: true
 wrapperClass: 'text-center'
+tocAlwaysOn: false
 others:
   关于:
     - name: '本站'

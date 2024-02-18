@@ -1,25 +1,25 @@
 ---
 title: About this site - Alomerry Wu
 display: About this site
-subtitle: 一个基于 xxx 的博客，主要记录开发笔记。
+subtitle: 一个基于 vite 的博客，主要记录开发笔记、个人日常。
 cards:
   components:
     - name: '七牛云'
       link: 'https://www.cloudflare.com/'
       desc: '提供 CDN 服务。'
       icon: 'i-icon-park:download-laptop'
-    - icon: 'https://cdn.alomerry.com/blog/assets/img/about/tencent-cvm.svg'
-      name: '腾讯云'
-      desc: '抢占式 CVM 供应商。'
-      link: 'i-logos-active-campaign-icon saturate-0'
-    - icon: 'https://vuepress.vuejs.org/hero.png'
-      name: 'VuePress'
+    - icon: 'https://assets.dogyun.com/home/img/logo-128px.png'
+      name: '狗云'
+      desc: '香港 VPS 供应商。'
+      link: 'https://www.dogyun.com/?ref=alomerry'
+    - icon: 'https://cn.vitejs.dev/logo.svg'
+      name: 'Vite'
       desc: '博客驱动引擎。'
-      link: 'https://vuepress.vuejs.org/zh/'
-    - icon: 'https://theme-hope.vuejs.press/logo.png'
-      name: 'VuePress Theme Hope'
+      link: 'https://cn.vitejs.dev/'
+    - icon: 'https://avatars.githubusercontent.com/u/11247099?s=96&v=4'
+      name: 'antfu.me'
       desc: '本站博客所用主题'
-      link: 'https://theme-hope.vuejs.press/zh/'
+      link: 'https://github.com/antfu/antfu.me'
     - icon: 'https://cdn.alomerry.com/blog/assets/img/about/jenkins-ci.svg'
       name: 'Jenkins'
       desc: '自动化构建发布工具。'
@@ -30,7 +30,24 @@ cards:
       link: 'https://waline.js.org/'
 ---
 
-[[toc]]
+<!--
+    - icon: 'https://cdn.alomerry.com/blog/assets/img/about/tencent-cvm.svg'
+      name: '腾讯云'
+      desc: '抢占式 CVM 供应商。'
+      link: 'i-logos-active-campaign-icon saturate-0'
+    - icon: 'https://vuepress.vuejs.org/hero.png'
+      name: 'VuePress'
+      desc: '博客驱动引擎。'
+      link: 'https://vuepress.vuejs.org/zh/'
+    - icon: 'https://cdn.alomerry.com/blog/assets/img/about/jenkins-ci.svg'
+      name: 'Jenkins'
+      desc: '自动化构建发布工具。'
+      link: 'https://buddy.works'
+    - icon: 'https://theme-hope.vuejs.press/logo.png'
+      name: 'VuePress Theme Hope'
+      desc: '本站博客所用主题'
+      link: 'https://theme-hope.vuejs.press/zh/'
+-->
 
 ## 服务提供
 
@@ -40,20 +57,19 @@ cards:
 
 ## 仓库连接
 
-本站所有内容及代码均开源，可通过下面以下链接访问
+本站所有内容及代码均开源，可通过 [Alomerry Wu](https://github.com/alomerry) 访问
 
-[Alomerry Wu](https://github.com/alomerry)
+## 主题变更
 
+### 2023.11 切换 antfu.me
 
-## 2023.11 切换 antfu.me
-
-## vuepress-themo-hope
+### vuepress-themo-hope
 
 import code
 
 [`download-import`](download-import.js) 会在构建时将 `@[code](@_codes/${repo}/${file})` 转换成 `https://gitee.com/alomerry/${repo}/raw/${branch}/${file}` 后下载到 `src/_codes` 下对应的位置，并将 `@_codes` 修改成相对位置
 
-## 2020-至今 使用 vuepress@next
+### 2020 使用 vuepress@next
 
 https://waline.js.org/reference/server/env.html#%E6%98%BE%E7%A4%BA
 
@@ -82,63 +98,9 @@ guniar 维护不够及时，vuepress next 更新比较频繁，无法使用新�
 - 启动爬虫镜像
   - `docker run -it --env-file=.env -e "CONFIG=配置文件压缩后的内容" algolia/docsearch-scraper`
 
-#### 一些魔改
 
-##### 随机图
+- 2020 前，使用 [typecho](https://typecho.org/)
 
-- ArticleHeader
-  ```diff
-  --- lib/client/components/ArticleHeader.vue
-  +++ lib/client/components/ArticleHeader.vue
-  if (
-    frontmatter.value.layout === "Post" &&
-    frontmatter.value.useHeaderImage &&
-    frontmatter.value.headerImage
-  ) {
-  - style.backgroundImage = `url(${withBase(frontmatter.value.headerImage)})`;
-  + style.backgroundImage = `url(${triggerUri(frontmatter.value.headerImage)})`
-  }
-  return style;
+## Reference
 
-  + function triggerUri(url: string) {
-  +   if (((url || "").split("?")).length >= 2) {
-  +     const cdn = (url || "").split("?")[0]
-  +     let index: string;
-  +     index = (url || "").split("?")[1].split("=")[1];
-  +     console.log(index,parseInt(new Date().getTime(), 10))
-  +     return cdn + "/" + (parseInt(new Date().getTime(), 10)%(index+1)) + ".jpg";
-  +   }
-  +   return url;
-  + }
-  ```
-- PostListItem
-  ```diff
-  --- lib/client/components/PostListItem.vue
-  +++ lib/client/components/PostListItem.vue
-  <div class="post-item__img" @click="$router.push(item.path)">
-  - <img :src="withBase(item.info.headerImage)" />
-  + <img :src="triggerUri(item.info.headerImage)" />
-  </div>
-  ...
-  + function triggerUri(url: string) {
-  +   if (((url || "").split("?")).length >= 2) {
-  +     const cdn = (url || "").split("?")[0]
-  +     let index: string;
-  +     index = (url || "").split("?")[1].split("=")[1];
-  +     const max = Math.floor(Math.random() * parseInt(index, 10) + 1);
-  +     return cdn + "/" + max + ".jpg";
-  +   }
-  +   return url;
-  + }
-  ```
-
-##### docSearch 自定义爬虫
-
-https://plugin-search-pro.vuejs.press/zh/guide.html
-https://docsearch.algolia.com/docs/legacy/run-your-own/
-https://v2.vuepress.vuejs.org/zh/reference/plugin/docsearch.html#docsearch
-
-
-## 2020 前，使用 typecho
-
-https://taoshu.in/web/self-host-font.html#fnref2
+- [独立托管 Web 字体](https://taoshu.in/web/self-host-font.html)

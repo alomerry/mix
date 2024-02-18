@@ -137,7 +137,7 @@ onMounted(() => {
   <article
     ref="content"
     :class="[
-      !(frontmatter.tocAlwaysOn || false) ? 'toc-always-on' : '',
+      (frontmatter.tocAlwaysOn !== undefined ? frontmatter.tocAlwaysOn : true) ? 'toc-always-on' : '',
       frontmatter.class,
     ]"
   >
