@@ -5,11 +5,13 @@
   line-height: 1.75;
 }
 
+/*
 @media (min-width: 960px) {
   .prose {
     max-width: 50rem;
   }
 }
+*/
 
 .prose [class~='lead'] {
   color: #4b5563;

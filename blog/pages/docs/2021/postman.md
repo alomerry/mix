@@ -1,7 +1,6 @@
 ---
 date: 2021-03-04T16:00:00.000+00:00
 title: postman 使用技巧
-type: posts
 duration: 3min
 todoNext:
   - 文字过少

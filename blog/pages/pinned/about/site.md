@@ -2,6 +2,8 @@
 title: About this site - Alomerry Wu
 display: About this site
 subtitle: 一个基于 vite 的博客，主要记录开发笔记、个人日常。
+todoNext:
+  - 切换博客心得
 cards:
   components:
     - name: '七牛云'
@@ -61,27 +63,23 @@ cards:
 
 ## 主题变更
 
-### 2023.11 切换 antfu.me
-
-### vuepress-themo-hope
-
-import code
-
-[`download-import`](download-import.js) 会在构建时将 `@[code](@_codes/${repo}/${file})` 转换成 `https://gitee.com/alomerry/${repo}/raw/${branch}/${file}` 后下载到 `src/_codes` 下对应的位置，并将 `@_codes` 修改成相对位置
-
-### 2020 使用 vuepress@next
-
-https://waline.js.org/reference/server/env.html#%E6%98%BE%E7%A4%BA
-
-::: tip 2023.04 更新
-
-guniar 维护不够及时，vuepress next 更新比较频繁，无法使用新特性
+::: tip 2023.11 更新切换成 [antfu.me](https://github.com/antfu/antfu.me)
 
 :::
 
-### gunir
+::: tip 2023.04 更新切换成 [vuepress-theme-hope](https://github.com/vuepress-theme-hope/vuepress-theme-hope)
 
-#### 静态文件 Push 前上传到 OSS 中
+[vuepress-theme-gungnir](https://github.com/Renovamen/vuepress-theme-gungnir) 维护不够及时，vuepress next 更新比较频繁，无法使用新特性
+
+:::
+
+::: tip 2020 使用 [vuepress-theme-gungnir](https://github.com/Renovamen/vuepress-theme-gungnir)
+:::
+
+::: tip 2018 ~ 2020 使用 [typecho](https://typecho.org/)
+:::
+
+## 静态文件 Push 前上传到 OSS 中
 
 - 下载[源代码](https://github.com/alomerry/ossPusher)，构建成二进制文件后放入 blog 中
 - 修改 example.toml
@@ -90,16 +88,6 @@ guniar 维护不够及时，vuepress next 更新比较频繁，无法使用新�
   - 设置本地项目路径
   - 设置对应 provider 的 AK、SK 和 bucket
 - 运行二进制文件并指定配置文件位置 `./ossPusher --configPath core.toml`
-
-#### 设置 [docSearch](https://docsearch.algolia.com/docs/legacy/run-your-own/)
-
-- 创建账号，新建 .env 文件，内容需要包含账号中的 `APPLICATION_ID`、`API_KEY`
-- 参考[文档](https://docsearch.algolia.com/docs/legacy/config-file/)，自定义配置文件，并压缩
-- 启动爬虫镜像
-  - `docker run -it --env-file=.env -e "CONFIG=配置文件压缩后的内容" algolia/docsearch-scraper`
-
-
-- 2020 前，使用 [typecho](https://typecho.org/)
 
 ## Reference
 

@@ -1,7 +1,6 @@
 ---
 date: 2021-09-28T16:00:00.000+00:00
 title: vscode 常用设置与技巧
-type: posts
 duration: 3min
 todoNext:
   - 内容过少

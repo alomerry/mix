@@ -188,8 +188,8 @@
 .custom-block a {
   color: inherit;
   font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  /*text-decoration: underline;*/
+  /*text-underline-offset: 2px;*/
   transition: opacity 0.25s;
 }
 

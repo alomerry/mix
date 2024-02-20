@@ -2,7 +2,6 @@
 date: 2020-04-26T16:00:00.000+00:00
 title: 实用/特殊应用介绍
 duration: 10min
-type: posts
 ---
 
 [[toc]]

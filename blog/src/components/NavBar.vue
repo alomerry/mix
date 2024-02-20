@@ -34,10 +34,6 @@ const { y: scroll } = useWindowScroll()
           <span class="lt-md:hidden">Blog</span>
           <div i-ri-article-line md:hidden />
         </RouterLink>
-        <RouterLink to="/docs" title="笔记">
-          <span class="lt-md:hidden">Docs</span>
-          <div i-ri-lightbulb-line class="md:hidden" />
-        </RouterLink>
         <RouterLink to="/pinned" title="Pinned">
           <div i-tabler-pinned-filled />
         </RouterLink>
