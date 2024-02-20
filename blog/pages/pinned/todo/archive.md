@@ -1,5 +1,7 @@
-title: Twitch API
-date: 2023-02-21
+## 备忘
+
+- code review https://github.com/inetfuture/technote?tab=readme-ov-file
+- 前端 希望工作时 https://hope-studio.innenu.com/invite/#%E4%B8%BB%E8%A6%81%E6%96%B9%E5%90%91
 
 - https://github.com/tmijs/tmi.js/releases?page=1
 - https://banana.eotones.net/main.js?20221004
