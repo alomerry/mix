@@ -3,6 +3,8 @@ date: 2022-02-26
 category:
   - SRE
   - Nginx
+duration: 3min
+wordCount: 925
 ---
 
 # Nginx Note

@@ -2,8 +2,9 @@
 date: 2023-11-29T16:00:00.000+00:00
 title: 2023 年底的面试复盘
 type: todoNext
-duration: 25min
 desc: git 初始化、git 经典 case 和一些基本操作
+duration: 8min
+wordCount: 2.8k
 ---
 
 [[toc]]

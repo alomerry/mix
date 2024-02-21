@@ -92,3 +92,5 @@ cards:
 ## Reference
 
 - [独立托管 Web 字体](https://taoshu.in/web/self-host-font.html)
+- [ChoDocs 的 VitePress 插件折腾记录](https://chodocs.cn/program/vitepress-plugin/#%E6%96%87%E6%A1%A3%E9%A1%B5%E9%9D%A2%E7%9A%84%E9%A1%B6%E9%83%A8%E4%BF%A1%E6%81%AF%E7%BB%84%E4%BB%B6)
+- [markdown-it 原理解析](https://github.com/mqyqingfeng/Blog/issues/252)

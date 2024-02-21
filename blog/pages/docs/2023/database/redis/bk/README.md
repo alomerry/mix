@@ -6,6 +6,8 @@ category:
   - Redis
 timeline: false
 article: false
+duration: 8min
+wordCount: 2.3k
 ---
 
 # Redis 

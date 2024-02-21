@@ -3,6 +3,8 @@ enableFootnotePopup: false
 date: 2023-08-01
 category:
   - Golang
+duration: 2min
+wordCount: 597
 ---
 
 # interface/_type

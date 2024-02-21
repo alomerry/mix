@@ -1,9 +1,10 @@
 ---
 date: 2021-07-11T16:00:00.000+00:00
 title: 搭建内网穿透教程
-duration: 10min
 todoNext:
   - 具体代理应用配置
+duration: 3min
+wordCount: 778
 ---
 
 [[toc]]

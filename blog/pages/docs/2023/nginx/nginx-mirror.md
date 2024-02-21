@@ -5,6 +5,8 @@ description: nginx 流量复制
 category:
   - SRE
   - Nginx
+duration: 1min
+wordCount: 232
 ---
 
 ## 起因

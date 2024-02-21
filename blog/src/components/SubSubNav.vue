@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { englishOnly } from '../logics'
-import { button_english_only_enable, subCategories } from '../alomerry/setting'
+import { useRoute } from "vue-router";
+import { englishOnly } from "~/logics";
+import { button_english_only_enable, subCategories } from "~/alomerry";
 
 const props = defineProps<{
-  type?: string
-}>()
-const inactiveStyle = 'opacity-20 hover:opacity-50'
-const activeStyle = 'opacity-100 underline'
+  type?: string;
+}>();
+const inactiveStyle = "opacity-20 hover:opacity-50";
+const activeStyle = "opacity-100 underline";
 
-const route = useRoute()
-const currentCategories = subCategories(props.type)
+const route = useRoute();
+const currentCategories = subCategories(props.type);
 </script>
 
 <template>
-  <div v-if="currentCategories.length > 0" class="prose m-auto mb-8 select-none animate-none! op100!">
+  <div
+    v-if="currentCategories.length > 0"
+    class="prose m-auto mb-8 select-none animate-none! op100!"
+  >
     <button
       v-if="button_english_only_enable"
       flex="~ gap1"

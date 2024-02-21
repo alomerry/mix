@@ -3,7 +3,8 @@ date: 2022-06-17T16:00:00.000+00:00
 title: Jenkins 流水线
 type: docs+jenkins
 desc: Jenkins 流水线、插件、Jenkinsfile
-duration: 10min
+duration: 15min
+wordCount: 4k
 ---
 
 [[toc]]

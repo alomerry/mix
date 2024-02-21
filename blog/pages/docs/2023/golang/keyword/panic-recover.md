@@ -3,6 +3,8 @@ enableFootnotePopup: true
 date: 2023-07-14
 category:
   - Golang
+duration: 5min
+wordCount: 1.2k
 ---
 
 # 恐慌与恢复

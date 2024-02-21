@@ -2,7 +2,8 @@
 date: 2022-08-10T16:00:00.000+00:00
 title: 尾递归
 type: posts+algorithm
-duration: 10min
+duration: 1min
+wordCount: 323
 ---
 
 递归调用的缺点是方法嵌套比较多，每个内部的递归都需要对应的生成一个独立的栈帧，然后将栈帧都入栈后再调用返回，这样相当于浪费了很多的栈空间

@@ -1,10 +1,11 @@
 ---
 date: 2021-09-28T16:00:00.000+00:00
 title: vscode 常用设置与技巧
-duration: 3min
 todoNext:
   - 内容过少
   - 继续积累
+duration: 1min
+wordCount: 58
 ---
 
 ## 常用设置

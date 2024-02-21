@@ -1,9 +1,10 @@
 ---
 date: 2021-03-04T16:00:00.000+00:00
 title: postman 使用技巧
-duration: 3min
 todoNext:
   - 文字过少
+duration: 1min
+wordCount: 203
 ---
 
 [[toc]]

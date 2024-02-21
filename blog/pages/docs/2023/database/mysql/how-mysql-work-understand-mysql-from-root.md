@@ -7,6 +7,8 @@ category:
   - MySQL
 tag:
   - 读书笔记
+duration: 2min
+wordCount: 838
 ---
 
 # MySQL 是怎样运行的 从根儿上理解 MySQL

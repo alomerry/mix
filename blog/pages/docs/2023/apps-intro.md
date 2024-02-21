@@ -1,7 +1,8 @@
 ---
 date: 2020-04-26T16:00:00.000+00:00
 title: 实用/特殊应用介绍
-duration: 10min
+duration: 12min
+wordCount: 2.8k
 ---
 
 [[toc]]

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { englishOnly } from '../logics'
-import { button_english_only_enable, categories } from '../alomerry/setting'
+import { useRoute } from "vue-router";
+import { englishOnly } from "~/logics";
+import { button_english_only_enable, categories } from "~/alomerry";
 
-const inactiveStyle = 'opacity-20 hover:opacity-50'
-const activeStyle = 'opacity-100 underline'
+const inactiveStyle = "opacity-20 hover:opacity-50";
+const activeStyle = "opacity-100 underline";
 
-const route = useRoute()
+const route = useRoute();
 </script>
 
 <template>

@@ -4,6 +4,8 @@ head:
   - - meta
     - name: description
       content: hello
+duration: 7min
+wordCount: 1.9k
 ---
 
 # Function call

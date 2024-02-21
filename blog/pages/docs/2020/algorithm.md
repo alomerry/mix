@@ -1,3 +1,13 @@
+---
+date: 2022-07-06T16:00:00.000+00:00
+title: 算法手册
+subtitle: 123
+type: docs+algorithm
+desc: git 初始化、git 经典 case 和一些基本操作
+duration: 2min
+wordCount: 767
+---
+
 list
 
 - 基本思想

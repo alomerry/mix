@@ -1,8 +1,9 @@
 ---
 date: 2024-05-01T00:00:00.000+08:00
 title: SSH 防爆破与加固
-duration: 5min
 type: todoNext
+duration: 1min
+wordCount: 98
 ---
 
 ## Reference

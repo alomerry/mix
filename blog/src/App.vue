@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useCodeGroup } from "./alomerry/codeGroup";
-import { useCopyCode } from "./alomerry/copyCode";
+import { useCodeGroup, useCopyCode } from "./alomerry";
 
 const route = useRoute();
 

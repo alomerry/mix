@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import { englishOnly, formatDate } from "~/logics";
 import type { Post } from "~/types";
-import { DEFAULT_LANG } from "~/alomerry/setting";
+import { DEFAULT_LANG } from "~/alomerry";
 
 const props = defineProps<{
   type?: string;
@@ -24,7 +24,7 @@ const routes: Post[] = router
       !i.path.endsWith(".html") &&
       (i.meta.frontmatter.type || props.type || "// empty")
         .split("+")
-        .some((i) => i.includes(props.type)),
+        .some((i: string[]) => i.includes(props.type || '')),
   )
   .map((i) => ({
     path: i.meta.frontmatter.redirect || i.path,

@@ -5,6 +5,8 @@ category:
   - Golang
 tag:
   - golang
+duration: 32min
+wordCount: 7.7k
 ---
 
 https://go.dev/ref/spec#Source_file_organization

@@ -3,6 +3,8 @@ date: 2023-06-20
 enableFootnotePopup: true
 category:
   - Golang
+duration: 11min
+wordCount: 3k
 ---
 
 # Sync.Mutex

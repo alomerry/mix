@@ -5,6 +5,8 @@ category:
   - Golang
 tag:
   - Goroutine
+duration: 30min
+wordCount: 6.2k
 ---
 
 # Goroutine

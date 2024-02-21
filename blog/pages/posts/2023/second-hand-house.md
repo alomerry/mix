@@ -2,7 +2,8 @@
 date: 2023-09-30T16:00:00.000+00:00
 title: 二手房笔记
 type: todoNext
-duration: 10min
+duration: 1min
+wordCount: 44
 ---
 
 ## Reference

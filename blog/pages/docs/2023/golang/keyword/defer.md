@@ -3,6 +3,8 @@ enableFootnotePopup: true
 date: 2023-07-11
 category:
   - Golang
+duration: 6min
+wordCount: 1.7k
 ---
 
 # 延迟调用

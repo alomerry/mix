@@ -3,6 +3,8 @@ date: 2023-07-17
 enableFootnotePopup: false
 category:
   - Golang
+duration: 3min
+wordCount: 568
 ---
 
 # sema

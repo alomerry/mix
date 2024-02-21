@@ -1,7 +1,8 @@
 ---
 date: 2023-01-27T16:00:00.000+00:00
 title: 字符串匹配算法 KMP
-duration: 10min
+duration: 4min
+wordCount: 1.1k
 ---
 
 # KMP（Knuth-Morris-Pratt）

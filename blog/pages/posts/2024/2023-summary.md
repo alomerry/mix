@@ -1,9 +1,11 @@
 ---
-date: 2024-02-17T02:34:00.000+08:00
+date: 2024-02-14T02:34:00.000+08:00
+update: 2024-02-22T02:34:00.000+08:00
 title: 2023 小记
 place: 上海 闵行
-duration: 5min
 tocAlwaysOn: false
+duration: 7min
+wordCount: 2.4k
 ---
 
 [[toc]]

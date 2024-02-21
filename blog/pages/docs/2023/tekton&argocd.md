@@ -1,7 +1,8 @@
 ---
 date: 2023-12-22T16:00:00.000+00:00
 title: Tekton Pipeline
-duration: 10min
+duration: 1min
+wordCount: 168
 ---
 
 - 安装 k8s

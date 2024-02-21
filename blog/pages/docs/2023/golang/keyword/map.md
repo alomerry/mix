@@ -1,5 +1,7 @@
 ---
 date: 2023-06-09
+duration: 16min
+wordCount: 4.7k
 ---
 
 # [map](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)

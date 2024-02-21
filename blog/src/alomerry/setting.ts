@@ -1,4 +1,4 @@
-export const button_english_only_enable = true;
+export const button_english_only_enable = true; // 是否展示仅英文按钮
 
 export const DEFAULT_LANG = "zh";
 

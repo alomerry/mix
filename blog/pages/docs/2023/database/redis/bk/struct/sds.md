@@ -4,6 +4,8 @@ category:
   - Database
   - Redis
   - NoSQL
+duration: 7min
+wordCount: 1.4k
 ---
 
 # 简单动态字符串

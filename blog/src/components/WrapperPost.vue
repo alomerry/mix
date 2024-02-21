@@ -2,9 +2,10 @@
 import {
   ALOMERRY_BLOG_WALINE_DOMAIN,
   displayComment,
-  formatDateByAlomerry,
   setDefaultDisplayComment,
+  getFromNow,
 } from "~/alomerry";
+import { formatDate } from "~/logics";
 import Comment from "~/components/container/Comment.vue";
 import { pageviewCount } from "@waline/client";
 import { DEFAULT_LANG } from "~/alomerry/setting";
@@ -98,12 +99,14 @@ onMounted(() => {
       {{ frontmatter.display ?? frontmatter.title }}
     </h1>
     <p v-if="frontmatter.date" class="opacity-50 !-mt-6 slide-enter-50">
-      {{ formatDateByAlomerry(frontmatter.date, false) }}
-      <span v-if="frontmatter.duration">· {{ frontmatter.duration }}</span>
+      {{ formatDate(frontmatter.date, false) }}
+      <span v-if="frontmatter.duration"> · <span class="i-lets-icons-time-atack"/> {{ frontmatter.duration }}</span>
+      <span v-if="frontmatter.wordCount"> · <span class="i-icon-park-outline-word"/> {{ frontmatter.wordCount }}</span>
       <span>
         · <span class="i-carbon-view-filled" />
         <span class="waline-pageview-count" ml-1 />
       </span>
+      <span v-if="frontmatter.update" style="font-size:0.8rem"> · updated at {{ getFromNow(frontmatter.update) }}</span>
     </p>
     <p v-if="frontmatter.place" class="mt--4!">
       <span op50>at </span>
@@ -137,7 +140,9 @@ onMounted(() => {
   <article
     ref="content"
     :class="[
-      (frontmatter.tocAlwaysOn !== undefined ? frontmatter.tocAlwaysOn : true) ? 'toc-always-on' : '',
+      (frontmatter.tocAlwaysOn !== undefined ? frontmatter.tocAlwaysOn : true)
+        ? 'toc-always-on'
+        : '',
       frontmatter.class,
     ]"
   >

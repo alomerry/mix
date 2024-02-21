@@ -3,7 +3,8 @@ date: 2022-06-17T16:00:00.000+00:00
 title: Jenkins 安装手册
 type: docs+jenkins
 desc: 记录学习 Jenkins 过程的一些心得、笔记
-duration: 10min
+duration: 3min
+wordCount: 766
 ---
 
 [[toc]]

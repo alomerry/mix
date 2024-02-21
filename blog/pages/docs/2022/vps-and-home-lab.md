@@ -1,9 +1,10 @@
 ---
 date: 2022-02-23T16:00:00.000+00:00
 title: cvm、vps 和 homelab 手册
-duration: 10min
 desc: 记录家庭服务器和云服务器的服务笔记，用于迁移或者恢复，macOS 使用过程中的一些经验、技巧、笔记
 place: 上海
+duration: 7min
+wordCount: 1.7k
 ---
 
 [[toc]]

@@ -2,11 +2,12 @@
 date: 2020-10-03T16:00:00.000+00:00
 title: 代码整洁之道 / Go 箴言笔记 TODO
 type: posts
-duration: 25min
 desc: 《代码整洁之道》读书笔记和日常写代码、读代码对于代码风格的总结
 todoNext:
   - 没处理完
   - 内容过多
+duration: 24min
+wordCount: 6.9k
 ---
 
 [[toc]]

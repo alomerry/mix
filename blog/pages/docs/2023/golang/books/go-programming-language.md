@@ -1,6 +1,8 @@
 ---
 title: The Go Programming Language
 date: 2021-03-01
+duration: 19min
+wordCount: 5.5k
 ---
 
 <!-- Description. -->

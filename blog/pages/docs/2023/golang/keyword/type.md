@@ -3,6 +3,8 @@ date: 2023-10-18
 enableFootnotePopup: true
 category:
   - Golang
+duration: 1min
+wordCount: 202
 ---
 
 # 类型系统

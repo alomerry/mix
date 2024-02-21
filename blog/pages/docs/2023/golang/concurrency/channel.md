@@ -3,6 +3,8 @@ enableFootnotePopup: true
 date: 2023-07-17
 category:
   - Golang
+duration: 11min
+wordCount: 2k
 ---
 
 # channel

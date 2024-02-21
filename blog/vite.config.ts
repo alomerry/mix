@@ -35,11 +35,14 @@ import {
   transformerNotationWordHighlight,
 } from "@shikijs/transformers";
 import { slugify } from "./scripts/slugify";
-import { containerPlugin } from "./scripts/md/container";
-import { preWrapperPlugin } from "./scripts/md/preWrapper";
-import { footnote } from "./scripts/md/footnote";
-import { sup } from "./scripts/md/sup";
-import { sub } from "./scripts/md/sub";
+import {
+  pageInfo,
+  sup,
+  sub,
+  footnote,
+  preWrapperPlugin,
+  containerPlugin,
+} from "./scripts/md";
 
 const promises: Promise<any>[] = [];
 
@@ -140,6 +143,7 @@ export default defineConfig({
         md.use(sup);
         md.use(tasklist);
         md.use(sub);
+        md.use(pageInfo);
         md.use(emojiPlugin);
 
         md.use(LinkAttributes, {

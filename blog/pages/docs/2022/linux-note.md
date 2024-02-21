@@ -3,6 +3,8 @@ title: Linux Note
 desc: Linux
 date: 2022-04-26
 type: todoNext
+duration: 10min
+wordCount: 2.3k
 ---
 ## TODO
 

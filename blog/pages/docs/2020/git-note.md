@@ -2,8 +2,9 @@
 date: 2020-07-06T16:00:00.000+00:00
 title: git 手册
 type: docs+git
-duration: 25min
 desc: git 初始化、git 经典 case 和一些基本操作
+duration: 3min
+wordCount: 953
 ---
 
 [[toc]]
@@ -63,11 +64,13 @@ cat ~/.ssh/id_rsa.pub
 - `--grep` 可以搜索提交中的关键字
 - `--committer` 仅显示指定提交者相关的提交
 
-在提交完成后发现有一些文件未添加，或者是发起 MR 后需要重新修改代码合并提交，可以使用 `git commit --amend` 命令，删除不必要的冗余 commit。
+在提交完成后发现有一些文件未添加，或者是发起 MR 后需要重新修改代码合并提交，可以使用 `git commit --amend` 命令，删除不必要的冗余
+commit。
 
 **取消对文件的修改**
 
-有时发现对某个文件的修改是没必要的，可以将文件会退到之前的某个指定版本，使用 `git checkout <branchId / commitId> <fileName>`，该命令会使文件被之前的版本覆写。
+有时发现对某个文件的修改是没必要的，可以将文件会退到之前的某个指定版本，使用 `git checkout <branchId / commitId> <fileName>`
+，该命令会使文件被之前的版本覆写。
 
 ### 文件
 
@@ -124,6 +127,7 @@ git add file_to
 git hook 默认位置是 `.git/hooks`，可以通过 `git config 'core.hooksPath'` 来指定自定义位置。
 
 ::: details pre-push
+
 ```shell
 #!/bin/sh
 
@@ -132,6 +136,7 @@ COMMAND="${PROJECT_PATH}/blog/.vuepress/ossPusher --configPath ${PROJECT_PATH}/b
 ${COMMAND}
 exit 0
 ```
+
 :::
 
 服务端钩子

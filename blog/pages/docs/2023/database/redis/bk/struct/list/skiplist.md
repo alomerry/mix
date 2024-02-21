@@ -9,6 +9,8 @@ tag:
   - SkipList
 timeline: false
 article: false
+duration: 4min
+wordCount: 684
 ---
 
 # SkipList

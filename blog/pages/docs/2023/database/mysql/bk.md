@@ -7,6 +7,8 @@ category:
   - MySQL
 tag:
   - xxx
+duration: 4min
+wordCount: 1.3k
 ---
 
 # mysql

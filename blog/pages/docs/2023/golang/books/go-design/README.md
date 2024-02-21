@@ -1,6 +1,8 @@
 ---
 description: 《Go 语言设计与实现》读书笔记
 date: 2022-02-14
+duration: 12min
+wordCount: 2.5k
 ---
 
 # 《Go 语言设计与实现》读书笔记

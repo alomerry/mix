@@ -2,10 +2,11 @@
 date: 2020-07-06T16:00:00.000+00:00
 title: code review 注意事项
 type: posts
-duration: 3min
 desc: 在公司中学习到一些规范和流程
 todoNext:
   - 缺少个人简介
+duration: 1min
+wordCount: 441
 ---
 
 [[toc]]

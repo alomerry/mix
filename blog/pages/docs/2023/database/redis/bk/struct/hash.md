@@ -9,6 +9,8 @@ tag:
   - Dict
 timeline: false
 article: false
+duration: 1min
+wordCount: 11
 ---
 
 
