@@ -1,9 +1,16 @@
 ---
 title: xx - Alomerry Wu
-display: xx
 subtitle: xxx
+update: 2024-02-22T18:44:25.051Z
+duration: 1min
+wordCount: 88
+date: 2024-02-22T18:44:25.051Z
 cards:
   blog:
+    - icon: https://image.liubing.me/2023/02/05/834597e9e927e.png
+      name: 柳婼 の blog
+      desc: 我不管，反正我最萌～
+      link: https://www.liuchuo.net
     - icon: 🧔🏻
       name: 涛叔
       desc: 乐乎
@@ -65,3 +72,10 @@ cards:
 <DisplayCard :cards="frontmatter.cards['blog']" />
 
 石康 https://weibo.com/shikang
+杰坤 https://jiekun.dev/
+又耳笔记 https://youerning.top/page/7/
+搞懂异地多活，看这篇就够了 http://kaito-kidd.com/2021/10/15/what-is-the-multi-site-high-availability-design/
+ingress-nginx 保姆级别源码阅读 https://youerning.top/post/kubernetes/nginx-ingress-controller/
+500行以内写一个API网关 https://youerning.top/post/apix_code/
+Limboy https://limboy.me/posts/live-well/
+bmpi https://www.bmpi.dev/link/

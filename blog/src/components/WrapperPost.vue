@@ -100,13 +100,21 @@ onMounted(() => {
     </h1>
     <p v-if="frontmatter.date" class="opacity-50 !-mt-6 slide-enter-50">
       {{ formatDate(frontmatter.date, false) }}
-      <span v-if="frontmatter.duration"> · <span class="i-lets-icons-time-atack"/> {{ frontmatter.duration }}</span>
-      <span v-if="frontmatter.wordCount"> · <span class="i-icon-park-outline-word"/> {{ frontmatter.wordCount }}</span>
+      <span v-if="frontmatter.duration">
+        · <span class="i-lets-icons-time-atack" />
+        {{ frontmatter.duration }}</span
+      >
+      <span v-if="frontmatter.wordCount">
+        · <span class="i-icon-park-outline-word" />
+        {{ frontmatter.wordCount }}</span
+      >
       <span>
         · <span class="i-carbon-view-filled" />
         <span class="waline-pageview-count" ml-1 />
       </span>
-      <span v-if="frontmatter.update" style="font-size:0.8rem"> · updated at {{ getFromNow(frontmatter.update) }}</span>
+      <span v-if="frontmatter.update" style="font-size: 0.8rem">
+        · updated at {{ getFromNow(frontmatter.update) }}</span
+      >
     </p>
     <p v-if="frontmatter.place" class="mt--4!">
       <span op50>at </span>
@@ -121,7 +129,7 @@ onMounted(() => {
         {{ frontmatter.place }}
       </span>
     </p>
-    <p v-if="frontmatter.subtitle" class="opacity-50 !-mt-6 italic slide-enter">
+    <p v-if="frontmatter.subtitle" class="!opacity-50 !-mt-4 italic slide-enter">
       {{ frontmatter.subtitle }}
     </p>
     <p
@@ -165,16 +173,20 @@ onMounted(() => {
           font-mono
           op50
           :class="
-            displayWaline ? 'i-mingcute-down-fill' : 'i-mingcute-right-fill'
+            route.path.endsWith('/comment')
+              ? 'i-mingcute-down-fill'
+              : displayWaline
+                ? 'i-mingcute-down-fill'
+                : 'i-mingcute-right-fill'
           "
         />
-        <span font-mono op50 hover:op75 style="color: var(--fg-deeper)"
+        <span font-mono hover:op75 style="color: var(--fg-deeper)" class="alomerry-breath-opacity"
           >&nbsp;comment..</span
         >
       </div>
       <Transition>
         <Comment
-          v-show="displayWaline"
+          v-show="route.path.endsWith('/comment') || displayWaline"
           :lang="frontmatter.lang || DEFAULT_LANG"
         />
       </Transition>

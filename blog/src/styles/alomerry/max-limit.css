@@ -1,0 +1,11 @@
+.alomerry-limit-max {
+  max-width: 300px; /* 设置容器的宽度 */
+  white-space: nowrap; /* 避免文本换行 */
+  overflow: hidden; /* 隐藏超出容器的文本 */
+  text-overflow: ellipsis; /* 显示省略号 */
+}
+
+.alomerry-limit-max:hover {
+  verflow: visible; /* 悬停时显示全部文本 */
+  white-space: normal; /* 悬停时允许文本换行 */
+}

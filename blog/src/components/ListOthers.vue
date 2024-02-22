@@ -12,7 +12,7 @@ function slug(name: string) {
       v-for="key, cidx in Object.keys(others)" :key="key" slide-enter
       :style="{ '--enter-stage': cidx + 1 }"
     >
-      <h4 :id="slug(key)" class="mt-3 mb-2 font-bold text-center op75">
+      <h4 :id="slug(key)" class="mt-15 mb-2 font-bold text-center op100">
         {{ key }}
       </h4>
       <div
@@ -46,7 +46,7 @@ function slug(name: string) {
         </a>
       </div>
     </div>
-    <div class="prose pb5 mx-auto mt10 text-center">
+    <div style="display: none" class="prose pb5 mx-auto mt10 text-center">
       <p op75>
         <em>
           Thanks for getting interested in my works! If like them or find them useful, consider
@@ -79,16 +79,20 @@ function slug(name: string) {
 </template>
 
 <style scoped>
+
 .project-grid a.item {
   background: transparent;
   font-size: 1.1rem;
-  width: 350px;
-  max-width: 100%;
+  max-width: 350px;
   padding: 0.5rem 0.875rem 0.875rem;
   border-radius: 6px;
 }
 
 .project-grid a.item:hover {
   background: #88888811;
+}
+
+h4 {
+  font-size:20px;
 }
 </style>

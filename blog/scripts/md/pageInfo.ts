@@ -13,7 +13,7 @@ export const pageInfo: PluginSimple = (md) => {
       !args[3] ||
       !args[3].id ||
       idMapper.get(args[3].id) ||
-      !args[3].frontmatter?.date
+      (!args[3].frontmatter?.date && !args[3].frontmatter?.update)
     ) {
       return `${text(...args)}`;
     }
@@ -42,28 +42,92 @@ export const pageInfo: PluginSimple = (md) => {
   };
 };
 const rootPath = () => resolve(".");
+
+const currentISOTime = new Date().toISOString();
+
+interface aRef<T> {
+  value: T;
+}
+
 const syncToMdSource = (path: string, duration: string, wordCount: string) => {
   let mdContent = fs.readFileSync(path, "utf8");
-  let reg = /---\n(.*\n)+---/;
-  let frontmatter = (mdContent.match(reg) || [])[0] || "";
-  let needUpdate = false;
-  if (!frontmatter.includes(`duration: ${duration}`)) {
-    needUpdate = true;
-    frontmatter = frontmatter.replace(/\n---/, `\nduration: ${duration}\n---`);
-  }
+  const reg = /---\n(.*\n)+---/;
+  const frontmatter: aRef<string> = {
+    value: (mdContent.match(reg) || [])[0] || "",
+  };
 
-  if (!frontmatter.includes(`wordCount: ${wordCount}`)) {
-    needUpdate = true;
-    frontmatter = frontmatter.replace(
-      /\n---/,
-      `\nwordCount: ${wordCount}\n---`,
+  if (updateFrontmatter(frontmatter, duration, wordCount)) {
+    console.log(`updating [${path.replace(rootPath(), "")}]'s frontmatter...`);
+    fs.writeFileSync(path, mdContent.replace(reg, frontmatter.value), "utf8");
+  }
+};
+
+const updateFrontmatter = (
+  frontmatter: aRef<string>,
+  duration: string,
+  wordCount: string,
+) => {
+  const res: boolean[] = [];
+  res.push(updateFrontmatterDuration(frontmatter, duration));
+  res.push(updateFrontmatterWordCount(frontmatter, wordCount));
+  res.push(updateFrontmatterDate(frontmatter));
+  return res.includes(true);
+};
+
+const updateFrontmatterDate = (frontmatter: aRef<string>) => {
+  if (
+    !frontmatter.value.includes(`update: now`) &&
+    !frontmatter.value.includes(`date: now`)
+  ) {
+    return false;
+  }
+  if (frontmatter.value.includes(`update: now`)) {
+    frontmatter.value = frontmatter.value.replace(
+      /(---\n(.*\n)*)update: now\n((.*\n)*---)/,
+      `$1update: ${currentISOTime}\n$3`,
     );
+    if (!frontmatter.value.match(/^date:/)) {
+      frontmatter.value = frontmatter.value.replace(
+        /\n---/,
+        `\ndate: ${currentISOTime}\n---`,
+      );
+    }
   }
+  return true;
+};
 
-  if (needUpdate) {
-    console.log(`updating [${path.replace(rootPath(),"")}]'s frontmatter...`);
-    fs.writeFileSync(path, mdContent.replace(reg, frontmatter), "utf8");
+const updateFrontmatterWordCount = (
+  frontmatter: aRef<string>,
+  wordCount: string,
+) => {
+  if (!frontmatter.value.includes(`wordCount: ${wordCount}\n`)) {
+    const reg: aRef<RegExp> = { value: /\n---/ };
+    const replace: aRef<string> = { value: `\nwordCount: ${wordCount}\n---` };
+    if (frontmatter.value.includes(`wordCount:`)) {
+      reg.value = /(---\n(.*\n)*)wordCount:.*\n((.*\n)*---)/;
+      replace.value = `$1wordCount: ${wordCount}\n$3`;
+    }
+    frontmatter.value = frontmatter.value.replace(reg.value, replace.value);
+    return true;
   }
+  return false;
+};
+
+const updateFrontmatterDuration = (
+  frontmatter: aRef<string>,
+  duration: string,
+) => {
+  if (!frontmatter.value.includes(`duration: ${duration}`)) {
+    const reg: aRef<RegExp> = { value: /\n---/ };
+    const replace: aRef<string> = { value: `\nduration: ${duration}\n---` };
+    if (frontmatter.value.includes(`duration:`)) {
+      reg.value = /(---\n(.*\n)*)duration:.*\n((.*\n)*---)/;
+      replace.value = `$1duration: ${duration}\n$3`;
+    }
+    frontmatter.value = frontmatter.value.replace(reg.value, replace.value);
+    return true;
+  }
+  return false;
 };
 
 const getEnWordCount = (content: string): number => {

@@ -22,7 +22,7 @@ defineProps<{ cards: any[] }>()
       </div>
       <div class="flex-auto">
         <div class="text-normal">{{ item.name }}</div>
-        <div class="desc text-sm opacity-80 font-normal" v-html="item.desc" />
+        <div class="alomerry-limit-max desc text-sm opacity-80 font-normal" v-html="item.desc" />
       </div>
     </a>
   </div>
@@ -33,7 +33,6 @@ defineProps<{ cards: any[] }>()
   background: transparent;
   font-size: 1.1rem;
   min-width: 80px;
-  max-width: 100%;
   padding: 0.5rem 0.875rem 0.875rem;
   border-radius: 6px;
 }
@@ -47,5 +46,6 @@ defineProps<{ cards: any[] }>()
   margin-bottom: 0;
   height: 1.2em;
   width: 1.2em;
+  border-radius: 6px;
 }
 </style>

@@ -1,0 +1,103 @@
+.alomerry-breath-blue {
+  color: #096dd9;
+  animation: color-transition 1.5s linear infinite;
+  background-color: unset !important;
+}
+
+.alomerry-breath-opacity {
+  opacity: 0.5;
+  animation: opacity-transition 1.5s linear infinite;
+  background-color: unset !important;
+}
+
+@keyframes opacity-transition {
+  0% {
+    opacity: 0.5;
+  }
+
+  10% {
+    opacity: 0.45;
+  }
+
+  20% {
+    opacity: 0.4;
+  }
+
+  30% {
+    opacity: 0.35;
+  }
+
+  40% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
+
+  60% {
+    opacity: 0.3;
+  }
+
+  70% {
+    opacity: 0.35;
+  }
+
+  80% {
+    opacity: 0.4;
+  }
+
+  90% {
+    opacity: 0.45;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes color-transition {
+  0% {
+    color: #84b9df;
+  }
+
+  10% {
+    color: #6ba1d6;
+  }
+
+  20% {
+    color: #4e89cc;
+  }
+
+  30% {
+    color: #3161c2;
+  }
+
+  40% {
+    color: #2167FF;
+  }
+
+  50% {
+    color: #2167FF;
+  }
+
+  60% {
+    color: #3161c2;
+  }
+
+  70% {
+    color: #4e89cc;
+  }
+
+  80% {
+    color: #6ba1d6;
+  }
+
+  90% {
+    color: #84b9df;
+  }
+
+  100% {
+    color: #84b9df;
+  }
+}
