@@ -1,4 +1,4 @@
-# xxx
+# Plan
 
-- [2024](2024.md)
-- [Archive](archive.md)
+- [2024](2024.html)
+- [Archive](archive.html)
