@@ -1,12 +1,10 @@
 ---
-category:
-  - SRE
-  - Nginx
-tag:
-  - Rtmp
+title: 使用 nginx 和 rtmp 模块搭建推流服务器
+update: 2024-02-24T19:17:18.318Z
+date: 2023-04-13T16:00:00.000+00:00
+duration: 1min
+wordCount: 471
 ---
-
-# 使用 nginx 和 rtmp 模块搭建推流服务器
 
 ::: tip 起因
 
@@ -55,7 +53,6 @@ https://www.liminghulian.com/article/115
 https://blog.51cto.com/u_15077560/4182533
 https://github.com/arut/nginx-rtmp-module/wiki/Directives#on_play
 https://www.hostwinds.com/tutorials/live-streaming-from-a-vps-with-nginx-rtmp
-
 
 https://www.cnblogs.com/rongfengliang/p/15646420.html
 https://github.com/nginxinc/docker-nginx

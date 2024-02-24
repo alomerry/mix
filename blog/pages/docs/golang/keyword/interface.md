@@ -1,13 +1,10 @@
 ---
 enableFootnotePopup: false
-date: 2023-08-01
-category:
-  - Golang
+date: 2023-08-01T16:00:00.000+00:00
+title: interface/_type
 duration: 2min
 wordCount: 597
 ---
-
-# interface/_type
 
 方法本质就是函数，只不过调用时接受会作为第一个参数传入
 
@@ -32,18 +29,18 @@ built-in
 type T int
 
 type T struct {
-  name string
+name string
 }
 
 type T interface {
-  Name() string
+Name() string
 }
 
 ## 类型系统
 
 ### 类型元数据
 
-runtime._type
+runtime.\_type
 
 - 类型名称
 - 类型大小
@@ -130,7 +127,7 @@ type eface struct {
 ```
 
 - `var e interface{}`
-  - _type = nil
+  - \_type = nil
   - data = nil
 - `f, _ := os.Open("xxx.txt")`
   ```
@@ -140,7 +137,7 @@ type eface struct {
   uncommontype
   ```
 - `e = f`
-  - _type = *os.File 类型元数据 
+  - \_type = \*os.File 类型元数据
   - data = f
 
 ## 非空接口
@@ -185,7 +182,7 @@ type interfaceType struct {
 
 ## itab 缓存
 
-itab 中的 inter 和 _type 确定了 itab 就不会改变了 所
+itab 中的 inter 和 \_type 确定了 itab 就不会改变了 所
 
 key <接口类型，动态类型>
 

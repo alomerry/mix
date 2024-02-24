@@ -119,7 +119,7 @@ git reset --soft HEAD^
 
 **解决冲突**
 
-在 rebase 的过程中，也许会出现冲突（**conflict**）。在这种情况，Git 会停止 rebase 并会让你去解决冲突；在解决完冲突后，用 `git-add` 命令去更新这些内容的索引，然后你无需执行  `git commit`，只要执行：
+在 rebase 的过程中，也许会出现冲突（**conflict**）。在这种情况，Git 会停止 rebase 并会让你去解决冲突；在解决完冲突后，用 `git-add` 命令去更新这些内容的索引，然后你无需执行 `git commit`，只要执行：
 
 `git rebase --continue`
 
@@ -265,7 +265,6 @@ https://www.xiexianbin.cn/git/command/git-submodule/index.html?to_index=1
 
 清理 git 仓库中废弃的大文件
 
-
 - 查找大文件[^remove-git-big-object-1]
 
   ```shell
@@ -293,7 +292,9 @@ https://www.xiexianbin.cn/git/command/git-submodule/index.html?to_index=1
   30e8a08f69f28637949a67a1f7c465e62bbbcbc1 blog/posts/2019-07-02-digest.md
   47adee0986d85158d839eab966e203444c77fbfb pnpm-lock.yaml
   ```
+
 - 将文件从分支移除关联
+
   ```shell
   ➜  blog git:(master) git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch blog/.vuepress/public/img/*' --prune-empty --tag-name-filter cat -- --all
   WARNING: git-filter-branch has a glut of gotchas generating mangled history
@@ -311,6 +312,7 @@ https://www.xiexianbin.cn/git/command/git-submodule/index.html?to_index=1
   Rewrite c14ff84ab1cf0c69cf8efa2ee6ef16bc1b9e801e (11/45) (1 seconds passed, remaining 3 predicted)    rm 'blog/.vuepress/public/img/about-avatar.png'
   rm 'blog/.vuepress/public/img/avatar.png'
   ```
+
 - 清理缓存，执行 gc 回收垃圾[^remove-git-big-object-2]
   ```shell
   ➜  blog git:(master) git reflog expire --expire=now --all && git gc --prune=now --aggressive
@@ -358,7 +360,7 @@ git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch *.go'
 - `--prune-empty` 表示如果修改后的提交如果为空则扔掉不要
 
 > _Some kinds of filters will generate empty commits that leave the tree untouched. This switch
-allows_ `git-filter-branch` _to ignore such commits …_
+> allows_ `git-filter-branch` _to ignore such commits …_
 
 ## git ssh 代理
 
@@ -382,3 +384,7 @@ Host github.com
     User git
     ProxyCommand nc -v -x 127.0.0.1:1086 %h %p
 ```
+
+## Reference
+
+- https://www.zhihu.com/question/20866683/answer/711725573

@@ -1,5 +1,8 @@
 ## 备忘
 
+2020 南京大学 操作系统：设计与实现 (蒋炎岩) https://www.bilibili.com/video/BV1N741177F5?p=1
+操作系统（哈工大李治军老师）https://www.bilibili.com/video/BV1d4411v7u7?p=1
+
 - code review https://github.com/inetfuture/technote?tab=readme-ov-file
 - 前端 希望工作时 https://hope-studio.innenu.com/invite/#%E4%B8%BB%E8%A6%81%E6%96%B9%E5%90%91
 
@@ -10,9 +13,7 @@
 - https://github.com/tmijs/tmi.js/issues/151
 - https://gist.github.com/AlcaDesign/742d8cb82e3e93ad4205
 
-
 - 犯得事
-
 
 ## old
 
@@ -59,11 +60,12 @@ https://atbug.com/deploy-vm-on-proxmox-with-terraform/
 
 - 下载 ubuntu 镜像，重装到 256g 后上传
 - 创建 terrform api
-- 12c / 2c = 6 => 2-node * (5+1)
+- 12c / 2c = 6 => 2-node \* (5+1)
 - 16g+16g+8g+8g+32g-8g = 72g
-  - 72g / 6 = 12g 12g * 6
+  - 72g / 6 = 12g 12g \* 6
 - 256 + 512 + 512
-  - 140 / 256 => 25 * 5
+
+  - 140 / 256 => 25 \* 5
   - 512 => nfs
   - 512 => nfs backup
 
@@ -75,6 +77,7 @@ https://atbug.com/deploy-vm-on-proxmox-with-terraform/
 - mount 512 backup
 
 - tekton pipeline
+
   - blog/doc build
   - golang service build
 

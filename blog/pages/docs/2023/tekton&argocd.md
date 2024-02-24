@@ -15,9 +15,7 @@ wordCount: 168
 - [rsync](https://hub.tekton.dev/tekton/task/rsync)
 - build-mix
 
-
 - https://juejin.cn/post/7142758521988186143
-
 
 ### argocd
 

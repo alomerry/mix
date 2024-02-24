@@ -46,6 +46,8 @@ import {
   sup,
 } from './scripts/md'
 
+// antfu.me commitId 3ab0d433847648780f491bedfdb10d798b09fd60
+
 const promises: Promise<any>[] = []
 
 export default defineConfig({
@@ -181,7 +183,7 @@ export default defineConfig({
           //     : generateOg(frontmatter.title!.replace(/\s-\s.*$/, '').trim(), `public/${path}`),
           // )
           // frontmatter.image = `https://blog.alomerry.com/${path}`
-          console.log('TODO')
+          console.log('console.log TODO')
         })()
         const head = defaults(frontmatter, options)
         return { head, frontmatter }
@@ -201,7 +203,7 @@ export default defineConfig({
         IconsResolver({
           componentPrefix: '',
         }),
-        ElementPlusResolver(),
+        ElementPlusResolver({ importStyle: 'css', ssr: true }),
       ],
     }),
 
@@ -237,5 +239,9 @@ export default defineConfig({
   ssgOptions: {
     formatting: 'minify',
     format: 'esm',
+  },
+
+  ssr: {
+    noExternal: ['element-plus'],
   },
 })

@@ -1,11 +1,12 @@
 ---
 title: Linux Note
 desc: Linux
-date: 2022-04-26
+date: 2022-04-26T16:00:00.000+00:00
 type: todoNext
 duration: 10min
 wordCount: 2.3k
 ---
+
 ## TODO
 
 [bash 手册](https://xy2401.com/local-docs/gnu/manual.zh/bash.html)
@@ -236,7 +237,7 @@ ps -aux | grep spring-boot:run
 ## Geekbench 测试性能
 
 - `sudo wget -0 http://cdn.geekbench.com/Geekbench-<版本号>-Linux.tar.gz
-  ls`
+ls`
 - `sudo tar -xzvf Geekbench-<版本号>-Linux.tar.gz
 - `cd Geekbench-<版本号> -Linux`
 - `sudo ./geekbench`
@@ -315,6 +316,7 @@ https://blog.csdn.net/weixin_39278265/article/details/118306486
   /dev/sdb1: LABEL="HDD-WD-500G" UUID="xxx" TYPE="ext4" PARTUUID="xxxx"
   ```
 - 修改 fstab 文件 `sudo vim /etc/fstab`，并添加 `UUID="xxx" <path> ext4 defaults 0 2`
+
   ```sh
   # /etc/fstab: static file system information.
   #
@@ -337,6 +339,7 @@ https://blog.csdn.net/weixin_39278265/article/details/118306486
   UUID="xxx" /media/alomerry-home/1T-HDD-A ext4 defaults 0 2
   UUID="xxx" /media/alomerry-home/1T-HDD-B ext4 defaults 0 2
   ```
+
   - fstab 第一列用于标识分区，可以使用 UUID、分区卷标（Label）
   - fstab 第二列是挂载路径，注意路径权限
   - fstab 第三列是挂载分区文件系统类型，需要和分区格式化的类型一致，使用 auto 时系统会自动推断

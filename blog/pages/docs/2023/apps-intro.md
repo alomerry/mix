@@ -9,28 +9,30 @@ wordCount: 2.8k
 
 几次重装下来的干货，基本算是个人必备，仅供参考
 
+## Proxifier
 
-## Proifier
+### [Proxifier](https://www.proxifier.com/) 介绍
 
-### [Proifier](https://www.proxifier.com/) 介绍
-
-![Proifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier.png)
+![Proxifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier.png)
 
 - 作用：允许不支持通过代理服务器工作的应用程序使用代理。
-- 工作方式：当一个应用程序没有内置代理功能，又不能像 chrome 等内置插件来支持代理时，我们想在程序内访问一个受 GFW 限制的网站时通常是开启全局模式代理以破除限制。Proxifier 可以接管指定程序的请求，根据设置的规则通过对应代理。
+- 工作方式：当一个应用程序没有内置代理功能，又不能像 chrome 等内置插件来支持代理时，我们想在程序内访问一个受 GFW
+  限制的网站时通常是开启全局模式代理以破除限制。Proxifier 可以接管指定程序的请求，根据设置的规则通过对应代理。
 
 ### 开始
 
 - 安装 Proxifier
 - 添加已有的代理，具体见本机 clash、shadowsocks 等对应的设置
-  ![Proifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_proxies.png)
-- 添加代理规则，选择需要代理的软件，如 chrome、chromium、arc 等，添加需要代理的域名 `translate.googleapis.com`，应用规则选择上一步创建的代理 proxy
-  ![Proifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_rules.png)
+  ![Proxifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_proxies.png)
+- 添加代理规则，选择需要代理的软件，如 chrome、chromium、arc 等，添加需要代理的域名 `translate.googleapis.com`，应用规则选择上一步创建的代理
+  proxy
+  ![Proxifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_rules.png)
 
 :::tip
-设置过程中，发现在 Mac OS 上 chrome 发起全文翻译软件是 `com.google.Chrome.helper`。如果平台不同，注意可以在 Proxifier 设置测试代理和规则，代理所有软件的所有请求域名，然后触发全文翻译，基本上失败的请求域名和请求软件就是所需代理的。（Advanced-connections 设置中勾选 `Handle direct connections`，同事测试的 rules 需要置顶，以便优先触发）
+设置过程中，发现在 Mac OS 上 chrome 发起全文翻译软件是 `com.google.Chrome.helper`。如果平台不同，注意可以在 Proxifier
+设置测试代理和规则，代理所有软件的所有请求域名，然后触发全文翻译，基本上失败的请求域名和请求软件就是所需代理的。（Advanced-connections
+设置中勾选 `Handle direct connections`，同事测试的 rules 需要置顶，以便优先触发）
 :::
-
 
 ## Arc Browser
 
@@ -71,7 +73,6 @@ Jetbrains IDE 工具，可以统一下载更新旗下的 IDE、参与测试等
 
 - https://github.com/gildas-lormeau/SingleFile
 
-
 ## GK64 键盘客制化
 
 ### skn 青龙
@@ -84,11 +85,13 @@ date: 2020-01-18
 
 <!-- <BiliBili bvid="BV12J411W77Z" /> -->
 
-这次使用的 PCB 是 GK64 配列，之前组了一个 GK60，发现还可以，就是好像没有方向键属实不太行，决定还是组 GK64，套件是北瓜皇冠外设店的最普通套件，塑料底板。
+这次使用的 PCB 是 GK64 配列，之前组了一个 GK60，发现还可以，就是好像没有方向键属实不太行，决定还是组
+GK64，套件是北瓜皇冠外设店的最普通套件，塑料底板。
 
 ### 轴体
 
-之前组的 GK60 用的是 Cherry 的 RGB 红轴，手感挺好。不过大家都是退烧的时候用红轴，我人坑就红轴好像太无聊了，于是还是尝试了一下其他的国产轴，之前看了一位 B 站
+之前组的 GK60 用的是 Cherry 的 RGB 红轴，手感挺好。不过大家都是退烧的时候用红轴，我人坑就红轴好像太无聊了，于是还是尝试了一下其他的国产轴，之前看了一位
+B 站
 机械键盘大佬 UP 主，他的有一个视频几乎把当今的国产轴手感全部都试了一遍对我很有帮助
 
 <!-- <BiliBili aid="54764185" cid="54764185"/> -->
@@ -116,7 +119,8 @@ date: 2020-01-18
 
 **我选用的佳达隆的黄轴红轴绿轴，之前还有多的几颗凯华的 Box 白轴**
 
-键帽的话当时正好临近圣诞节，我就淘到了一组圣诞节 108 五面热升华的 PBT 键帽，不过是众筹初代产品，略有瑕疵，手感尚佳，颜值也很棒，价格也体贴。唯一感觉有点小不能接受的就是不太适配 GK64，只能换小数字区的键来补
+键帽的话当时正好临近圣诞节，我就淘到了一组圣诞节 108 五面热升华的 PBT
+键帽，不过是众筹初代产品，略有瑕疵，手感尚佳，颜值也很棒，价格也体贴。唯一感觉有点小不能接受的就是不太适配 GK64，只能换小数字区的键来补
 
 接下来就是上轴了，怎么说呢，GK 系列的特点，热拔插说的笼统一点，就是一个大的试轴器，拆装特别方便。
 
@@ -128,11 +132,11 @@ date: 2020-01-18
 - 选用 G 黄的原因是因为 G 黄的手感接近红轴，所以也顺便尝试一下。G 绿的话是因为 UP 说特别适合大键，因为樱桃红在大键上确实很闷很肉，手感一般般，所以就想试试。
 - 下面聊聊手感，纯属个人感受，每个人对于手感的定义都是微妙而且不同的
   - 对于我来说 G 黄和 G 红手感接近，G 黄除了克数大一点区别不大；
-  - 其次，我觉得 G 绿真的不适合大键，我刚装完轴上手按 Backspace 的时候楞了，可能是用了一年多的红轴，非常不习惯大键的需要大压力克数的键轴，我当时是立马换成了樱桃红，但是不是说 G 绿不好，G 绿手感感觉和樱桃青很接近，我没有交叉对比，以前用过樱桃青，是以肌肉记忆来感觉的，都是偏轻巧的，或者说”
-  扁”这个词适合描述樱桃青，不知道大家用没用过高特青，我觉得我个人挺喜欢高特青的，高特青的特点就是很饱满，像按在小气泡小气球上，或者说”鼓”比较适合。
+  - 其次，我觉得 G 绿真的不适合大键，我刚装完轴上手按 Backspace 的时候楞了，可能是用了一年多的红轴，非常不习惯大键的需要大压力克数的键轴，我当时是立马换成了樱桃红，但是不是说
+    G 绿不好，G 绿手感感觉和樱桃青很接近，我没有交叉对比，以前用过樱桃青，是以肌肉记忆来感觉的，都是偏轻巧的，或者说”
+    扁”这个词适合描述樱桃青，不知道大家用没用过高特青，我觉得我个人挺喜欢高特青的，高特青的特点就是很饱满，像按在小气泡小气球上，或者说”鼓”比较适合。
   - 至于凯华 box 白真的是一种很独特的段落感，和我按的青轴都不一样，无法对比无法描述，反正如果你喜欢段落轴，一定要试试 box 白，
   - 还有一件事就是用多红轴，我不知道是不是手萎缩了，现在玩几个小时按住 shift 后小拇指经常无力，我在考虑要不要买点银轴来玩玩看了。
-
 
 ## mac
 
@@ -310,6 +314,8 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
   - 镜像安装 `sh -c "$(wget -O- https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"`
 
 install oh-my-zsh `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+
 ### 必备插件安装
-  - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
-  - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
+
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)

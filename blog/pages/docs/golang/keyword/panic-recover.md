@@ -1,19 +1,16 @@
 ---
 enableFootnotePopup: true
-date: 2023-07-14
-category:
-  - Golang
+date: 2023-07-14T16:00:00.000+00:00
+title: 恐慌与恢复
 duration: 5min
 wordCount: 1.2k
 ---
-
-# 恐慌与恢复
 
 ## panic
 
 结构
 
-```go 
+```go
 // A _panic holds information about an active panic.
 //
 // A _panic value must only ever live on the stack.
@@ -36,13 +33,13 @@ type _panic struct {
 
 - argp 是指向 defer 调用时参数的指针；
 - arg 是调用 panic 时传入的参数；
-- link 指向了更早调用的 runtime._panic 结构；
-- recovered 表示当前 runtime._panic 是否被 recover 恢复；
+- link 指向了更早调用的 runtime.\_panic 结构；
+- recovered 表示当前 runtime.\_panic 是否被 recover 恢复；
 - borted 表示当前的 panic 是否被强行终止；
 
 == 结构体中的 pc、sp 和 goexit 三个字段都是为了修复 runtime.Goexit 带来的问题引入的。runtime.Goexit 能够只结束调用该函数的 Goroutine 而不影响其他的 Goroutine，但是该函数会被 defer 中的 panic 和 recover 取消2，引入这三个字段就是为了保证该函数的一定会生效。 ==
 
-在编译简介 walkexpr [^walkExpr1.panic] 将 panic 转成 gopanic[^gopanic]，gopanic 首先进行一些判断，然后生成一个 _panic 结构插入到当前协程上，给 runningPanicDefers 增加 1，然后调用 addOneOpenDeferFrame[^addOneOpenDeferFrame] 针对开放编码的 defer 执行栈扫描（开放编码的 defer 虽然通过内联减小了 defer 的开销，但是却增加了 panic 的开销，因为开放编码优化的 defer 不会在协程上插入 defer 链，所以 addOneOpenDeferFrame 需要查找内联的 defer 并插入 1 个开发编码的 defer 到协程的 defer 链中），在 addOneOpenDeferFrame 函数的注释中也有相应描述：（addOneOpenDeferFrame 通过获取 openCodedDeferInfo 来获取 funcdata）
+在编译简介 walkexpr [^walkExpr1.panic] 将 panic 转成 gopanic[^gopanic]，gopanic 首先进行一些判断，然后生成一个 \_panic 结构插入到当前协程上，给 runningPanicDefers 增加 1，然后调用 addOneOpenDeferFrame[^addOneOpenDeferFrame] 针对开放编码的 defer 执行栈扫描（开放编码的 defer 虽然通过内联减小了 defer 的开销，但是却增加了 panic 的开销，因为开放编码优化的 defer 不会在协程上插入 defer 链，所以 addOneOpenDeferFrame 需要查找内联的 defer 并插入 1 个开发编码的 defer 到协程的 defer 链中），在 addOneOpenDeferFrame 函数的注释中也有相应描述：（addOneOpenDeferFrame 通过获取 openCodedDeferInfo 来获取 funcdata）
 
 ::: info
 
@@ -67,7 +64,7 @@ type _panic struct {
 // specified by sp. If sp is nil, it uses the sp from the current defer record (which
 // has just been finished). Hence, it continues the stack scan from the frame of the
 // defer that just finished. It skips any frame that already has a (not-in-progress)
-// open-coded _defer record in the defer chain.
+// open-coded \_defer record in the defer chain.
 //
 // Note: All entries of the defer chain (including this new open-coded entry) have
 // their pointers (including sp) adjusted properly if the stack moves while
@@ -79,11 +76,11 @@ type _panic struct {
 
 接下来循环获取协程的 defer 链依次执行，
 
-首先标记 _defer.started 为 true，（// Mark defer as started, but keep on list, so that traceback
-		// can find and update the defer's argument frame if stack growth
-		// or a garbage collection happens before executing d.fn.）？？？？
+首先标记 \_defer.started 为 true，（// Mark defer as started, but keep on list, so that traceback
+// can find and update the defer's argument frame if stack growth
+// or a garbage collection happens before executing d.fn.）？？？？
 
-然后将 _defer._panic 设置为当前 panic
+然后将 \_defer.\_panic 设置为当前 panic
 
 然后根据 defer 是否是开放编码执行两种逻辑：
 
@@ -91,14 +88,14 @@ type _panic struct {
   - defer 中没有 recover
   - defer 中有 recover
 
-执行完则结束后调用 
+执行完则结束后调用
 
 preprintpanics 提前记录参数（为什么？）// ran out of deferred calls - old-school panic now
-	// Because it is unsafe to call arbitrary user code after freezing
-	// the world, we call preprintpanics to invoke all necessary Error
-	// and String methods to prepare the panic strings before startpanic.
+// Because it is unsafe to call arbitrary user code after freezing
+// the world, we call preprintpanics to invoke all necessary Error
+// and String methods to prepare the panic strings before startpanic.
 
-然后调用 fatalpanic 通过递归（printpanics）从最 _panic 链尾部至头部依次输出错误信息打印错误和栈信息后终止进程（为什么要在系统栈？？？防止栈增长？？？）
+然后调用 fatalpanic 通过递归（printpanics）从最 \_panic 链尾部至头部依次输出错误信息打印错误和栈信息后终止进程（为什么要在系统栈？？？防止栈增长？？？）
 
 ## recover
 

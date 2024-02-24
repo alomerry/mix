@@ -1,10 +1,11 @@
 ---
-date: 2023-06-09
+date: 2023-06-09T16:00:00.000+00:00
+title: map
 duration: 16min
 wordCount: 4.7k
 ---
 
-# [map](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)
+[map](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)
 
 ::: tip 本文基于 Golang 1.20.3
 :::
@@ -15,7 +16,7 @@ wordCount: 4.7k
 
 map 在运行时对应的结构是 `hmap`：
 
-```go 
+```go
 // A header for a Go map.
 type hmap struct {
     count      int // # live cells == size of map.
@@ -32,8 +33,8 @@ type hmap struct {
 
 - `count` 代表 map 中元素的数量
 - `flag` 为标识位
-  
-  ```go 
+
+  ```go
   const (
     // flags
     iterator     = 1 // there may be an iterator using buckets
@@ -42,13 +43,14 @@ type hmap struct {
     sameSizeGrow = 8 // the current map growth is to a new map of the same size
   )
   ```
-  
+
   - `iterator` 表示迭代器正在使用 map 的桶
   - `oldIterator` 表示迭代器正在使用 map 的旧桶
   - `hashWriting` 表示有一个协程正在使用 map
   - `sameSizeGrow` 表示 map 正在等量扩容至新 map 中
+
 - `B` 表示桶 $log2$ 的量，即实际桶数量为 $2^B$
-- `noverflow` 
+- `noverflow`
 - `hash0` 为哈希种子，用于 map 的无序遍历
 - `buckets` 为桶的地址
 - `oldbuckets` 为溢出桶的地址
@@ -112,8 +114,10 @@ Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的
 - 根据 hit 计算出 map 需要申请的内存大小，检测内存是否溢出或申请的内存超过限制
 - 初始化 h 并引入随机种子[^fastrand]
 - 默认桶容量为 1，元素需要超过一个桶容量（8）时计算 map 的装载因子（元素数量 / 桶数量），超过 6.5[^overLoadFactor] 则将桶容量翻倍
+
   - 如果 map 的桶数量超过 1 时，会在 `makemap` 中立即分配内存，否则将在 `mapassign` 中分配
   - 通过 `makeBucketArray`[^makeBucketArray] 分配内存：
+
     - 如果桶的数量超过 $2^4$，会增加一些额外 $2^B-4$ 个溢出桶
     - 通过 [`newarray`](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/malloc.go#L1268) 创建桶数组
     - 如果申请的同数量超过基础数量（即超过了 $2^4$ 个桶），此时会将 hmap 中的 `nextOverflow` 指针指向额外创建溢出桶的第一个，将最后一个溢出桶的溢出指针位设置成 hmap 的第一个桶。这样做可以避免跟踪溢出桶的开销，当 `nextOverflow` 的溢出桶指针为 nil，则可以继续偏移指针来追加溢出桶，否则说明溢出桶已经使用完毕
@@ -150,7 +154,6 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
         - 获取删除元素所在桶（可能为溢出桶）的前一个桶（可能为原始桶也可能为溢出桶），继续从第八位开始循环设置 tophash
 - 检查当前 map flags 的 `hashWriting` 是否被取反，是则说明有其他协程正在写入，直接终止程序，否则清除写入位
 
-
 ::: tip
 // Like mapaccess, but allocates a slot for the key if it is not present in the map.
 :::
@@ -173,6 +176,7 @@ map 的删除逻辑主要在运行时 `mapdelete`[^mapdelete] 中
 - `mapaccess2`[^mapaccess2]
 
 - 访问元素时首先检测 h.flags 的写入位，如果有协程写入时直接终止程序
+
   - 计算 key 的 hash，并计算出 key 所在的正常桶编号，额外检查 map 的旧桶是否为空
     - 如果 map 旧桶非空，则定位到当前 key 对应的旧桶位，检查旧桶位是否迁移，如果未迁移则从老桶中获取数据
     - 遍历定位到桶的每个单元，如果 tophash 不一致且 tophash 的值为 emptyReset 则说明桶中无该 key，遍历桶的溢出桶（如果存在）继续判断
@@ -231,13 +235,16 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 
 - 通过偏移计算需要迁移的旧桶位置，盘点该桶是否迁移[^evacuated]
 - 迁移是按照桶为单位，只要判断该桶的首个单元是否迁移即可，迁移过后单元的 tophash 根据扩容方式会被更新成 `evacuatedX`、`evacuatedY`、`evacuatedEmpty` 中的一种，分别表示？？？如果不是这三种表示未迁移
+
   - 搬迁桶根据扩容方式的不同会采用两种方式：
     - 等量扩容时会将旧桶中的元素迁移至 map 对应位置的新桶
     - 翻倍扩容时会将旧桶中的元素分流迁移至 map 中对应两个位置新桶
   - 搬迁桶的过程中会使用 `evacDst`[^evacDst] 结构的、长度为 2 的数组 `xy`，`xy[0]` 用于记录 map 中对应旧桶的位置新桶，`xy[1]` 在翻倍扩容时用于记录 map 中对应老桶新位置的新桶
   - 通过偏移计算 `xy[0]` 的值，如果是翻倍扩容则计算 `xy[1]` 的值
   - 遍历旧桶及旧桶链接的所有溢出桶
+
     - 遍历每个桶中的八个单元
+
       - 如果当前单元的 tophash 是 `emptyRest`，则说明该单元无需搬迁，直接修改单元 tophash 为 `evacuatedEmpty`
       - 如果当前单元有数据，则需要根据扩容方式来决定当前元素需要搬迁到的桶。如果是翻倍扩容，通过计算 `hash&newbit` 来判断是否迁移到 map 的额外容量部分。确定之后表单元的 tophash 为 `evacuatedX` 或 `evacuatedY`，并修改 buckets 中对应元素的 key、value、tophash
 
@@ -246,6 +253,7 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
         :::
 
       - 当向 map 对应 oldbucket 相同位置的新桶或扩容部分对应的新桶插入第八个单元时，需要添加溢出桶，从 map 的扩容后新的溢出桶申请一个桶，继续迁移
+
   - 遍历完成后，释放该旧桶的相关指针，辅助 GC
   - 如果当前迁移完成的桶刚好是 map 中下一位待迁移的桶，更新 `h.nevacuate`
     - 将 `h.nevacuate` 后移到下一个桶序号，遍历后续的桶是否已经搬迁过[^bucketEvacuated]，如果全部搬迁过后将 map 对应的旧桶的引用删除，如果是等量扩容需要清除 flags
@@ -255,8 +263,8 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 ## 其它
 
 - 快速随机数[^fastrand]
-- bucketShift[^bucketShift] 
-- t.hashMightPanic 
+- bucketShift[^bucketShift]
+- t.hashMightPanic
 - tophash
 - newoverflow[^newoverflow]
 - incrnoverflow
@@ -265,16 +273,16 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 - growing
 - sameSizeGrow
 - noldbuckets
-- oldbucketmask 
+- oldbucketmask
 
 ## 思考
 
-- makemap 参数中 h *hmap 哪来的，hit 是否是 cap
+- makemap 参数中 h \*hmap 哪来的，hit 是否是 cap
 - 是否存在在扩容时 map 满了/需要新扩容
 - hashGrow `// commit the grow (atomic wrt gc)` 为什么要注意垃圾回收机制？
 - hashGrow 中如何保证上次扩容结束了才扩容的？
 - 搬迁过程中 `if h.flags&iterator != 0 && !t.reflexivekey() && !t.key.equal(k2, k2) {` 是什么意思
-  
+
   ::: info
   If key != key (NaNs), then the hash could be (and probably will be) entirely different from the old hash. Moreover, it isn't reproducible. Reproducibility is required in the presence of iterators, as our evacuation decision must match whatever decision the iterator made. Fortunately, we have the freedom to send these keys eitherway. Also, tophash is meaningless for these kinds of keys. We let the low bit of tophash drive the evacuation decision. We recompute a new random tophash for the next level so these keys will get evenly distributed across all buckets after multiple grows.
   :::

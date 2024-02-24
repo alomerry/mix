@@ -8,7 +8,7 @@ defineProps<{
 }>()
 
 const showHtml = ref(false)
-const jumpToNewPage = ref(document.documentElement.clientWidth < 1000)
+const jumpToNewPage = ref(false)
 const currentPage = ref({
   page: {} as htmlItem,
   appendTo: 'body',
@@ -29,8 +29,10 @@ function showDialog(item: htmlItem) {
 }
 
 onMounted(() => {
+  jumpToNewPage.value = window.document.documentElement.clientWidth < 1000
+
   useEventListener(window, 'resize', () => {
-    jumpToNewPage.value = document.documentElement.clientWidth < 1000
+    jumpToNewPage.value = window.document.documentElement.clientWidth < 1000
   })
 })
 </script>
@@ -43,18 +45,16 @@ onMounted(() => {
   >
     {{ page.title }}
   </a>
-  <client-only>
-    <ElDialog
-      v-model="showHtml"
-      :width="currentPage.page.width || '80%'"
-      :fullscreen="false"
-      :append-to="currentPage.appendTo"
-    >
-      <div class="html-content">
-        <iframe :src="currentPage.page.url" class="html-content" />
-      </div>
-    </ElDialog>
-  </client-only>
+  <ElDialog
+    v-model="showHtml"
+    :width="currentPage.page.width || '80%'"
+    :fullscreen="false"
+    :append-to="currentPage.appendTo"
+  >
+    <div class="html-content">
+      <iframe :src="currentPage.page.url" class="html-content" />
+    </div>
+  </ElDialog>
 </template>
 
 <style scoped>

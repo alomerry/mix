@@ -1,20 +1,17 @@
 ---
-date: 2022-02-26
-category:
-  - SRE
-  - Nginx
+date: 2022-02-26T16:00:00.000+00:00
+title: Nginx note
 duration: 3min
 wordCount: 925
 ---
 
-# Nginx Note
+[[toc]]
 
 ## TODO
 
 - [blog](https://xuexb.github.io/learn-nginx/guide/#nginx%E7%9A%84%E7%89%B9%E7%82%B9-2)
 - [配置 Nginx auth_basic 身份验证](https://hyperzsb.io/posts/nginx-auth-basic/)
 - 深入 Nginx 之事件驱动核心架构篇 https://juejin.cn/post/6988294138667991070
-
 
 ## 特点
 
@@ -61,8 +58,6 @@ sudo ./configure --prefix=/usr/local/nginx --with-http_addition_module --with-ht
 --with-http_sub_module \
 --with-openssl=/usr/bin/openssl
 
-
-
 ## 常用命令
 
 - 启动
@@ -82,7 +77,7 @@ sudo ./configure --prefix=/usr/local/nginx --with-http_addition_module --with-ht
       - 全局 server 块
       - location 块
 
-### 配置实例 
+### 配置实例
 
 #### 反向代理
 
@@ -90,7 +85,7 @@ sudo ./configure --prefix=/usr/local/nginx --with-http_addition_module --with-ht
 - 区分请求前缀转发到不同端口 `location [ = | ~ | ~* | ^~ ] uri {`
   - = 用于不包含正则表的 uri 前，要求请求字符串与 uri 严格匹配
   - ~ 用于表示 uri 包含正则表达式，并且区分大小写
-  - ~* 用于表示 uri 包含正则表达式，并且不区分大小写
+  - ~\* 用于表示 uri 包含正则表达式，并且不区分大小写
   - ^~ 用于不含正则表达式前，要求 nginx 服务器找到标识 uri 和请求字符串匹配度最高的 location 处理请求
 
 #### 负载均衡

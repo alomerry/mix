@@ -1,6 +1,10 @@
-# docker
-
-date: 2022-04-26
+---
+title: docker
+date: 2022-04-26T16:00:00.000+00:00
+update: 2024-02-24T19:17:18.318Z
+duration: 18min
+wordCount: 3.5k
+---
 
 https://docs.docker.com/get-started/overview/
 
@@ -20,10 +24,9 @@ build https://yeasy.gitbook.io/docker_practice/image/build
 
 https://yeasy.gitbook.io/docker_practice/
 
-docker -t build alomerry/xxx  .
+docker -t build alomerry/xxx .
 docker login
 docker push
-
 
 https://yeasy.gitbook.io/docker_practice/image/multistage-builds/laravel
 
@@ -101,7 +104,6 @@ ENV LC_ALL en_US.UTF-8
 ENV NVM_DIR /root/.nvm
 ARG name=vscode-web
 ARG NODE_VERSION=16.16.0
-
 
 RUN apt-get update; \
   DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
@@ -371,6 +373,7 @@ RUN apt-get install vim
 From ubuntu
 RUN apt-get update && apt-get install vim
 ```
+
 当有多个容器依赖同一个镜像时，底部层实际上使用的都是同一个只读的镜像层，各个容器拥有自己的可写容器层。
 
 ![merge-layer](https://cdn.alomerry.com/blog/assets/img/notes/container/docker/merge-layer.gif)
@@ -423,6 +426,7 @@ jekyll 构建时会忽略时间是未来的 markdown，基础镜像中默认是 
 ```
 -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro
 ```
+
 :::
 
 ## Docker Remote / Docker Context
@@ -443,7 +447,6 @@ jekyll 构建时会忽略时间是未来的 markdown，基础镜像中默认是 
 
 - 批量删除已停止的容器 `docker rm $(docker ps -qf status=exited)`
 - 清除不再使用的镜像 `docker image prune -a`
-
 
 ### 拷贝容器文件到宿主机
 
@@ -475,6 +478,7 @@ jekyll 构建时会忽略时间是未来的 markdown，基础镜像中默认是 
 ## Reference
 
 <!-- [^aliyun-docker-register] : [xxx](xxx) -->
+
 [^install-docker]: [install docker](https://docs.docker.com/engine/install/ubuntu/)
 [^install-docker-compose]: [install docker compose](https://docs.docker.com/compose/install/)
 [^docker-document]: [docker document](https://docs.docker.com/get-started/overview/)
@@ -492,4 +496,3 @@ jekyll 构建时会忽略时间是未来的 markdown，基础镜像中默认是 
 - https://www.infoq.cn/article/3-simple-tricks-for-smaller-docker-images
 - https://itnext.io/3-simple-tricks-for-smaller-docker-images-f0d2bda17d1e
 - https://www.cnblogs.com/woshimrf/p/docker-container-lawyer.html
-
