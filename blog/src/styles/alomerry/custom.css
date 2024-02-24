@@ -56,3 +56,15 @@
   font-size: 0.800em;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;;
 }
+
+
+.el-dialog .el-dialog__body {
+  height: 100%;
+}
+
+.el-dialog:not(is-fullscreen) {
+  @media (max-width: 419px) {
+    width: 100%
+  }
+  height: 70%
+}

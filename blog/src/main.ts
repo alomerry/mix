@@ -8,17 +8,15 @@ import './styles/font.css'
 import './styles/main.css'
 import './styles/prose.css'
 import './styles/markdown.css'
-import './styles/alomerry/custom.css'
-import './styles/alomerry/breath.css'
-import './styles/alomerry/max-limit.css'
 import './styles/container.css'
 import './styles/vitepress/vars.css'
 import './styles/vitepress/vp-code-group.css'
 import './styles/vitepress/custom-block.css'
 import './styles/vitepress/alomerry.css'
 import './styles/vitepress/vp-copy-code.css'
-
 import 'uno.css'
+
+import 'element-plus/es/components/dialog/style/css'
 
 import autoRoutes from 'pages-generated'
 import NProgress from 'nprogress'
@@ -29,12 +27,14 @@ import { setupRouterScroller } from 'vue-router-better-scroller'
 import FloatingVue from 'floating-vue'
 import App from './App.vue'
 
+import './styles/alomerry/custom.css'
+import './styles/alomerry/breath.css'
+import './styles/alomerry/max-limit.css'
+
 const routes = autoRoutes.map((i) => {
   return {
     ...i,
-    alias: i.path.endsWith('/')
-      ? `${i.path}index.html`
-      : `${i.path}.html`,
+    alias: i.path.endsWith('/') ? `${i.path}index.html` : `${i.path}.html`,
   }
 })
 
@@ -56,8 +56,7 @@ export const createApp = ViteSSG(
             // only do the sliding transition when the scroll position is not 0
             if (ctx.savedPosition?.top)
               html.classList.add('no-sliding')
-            else
-              html.classList.remove('no-sliding')
+            else html.classList.remove('no-sliding')
             return true
           },
         },

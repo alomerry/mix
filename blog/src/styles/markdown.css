@@ -46,11 +46,11 @@ html:not(.dark) .shiki span {
   margin: 0.5em 0;
 }
 
-.prose img {
+.prose div:not(.custom-block) img {
   width: 100%;
 }
 
-.prose p > img {
+.prose div:not(.custom-block) p > img {
   width: 100%;
   --uno: shadow rounded-lg;
   transform: scale(1.05);

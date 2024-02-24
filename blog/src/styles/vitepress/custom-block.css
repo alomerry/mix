@@ -87,6 +87,27 @@
   background-color: var(--vp-custom-block-important-code-bg);
 }
 
+
+.custom-block.success {
+  border-color: var(--vp-custom-block-success-border);
+  color: var(--vp-custom-block-success-text);
+  background-color: var(--vp-custom-block-success-bg);
+}
+
+.custom-block.success a,
+.custom-block.success code {
+  color: var(--vp-c-success-1);
+}
+
+.custom-block.success a:hover,
+.custom-block.success a:hover > code {
+  color: var(--vp-c-success-2);
+}
+
+.custom-block.success code {
+  background-color: var(--vp-custom-block-important-code-bg);
+}
+
 .custom-block.warning {
   border-color: var(--vp-custom-block-warning-border);
   color: var(--vp-custom-block-warning-text);

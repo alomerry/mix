@@ -1,13 +1,20 @@
 ---
 date: 2019-07-18T16:00:00.000+00:00
+update: 2024-02-24T06:52:47.015Z
 title: 国内网站备案细节
 type: posts
 desc: 记录 2019 年 alomerry.com 腾讯云备案流程和细节
 duration: 1min
-wordCount: 315
+wordCount: 378
 ---
 
 [[toc]]
+
+::: success 2024.02.24 更新
+
+备案不可以使用抢占式机器，如果期间将域名解析到海外 vps，会被注销域名解析（详见[此文](../2024/replace-cvm-to-vps.html)）
+
+:::
 
 ## 准备
 

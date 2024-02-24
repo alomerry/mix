@@ -1,89 +1,94 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import { pageviewCount } from '@waline/client'
 import {
   ALOMERRY_BLOG_WALINE_DOMAIN,
   displayComment,
-  setDefaultDisplayComment,
   getFromNow,
-} from "~/alomerry";
-import { formatDate } from "~/logics";
-import Comment from "~/components/container/Comment.vue";
-import { pageviewCount } from "@waline/client";
-import { DEFAULT_LANG } from "~/alomerry/setting";
+  setDefaultDisplayComment,
+} from '~/alomerry'
+import { formatDate } from '~/logics'
+import Comment from '~/components/container/Comment.vue'
+import { DEFAULT_LANG } from '~/alomerry/setting'
 
 const { frontmatter } = defineProps({
   frontmatter: {
     type: Object,
     required: true,
   },
-});
+})
 
-const displayWaline = ref(displayComment());
-const router = useRouter();
-const route = useRoute();
-const content = ref<HTMLDivElement>();
+const displayWaline = ref(
+  frontmatter.comment === undefined ? displayComment() : frontmatter.comment,
+)
+const router = useRouter()
+const route = useRoute()
+const content = ref<HTMLDivElement>()
 
 function reverseWaline() {
-  setDefaultDisplayComment(!displayWaline.value);
-  displayWaline.value = !displayWaline.value;
+  setDefaultDisplayComment(!displayWaline.value)
+  displayWaline.value = !displayWaline.value
 }
 
 onMounted(() => {
   const navigate = () => {
     if (location.hash) {
-      const el = document.querySelector(decodeURIComponent(location.hash));
+      const el = document.querySelector(decodeURIComponent(location.hash))
       if (el) {
-        const rect = el.getBoundingClientRect();
-        const y = window.scrollY + rect.top - 40;
+        const rect = el.getBoundingClientRect()
+        const y = window.scrollY + rect.top - 40
         window.scrollTo({
           top: y,
-          behavior: "smooth",
-        });
-        return true;
+          behavior: 'smooth',
+        })
+        return true
       }
     }
-  };
+  }
 
   const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
-    const link = event.target.closest("a");
+    const link = event.target.closest('a')
 
     if (
-      !event.defaultPrevented &&
-      link &&
-      event.button === 0 &&
-      link.target !== "_blank" &&
-      link.rel !== "external" &&
-      !link.download &&
-      !event.metaKey &&
-      !event.ctrlKey &&
-      !event.shiftKey &&
-      !event.altKey
+      !event.defaultPrevented
+      && link
+      && event.button === 0
+      && link.target !== '_blank'
+      && link.rel !== 'external'
+      && !link.download
+      && !event.metaKey
+      && !event.ctrlKey
+      && !event.shiftKey
+      && !event.altKey
     ) {
-      const url = new URL(link.href);
-      if (url.origin !== window.location.origin) return;
+      const url = new URL(link.href)
+      if (url.origin !== window.location.origin)
+        return
 
-      event.preventDefault();
-      const { pathname, hash } = url;
+      event.preventDefault()
+      const { pathname, hash } = url
       if (hash && (!pathname || pathname === location.pathname)) {
-        window.history.replaceState({}, "", hash);
-        navigate();
-      } else {
-        router.push({ path: pathname, hash });
+        window.history.replaceState({}, '', hash)
+        navigate()
+      }
+      else {
+        router.push({ path: pathname, hash })
       }
     }
-  };
+  }
 
-  useEventListener(window, "hashchange", navigate);
-  useEventListener(content.value!, "click", handleAnchors, { passive: false });
+  useEventListener(window, 'hashchange', navigate)
+  useEventListener(content.value!, 'click', handleAnchors, { passive: false })
 
   setTimeout(() => {
-    if (!navigate()) setTimeout(navigate, 1000);
-  }, 1);
+    if (!navigate())
+      setTimeout(navigate, 1000)
+  }, 1)
 
   pageviewCount({
     serverURL: ALOMERRY_BLOG_WALINE_DOMAIN,
     path: window.location.pathname,
-  });
-});
+  })
+})
 </script>
 
 <template>
@@ -92,8 +97,8 @@ onMounted(() => {
   </ClientOnly>
   <div
     v-if="frontmatter.display ?? frontmatter.title"
-    class="prose m-auto mb-8"
     :class="[frontmatter.wrapperClass]"
+    class="prose m-auto mb-8"
   >
     <h1 class="mb-0 slide-enter-50">
       {{ frontmatter.display ?? frontmatter.title }}
@@ -102,19 +107,16 @@ onMounted(() => {
       {{ formatDate(frontmatter.date, false) }}
       <span v-if="frontmatter.duration">
         · <span class="i-lets-icons-time-atack" />
-        {{ frontmatter.duration }}</span
-      >
+        {{ frontmatter.duration }}</span>
       <span v-if="frontmatter.wordCount">
         · <span class="i-icon-park-outline-word" />
-        {{ frontmatter.wordCount }}</span
-      >
+        {{ frontmatter.wordCount }}</span>
       <span>
         · <span class="i-carbon-view-filled" />
         <span class="waline-pageview-count" ml-1 />
       </span>
       <span v-if="frontmatter.update" style="font-size: 0.8rem">
-        · updated at {{ getFromNow(frontmatter.update) }}</span
-      >
+        · updated at {{ getFromNow(frontmatter.update) }}</span>
     </p>
     <p v-if="frontmatter.place" class="mt--4!">
       <span op50>at </span>
@@ -129,17 +131,20 @@ onMounted(() => {
         {{ frontmatter.place }}
       </span>
     </p>
-    <p v-if="frontmatter.subtitle" class="!opacity-50 !-mt-4 italic slide-enter">
+    <p
+      v-if="frontmatter.subtitle"
+      class="!opacity-50 !-mt-4 italic slide-enter"
+    >
       {{ frontmatter.subtitle }}
     </p>
     <p
       v-if="frontmatter.draft"
-      class="slide-enter"
       bg-orange-4:10
-      text-orange-4
       border="l-3 orange-4"
+      class="slide-enter"
       px4
       py2
+      text-orange-4
     >
       This is a draft post, the content may be incomplete. Please check back
       later.
@@ -160,29 +165,28 @@ onMounted(() => {
     v-if="route.path !== '/'"
     class="prose m-auto mt-8 mb-8 slide-enter animate-delay-500 print:hidden"
   >
-    <span font-mono op50 class="i-mingcute-right-fill" />&nbsp;
+    <span class="i-mingcute-right-fill" font-mono op50 />&nbsp;
     <RouterLink
       :to="route.path.split('/').slice(0, 2).join('/') || '/'"
       class="font-mono op50 hover:op75"
       v-text="'cd ..'"
     />
-    <br />
+    <br>
     <template v-if="frontmatter.duration">
       <div @click="reverseWaline()">
         <span
+          :class="
+            displayWaline ? 'i-mingcute-down-fill' : 'i-mingcute-right-fill'
+          "
           font-mono
           op50
-          :class="
-            route.path.endsWith('/comment')
-              ? 'i-mingcute-down-fill'
-              : displayWaline
-                ? 'i-mingcute-down-fill'
-                : 'i-mingcute-right-fill'
-          "
         />
-        <span font-mono hover:op75 style="color: var(--fg-deeper)" class="alomerry-breath-opacity"
-          >&nbsp;comment..</span
-        >
+        <span
+          class="alomerry-breath-opacity"
+          font-mono
+          hover:op75
+          style="color: var(--fg-deeper)"
+        >&nbsp;comment..</span>
       </div>
       <Transition>
         <Comment
