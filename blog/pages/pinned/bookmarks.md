@@ -1,20 +1,20 @@
 ---
-title: Bookmarks - Alomerry Wu
-display: Bookmarks
-subtitle: Some of my favorite websites/tools with excellent design and UX that I highly recommend
+title: Bookmarks
+subtitle: Some of my favorite books that I highly recommend
+tocAlwaysOn: false
 ---
 
 [[toc]]
 
 [阅读计划](https://flowus.cn/alomerry/share/03d0ad27-0b99-415a-8aec-2c5cf979f1f5)
 
->每每寻得一本好书时常会有“初闻大道，不胜自喜”的感觉，记录于此，与君共勉。
+> 每每寻得一本好书时常会有“初闻大道，不胜自喜”的感觉，记录于此，与君共勉。
 
 <Book
-  title="算法导论"
-  desc="xxx"
-  logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/introduction-to-algorithms.jpg"
-  link="https://book.douban.com/subject/20432061/"
+title="算法导论"
+desc="xxx"
+logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/introduction-to-algorithms.jpg"
+link="https://book.douban.com/subject/20432061/"
 />
 
 ### 计算机技术
@@ -24,10 +24,10 @@ subtitle: Some of my favorite websites/tools with excellent design and UX that I
 ### 算法
 
 <Book
-  title="算法导论"
-  desc="xxx"
-  logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/introduction-to-algorithms.jpg"
-  link="https://book.douban.com/subject/20432061/"
+title="算法导论"
+desc="xxx"
+logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/introduction-to-algorithms.jpg"
+link="https://book.douban.com/subject/20432061/"
 />
 
 - 算法
@@ -44,29 +44,30 @@ subtitle: Some of my favorite websites/tools with excellent design and UX that I
 ### 数据库
 
 <Book
-  title="MySQL 是怎样运行的"
-  desc="《MySQL是怎样运行的：从根儿上理解 MySQL》采用诙谐幽默的表达方式，对MySQL的底层运行原理进行了介绍，内容涵盖了使用MySQL的同学在求职面试和工作中常见的一些核心概念。"
-  logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/how-mysql-work.jpg"
-  link="https://book.douban.com/subject/35231266/"
+title="MySQL 是怎样运行的"
+desc="《MySQL是怎样运行的：从根儿上理解
+MySQL》采用诙谐幽默的表达方式，对MySQL的底层运行原理进行了介绍，内容涵盖了使用MySQL的同学在求职面试和工作中常见的一些核心概念。"
+logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/how-mysql-work.jpg"
+link="https://book.douban.com/subject/35231266/"
 />
 
 <Book
-  title="Redis5 设计与源码分析"
-  desc="多名专家联袂推荐，资深专家联合撰写，深入理解 Redis 5 设计精髓。本书系统讲解 Redis 5设计、数据结构、底层命令实现，以及持久化、主从复制、集群的实现。"
-  logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/redis5-design-and-source-code-analysis.jpg"
-  link="https://book.douban.com/subject/34804798/"
+title="Redis5 设计与源码分析"
+desc="多名专家联袂推荐，资深专家联合撰写，深入理解 Redis 5 设计精髓。本书系统讲解 Redis
+5设计、数据结构、底层命令实现，以及持久化、主从复制、集群的实现。"
+logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/redis5-design-and-source-code-analysis.jpg"
+link="https://book.douban.com/subject/34804798/"
 />
-
 
 - MongoDB 权威指南
 
 ### 编程语言
 
 <Book
-  title="深度探索 Go 语言"
-  desc="xxx"
-  logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/explore-go-runtime.jpg"
-  link="https://book.douban.com/subject/36104087/"
+title="深度探索 Go 语言"
+desc="xxx"
+logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/explore-go-runtime.jpg"
+link="https://book.douban.com/subject/36104087/"
 />
 
 - 高性能 MySQL
@@ -74,10 +75,10 @@ subtitle: Some of my favorite websites/tools with excellent design and UX that I
 ### 云原生
 
 <Book
-  title="Kubernetes in Action"
-  desc="xxx"
-  logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/kubernetes-in-action.jpg"
-  link="https://book.douban.com/subject/30418855/"
+title="Kubernetes in Action"
+desc="xxx"
+logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/kubernetes-in-action.jpg"
+link="https://book.douban.com/subject/30418855/"
 />
 
 - Kubernetes 权威指南
@@ -141,6 +142,7 @@ subtitle: Some of my favorite websites/tools with excellent design and UX that I
 - 蛤蟆先生去看心理医生
 - 好好告别
 - 非暴力沟通
+
 ## 文学/小说
 
 - 一千零一夜

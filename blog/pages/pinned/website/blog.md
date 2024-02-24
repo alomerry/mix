@@ -1,17 +1,13 @@
 ---
-title: xx - Alomerry Wu
-subtitle: xxx
-update: 2024-02-22T18:44:25.051Z
+title: 优秀博客
+subtitle: 站在巨人的肩膀。
+update: now
 duration: 1min
 wordCount: 88
 date: 2024-02-22T18:44:25.051Z
 cards:
   blog:
-    - icon: https://image.liubing.me/2023/02/05/834597e9e927e.png
-      name: 柳婼 の blog
-      desc: 我不管，反正我最萌～
-      link: https://www.liuchuo.net
-    - icon: 🧔🏻
+    - icon: https://taoshu.in/favicon.svg
       name: 涛叔
       desc: 乐乎
       link: https://taoshu.in/
@@ -19,7 +15,7 @@ cards:
       name: draveness
       desc: 面向信仰编程
       link: https://draveness.me/
-    - icon: https://cdn1.liuchuo.net/wp-content/uploads/2018/08/liuchuo1.png
+    - icon: https://cdn.alomerry.com/blog/assets/img/liuchuo1.png
       name: 柳婼 の blog
       desc: 我不管，反正我最萌～
       link: https://www.liuchuo.net/
@@ -63,19 +59,30 @@ cards:
       name: Reimu
       desc: Reimu
       link: https://blog.k8s.li/about.html
-    - icon: https://blog.k8s.li/images/avatar.png
+    - icon: https://tvax2.sinaimg.cn/crop.0.0.600.600.180/001iEHWnly8hn29n40fzej60go0gojtv02.jpg?KID=imgbed,tva&Expires=1708726947&ssig=ySifnt358k
+      name: 石康
+      desc: 做燃料棒，不做干电池。
+      link: https://weibo.com/shikang
+    - icon: https://hwv430.blogspot.com/favicon.ico
       name: 核电站
-      desc: xxx
+      desc: 做燃料棒，不做干电池。
       link: https://hwv430.blogspot.com/
+    - icon: https://jiekun.dev/favicon-32x32.png
+      name: 杰坤
+      desc: 因为持有一只小黄鸭的缘故，大家也喊我小黄鸭。
+      link: https://jiekun.dev/
+    - icon: https://youerning.top/favicon.ico
+      name: 又耳笔记
+      desc: 又耳宁的个人博客, 关于编程开发与股票的一些个人心得
+      link: https://youerning.top
+    - icon: https://limboy.me/assets/favicon.png
+      name: Limboy
+      desc: 80 后，曾经热衷于 iOS 开发。
+      link: https://limboy.me/posts/live-well/
+    - icon: https://www.bmpi.dev/images/ico/favicon-32x32.png
+      name: bmpi
+      desc:
+      link: https://www.bmpi.dev/link/
 ---
 
 <DisplayCard :cards="frontmatter.cards['blog']" />
-
-石康 https://weibo.com/shikang
-杰坤 https://jiekun.dev/
-又耳笔记 https://youerning.top/page/7/
-搞懂异地多活，看这篇就够了 http://kaito-kidd.com/2021/10/15/what-is-the-multi-site-high-availability-design/
-ingress-nginx 保姆级别源码阅读 https://youerning.top/post/kubernetes/nginx-ingress-controller/
-500行以内写一个API网关 https://youerning.top/post/apix_code/
-Limboy https://limboy.me/posts/live-well/
-bmpi https://www.bmpi.dev/link/
