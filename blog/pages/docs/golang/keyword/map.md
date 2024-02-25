@@ -303,3 +303,5 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 <!-- 对于海量小对象，应直接用字典存储键值数据拷贝，而非指针。这有助于减少需要扫描的对象数量，缩短垃圾回收时间。字典不会收缩内存，适当替换新对象是有必要的。 -->
 
 <!-- @include: ./map.code.snippet.md -->
+
+## Codes

@@ -68,3 +68,26 @@
   }
   height: 70%
 }
+
+.dark .el-popover {
+  background-color: #0e0e0e;
+  border: 1px solid #0e0e0e;
+}
+
+html:not(.dark) .el-popover {
+  padding:10px;
+  /*background-color: #fafafa;*/
+  /*border: 1px solid #fafafa;*/
+  border-radius: 7px;
+}
+
+.el-popover {
+  width: unset!important;
+}
+
+.el-popover pre.shiki {
+  margin-top: -20px;
+  padding: 10px;
+  border-radius: 7px;
+  font-size: 0.8rem;
+}

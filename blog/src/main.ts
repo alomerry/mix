@@ -17,6 +17,11 @@ import './styles/vitepress/vp-copy-code.css'
 import 'uno.css'
 
 import 'element-plus/es/components/dialog/style/css'
+import 'element-plus/es/components/button/style/css'
+import 'element-plus/es/components/popover/style/css'
+import 'element-plus/es/components/drawer/style/css'
+import 'element-plus/es/components/tag/style/css'
+import 'element-plus/es/components/badge/style/css'
 
 import autoRoutes from 'pages-generated'
 import NProgress from 'nprogress'
@@ -30,6 +35,7 @@ import App from './App.vue'
 import './styles/alomerry/custom.css'
 import './styles/alomerry/breath.css'
 import './styles/alomerry/max-limit.css'
+// blog 历史 commit 5b8cac053bea34f25861c4d90ebccc4c595b6e3d
 
 const routes = autoRoutes.map((i) => {
   return {

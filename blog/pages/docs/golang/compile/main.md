@@ -1,5 +1,0 @@
----
-article: false
-category:
-  - Golang
----
