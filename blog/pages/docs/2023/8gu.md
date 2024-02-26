@@ -16,6 +16,8 @@ https://evian-zhang.github.io/learn-assembly-on-Apple-Silicon-Mac/1-%E5%BA%95%E5
 
 <meter min="0" max="45" value="0" /> <strong> {{ Number(0/34*100).toFixed(2) }}% </strong> `(0/34)` _INFO_P2_
 
+体系化程度、写一本特定领域的书你会起什么样的目录
+
 笔试 就是计算机基础知识：计算机网络、数据结构、操作系统、Linux、MySQL
 
 编程题的话，也就是 模拟、动态规划、图论、回溯、二叉树，遇到过一些LeetCode原题，如：无重复字符的最长子串、爱吃香蕉的珂珂、二叉树的最近公共祖先、验证回文串

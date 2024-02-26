@@ -91,3 +91,25 @@ html:not(.dark) .el-popover {
   border-radius: 7px;
   font-size: 0.8rem;
 }
+
+.prose ul > li.el-timeline-item {
+  padding-left: unset;
+  padding-bottom: unset;
+}
+
+.el-timeline-item:before{
+  content: unset!important;
+}
+
+.el-timeline-item__wrapper {
+  top: -7px;
+  display: inline-flex;
+  .el-timeline-item__timestamp.is-bottom{
+    margin-top: 6px;
+    margin-left: 10px
+  }
+}
+
+ul.el-timeline{
+  margin-top: 1.25rem;
+}

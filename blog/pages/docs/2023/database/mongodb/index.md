@@ -1,5 +1,61 @@
 # MongoDB <Badge type="tip" text="Base MongoDB 4.2" />
 
+## xx
+
+### 采集 mongodb 慢查询、QPS、连接数
+
+https://docs.mongodb.com/v3.2/reference/database-profiler/
+
+http://blog.csdn.net/miyatang/article/details/23935729
+
+- db.serverStatus()
+- globalLock
+  - totalTime 总的时间
+  - currentQueue.total 因全局锁造成的等待
+  - currentQueue.readers 因全局锁造成的写等待
+  - currentQueue.writers 因全局锁造成的读等待
+- connections
+  - current 当前连接数
+  - available 总的连接数
+- extra_info
+  - page_faults 数据库访问数据时发现数据不在内存时的页面数量，当数据库性能很差或者数据量极大时，page_faults 会显著上升
+- network
+  - bytesIn 数据库接收到的网络传输字节数
+  - bytesOut 从数据库发送出去的网络传输字节数
+  - numRequests 接收到的总的请求次数
+- opcounters
+  - insert 最近一次启动后的insert次数
+  - query 最近一次启动后的query次数
+  - update 最近一次启动后的update次数
+  - delete 最近一次启动后的delete次数
+  - getmore 最近一次启动后的getmore次数
+  - command 最近一次启动后的执行command命令的次数
+- asserts
+  - regular 服务启动后正常的asserts错误个数
+  - warning 服务启动后的warning个数
+  - msg 服务启动后的message assert个数
+  - user 服务启动后的user asserts个数
+  - rollovers 服务启动后的重置次数
+- db.stats()
+  - collections collections总数
+  - bjects 总行数，不精确
+  - dataSize 所有数据的大小
+  - indexes 索引个数
+- system.profile 当profile level 为1时，将采集慢访问信息至system.profile. level为2时采集所有操作。
+  - ts 操作发生的时间
+  - op 操作类型
+  - ns namespace, db.collection
+  - client 连接的客户端ip地址
+  - user 本次操作所属的用户
+  - millis 花费的时间
+  - nreturned 返回的document个数
+  - responseLength response的bytes大小
+  - keysExamined 操作所扫描的索引key个数
+  - docsExamined 操作扫描的doc个数
+  - keyUpdates 更新的key个数
+  - writeConflicts 写冲突个数
+  - numYield yielded时间
+
 ## 索引
 
 :::: tip 索引类型
@@ -137,7 +193,7 @@ TODO https://github.com/Ccww-lx/JavaCommunity/blob/master/doc/db/mongodb/%E5%A4%
 ## 其它
 
 :::: tip mongodb 和 redis 区别以及选择原因
-::: details 
+::: details
 - MongoDB
   - 内存管理机制 MongoDB 数据存在内存，由 linux系统 mmap 实现，当内存不够时，只将热点数据放入内存，其他数据存在磁盘
   - MongoDB 数据结构比较单一，但是支持丰富的数据表达，索引
@@ -196,7 +252,7 @@ String Integer Double Boolean Object Object ID Arrays Min/Max Keys Datetime Code
 - [Ccww 技术博客](https://github.com/Ccww-lx/JavaCommunity/tree/master/doc/db/mongodb)
 
 TODO
-<!-- 
+<!--
 - [硬核！30 张图解 HTTP 常见的面试题](https://mp.weixin.qq.com/s/bUy220-ect00N4gnO0697A)
 - [HTTP 常见面试题](https://xiaolincoding.com/network/2_http/http_interview.html)
 - [字节跳动日常实习面经](https://yusart.xyz/archives/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E6%97%A5%E5%B8%B8%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F)
