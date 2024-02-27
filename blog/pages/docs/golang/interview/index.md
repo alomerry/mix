@@ -1,4 +1,10 @@
-# 8gu
+---
+title: golang 八股
+update: 2024-02-27T20:36:56.146Z
+duration: 11min
+wordCount: 3.4k
+date: 2024-02-27T20:36:56.146Z
+---
 
 ## map
 

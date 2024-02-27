@@ -1,7 +1,6 @@
 ---
 date: 2023-10-18T16:00:00.000+00:00
 title: 类型系统
-enableFootnotePopup: true
 duration: 1min
 wordCount: 202
 ---

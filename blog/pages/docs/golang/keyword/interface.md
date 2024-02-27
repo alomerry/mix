@@ -1,5 +1,4 @@
 ---
-enableFootnotePopup: false
 date: 2023-08-01T16:00:00.000+00:00
 title: interface/_type
 duration: 2min

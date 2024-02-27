@@ -1,4 +1,9 @@
-# MongoDB <Badge type="tip" text="Base MongoDB 4.2" />
+---
+date: 2020-07-20T16:00:00.000+00:00
+title: Base MongoDB 4.2
+duration: 4min
+wordCount: 1.3k
+---
 
 ## xx
 

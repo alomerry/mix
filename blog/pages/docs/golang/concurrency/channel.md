@@ -1,19 +1,15 @@
 ---
-enableFootnotePopup: true
-date: 2023-07-17
-category:
-  - Golang
+date: 2023-07-17T16:00:00.000+00:00
+title: 管道 channel
 duration: 11min
 wordCount: 2k
 ---
-
-# channel
 
 分为只读、只写和可读可写，也可以分为带缓冲区和不带缓冲区
 
 channel 的运行时结构为 hchan
 
-```go 
+```go
 type hchan struct {
   qcount   uint           // total data in the queue
   dataqsiz uint           // size of the circular queue
@@ -71,7 +67,7 @@ https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-select/
 
 ## sudog
 
-```go 
+```go
 // sudog represents a g in a wait list, such as for sending/receiving
 // on a channel.
 //
@@ -121,7 +117,7 @@ type sudog struct {
 
 ## selectgo
 
-```go 
+```go
 // selectgo implements the select statement.
 //
 // cas0 points to an array of type [ncases]scase, and order0 points to
@@ -537,4 +533,40 @@ sclose:
 
 ## Reference
 
-<!-- @include: ./channel.code.snippet.md -->
+## Codes
+
+[^makechan.switch]:
+
+    ```go {1,2,3}
+    func makechan(t *chantype, size int) *hchan {
+      ...
+      var c *hchan
+      switch {
+        case mem == 0:
+        // Queue or element size is zero.
+        c = (*hchan)(mallocgc(hchanSize, nil, true))
+        // Race detector uses this location for synchronization.
+        c.buf = c.raceaddr()
+        case elem.ptrdata == 0:
+        // Elements do not contain pointers.
+        // Allocate hchan and buf in one call.
+        c = (*hchan)(mallocgc(hchanSize+mem, nil, true))
+        c.buf = add(unsafe.Pointer(c), hchanSize)
+        default:
+        // Elements contain pointers.
+        c = new(hchan)
+        c.buf = mallocgc(mem, elem, true)
+      }
+      ...
+      return c
+    }
+    ```
+
+[^waitq]:
+
+    ```go
+    type waitq struct {
+      first *sudog
+      last  *sudog
+    }
+    ```

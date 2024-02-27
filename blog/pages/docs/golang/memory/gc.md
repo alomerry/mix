@@ -1,4 +1,10 @@
-# GC
+---
+title: gc
+update: 2024-02-27T20:36:56.146Z
+duration: 4min
+wordCount: 1.3k
+date: 2024-02-27T20:36:56.146Z
+---
 
 ## 追踪式回收
 

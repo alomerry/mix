@@ -1,13 +1,9 @@
 ---
-date: 2023-07-17
-enableFootnotePopup: false
-category:
-  - Golang
+date: 2023-07-17T16:00:00.000+00:00
+title: sema
 duration: 3min
 wordCount: 568
 ---
-
-# sema
 
 - https://www.bilibili.com/video/BV1ZQ4y1f7go/?spm_id_from=333.999.0.0
 
@@ -27,7 +23,7 @@ sematable 存储 251 棵平衡树根
 
 ## acquire
 
-```go 
+```go
 // Called from runtime.
 func semacquire(addr *uint32) {
   semacquire1(addr, false, 0, 0, waitReasonSemacquire)
@@ -93,7 +89,7 @@ func semacquire1(addr *uint32, lifo bool, profile semaProfileFlags, skipframes i
 
 ## release
 
-```go 
+```go
 unc semrelease(addr *uint32) {
   semrelease1(addr, false, 0)
 }

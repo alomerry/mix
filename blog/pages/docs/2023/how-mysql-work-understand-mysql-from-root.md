@@ -1,17 +1,9 @@
 ---
-date: 2023-09-30
-timeline: false
-article: false
-category:
-  - Database
-  - MySQL
-tag:
-  - 读书笔记
+date: 2023-09-30T16:00:00.000+00:00
+title: MySQL 是怎样运行的 从根儿上理解 MySQL
 duration: 2min
 wordCount: 838
 ---
-
-# MySQL 是怎样运行的 从根儿上理解 MySQL
 
 ## 启动选项和系统变量
 

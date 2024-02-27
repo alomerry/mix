@@ -1,17 +1,13 @@
 ---
-date: 2023-06-20
-enableFootnotePopup: true
-category:
-  - Golang
+date: 2023-06-20T16:00:00.000+00:00
+title: 互斥锁 Sync.Mutex
 duration: 11min
 wordCount: 3k
 ---
 
-# Sync.Mutex
-
 ## 主要常量和结构
 
-```go 
+```go
 type Mutex struct {
   state int32 // 表示当前互斥锁的状态
   sema  uint32 // 用于控制锁状态的信号量
@@ -152,7 +148,7 @@ continue
 
 满足条件会执行以上逻辑：
 
-- `old&mutexWoken == 0` 判断 mutex 的唤醒位是否为 0，`old>>mutexWaiterShift != 0` 将 mutex 状态位右移三位，即当前等待获取锁的协程数量非 0。满足条件后使用 CAS 将 mutex 的唤醒位置 1，通知 `UnLock` 不要唤醒其他阻塞的协程（<Badge tile="结合 unlock 确认" type="tip"></Badge>） 
+- `old&mutexWoken == 0` 判断 mutex 的唤醒位是否为 0，`old>>mutexWaiterShift != 0` 将 mutex 状态位右移三位，即当前等待获取锁的协程数量非 0。满足条件后使用 CAS 将 mutex 的唤醒位置 1，通知 `UnLock` 不要唤醒其他阻塞的协程（<Badge tile="结合 unlock 确认" type="tip"></Badge>）
 - 结束了第一个判断后会调用 `runtime_doSpin` 进行自旋，并更新 mutex 的状态位
 
 自旋结束后，锁通过自旋获得了 `mutexWoken` 状态；其它协程获得了 `mutexWoken` 状态，当前协程自旋无效，`awoke` 仍位 false
@@ -198,7 +194,7 @@ if awoke {
 
 ```go
 if atomic.CompareAndSwapInt32(&m.state, old, new) {
-	
+
 } else {
 	old = m.state
 }
@@ -340,4 +336,171 @@ func (m *Mutex) unlockSlow(new int32) {
 - [多图详解 Go 的互斥锁 Mutex](https://www.cnblogs.com/luozhiyun/p/14157542.html)
 - [Go Mutex 秘籍](https://www.bilibili.com/video/BV15V411n7fM/?spm_id_from=333.999.0.0&vd_source=ddc8289a36a2bf501f48ca984dc0b3c1)
 
-<!-- @include: ./mutex.code.snippet.md -->
+## Codes
+
+[^runtime_Semrelease]:
+
+    ```go
+    // Semrelease atomically increments *s and notifies a waiting goroutine
+    // if one is blocked in Semacquire.
+    // It is intended as a simple wakeup primitive for use by the synchronization
+    // library and should not be used directly.
+    // If handoff is true, pass count directly to the first waiter.
+    // skipframes is the number of frames to omit during tracing, counting from
+    // runtime_Semrelease's caller.
+    func runtime_Semrelease(s *uint32, handoff bool, skipframes int)
+    ```
+
+[^lockSlow]:
+
+    ```go
+    func (m *Mutex) lockSlow() {
+      var waitStartTime int64
+      starving := false
+      awoke := false
+      iter := 0
+      old := m.state
+      for {
+        // Don't spin in starvation mode, ownership is handed off to waiters
+        // so we won't be able to acquire the mutex anyway.
+        if old&(mutexLocked|mutexStarving) == mutexLocked && runtime_canSpin(iter) {
+          // Active spinning makes sense.
+          // Try to set mutexWoken flag to inform Unlock
+          // to not wake other blocked goroutines.
+          if !awoke && old&mutexWoken == 0 && old>>mutexWaiterShift != 0 &&
+            atomic.CompareAndSwapInt32(&m.state, old, old|mutexWoken) {
+            awoke = true
+          }
+          runtime_doSpin()
+          iter++
+          old = m.state
+          continue
+        }
+        new := old
+        // Don't try to acquire starving mutex, new arriving goroutines must queue.
+        if old&mutexStarving == 0 {
+          new |= mutexLocked
+        }
+        if old&(mutexLocked|mutexStarving) != 0 {
+          new += 1 << mutexWaiterShift
+        }
+        // The current goroutine switches mutex to starvation mode.
+        // But if the mutex is currently unlocked, don't do the switch.
+        // Unlock expects that starving mutex has waiters, which will not
+        // be true in this case.
+        if starving && old&mutexLocked != 0 {
+          new |= mutexStarving
+        }
+        if awoke {
+          // The goroutine has been woken from sleep,
+          // so we need to reset the flag in either case.
+          if new&mutexWoken == 0 {
+            throw("sync: inconsistent mutex state")
+          }
+          new &^= mutexWoken
+        }
+        if atomic.CompareAndSwapInt32(&m.state, old, new) {
+          if old&(mutexLocked|mutexStarving) == 0 {
+            break // locked the mutex with CAS
+          }
+          // If we were already waiting before, queue at the front of the queue.
+          queueLifo := waitStartTime != 0
+          if waitStartTime == 0 {
+            waitStartTime = runtime_nanotime()
+          }
+          runtime_SemacquireMutex(&m.sema, queueLifo, 1)
+          starving = starving || runtime_nanotime()-waitStartTime > starvationThresholdNs
+          old = m.state
+          if old&mutexStarving != 0 {
+            // If this goroutine was woken and mutex is in starvation mode,
+            // ownership was handed off to us but mutex is in somewhat
+            // inconsistent state: mutexLocked is not set and we are still
+            // accounted as waiter. Fix that.
+            if old&(mutexLocked|mutexWoken) != 0 || old>>mutexWaiterShift == 0 {
+              throw("sync: inconsistent mutex state")
+            }
+            delta := int32(mutexLocked - 1<<mutexWaiterShift)
+            if !starving || old>>mutexWaiterShift == 1 {
+              // Exit starvation mode.
+              // Critical to do it here and consider wait time.
+              // Starvation mode is so inefficient, that two goroutines
+              // can go lock-step infinitely once they switch mutex
+              // to starvation mode.
+              delta -= mutexStarving
+            }
+            atomic.AddInt32(&m.state, delta)
+            break
+          }
+          awoke = true
+          iter = 0
+        } else {
+          old = m.state
+        }
+      }
+
+      if race.Enabled {
+        race.Acquire(unsafe.Pointer(m))
+      }
+    }
+    ```
+
+[^semacquire1]:
+
+    ```go
+    func semacquire1(addr *uint32, lifo bool, profile semaProfileFlags, skipframes int, reason waitReason) {
+      gp := getg()
+      if gp != gp.m.curg {
+        throw("semacquire not on the G stack")
+      }
+
+      // Easy case.
+      if cansemacquire(addr) {
+        return
+      }
+
+      // Harder case:
+      //	increment waiter count
+      //	try cansemacquire one more time, return if succeeded
+      //	enqueue itself as a waiter
+      //	sleep
+      //	(waiter descriptor is dequeued by signaler)
+      s := acquireSudog()
+      root := semtable.rootFor(addr)
+      t0 := int64(0)
+      s.releasetime = 0
+      s.acquiretime = 0
+      s.ticket = 0
+      if profile&semaBlockProfile != 0 && blockprofilerate > 0 {
+        t0 = cputicks()
+        s.releasetime = -1
+      }
+      if profile&semaMutexProfile != 0 && mutexprofilerate > 0 {
+        if t0 == 0 {
+          t0 = cputicks()
+        }
+        s.acquiretime = t0
+      }
+      for {
+        lockWithRank(&root.lock, lockRankRoot)
+        // Add ourselves to nwait to disable "easy case" in semrelease.
+        root.nwait.Add(1)
+        // Check cansemacquire to avoid missed wakeup.
+        if cansemacquire(addr) {
+          root.nwait.Add(-1)
+          unlock(&root.lock)
+          break
+        }
+        // Any semrelease after the cansemacquire knows we're waiting
+        // (we set nwait above), so go to sleep.
+        root.queue(addr, s, lifo)
+        goparkunlock(&root.lock, reason, traceBlockSync, 4+skipframes)
+        if s.ticket != 0 || cansemacquire(addr) {
+          break
+        }
+      }
+      if s.releasetime > 0 {
+        blockevent(s.releasetime-t0, 3+skipframes)
+      }
+      releaseSudog(s)
+    }
+    ```

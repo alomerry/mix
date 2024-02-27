@@ -1,5 +1,10 @@
-
-# 读写锁
+---
+title: 读写锁
+update: 2024-02-27T20:36:56.146Z
+duration: 2min
+wordCount: 660
+date: 2024-02-27T20:36:56.146Z
+---
 
 读写互斥锁 [sync.RWMutex](https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/sync/rwmutex.go#L28) 是细粒度的互斥锁，它不限制资源的并发读，但是读写、写写操作无法并行执行。
 
@@ -8,7 +13,7 @@
 |  读   |   Y   |   N   |
 |  写   |   N   |   N   |
 
-```go 
+```go
 type RWMutex struct {
   w           Mutex
   writerSem   uint32
@@ -25,7 +30,7 @@ type RWMutex struct {
 
 #### 写锁
 
-```go 
+```go
 func (rw *RWMutex) Lock() {
     rw.w.Lock()
     r := atomic.AddInt32(&rw.readerCount, -rwmutexMaxReaders) + rwmutexMaxReaders
@@ -40,7 +45,7 @@ func (rw *RWMutex) Lock() {
 - 调用 sync/atomic.AddInt32 函数阻塞后续的读操作：
 - 如果仍然有其他 Goroutine 持有互斥锁的读锁，该 Goroutine 会调用 runtime.sync_runtime_SemacquireMutex 进入休眠状态等待所有读锁所有者执行结束后释放 writerSem 信号量将当前协程唤醒；
 
-```go 
+```go
 func (rw *RWMutex) Unlock() {
   r := atomic.AddInt32(&rw.readerCount, rwmutexMaxReaders)
   if r >= rwmutexMaxReaders {
@@ -61,7 +66,7 @@ func (rw *RWMutex) Unlock() {
 
 #### 读锁
 
-```go 
+```go
 func (rw *RWMutex) RLock() {
   if atomic.AddInt32(&rw.readerCount, 1) < 0 {
     runtime_SemacquireMutex(&rw.readerSem, false, 0) // 写锁
@@ -69,7 +74,7 @@ func (rw *RWMutex) RLock() {
 }
 ```
 
-```go 
+```go
 func (rw *RWMutex) RUnlock() {
   if r := atomic.AddInt32(&rw.readerCount, -1); r < 0 {
     rw.rUnlockSlow(r)

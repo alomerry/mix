@@ -1,10 +1,9 @@
 ---
-timeline: false
-article: false
-category:
-  - Golang
-tag:
-  - Heap
+title: 堆内存
+update: 2024-02-27T20:36:56.146Z
+duration: 1min
+wordCount: 51
+date: 2024-02-27T20:36:56.146Z
 ---
 
 # 堆内存

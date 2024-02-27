@@ -1,14 +1,9 @@
 ---
-date: 2023-07-04
-head:
-  - - meta
-    - name: description
-      content: hello
+date: 2023-07-04T16:00:00.000+00:00
+title: 函数调用 Function call
 duration: 7min
 wordCount: 1.9k
 ---
-
-# Function call
 
 ::: tip
 函数参数皆是值拷贝，只是区别是拷贝目标对象还是拷贝指针，函数调用前就会为形参和返回值分配内存空间，并将实参拷贝到形参中

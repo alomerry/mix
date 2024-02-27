@@ -1,9 +1,9 @@
 ---
-enableFootnotePopup: true
 date: 2023-07-14T16:00:00.000+00:00
 title: 恐慌与恢复
-duration: 5min
-wordCount: 1.2k
+duration: 15min
+wordCount: 2.8k
+update: 2024-02-27T20:36:56.146Z
 ---
 
 ## panic

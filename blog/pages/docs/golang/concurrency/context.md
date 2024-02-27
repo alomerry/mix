@@ -1,13 +1,11 @@
 ---
-enableFootnotePopup: false
-date: 2023-07-17
-category:
-  - Golang
+date: 2023-07-17T16:00:00.000+00:00
+title: 上下文 Context
 duration: 26min
 wordCount: 4.3k
 ---
 
-# 上下文 Context
+#
 
 ::: tip 本文基于 Golang 1.20
 :::
@@ -16,7 +14,7 @@ wordCount: 4.3k
 
 ## 接口定义
 
-```go 
+```go
 // A Context carries a deadline, a cancellation signal, and other values across
 // API boundaries.
 //
@@ -180,7 +178,7 @@ func propagateCancel(parent Context, child canceler) {
 
 ## cancelCtx WithDeadline
 
-```go 
+```go
 // A canceler is a context type that can be canceled directly. The
 // implementations are *cancelCtx and *timerCtx.
 type canceler interface {
@@ -282,7 +280,7 @@ func (c *cancelCtx) cancel(removeFromParent bool, err, cause error) {
 
 ## timeCtx WithTimeout
 
-```go 
+```go
 // &cancelCtxKey is the key that a cancelCtx returns itself for.
 var cancelCtxKey int
 
@@ -355,7 +353,7 @@ func (c *timerCtx) cancel(removeFromParent bool, err, cause error) {
 }
 ```
 
-```go 
+```go
 // WithTimeout returns WithDeadline(parent, time.Now().Add(timeout)).
 //
 // Canceling this context releases resources associated with it, so code should
@@ -373,7 +371,7 @@ func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc) {
 
 ## withValue
 
-```go 
+```go
 // WithValue returns a copy of parent in which the value associated with key is
 // val.
 //
@@ -402,7 +400,7 @@ func WithValue(parent Context, key, val any) Context {
 ```
 
 
-```go 
+```go
 // Copyright 2014 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.

@@ -1,10 +1,3 @@
 ---
-timeline: false
-article: false
-category:
-  - Golang
-tag:
-  - Goroutine
+title: netpoll
 ---
-
-# netpoll
