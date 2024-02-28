@@ -1,6 +1,0 @@
-- Go 语言原本 https://golang.design/under-the-hood/
-- 第三章 Goroutine调度策略（16） https://zhuanlan.zhihu.com/p/65738076
-  - https://www.zhihu.com/people/runtime/posts
-- 详解Go语言调度循环源码实现 https://www.luozhiyun.com/archives/448
-- 深入分析Go1.18 GMP调度器底层原理 https://jkboy.com/archives/8534.html
-- 从“零”开始实现Go1.17调度器 https://blog.leonard.wang/archives/implement-scheduler
