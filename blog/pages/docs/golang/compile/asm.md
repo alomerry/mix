@@ -1,5 +1,5 @@
 ---
-article: false
+
 category:
   - Golang
 tag:

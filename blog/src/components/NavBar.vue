@@ -30,13 +30,6 @@ const { y: scroll } = useWindowScroll()
     <nav class="nav">
       <div class="spacer" />
       <div class="right" print:op0>
-        <RouterLink to="/posts" title="文章">
-          <span class="lt-md:hidden">Blog</span>
-          <div i-ri-article-line md:hidden />
-        </RouterLink>
-        <RouterLink to="/pinned" title="Pinned">
-          <div i-tabler-pinned-filled />
-        </RouterLink>
         <!-- <RouterLink to="/talks" class="lt-md:hidden" title="Talks">
           Talks
         </RouterLink> -->
@@ -47,14 +40,26 @@ const { y: scroll } = useWindowScroll()
           <span class="lt-md:hidden">Demos</span>
           <div i-ri-screenshot-line class="md:hidden" />
         </RouterLink> -->
-        <a href="https://docs.alomerry.com" target="_blank" title="CS KB" class="lt-md:hidden">
-          <div i-material-symbols-export-notes-outline-sharp />
+        <!-- i-ri-article-line -->
+        <RouterLink to="/posts" title="文章">
+          <!-- <span class="lt-md:hidden">Blog</span> -->
+          <div i-svg-spinners-blocks-shuffle-3 />
+        </RouterLink>
+        <RouterLink to="/pinned" title="Pinned">
+          <!-- <span class="lt-md:hidden">Pinned</span> -->
+          <div i-tabler-pinned-filled />
+        </RouterLink>
+        <a href="/ioi" title="IOI" class="lt-md:hidden">
+          <div i-tabler-brand-leetcode />
+        </a>
+        <a href="https://umami.alomerry.com/share/ArR0rXVI3L3p9V1r/blog" target="_blank" title="Twitter" class="lt-md:hidden">
+          <div i-simple-icons-umami />
+        </a>
+        <a href="https://github.com/alomerry/mix" target="_blank" title="GitHub" class="lt-md:hidden">
+          <div i-uil-github-alt />
         </a>
         <a href="https://twitter.com/alomerry_qwq" target="_blank" title="Twitter" class="lt-md:hidden">
           <div i-ri-twitter-x-fill />
-        </a>
-        <a href="https://github.com/alomerry" target="_blank" title="GitHub" class="lt-md:hidden">
-          <div i-uil-github-alt />
         </a>
         <ToggleTheme />
       </div>

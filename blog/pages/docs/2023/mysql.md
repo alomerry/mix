@@ -5,6 +5,22 @@ duration: 4min
 wordCount: 1.3k
 ---
 
+# MySQL8 手册
+
+## 修改密码
+
+mysql> show databases;
+
+mysql> use mysql;
+
+mysql> ALTER USER '用户名'@'localhost' IDENTIFIED WITH mysql_native_password BY '新密码';
+
+mysql> flush privileges; --刷新MySQL的系统权限相关表
+
+mysql> exit;
+
+[MySQL8.0、创建新用户与角色授权](https://cloud.tencent.com/developer/article/2230081)
+
 ## KB
 
 执行一条 SQL 查询语句，期间发生了什么？
@@ -17,7 +33,7 @@ wordCount: 1.3k
 - 查询缓存：查询语句如果命中查询缓存则直接返回，否则继续往下执行。MySQL 8.0 已删除该模块；
 - 解析 SQL：通过解析器对 SQL 查询语句进行词法分析、语法分析，然后构建语法树，方便后续模块读取表名、字段、语句类型；
 - 执行 SQL
-  - 预处理阶段：检查表或字段是否存在；将 select * 中的 * 符号扩展为表上的所有列。
+  - 预处理阶段：检查表或字段是否存在；将 select _ 中的 _ 符号扩展为表上的所有列。
   - 优化阶段：基于查询成本的考虑， 选择查询成本最小的执行计划；
   - 执行阶段：根据执行计划执行 SQL 查询语句，从存储引擎读取记录，返回给客户端；
 
@@ -64,7 +80,7 @@ COMPACT 行格式长什么样？
 MySQL 单表不要超过 2000W 行，靠谱吗？
 索引失效有哪些？
 MySQL 使用 like “%x“，索引一定会失效吗？
-count(*) 和 count(1) 有什么区别？哪个性能最好？
+count(\*) 和 count(1) 有什么区别？哪个性能最好？
 事务隔离级别是怎么实现的？
 MySQL 可重复读隔离级别，完全解决幻读了吗？
 MySQL 有哪些锁？
@@ -93,7 +109,7 @@ select[distinct][concat (col1,":",col2) as col] selection_list // 选择的列 f
 #### where
 
 - =
-- >=
+- > =
 - <=
 - >
 - <
@@ -103,7 +119,7 @@ select[distinct][concat (col1,":",col2) as col] selection_list // 选择的列 f
 - BETWEEN AND
 - IN
 - NOT IN
-- LIKE % _
+- LIKE % \_
 - NOT LIKE
 - REGEXP
 
@@ -120,26 +136,22 @@ update 表名 set col_name1=new_value1, col_name2=new_value2, ... where conditio
 
 ## niuke
 
-
-
 ## Reference
 
 - [图解MySQL介绍](https://xiaolincoding.com/mysql/)
 
-
-ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'your_password';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'your_password'; // 8 失败
+ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql*native_password' BY 'your_password';
+GRANT ALL PRIVILEGES ON *.\_ TO 'root'@'%' IDENTIFIED BY 'your_password'; // 8 失败
 FLUSH PRIVILEGES;
-
 
 update user set host='%' where user='root';
 
-GRANT ALL ON *.* TO 'root'@'%';
+GRANT ALL ON _._ TO 'root'@'%';
 
 ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
 
-
 ::: tip 执行一条 select 语句，期间发生了什么？
+
 - 连接器
 - 查询缓存
 - 解析 SQL
@@ -156,6 +168,7 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
 ## 索引
 
 ::: tip 索引的分类
+
 - 按「数据结构」分类：B+tree索引、Hash索引、Full-text索引。
 - 按「物理存储」分类：聚簇索引（主键索引）、二级索引（辅助索引）。
 - 按「字段特性」分类：主键索引、唯一索引、普通索引、前缀索引。
@@ -163,12 +176,14 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
   :::
 
 ::: tip 什么时候适用索引？
+
 - 字段有唯一性限制的，比如商品编码；
 - 经常用于 WHERE 查询条件的字段，这样能够提高整个表的查询速度，如果查询条件不是一个字段，可以建立联合索引。
 - 经常用于 GROUP BY 和 ORDER BY 的字段，这样在查询的时候就不需要再去做一次排序了，因为我们都已经知道了建立索引之后在 B+Tree 中的记录都是排序好的。
   :::
 
 ::: tip 什么时候不需要创建索引？
+
 - WHERE 条件，GROUP BY，ORDER BY 里用不到的字段，索引的价值是快速定位，如果起不到定位的字段通常是不需要创建索引的，因为索引是会占用物理空间的。
 - 字段中存在大量重复数据，不需要创建索引，比如性别字段，只有男女，如果数据库表中，男女的记录分布均匀，那么无论搜索哪个值都可能得到一半的数据。在这些情况下，还不如不要索引，因为 MySQL 还有一个查询优化器，查询优化器发现某个值出现在表的数据行中的百分比很高的时候，它一般会忽略索引，进行全表扫描。
 - 表数据太少的时候，不需要创建索引；
@@ -176,6 +191,7 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
   :::
 
 ::: tip 有什么优化索引的方法？
+
 - 前缀索引优化；
 - 覆盖索引优化；
 - 主键索引最好是自增的；
@@ -190,6 +206,7 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
   :::
 
 ::: tip 索引失效有哪些？
+
 - 对索引使用左或者左右模糊匹配
 - 对索引使用函数
 - 对索引进行表达式计算
@@ -198,10 +215,10 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
 - WHERE 子句中的 OR
   :::
 
-
 ## 事务
 
 ::: tip InnoDB 引擎通过什么技术来保证事务的这四个特性的呢？
+
 - 持久性是通过 redo log （重做日志）来保证的；
 - 原子性是通过 undo log（回滚日志） 来保证的；
 - 隔离性是通过 MVCC（多版本并发控制） 或锁机制来保证的；
@@ -209,6 +226,7 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
   :::
 
 ::: tip Read View 在 MVCC 里如何工作的？
+
 - m_ids ：指的是在创建 Read View 时，当前数据库中「活跃事务」的事务 id 列表，注意是一个列表，“活跃事务”指的就是，启动了但还没提交的事务。
 - min_trx_id ：指的是在创建 Read View 时，当前数据库中「活跃事务」中事务 id 最小的事务，也就是 m_ids 的最小值。
 - max_trx_id ：这个并不是 m_ids 的最大值，而是创建 Read View 时当前数据库中应该给下一个事务的 id 值，也就是全局事务中最大的事务 id 值 + 1；
@@ -235,6 +253,7 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
 :::
 
 ::: tip 避免幻读现象
+
 - 针对快照读（普通 select 语句），是通过 MVCC 方式解决了幻读，因为可重复读隔离级别下，事务执行过程中看到的数据，一直跟这个事务启动时看到的数据是一致的，即使中途有其他事务插入了一条数据，是查询不出来这条数据的，所以就很好了避免幻读问题。
 - 针对当前读（select ... for update 等语句），是通过 next-key lock（记录锁+间隙锁）方式解决了幻读，因为当执行 select ... for update 语句的时候，会加上 next-key lock，如果有其他事务在 next-key lock 锁范围内插入了一条记录，那么这个插入语句就会被阻塞，无法成功插入，所以就很好了避免幻读问题。
   :::
@@ -250,6 +269,7 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
 ## 锁
 
 ::: tip MySQL 有哪些锁？
+
 - 全局锁
 - 表级锁
   - 表锁
@@ -299,7 +319,7 @@ ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'xxx';
   - 查询缓存：查询语句如果命中查询缓存则直接返回，否则继续往下执行。MySQL 8.0 已删除该模块
   - 解析 SQL，通过解析器对 SQL 查询语句进行词法分析、语法分析，然后构建语法树，方便后续模块读取表名、字段、语句类型
   - 执行 SQL
-    - 预处理阶段：检查表或字段是否存在；将 `select *` 中的 * 符号扩展为表上的所有列
+    - 预处理阶段：检查表或字段是否存在；将 `select *` 中的 \* 符号扩展为表上的所有列
     - 优化阶段：基于查询成本的考虑，选择查询成本最小的执行计划
     - 执行阶段：根据执行计划执行 SQL 查询语句，从存储引擎读取记录，返回给客户端
 - 讲讲 MySQL MVCC

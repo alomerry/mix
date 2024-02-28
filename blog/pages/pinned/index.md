@@ -39,6 +39,10 @@ others:
       link: /pinned/website/tools
       desc: 一些好用工具合集，基本都是在线的
       icon: i-dashicons-admin-tools
+    - name: 好文摘录
+      link: /pinned/digest
+      desc: 一些美文
+      icon: i-mingcute-diamond-2-fill
   Golang 相关:
     - name: go-pusher
       link: https://github.com/alomerry/go-pusher

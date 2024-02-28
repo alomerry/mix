@@ -605,8 +605,6 @@ fmt.Printf("status:%v, code:%v", resp.Status, resp.StatusCode)
 }
 ```
 
-```
-chart
 {
   "type": "doughnut",
   "data": {
@@ -621,4 +619,3 @@ chart
     "labels": ["Red", "Yellow", "Blue"]
   }
 }
-```

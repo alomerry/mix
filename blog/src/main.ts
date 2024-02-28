@@ -24,6 +24,7 @@ import 'element-plus/es/components/tag/style/css'
 import 'element-plus/es/components/badge/style/css'
 import 'element-plus/es/components/timeline/style/css'
 import 'element-plus/es/components/timeline-item/style/css'
+import 'element-plus/es/components/badge/style/css'
 
 import autoRoutes from 'pages-generated'
 import NProgress from 'nprogress'
