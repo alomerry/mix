@@ -3,8 +3,8 @@ title: Bookmarks
 subtitle: 每每寻得一本好书时常会有“初闻大道，不胜自喜”的感觉，记录于此，与君共勉。
 tocAlwaysOn: false
 update: 2024-02-24T05:45:54.291Z
-duration: 2min
-wordCount: 842
+duration: 3min
+wordCount: 1.1k
 date: 2024-02-24T05:45:54.291Z
 comment: true
 ---

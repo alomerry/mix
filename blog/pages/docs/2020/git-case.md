@@ -4,7 +4,7 @@ title: git 案例
 type: docs+git
 desc: git 初始化、git 经典 case 和一些基本操作
 duration: 10min
-wordCount: 2.1k
+wordCount: 2.2k
 ---
 
 [[toc]]

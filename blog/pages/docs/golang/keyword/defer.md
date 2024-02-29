@@ -1,8 +1,8 @@
 ---
 title: 延迟调用 defer
 date: 2023-07-11T16:00:00.000+00:00
-duration: 6min
-wordCount: 1.7k
+duration: 33min
+wordCount: 6.1k
 ---
 
 [[toc]]

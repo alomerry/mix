@@ -1,8 +1,8 @@
 ---
 date: 2023-08-20T16:00:00.000+00:00
 title: mysql
-duration: 4min
-wordCount: 1.3k
+duration: 13min
+wordCount: 4.3k
 ---
 
 # MySQL8 手册

@@ -2,7 +2,7 @@
 date: 2023-08-01T16:00:00.000+00:00
 title: interface/_type
 duration: 2min
-wordCount: 597
+wordCount: 596
 ---
 
 方法本质就是函数，只不过调用时接受会作为第一个参数传入

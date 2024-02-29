@@ -1,8 +1,8 @@
 ---
 date: 2023-06-09T16:00:00.000+00:00
 title: 哈希表 map
-duration: 16min
-wordCount: 4.7k
+duration: 47min
+wordCount: 9.8k
 ---
 
 [map](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)

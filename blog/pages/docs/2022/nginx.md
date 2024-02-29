@@ -2,7 +2,7 @@
 date: 2022-02-26T16:00:00.000+00:00
 title: Nginx note
 duration: 3min
-wordCount: 925
+wordCount: 924
 ---
 
 [[toc]]

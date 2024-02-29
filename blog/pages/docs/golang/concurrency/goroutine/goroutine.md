@@ -1,8 +1,8 @@
 ---
 title: 协程 goroutine
 date: 2023-07-17T16:00:00.000+00:00
-duration: 30min
-wordCount: 6.2k
+duration: 75min
+wordCount: 13.4k
 ---
 
 ## 二进制文件是如何运行的

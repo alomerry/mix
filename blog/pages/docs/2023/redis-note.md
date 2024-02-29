@@ -1,8 +1,8 @@
 ---
 date: 2023-10-10
 title: Redis 手册
-duration: 1min
-wordCount: 8
+duration: 71min
+wordCount: 17.9k
 ---
 
 # Redis

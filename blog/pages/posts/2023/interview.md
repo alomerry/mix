@@ -2,8 +2,8 @@
 date: 2023-11-29T16:00:00.000+00:00
 title: 2023 年底的后端社招面试记录
 desc:
-duration: 5min
-wordCount: 1.9k
+duration: 9min
+wordCount: 3k
 update: 2024-02-26T20:10:40.834Z
 activities:
   yostar:

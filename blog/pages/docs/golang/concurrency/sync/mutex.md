@@ -1,8 +1,8 @@
 ---
 date: 2023-06-20T16:00:00.000+00:00
 title: 互斥锁 Sync.Mutex
-duration: 11min
-wordCount: 3k
+duration: 14min
+wordCount: 3.6k
 ---
 
 ## 主要常量和结构

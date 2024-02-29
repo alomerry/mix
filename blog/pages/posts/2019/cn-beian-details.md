@@ -5,7 +5,7 @@ title: 国内网站备案细节
 type: posts
 desc: 记录 2019 年 alomerry.com 腾讯云备案流程和细节
 duration: 1min
-wordCount: 378
+wordCount: 362
 ---
 
 [[toc]]

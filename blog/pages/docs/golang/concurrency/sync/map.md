@@ -1,8 +1,8 @@
 ---
 date: 2023-06-20T16:00:00.000+00:00
 title: sync map
-duration: 11min
-wordCount: 3k
+duration: 3min
+wordCount: 484
 ---
 
 - https://imlht.com/archives/258/

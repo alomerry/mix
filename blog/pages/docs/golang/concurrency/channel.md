@@ -2,7 +2,7 @@
 date: 2023-07-17T16:00:00.000+00:00
 title: 管道 channel
 duration: 11min
-wordCount: 2k
+wordCount: 2.1k
 ---
 
 分为只读、只写和可读可写，也可以分为带缓冲区和不带缓冲区

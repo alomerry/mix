@@ -2,7 +2,7 @@
 date: 2023-07-17T16:00:00.000+00:00
 title: sema
 duration: 3min
-wordCount: 568
+wordCount: 567
 ---
 
 - https://www.bilibili.com/video/BV1ZQ4y1f7go/?spm_id_from=333.999.0.0
