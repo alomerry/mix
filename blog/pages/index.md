@@ -14,15 +14,18 @@ plum: true
 
 <div flex-auto />
 
----
+<br/><br/>
 
 Find me on
 
 <p flex="~ gap-3 wrap" class="mt--2!">
   <a href="https://github.com/alomerry" target="_blank"><span op75 i-simple-icons-github /> GitHub</a>
+  <a href="mailto:alomerry.wu@gmail.com" target="_blank"><span op75 i-simple-icons-gmail /> 邮箱</a>
   <a href="https://space.bilibili.com/78778436" target="_blank"><span op75 i-simple-icons-bilibili /> 哔哩哔哩</a>
+  <a href="https://music.163.com/#/user/home?id=375547666" target="_blank"><span op75 i-ri-netease-cloud-music-fill />网易云</a>
+  <a href="https://steamcommunity.com/id/alomerry/" target="_blank"><span op75 i-logos-steam /> Steam</a>
+  <a href="https://www.twitch.tv/alomerry" target="_blank"><span op75 i-logos-twitch /> Twitch</a>
   <!--
     <a href="https://www.zhihu.com/people/1" target="_blank"><span op75 i-simple-icons-zhihu /> 知乎</a>
   -->
-  <a href="mailto:alomerry.wu@gmail.com" target="_blank"><span op75 i-simple-icons-gmail /> 邮箱</a>
 </p>

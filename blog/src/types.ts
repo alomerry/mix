@@ -4,6 +4,7 @@ export interface Post {
   place?: string
   date: string
   update?: string
+  pinned?:boolean
   lang?: string
   desc?: string
   platform?: string

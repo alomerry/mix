@@ -54,7 +54,7 @@
 
 .prose pre.shiki {
   font-size: 0.800em;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;;
+  font-family: Monaco, ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", "Courier New", monospace;;
 }
 
 
@@ -112,4 +112,17 @@ html:not(.dark) .el-popover {
 
 ul.el-timeline{
   margin-top: 1.25rem;
+}
+
+.prose hr {
+  width: unset;
+  border: none;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.dark .el-timeline-item__content {
+  color: unset;
+}
+
+.prose pre {
 }

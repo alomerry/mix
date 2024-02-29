@@ -59,7 +59,7 @@ ioi.forEach((category: Category) => {
     v-if="ioi.length > 0"
     class="prose m-auto mb-0 select-none animate-none! op100!"
   >
-    <div mb-0 flex="~ col gap-1 sm:row sm:gap-3 wrap" text-2xl>
+    <div mb-0 flex="~ col gap-1 sm:row sm:gap-3 wrap" text-xl>
       <el-badge
         v-for="category of ioi"
         :value="category.count"

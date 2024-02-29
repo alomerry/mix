@@ -49,6 +49,9 @@ const { y: scroll } = useWindowScroll()
           <!-- <span class="lt-md:hidden">Pinned</span> -->
           <div i-tabler-pinned-filled />
         </RouterLink>
+        <a href="/docs" title="Notes">
+          <div i-material-symbols-export-notes-outline-sharp />
+        </a>
         <a href="/ioi" title="IOI" class="lt-md:hidden">
           <div i-tabler-brand-leetcode />
         </a>

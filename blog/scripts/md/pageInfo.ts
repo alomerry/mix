@@ -8,6 +8,8 @@ const enWordPerMinute = 160;
 
 const validDate = "1997-01-13";
 
+// TODO 更新 hidden 中的时间和字数
+
 const needUpdateDateOrReadingTime = (frontmatter:any) => {
   if (frontmatter?.date && dayjs(frontmatter?.date).isValid()) {
     return true
