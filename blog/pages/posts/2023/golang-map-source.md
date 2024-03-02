@@ -1,33 +1,35 @@
 ---
 date: 2023-06-09T16:00:00.000+00:00
-title: 哈希表 map
-duration: 47min
-wordCount: 9.8k
+title: 深入理解 golang 哈希表
+desc: 从源码出发，理解 golang map 设计
+update: 2024-03-01T08:10:56.771Z
+duration: 48min
+wordCount: 10k
 ---
 
-[map](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)
+[[toc]]
 
-::: tip 本文基于 Golang 1.20.3
-:::
+> [!TIP] 本文基于 golang 1.20.3
+> `map` 源码详见 [github](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/map.go)
 
-## struct
+## 结构
 
 ![map struct](https://img.draveness.me/2020-10-18-16030322432679/hmap-and-buckets.png)
 
-map 在运行时对应的结构是 `hmap`：
+map 在 golang 运行时对应的结构是 `hmap`：
 
 ```go
 // A header for a Go map.
 type hmap struct {
-    count      int // # live cells == size of map.
-    flags      uint8
-    B          uint8 // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
-    noverflow  uint16
-    hash0      uint32 // hash seed
-    buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
-    oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
-    nevacuate  uintptr // progress counter for evacuation (buckets less than this have been evacuated)
-    extra      *mapextra
+	count      int // # live cells == size of map.
+	flags      uint8
+	B          uint8 // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
+	noverflow  uint16
+	hash0      uint32         // hash seed
+	buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
+	oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
+	nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
+	extra      *mapextra
 }
 ```
 
@@ -57,38 +59,46 @@ type hmap struct {
 - `nevacuate` 标记已迁移桶的地址
 - `mapextra`[^mapextra]
 
-以上看起来可能晦涩、难以理解。那就先让我们分析需要如何实现 map。map 通常被翻译成**字典**或者是**映射**，它表达了一种一对一的关系，即使用任意 key 通过 _某种方式_ 可以获得对应的 value。
+以上看起来可能晦涩、难以理解，那我们就先来分析需要如何自行实现 map。
+
+### 实现一个 map
+
+map 通常被翻译成**字典**或者是**映射**，它表达了一种一对一的关系，即使用任意 key 通过 _某种方式_ 可以获得对应的 value。
+
+以下是**完美映射函数**和**不均匀的映射函数**的对比：
 
 ![完美映射函数](https://img.draveness.me/2019-12-30-15777168478768-perfect-hash-function.png)
 
 ![不均匀的映射函数](https://img.draveness.me/2019-12-30-15777168478778-bad-hash-function.png)
 
-所以要实现 map 就需要实现这个**某种方式**。假定有一组 int 类型、不重复且有序的 key，例如 `[0, 1, 2, 3]`，我们尝试使用简单的方式来实现：
+所以要实现 map 首先需要实现这个**某种方式**。假定有一组 int 类型、不重复且有序的 key，例如 `[0, 1, 2, 3]`，我们尝试使用简单的方式来实现：
 
 - 定义一个数组存储 values
 - 获取 key 对应的 value 时，通过计算 `key % values.len` 获得一个值 `index`
 - 使用 `index` 从 values 数组中找到对应位置插入 value
 
-通过以上方式就实现了一个简单的 map，`key % values.len` 就是**映射函数**。但是有一个问题：上面的例子中，`index` 是均匀分布在 values 上，如果 map 是 `[(0, v0), (1, v1), (2, v2), (3, v3), (4, v4)]`，那么 key 为 0 和 4 时，`index` 的值就都是 0 了（暂不考虑 values 数组扩容问题），这就是**碰撞**。
+通过以上取模的方式实现简单的 map，`key % values.len` 就是**映射函数**。
+
+但是有一个问题：上面的例子中，`index` 是均匀分布在 values 上，如果 map 是 `[(0, v0), (1, v1), (2, v2), (3, v3), (4, v4)]`，那么 key 为 0 和 4 时，`index` 的值就都是 0 了（暂不考虑 values 数组扩容问题），这就是**碰撞**。
 
 解决碰撞的方式有两种：
 
 - 开放寻址法
 - 拉链法
 
-### 开放寻址法
+#### 开放寻址法
 
 当产生碰撞时依次往后检查，如果有空余的存储位就插入。以上面的例子就是：当计算 key 为 4 时计算出的 `index` 也为 0，此时访问 values[0] 发现已经存储了 value，依次往后访问到空位后插入。
 
 ![开放寻址法](https://img.draveness.me/2019-12-30-15777168478785-open-addressing-and-set.png)
 
-### 拉链法
+#### 拉链法
 
 拉链法和开放寻址法的不同之处在于处理碰撞的方式。拉链法一般会使用数组加链表，当产生碰撞时，在碰撞位连接上一条链表，并将碰撞元素插入链表中，访问时定位到位置后依次遍历链表来获取 value。
 
 ![拉链法](https://img.draveness.me/2019-12-30-15777168478798-separate-chaing-and-set.png)
 
-### 缺点
+#### 缺点
 
 以上两种方法都有一定缺点。对于开放寻址法，当 map 存储至接近满容量时，可能会一直产生碰撞，最坏的情况下时间复杂度会有 $O(1)$ 退化至 $O(n)$；对于拉链法，如果映射函数设计不良，map 可能会退化成一条链表。
 
@@ -96,7 +106,7 @@ type hmap struct {
 
 ### 小结
 
-Golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的结构，golang 中使用 bucket 存储键值对，bucket 即对应前文提到的数组加链表的组合，对应的结构为 `bmap`[^bmap]。`bmap` 中存储了一个长度为 8 名为 `tophash` uint8 数组、8 个 key 数组和 value 数组。因此可以看出 map 的每个桶中会存储 1 个元素和 7 个冲突元素。那如果冲突持续产生，一个 bucket 已经存储满了呢，可以看到 bmap 还有一个字段名为 `overflow`，它的作用是当 bucket 存储满了之后，通过 `overflow` 再链上一个桶，这样又可以存储 8 对键值，后面会详细描述 bmap 的 `overflow` 的工作方式以及 hmap 中 `nevacuate`、`oldbuckets`、`mapextra` 的作用。
+golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的结构，golang 中使用 bucket 存储键值对，bucket 即对应前文提到的数组加链表的组合，对应的结构为 `bmap`[^bmap]。`bmap` 中存储了一个长度为 8 名为 `tophash` uint8 数组、8 个 key 数组和 value 数组。因此可以看出 map 的每个桶中会存储 1 个元素和 7 个冲突元素。那如果冲突持续产生，一个 bucket 已经存储满了呢，可以看到 bmap 还有一个字段名为 `overflow`，它的作用是当 bucket 存储满了之后，通过 `overflow` 再链上一个桶，这样又可以存储 8 对键值，后面会详细描述 bmap 的 `overflow` 的工作方式以及 hmap 中 `nevacuate`、`oldbuckets`、`mapextra` 的作用。
 
 ## 初始化
 
@@ -308,6 +318,9 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 
 [^bucketEvacuated]:
 
+    <CodePopup name="bucketEvacuated">
+
+
     ```go
     func bucketEvacuated(t *maptype, h *hmap, bucket uintptr) bool {
       b := (*bmap)(add(h.oldbuckets, bucket*uintptr(t.bucketsize)))
@@ -315,7 +328,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^advanceEvacuationMark]:
+
+    <CodePopup name="advanceEvacuationMark">
+
 
     ```go
     func advanceEvacuationMark(h *hmap, t *maptype, newbit uintptr) {
@@ -343,7 +361,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^bucketMask]:
+
+    <CodePopup name="bucketMask">
+
 
     ```go
     // bucketMask returns 1<<b - 1, optimized for code generation.
@@ -352,7 +375,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^evacDst]:
+
+    <CodePopup name="evacDst">
+
 
     ```go
     // evacDst is an evacuation destination.
@@ -364,7 +392,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^evacuate]:
+
+    <CodePopup name="evacuate">
+
 
     ```go
     func evacuate(t *maptype, h *hmap, oldbucket uintptr) {
@@ -482,7 +515,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^growWork]:
+
+    <CodePopup name="growWork">
+
 
     ```go
     func growWork(t *maptype, h *hmap, bucket uintptr) {
@@ -512,7 +550,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^growing]:
+
+    <CodePopup name="growing">
+
 
     ```go
     // growing reports whether h is growing. The growth may be to the same size or bigger.
@@ -521,7 +564,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^newoverflow]:
+
+    <CodePopup name="newoverflow">
+
 
     ```go
     func (h *hmap) newoverflow(t *maptype, b *bmap) *bmap {
@@ -553,7 +601,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^tooManyOverflowBuckets]:
+
+    <CodePopup name="tooManyOverflowBuckets">
+
 
     ```go
     // tooManyOverflowBuckets reports whether noverflow buckets is too many for a map with 1<<B buckets.
@@ -572,7 +625,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^hashGrow]:
+
+    <CodePopup name="hashGrow">
+
 
     ```go
     func hashGrow(t *maptype, h *hmap) {
@@ -619,7 +677,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^bmap]:
+
+    <CodePopup name="bmap">
+
 
     ```go
     const (
@@ -645,7 +708,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^mapextra]:
+
+    <CodePopup name="mapextra">
+
 
     ```go
     type mapextra struct {
@@ -665,7 +733,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^walkAssignMapRead]:
+
+    <CodePopup name="walkAssignMapRead">
+
 
     ```go
     // walkAssignMapRead walks an OAS2MAPR node.
@@ -724,7 +797,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^walkIndexMap]:
+
+    <CodePopup name="walkIndexMap">
+
 
     ```go
     // walkIndexMap walks an OINDEXMAP node.
@@ -758,7 +836,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^walkExpr1-partly]:
+
+    <CodePopup name="walkExpr1-partly">
+
 
     ```go
     func walkExpr1(n ir.Node, init *ir.Nodes) ir.Node {
@@ -791,7 +874,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^evacuated]:
+
+    <CodePopup name="evacuated">
+
 
     ```go
     const (
@@ -814,7 +902,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^mapaccessK]:
+
+    <CodePopup name="mapaccessK">
+
 
     ```go
     func mapaccessK(t *maptype, h *hmap, key unsafe.Pointer) (unsafe.Pointer, unsafe.Pointer) {
@@ -861,7 +954,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^mapaccess1]:
+
+    <CodePopup name="mapaccess1">
+
 
     ```go
     // mapaccess1 returns a pointer to h[key].  Never returns nil, instead
@@ -931,7 +1029,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^mapdelete]:
+
+    <CodePopup name="mapdelete">
+
 
     ```go
     func mapdelete(t *maptype, h *hmap, key unsafe.Pointer) {
@@ -1055,7 +1158,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^mapassign]:
+
+    <CodePopup name="mapassign">
+
 
     ```go
     func mapassign(t *maptype, h *hmap, key unsafe.Pointer) unsafe.Pointer {
@@ -1165,7 +1273,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^makeBucketArray]:
+
+    <CodePopup name="makeBucketArray">
+
 
     ```go
     // makeBucketArray initializes a backing array for map buckets.
@@ -1220,7 +1333,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^mapaccess2]:
+
+    <CodePopup name="mapaccess2">
+
 
     ```go
     func mapaccess2(t *maptype, h *hmap, key unsafe.Pointer) (unsafe.Pointer, bool) {
@@ -1285,7 +1403,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^fastrand]:
+
+    <CodePopup name="fastrand">
+
 
     ```go
     //go:nosplit
@@ -1316,7 +1439,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^bucketShift]:
+
+    <CodePopup name="bucketShift">
+
 
     ```go
     // bucketShift returns 1<<b, optimized for code generation.
@@ -1326,7 +1454,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^access-oas2mapr]:
+
+    <CodePopup name="access-oas2mapr">
+
 
     ::: code-tabs#before
 
@@ -1345,7 +1478,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 
     :::
 
+    </CodePopup>
+
 [^walkExpr1]:
+
+    <CodePopup name="walkExpr1">
+
 
     ```go
     func walkExpr1(n ir.Node, init *ir.Nodes) ir.Node {
@@ -1373,7 +1511,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^map-const]:
+
+    <CodePopup name="map-const">
+
 
     ```go
     const (
@@ -1423,7 +1566,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     )
     ```
 
+    </CodePopup>
+
 [^hmap]:
+
+    <CodePopup name="hmap">
+
 
     ```go
     // A header for a Go map.
@@ -1461,7 +1609,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^maplit]:
+
+    <CodePopup name="maplit">
+
 
     ```go
     func maplit(n *Node, m *Node, init *Nodes) {
@@ -1482,7 +1635,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^makemap]:
+
+    <CodePopup name="makemap">
+
 
     ```go
     // makemap implements Go map creation for make(map[k]v, hint).
@@ -1525,7 +1683,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
       return h
     }
     ```
+    </CodePopup>
+
 [^init-map]:
+
+    <CodePopup name="init-map">
+
 
     ```go
     // 源码定义
@@ -1536,7 +1699,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^init-map-within-25]:
+
+    <CodePopup name="init-map-within-25">
+
 
     ```go
     // 元素未超过 25 时转换成以下形式
@@ -1546,7 +1714,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     hash["5"] = 6
     ```
 
+    </CodePopup>
+
 [^init-map-outof-25]:
+
+    <CodePopup name="init-map-outof-25">
+
 
     ```go
     hash := make(map[string]int, 26)
@@ -1561,7 +1734,12 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     vstatk 和 vstatv 会被编辑器继续展开
     :::
 
+    </CodePopup>
+
 [^makeBucketArray]:
+
+    <CodePopup name="makeBucketArray">
+
 
     ```go
     // makeBucketArray initializes a backing array for map buckets.
@@ -1616,7 +1794,11 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
     }
     ```
 
+    </CodePopup>
+
 [^overLoadFactor]:
+
+    <CodePopup name="overLoadFactor">
 
     ```go
     const (
@@ -1634,3 +1816,5 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
       return count > bucketCnt && uintptr(count) > loadFactorNum*(bucketShift(B)/loadFactorDen)
     }
     ```
+
+    </CodePopup>

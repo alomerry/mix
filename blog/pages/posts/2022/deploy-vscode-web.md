@@ -2,7 +2,7 @@
 date: 2022-08-23T16:00:00.000+00:00
 title: 搭建 vscode web
 duration: 4min
-wordCount: 894
+wordCount: 896
 ---
 
 [[toc]]
@@ -135,7 +135,11 @@ proxy_set_header Connection "Upgrade";
 
 ## 效果
 
+<WaterMark>
+
 ![matepad 效果](https://cdn.alomerry.com/blog/assets/img/posts/vscode-matepad-preview.jpg)
+
+</WaterMark>
 
 ### Reference
 

@@ -23,6 +23,7 @@ import { full as emojiPlugin } from 'markdown-it-emoji'
 import MarkdownItShiki from '@shikijs/markdown-it'
 import { tasklist } from '@mdit/plugin-tasklist'
 import { imgSize } from '@mdit/plugin-img-size'
+import mathjax from "markdown-it-mathjax3";
 import { rendererRich, transformerTwoslash } from '@shikijs/twoslash'
 
 // @ts-expect-error missing types
@@ -141,8 +142,7 @@ export default defineConfig({
           }),
         })
 
-        // 自定义容器
-        md.use(containerPlugin)
+        md.use(containerPlugin) // 自定义容器
         md.use(preWrapperPlugin)
         md.use(footnote)
         md.use(sup)
@@ -151,6 +151,7 @@ export default defineConfig({
         md.use(imgSize)
         md.use(pageInfo)
         md.use(emojiPlugin)
+        md.use(mathjax)
 
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),

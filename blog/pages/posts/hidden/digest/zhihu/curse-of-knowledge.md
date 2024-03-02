@@ -2,6 +2,7 @@
 desc: https://www.zhihu.com/question/37635606/answer/160366549
 date: 2019-07-02
 title: 什么是知识的诅咒？
+type: hidden
 duration: 4min
 wordCount: 1.5k
 ---

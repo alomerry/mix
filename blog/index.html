@@ -1,54 +1,60 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="author" content="Alomerry Wu" />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <!--
-      <link
-        rel="alternate"
-        type="application/rss+xml"
-        title="Alomerry Wu's Blog"
-        href="/feed.xml"
-      />
-    -->
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <title>Alomerry Wu</title>
-    <script>
-      ;(function () {
-        const prefersDark =
-          window.matchMedia &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches
-        const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
-        if (setting === 'dark' || (prefersDark && setting !== 'light'))
-          document.documentElement.classList.toggle('dark', true)
-      })()
-    </script>
-  </head>
-  <body class="text-gray-700 dark:text-gray-200 relative">
-    <div id="app"></div>
-    <div id="dialog"></div>
-    <script type="module" src="/src/main.ts"></script>
-    <script
-      async
-      src="https://platform.twitter.com/widgets.js"
-      charset="utf-8"
-    ></script>
-    <script>
-      // 获取当前页面的主机名
-      var currentHostname = window.location.hostname;
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="Alomerry Wu"/>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+  <meta name="revisit-after" content="7 days"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <!-- LXGW WenKai https://github.com/chawyehsu/lxgw-wenkai-webfont?tab=readme-ov-file#use-cdn -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css"/>
+  <!-- LXGW WenKai Screen -->
+  <!-- <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">-->
+  <!-- LXGW WenKai Screen -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cn-fontsource-lxgw-wen-kai-gb-screen/font.css" /> -->
+  <!--
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Alomerry Wu's Blog"
+      href="/feed.xml"
+    />
+  -->
+  <meta name="msapplication-TileColor" content="#ffffff"/>
+  <title>Alomerry Wu</title>
+  <script>
+    ;(function () {
+      const prefersDark =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
+      if (setting === 'dark' || (prefersDark && setting !== 'light'))
+        document.documentElement.classList.toggle('dark', true)
+    })()
+  </script>
+</head>
+<body class="text-gray-700 dark:text-gray-200 relative">
+<div id="app"/>
+<div id="dialog"/>
+<script type="module" src="/src/main.ts"/>
+<script
+  async
+  src="https://platform.twitter.com/widgets.js"
+  charset="utf-8"
+/>
+<script>
+  // 获取当前页面的主机名
+  let currentHostname = window.location.hostname;
 
-      // 如果不是 localhost，则加载统计脚本
-      if (currentHostname !== 'localhost') {
-        let umami = document.createElement('script');
-        umami.async = true;
-        umami.src = 'https://umami.alomerry.com/script.js';
-        umami.setAttribute('data-website-id', '2c31cae3-68e1-4326-b8ff-78c63a16374a');
-        document.head.appendChild(umami);
-      }
-    </script>
-  </body>
+  // 如果不是 localhost，则加载统计脚本
+  if (currentHostname !== 'localhost') {
+    let umami = document.createElement('script');
+    umami.async = true;
+    umami.src = 'https://umami.alomerry.com/script.js';
+    umami.setAttribute('data-website-id', '2c31cae3-68e1-4326-b8ff-78c63a16374a');
+    document.head.appendChild(umami);
+  }
+</script>
+</body>
 </html>

@@ -124,5 +124,9 @@ ul.el-timeline{
   color: unset;
 }
 
+.MathJax svg {
+  display: unset;
+}
+
 .prose pre {
 }
