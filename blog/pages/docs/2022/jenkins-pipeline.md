@@ -200,7 +200,7 @@ pipeline {
 - 在一个 `stage` 中定义的 `environment` 指令只会将给定的环境变量应用于 stage 中的步骤。
 - `environment` 块有一个 助手方法 `credentials()` 定义，该方法可以在 Jenkins 环境中用于通过标识符访问预定义的凭证。
 
-:::tip
+::: tip
 
 [Jenkins 环境变量](https://www.jenkins.io/zh/doc/book/pipeline/jenkinsfile/#使用环境变量)
 

@@ -128,5 +128,24 @@ ul.el-timeline{
   display: unset;
 }
 
+.prose strong {
+  color: var(--fg-deep-strong);
+  font-weight: 800;
+}
+
+
+.prose {
+  --fg-deep-strong: #000000;
+}
+
+html.dark .prose {
+  --fg-deep-strong: #ddd;
+}
+
+/* 暗黑模式下单行代码 */
+html.dark .prose code{
+  --fg-deep-strong: #000000;
+}
+
 .prose pre {
 }

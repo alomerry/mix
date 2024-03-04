@@ -11,7 +11,7 @@ wordCount: 1.4k
 
 ## Jenkins in k8s
 
-:::tip 2023.09.21
+::: tip 2023.09.21
 
 在很长一段时间我都是以 docker/docker-compose 的方式使用 Jenkins，在学习 k8s 的过程中我想到能否将 Jenkins 也以 pod
 的形式部署呢？于是就开始了尝试，不得不说还是有些折腾，可能是我 k8s 还没入门、Jenkins 也只是会使用的原因吧 :joy:

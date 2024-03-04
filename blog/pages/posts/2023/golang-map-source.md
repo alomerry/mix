@@ -14,8 +14,6 @@ wordCount: 10k
 
 ## 结构
 
-![map struct](https://img.draveness.me/2020-10-18-16030322432679/hmap-and-buckets.png)
-
 map 在 golang 运行时对应的结构是 `hmap`：
 
 ```go
@@ -33,91 +31,181 @@ type hmap struct {
 }
 ```
 
-- `count` 代表 map 中元素的数量
-- `flag` 为标识位
-
-  ```go
-  const (
-    // flags
-    iterator     = 1 // there may be an iterator using buckets
-    oldIterator  = 2 // there may be an iterator using oldbuckets
-    hashWriting  = 4 // a goroutine is writing to the map
-    sameSizeGrow = 8 // the current map growth is to a new map of the same size
-  )
-  ```
-
-  - `iterator` 表示迭代器正在使用 map 的桶
-  - `oldIterator` 表示迭代器正在使用 map 的旧桶
-  - `hashWriting` 表示有一个协程正在使用 map
-  - `sameSizeGrow` 表示 map 正在等量扩容至新 map 中
-
-- `B` 表示桶 $log2$ 的量，即实际桶数量为 $2^B$
-- `noverflow`
-- `hash0` 为哈希种子，用于 map 的无序遍历
-- `buckets` 为桶的地址
-- `oldbuckets` 为溢出桶的地址
-- `nevacuate` 标记已迁移桶的地址
-- `mapextra`[^mapextra]
-
 以上看起来可能晦涩、难以理解，那我们就先来分析需要如何自行实现 map。
 
 ### 实现一个 map
 
 map 通常被翻译成**字典**或者是**映射**，它表达了一种一对一的关系，即使用任意 key 通过 _某种方式_ 可以获得对应的 value。
 
-以下是**完美映射函数**和**不均匀的映射函数**的对比：
-
-![完美映射函数](https://img.draveness.me/2019-12-30-15777168478768-perfect-hash-function.png)
-
-![不均匀的映射函数](https://img.draveness.me/2019-12-30-15777168478778-bad-hash-function.png)
-
-所以要实现 map 首先需要实现这个**某种方式**。假定有一组 int 类型、不重复且有序的 key，例如 `[0, 1, 2, 3]`，我们尝试使用简单的方式来实现：
+要实现 map 首先需要实现这个 _某种方式_。假定有一组 int 类型、不重复且有序的 key，例如 `[0, 1, 2, 3]`，我们尝试使用简单的方式来实现：
 
 - 定义一个数组存储 values
 - 获取 key 对应的 value 时，通过计算 `key % values.len` 获得一个值 `index`
 - 使用 `index` 从 values 数组中找到对应位置插入 value
 
-通过以上取模的方式实现简单的 map，`key % values.len` 就是**映射函数**。
+以上取模即 `key % values.len` 就是前文描述的 _某种方式_，也就是**映射函数**，它实现了简单的 map。
 
 但是有一个问题：上面的例子中，`index` 是均匀分布在 values 上，如果 map 是 `[(0, v0), (1, v1), (2, v2), (3, v3), (4, v4)]`，那么 key 为 0 和 4 时，`index` 的值就都是 0 了（暂不考虑 values 数组扩容问题），这就是**碰撞**。
+
+一个优秀的映射函数总是能将 key 尽量均匀的对应到一个 value，避免碰撞。以下是**完美映射函数**和**不均匀的映射函数**的对比：
+
+![完美映射函数](https://img.draveness.me/2019-12-30-15777168478768-perfect-hash-function.png)
+
+![不均匀的映射函数](https://img.draveness.me/2019-12-30-15777168478778-bad-hash-function.png)
 
 解决碰撞的方式有两种：
 
 - 开放寻址法
 - 拉链法
 
-#### 开放寻址法
+#### **开放寻址法**
 
 当产生碰撞时依次往后检查，如果有空余的存储位就插入。以上面的例子就是：当计算 key 为 4 时计算出的 `index` 也为 0，此时访问 values[0] 发现已经存储了 value，依次往后访问到空位后插入。
 
 ![开放寻址法](https://img.draveness.me/2019-12-30-15777168478785-open-addressing-and-set.png)
 
-#### 拉链法
+#### **拉链法**
 
 拉链法和开放寻址法的不同之处在于处理碰撞的方式。拉链法一般会使用数组加链表，当产生碰撞时，在碰撞位连接上一条链表，并将碰撞元素插入链表中，访问时定位到位置后依次遍历链表来获取 value。
 
 ![拉链法](https://img.draveness.me/2019-12-30-15777168478798-separate-chaing-and-set.png)
 
-#### 缺点
+#### **缺点**
 
 以上两种方法都有一定缺点。对于开放寻址法，当 map 存储至接近满容量时，可能会一直产生碰撞，最坏的情况下时间复杂度会有 $O(1)$ 退化至 $O(n)$；对于拉链法，如果映射函数设计不良，map 可能会退化成一条链表。
 
 评估以上两种方法性能的一个概念是**装载因子**，开放寻址法中的计算方式为**元素数量与数组大小的比值**，拉链法中为**元素数量与桶数量的比值**。装载因子越大，map 的性能越低。
 
-### 小结
+### 回顾 struct
 
-golang 中通过将开放寻址法和拉链法结合实现 map。回到 hmap 的结构，golang 中使用 bucket 存储键值对，bucket 即对应前文提到的数组加链表的组合，对应的结构为 `bmap`[^bmap]。`bmap` 中存储了一个长度为 8 名为 `tophash` uint8 数组、8 个 key 数组和 value 数组。因此可以看出 map 的每个桶中会存储 1 个元素和 7 个冲突元素。那如果冲突持续产生，一个 bucket 已经存储满了呢，可以看到 bmap 还有一个字段名为 `overflow`，它的作用是当 bucket 存储满了之后，通过 `overflow` 再链上一个桶，这样又可以存储 8 对键值，后面会详细描述 bmap 的 `overflow` 的工作方式以及 hmap 中 `nevacuate`、`oldbuckets`、`mapextra` 的作用。
+```go
+type hmap struct {
+	count      int
+	flags      uint8
+	B          uint8
+	noverflow  uint16
+	hash0      uint32
+	buckets    unsafe.Pointer
+	oldbuckets unsafe.Pointer
+	nevacuate  uintptr
+	extra      *mapextra
+}
+```
+
+`flag` 为标记位置，`iterator(1)` 表示迭代器正在使用 `buckets`，`oldIterator(10)` 表示可能有迭代器在使用 `oldbuckets`，`hashWriting(100)` 表示一个协程正在写 map，`sameSizeGrow(1000)` 表示 map 当前的扩容方式是否是等量扩容，数字表示对应的 bit 位，定义如下：
+
+```go
+const (
+  iterator     = 1
+  oldIterator  = 2
+  hashWriting  = 4
+  sameSizeGrow = 8
+)
+```
+
+`count` 表示 map 中元素数量；`B` 表示桶以 $log2$ 为底的量，即实际桶数量为 $2^B$；`hash0` 为哈希种子，用于 map 的无序遍历，后续的源码中会见到这个属性。`buckets` 为桶数组的地址；`oldbuckets` 为溢出桶数组的地址；`nevacuate` 标记已迁移桶的地址；`noverflow` 表示当前溢出桶数。
+
+TODO ；extra `mapextra`[^mapextra]
+
+#### **map 中的 bucket** （TODO 如果和xxx 一样，表示桶满了）
+
+看了 map 的结构后，可能会 hmap 中的 bucket 相关结构会比较困惑，此处结合下图 hmap 结构简述
+
+![map struct](https://img.draveness.me/2020-10-18-16030322432679/hmap-and-buckets.png)
+
+golang 中通过将开放寻址法和拉链法结合实现 map。
+
+前文中开放寻址法中的数组对应着 buckets，当通过 hash 函数计算出了位置，就会从 buckets 中通过偏移定位到某个 `bmap` 结构，多个不同的 key/value 定位到同一个结构时，会从 `extra.overflow` 中拿出一个空 `bmap` 结构链接上，这里即是拉链法的思路。
+
+![hashmap-overflow-bucket](https://img.draveness.me/2020-10-18-16030322432567/hashmap-overflow-bucket.png)
+
+再看 `bmap` 的结构，存储了一个长度为 8 的 uint8 数组、8 个 key 数组和 value 数组，即一个 `bmap` 结构可以存储 1 个元素和 7 个冲突元素，`topbits` 会存储每个元素 hash 值的高位用于快速对比两个 key 是否相同。如果冲突持续产生，`bmap` 存满后会将 `overflow` 指向一个新的 `bmap` 地址，这样可以继续存储 8 对键值。
+
+```go
+const (
+  // Maximum number of key/elem pairs a bucket can hold.
+  bucketCntBits = 3
+  bucketCnt     = 1 << bucketCntBits
+)
+// A bucket for a Go map.
+type bmap struct {
+  // tophash generally contains the top byte of the hash value
+  // for each key in this bucket. If tophash[0] < minTopHash,
+  // tophash[0] is a bucket evacuation state instead.
+  topbits  [bucketCnt]uint8
+  // Followed by bucketCnt keys and then bucketCnt elems.
+  // NOTE: packing all the keys together and then all the elems together makes the
+  // code a bit more complicated than alternating key/elem/key/elem/... but it allows
+  // us to eliminate padding which would be needed for, e.g., map[int64]int8.
+  // Followed by an overflow pointer.
+  keys     [bucketCnt]keytype
+  values   [bucketCnt]valuetype
+  pad      uintptr
+  overflow uintptr
+}
+```
 
 ## 初始化
 
-### 字面量创建时的处理
+### 字面量创建
 
-形如此方式[^init-map]创建 map 会在编译期被 `maplit`[^maplit] 优化，根据其中的元素是否超过 25 为分界转换成不同形式：
+```go
+// 源码定义
+hash := map[string]int{
+  "1": 2,
+  "3": 4,
+  "5": 6,
+}
+```
 
-- 元素小于 25 个时会转成此形式[^init-map-within-25]
-- 元素超过 25 个时会转成此形式[^init-map-outof-25]
+形如此以上方式创建 map 会在编译期被 `maplit` 优化
 
-### 运行时的处理
+```go
+func maplit(n *Node, m *Node, init *Nodes) {
+  a := nod(OMAKE, nil, nil)
+  a.Esc = n.Esc
+  a.List.Set2(typenod(n.Type), nodintconst(int64(n.List.Len())))
+  litas(m, a, init)
+
+  entries := n.List.Slice()
+  if len(entries) > 25 {
+    ...
+    return
+  }
+
+  // Build list of var[c] = expr.
+  // Use temporaries so that mapassign1 can have addressable key, elem.
+  ...
+}
+```
+
+根据其中的元素是否超过 25 为分界转换成不同形式：
+
+::: code-group
+
+```go [未超过 25]
+// 元素未超过 25 时转换成以下形式
+hash := make(map[string]int, 3)
+hash["1"] = 2
+hash["3"] = 4
+hash["5"] = 6
+```
+
+```go [超过 25]
+hash := make(map[string]int, 26)
+vstatk := []string{"1", "2", "3", ... ， "26"}
+vstatv := []int{1, 2, 3, ... , 26}
+for i := 0; i < len(vstak); i++ {
+    hash[vstatk[i]] = vstatv[i]
+}
+```
+
+:::
+
+> [!tip]
+> vstatk 和 vstatv 会被编辑器继续展开
+
+### 运行时
 
 运行时 map 的创建由 `makemap`[^makemap] 执行：
 
@@ -674,37 +762,6 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 
       // the actual copying of the hash table data is done incrementally
       // by growWork() and evacuate().
-    }
-    ```
-
-    </CodePopup>
-
-[^bmap]:
-
-    <CodePopup name="bmap">
-
-
-    ```go
-    const (
-      // Maximum number of key/elem pairs a bucket can hold.
-      bucketCntBits = 3
-      bucketCnt     = 1 << bucketCntBits
-    )
-    // A bucket for a Go map.
-    type bmap struct {
-        // tophash generally contains the top byte of the hash value
-        // for each key in this bucket. If tophash[0] < minTopHash,
-        // tophash[0] is a bucket evacuation state instead.
-        topbits  [bucketCnt]uint8
-        // Followed by bucketCnt keys and then bucketCnt elems.
-        // NOTE: packing all the keys together and then all the elems together makes the
-        // code a bit more complicated than alternating key/elem/key/elem/... but it allows
-        // us to eliminate padding which would be needed for, e.g., map[int64]int8.
-        // Followed by an overflow pointer.
-        keys     [bucketCnt]keytype
-        values   [bucketCnt]valuetype
-        pad      uintptr
-        overflow uintptr
     }
     ```
 
@@ -1611,32 +1668,6 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
 
     </CodePopup>
 
-[^maplit]:
-
-    <CodePopup name="maplit">
-
-
-    ```go
-    func maplit(n *Node, m *Node, init *Nodes) {
-      a := nod(OMAKE, nil, nil)
-      a.Esc = n.Esc
-      a.List.Set2(typenod(n.Type), nodintconst(int64(n.List.Len())))
-      litas(m, a, init)
-
-      entries := n.List.Slice()
-      if len(entries) > 25 {
-        ...
-        return
-      }
-
-      // Build list of var[c] = expr.
-      // Use temporaries so that mapassign1 can have addressable key, elem.
-      ...
-    }
-    ```
-
-    </CodePopup>
-
 [^makemap]:
 
     <CodePopup name="makemap">
@@ -1683,57 +1714,6 @@ If we've hit the load factor, get bigger. Otherwise, there are too many overflow
       return h
     }
     ```
-    </CodePopup>
-
-[^init-map]:
-
-    <CodePopup name="init-map">
-
-
-    ```go
-    // 源码定义
-    hash := map[string]int{
-      "1": 2,
-      "3": 4,
-      "5": 6,
-    }
-    ```
-
-    </CodePopup>
-
-[^init-map-within-25]:
-
-    <CodePopup name="init-map-within-25">
-
-
-    ```go
-    // 元素未超过 25 时转换成以下形式
-    hash := make(map[string]int, 3)
-    hash["1"] = 2
-    hash["3"] = 4
-    hash["5"] = 6
-    ```
-
-    </CodePopup>
-
-[^init-map-outof-25]:
-
-    <CodePopup name="init-map-outof-25">
-
-
-    ```go
-    hash := make(map[string]int, 26)
-    vstatk := []string{"1", "2", "3", ... ， "26"}
-    vstatv := []int{1, 2, 3, ... , 26}
-    for i := 0; i < len(vstak); i++ {
-        hash[vstatk[i]] = vstatv[i]
-    }
-    ```
-
-    ::: tip
-    vstatk 和 vstatv 会被编辑器继续展开
-    :::
-
     </CodePopup>
 
 [^makeBucketArray]:

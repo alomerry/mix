@@ -371,6 +371,20 @@ leftmargin="0"
 topmargin="0"
 />
 
+### tab 分组
+
+::: code-group
+
+```md [hot]
+// something hot
+```
+
+```md [cold]
+// something clod
+```
+
+:::
+
 ### 自定义容器
 
 ::: info

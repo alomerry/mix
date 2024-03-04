@@ -28,7 +28,7 @@ wordCount: 2.8k
   proxy
   ![Proxifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_rules.png)
 
-:::tip
+::: tip
 设置过程中，发现在 Mac OS 上 chrome 发起全文翻译软件是 `com.google.Chrome.helper`。如果平台不同，注意可以在 Proxifier
 设置测试代理和规则，代理所有软件的所有请求域名，然后触发全文翻译，基本上失败的请求域名和请求软件就是所需代理的。（Advanced-connections
 设置中勾选 `Handle direct connections`，同事测试的 rules 需要置顶，以便优先触发）

@@ -9,7 +9,7 @@ html {
   overflow-x: hidden;
   overflow-y: scroll;
 
-  font-family: 'LXGW WenKai', 'DM Mono', 'Input Mono', 'Fira Code', monospace;
+  font-family: 'LXGW WenKai GB', 'DM Mono', 'Input Mono', 'Fira Code', monospace;
 }
 
 html.dark {

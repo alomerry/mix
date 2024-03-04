@@ -61,7 +61,7 @@ docker push
 
 先来看一段官方文档上的描述：
 
-:::tip
+::: tip
 A Docker image is built up from a series of layers. Each layer represents an instruction in the image’s Dockerfile. Each layer except the very last one is read-only. Consider the following Dockerfile:
 
 ```dockerfile
