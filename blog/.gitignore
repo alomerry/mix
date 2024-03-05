@@ -11,3 +11,7 @@ sponsors.*
 drafts
 public/og
 *.log
+
+pages/assets/**/*.jpeg
+pages/assets/**/*.jpg
+pages/assets/**/*.png

@@ -1,25 +1,25 @@
 ---
 date: 2021-07-11T16:00:00.000+00:00
 title: 搭建内网穿透教程
+desc: 远控局域网/内网穿透搭建
 todoNext:
   - 具体代理应用配置
 duration: 3min
-wordCount: 778
+wordCount: 767
+update: 2021-07-11T16:00:00.000+00:00
 ---
 
 [[toc]]
 
-## 远控局域网/内网穿透搭建
-
-### 起因
+## 起因
 
 原来住处的宽带是有 IPv6 的，使用 ddns 服务主动请求阿里云解析 API 映射 AAAA 记录到住处的 IPv6 地址上，IPv6 配上 moonlight 高码率远控体验出奇的好。但是由于六月份的时候换了地方，宽带没有 IPv6 了，只能使用内网穿透来访问屋内的局域网设备，尝试 [frp](https://github.com/fatedier/frp) 之后记录一下过程。
 
-### 搭建
+## 搭建
 
 服务器和待访问机器都需要安装 [frp](https://github.com/fatedier/frp)，并配置好各自参数，开放服务器相关端口即可。如果网络条件可以打洞的话，可以使用 xtcp 方式穿透，这样流量基本不会流过服务器，可以减少一定成本。
 
-### 下载安装
+## 下载安装
 
 服务端和客户端下载 frp 安装包并解压到 `/root/apps/frp/`
 
@@ -30,7 +30,7 @@ tar -xf /tmp/frp.tar.gz --strip-components 1 -C /root/apps/frp/
 rm -rf /tmp/frp.tar.gz
 ```
 
-### 修改配置
+## 修改配置
 
 修改服务端的 frps.ini 和客户端的 frpc.ini。frps.ini 需要设置自定义令牌（`token`）用于和客户端验证身份，`bind_port` 为 frps 运行端口，`vhost_http_port` 为 http 协议复用端口；frpc.ini 同理。
 
@@ -71,7 +71,7 @@ use_compression=true
 
 :::
 
-### 启动/运行
+## 启动/运行
 
 在服务端和客户端的 `/lib/systemd/system/` 或 `/etc/systemd/system/` 目录下创建 frp.service 用于自启动
 
@@ -118,7 +118,7 @@ ssh root@服务端域名 -p 60022
 
 接下来可以查阅 [官方文档](https://gofrp.org) 获取更多功能。
 
-### Reference
+## Reference
 
 - [frp 文档](https://gofrp.org/docs/examples/xtcp/)
 - [frp 源码](https://github.com/fatedier/frp/blob/dev/README_zh.md)

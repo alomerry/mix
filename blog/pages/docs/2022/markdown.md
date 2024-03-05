@@ -11,6 +11,14 @@ wordCount: 1.6k
 
 Markdown 是一种轻量级标记语言，排版语法简洁，让人们更多地关注内容本身而非排版。它使用易读易写的纯文本格式编写文档，可与 HTML 混编，可导出 HTML、PDF 以及本身的 .md 格式的文件。因简洁、高效、易读、易写，Markdown 被大量使用。
 
+## case
+
+<small>_something_</small>
+
+```markdown
+<small>_something_</small>
+```
+
 ## 链接
 
 在你使用 Markdown 的 链接语法 时， VuePress 会为你进行一些转换。

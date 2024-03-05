@@ -1,54 +1,24 @@
 ---
 date: 2020-10-03T16:00:00.000+00:00
 title: 代码整洁之道 / Go 箴言笔记 TODO
-type: posts
 desc: 《代码整洁之道》读书笔记和日常写代码、读代码对于代码风格的总结
 todoNext:
   - 没处理完
   - 内容过多
 duration: 24min
-wordCount: 6.9k
+wordCount: 6.7k
+update: 2024-03-05T20:24:43.550Z
 ---
 
 [[toc]]
 
-## 有意义的命名
-
-**名副其实，避免误导**
-
-代码需要简洁，但是不能模糊。例如下面两个变量：
-
-```js
-XYZControllerForEfficientKeepingOfStrings
-
-XYZControllerForEfficientHoldingOfStrings
-```
-
-<small>_在区分两个变量的意思时需要反复对比，是很痛苦的。避免细微之处有不同。_</small>
-
-**方法名**
-
-方法名应该是动词或动词短语。属性访问器、修改器和断言应该根据其值命名。
-
 ## 函数
-
-**只做一件事**
-
-函数应该做一件事。做好这件事。只做这一件事。
-
-**switch 语句**
-
-遵循 单一权责原则，开放闭合原则
-
-**函数参数-减少参数数量**
-
-避免使用标识参数，如 `bool` 型参数，一旦使用，就表明方法中会因为 true 和 false 做不同的事。
 
 **函数参数-动词和关键词**
 
-一元函数应当形成一种良好的动词/名词对形式。_例如： `write(name)`、`writeField(name)`。
+一元函数应当形成一种良好的动词/名词对形式。例如： `write(name)`、`writeField(name)`。
 
-函数名称展示关键字形式可以减轻记忆参数顺序的负担。_例如：`assertEqual(expected,actual)` 修改成 `assertExpectedEqualsActual(expected,actual)`。
+函数名称展示关键字形式可以减轻记忆参数顺序的负担。例如：`assertEqual(expected,actual)` 修改成 `assertExpectedEqualsActual(expected,actual)`。
 
 **无副作用**
 
@@ -61,8 +31,6 @@ XYZControllerForEfficientHoldingOfStrings
 `if (set("usename","unclebob"))...`
 
 **使用异常代替返回错误码**
-
-**抽离 Try/Catch代码块**
 
 **Error.java 依赖磁铁**
 
@@ -1021,7 +989,6 @@ func main() {
 ### 22 种代码坏味道之——重复的代码、过长的参数列表、数据泥团
 
 https://zhuanlan.zhihu.com/p/143621809
-
 
 [^go-proverbs]: [go 箴言](https://go-proverbs.github.io/)
 [^go-dhyana]: [go 之禅](https://the-zen-of-go.netlify.app/)

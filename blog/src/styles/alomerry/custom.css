@@ -57,9 +57,25 @@
   font-family: Monaco, ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", "Courier New", monospace;;
 }
 
-
 .el-dialog .el-dialog__body {
   height: 100%;
+}
+
+@keyframes search-fade-in {
+  0% {
+    opacity: .2
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+.el-overlay {
+  animation: .25s search-fade-in;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color:unset;
 }
 
 .el-dialog:not(is-fullscreen) {
@@ -124,6 +140,11 @@ ul.el-timeline{
   color: unset;
 }
 
+.prose .el-tag {
+  height: 16px;
+  padding: 0 2px;
+}
+
 .MathJax svg {
   display: unset;
 }
@@ -132,7 +153,6 @@ ul.el-timeline{
   color: var(--fg-deep-strong);
   font-weight: 800;
 }
-
 
 .prose {
   --fg-deep-strong: #000000;

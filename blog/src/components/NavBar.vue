@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Search from "~/components/alomerry/Search.vue";
+
 function toTop() {
   window.scrollTo({
     top: 0,
@@ -52,12 +54,13 @@ const { y: scroll } = useWindowScroll()
         <a href="/docs" title="Notes">
           <div i-material-symbols-export-notes-outline-sharp />
         </a>
-        <a href="/ioi" title="IOI" class="lt-md:hidden">
+        <a href="/ioi" title="IOI">
           <div i-tabler-brand-leetcode />
         </a>
-        <a href="https://umami.alomerry.com/share/ArR0rXVI3L3p9V1r/blog" target="_blank" title="Twitter" class="lt-md:hidden">
+        <a href="https://umami.alomerry.com/share/ArR0rXVI3L3p9V1r/blog" target="_blank" title="Umami">
           <div i-simple-icons-umami />
         </a>
+        <Search/>
         <a href="https://github.com/alomerry/mix" target="_blank" title="GitHub" class="lt-md:hidden">
           <div i-uil-github-alt />
         </a>

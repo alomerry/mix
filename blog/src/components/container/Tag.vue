@@ -1,5 +1,5 @@
 <template>
-  <el-tag :size="size" :type="type" >
+  <el-tag :size="size()" :type="type || 'success'">
     <slot />
   </el-tag>
 </template>
@@ -7,7 +7,7 @@
 import { ElTag } from "element-plus";
 
 const props = defineProps<{
-  t: string;
+  t?: string;
   s: string;
 }>();
 

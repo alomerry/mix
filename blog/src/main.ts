@@ -20,11 +20,18 @@ import 'element-plus/es/components/dialog/style/css'
 import 'element-plus/es/components/button/style/css'
 import 'element-plus/es/components/popover/style/css'
 import 'element-plus/es/components/drawer/style/css'
+import 'element-plus/es/components/input/style/css'
+import 'element-plus/es/components/card/style/css'
+import 'element-plus/es/components/empty/style/css'
+import 'element-plus/es/components/loading/style/css'
+import 'element-plus/es/components/scrollbar/style/css'
 import 'element-plus/es/components/tag/style/css'
 import 'element-plus/es/components/badge/style/css'
 import 'element-plus/es/components/timeline/style/css'
 import 'element-plus/es/components/timeline-item/style/css'
 import 'element-plus/es/components/badge/style/css'
+
+import { vLoading } from "element-plus/es/components/loading/src/directive";
 
 import autoRoutes from 'pages-generated'
 import NProgress from 'nprogress'
@@ -38,6 +45,7 @@ import App from './App.vue'
 import './styles/alomerry/custom.css'
 import './styles/alomerry/breath.css'
 import './styles/alomerry/max-limit.css'
+import './styles/alomerry/nav-search.css'
 // blog 历史 commit 5b8cac053bea34f25861c4d90ebccc4c595b6e3d
 
 const routes = autoRoutes.map((i) => {
@@ -55,6 +63,7 @@ export const createApp = ViteSSG(
   ({ router, app, isClient }) => {
     dayjs.extend(LocalizedFormat)
 
+    app.directive('load', vLoading);
     app.use(FloatingVue)
 
     if (isClient) {
