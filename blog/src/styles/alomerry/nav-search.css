@@ -13,3 +13,28 @@
 .nav-search-input input{
   height: 40px;
 }
+
+
+.nav-search-result-item .el-card__body {
+  padding: 10px;
+}
+
+.nav-search-result-item .el-card__body h1 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.nav-search-result-item .el-card__body h1>svg {
+  display: unset;
+}
+
+.nav-search-result-item.el-card:hover {
+  border-bottom-color: rgba(68, 67, 67, 0.16);
+  --el-card-bg-color: rgba(68, 67, 67, 0.16);
+}
+
+.nav-search-result-item .el-card__body em {
+  background-color: yellow;
+  font-style: normal;
+  font-weight: bolder;
+}

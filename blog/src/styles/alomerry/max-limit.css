@@ -6,6 +6,6 @@
 }
 
 .project-flex a:hover .alomerry-limit-max {
-  verflow: visible; /* 悬停时显示全部文本 */
+  overflow: visible; /* 悬停时显示全部文本 */
   white-space: normal; /* 悬停时允许文本换行 */
 }
