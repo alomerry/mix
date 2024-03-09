@@ -27,5 +27,5 @@ func main() {
 	_ = viper.BindPFlag("port", flag.Lookup("port"))
 	flag.Parse()
 
-	graceful.Run(fmt.Sprintf("127.0.0.1:%s", *port), 5*time.Second, r)
+	graceful.Run(fmt.Sprintf(":%s", *port), 5*time.Second, r)
 }

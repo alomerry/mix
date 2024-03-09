@@ -1,4 +1,4 @@
-FROM phusion/baseimage:focal-1.1.0
+FROM phusion/baseimage:jammy-1.0.2
 
 EXPOSE 4790
 WORKDIR /app/gw
