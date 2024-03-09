@@ -6,5 +6,5 @@ import (
 )
 
 func ping(c *gin.Context) {
-	c.Status(http.StatusOK)
+	c.String(http.StatusOK, "%s", "pong")
 }
