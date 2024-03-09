@@ -1,0 +1,18 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
+spec:
+  version: 8.12.2
+  count: 1
+  config:
+    i18n.locale: zh-CN
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  elasticsearchRef:
+    name: elasticsearch
+# k get pod --selector='kibana.k8s.elastic.co/name=kibana'
+# k get secret quickstart-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
+

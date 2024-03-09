@@ -17,7 +17,7 @@ spec:
         app: waline-blog
     spec:
       containers:
-      - image: lizheming/waline:1.31.11
+      - image: lizheming/waline:1.31.12
         name: waline-blog
         env:
         - name: MYSQL_HOST

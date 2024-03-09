@@ -3,8 +3,8 @@ name: build docker image and sync to aliyun
 on:
   push:
     branches: [ master ]
-#    paths:
-#      - 'golang/gw/**'
+    paths:
+      - 'golang/gw/**'
 
 jobs:
   build:
