@@ -23,5 +23,7 @@ jobs:
           docker version
           docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
           cd golang/gw
+          chmod +x scripts/start
+          chmod +x ./gw
           docker build . --file Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/alomerry/gw:latest
           docker push registry.cn-hangzhou.aliyuncs.com/alomerry/gw:latest

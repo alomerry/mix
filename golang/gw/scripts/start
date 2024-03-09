@@ -2,4 +2,4 @@
 
 PORT=${PORT:-4790}
 
-exec /app/gw/main --port=${PORT}
+exec /app/gw/gw --port=${PORT}
