@@ -1,9 +1,7 @@
 name: sync to gitee
 
 on:
-  push:
-    branches:
-      - master
+  schedule: [{cron: "0 0 * * *"}]
 
 jobs:
   mirror:

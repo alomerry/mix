@@ -1,4 +1,4 @@
-name: Metrics
+name: generate tilemap 3D animation
 on:
   schedule: [{cron: "0 0 * * *"}]
   workflow_dispatch:
