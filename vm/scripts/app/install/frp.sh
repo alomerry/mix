@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FRP_VERSION=${FRP_VERSION:-"0.51.3"}
+FRP_VERSION=${FRP_VERSION:-"0.54.0"}
 
 install_frp_server() {
   if [ -f /root/apps/frps/${FRP_VERSION}.version ]; then
@@ -11,14 +11,13 @@ install_frp_server() {
 
   rm -rf /root/apps/frps && mkdir /root/apps/frps -p
   tar -xf /tmp/frp.tar.gz --strip-components 1 -C /root/apps/frps/
-  wget $FRP_PATH/frps.service -qO /etc/systemd/system/frps.service
+  # wget $FRP_PATH/frps.service -qO /etc/systemd/system/frps.service
     
-  rm /root/apps/frps/*.ini /root/apps/frpc/LICENSE
-  wget $FRP_PATH/frps.ini -qO /root/apps/frps/frps.ini
-  ansible-vault decrypt --vault-id ~/.ansible/.vault /root/apps/frps/frps.ini
+  rm /root/apps/frps/*.toml /root/apps/frps/{LICENSE,frpc}
+  # wget $FRP_PATH/frps.toml -qO /root/apps/frps/frps.toml
 
   touch /root/apps/frps/${FRP_VERSION}.version
-  rm -rf /root/apps/frps/{frps.tar.gz,frpc,frpc_full.ini,frps_full.ini,frpc.ini}
+  rm -rf /root/apps/frps/{frps.tar.gz,frpc,frpc_full.toml,frps_full.toml,frpc.toml}
 
   systemctl enable frps.service && systemctl stop frps.service
   systemctl daemon-reload && systemctl start frps.service
@@ -31,16 +30,15 @@ install_frp_client() {
     return
   fi
 
-  wget https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/frp_${FRP_VERSION}_linux_amd64.tar.gz -O /tmp/frp.tar.gz
+  wget https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/frp_${FRP_VERSION}_linux_amd64.tar.gz -qO /tmp/frp.tar.gz
 
   rm -rf /root/apps/frpc && mkdir /root/apps/frpc -p
   tar -xf /tmp/frp.tar.gz --strip-components 1 -C /root/apps/frpc/
-  wget $FRP_PATH/frpc.service -qO /etc/systemd/system/frpc.service
+  # wget $FRP_PATH/frpc.service -qO /etc/systemd/system/frpc.service
 
-  rm /root/apps/frpc/*.ini /root/apps/frpc/LICENSE
-  wget $FRP_PATH/frpc.ini -qO /root/apps/frpc/frpc.ini
-  wget $FRP_PATH/frpc_conf.ini -qO /root/apps/frpc/frpc_conf.ini
-  ansible-vault decrypt --vault-id ~/.ansible/.vault /root/apps/frpc/frpc.ini
+  rm /root/apps/frpc/*.toml /root/apps/frpc/{LICENSE,frps}
+  # wget $FRP_PATH/frpc.toml -qO /root/apps/frpc/frpc.toml
+  # wget $FRP_PATH/frpc_conf.toml -qO /root/apps/frpc/frpc_conf.toml
 
   touch /root/apps/frpc/${FRP_VERSION}.version
   systemctl enable frpc.service && systemctl stop frpc.service
