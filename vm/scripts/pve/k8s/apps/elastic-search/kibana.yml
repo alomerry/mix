@@ -7,6 +7,7 @@ spec:
   count: 1
   config:
     i18n.locale: zh-CN
+    server.publicBaseUrl: "https://kibana.alomerry.com/"
   http:
     tls:
       selfSignedCertificate:
