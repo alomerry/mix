@@ -12,12 +12,10 @@ install_frp_server() {
   rm -rf /root/apps/frps && mkdir /root/apps/frps -p
   tar -xf /tmp/frp.tar.gz --strip-components 1 -C /root/apps/frps/
   # wget $FRP_PATH/frps.service -qO /etc/systemd/system/frps.service
-    
-  rm /root/apps/frps/*.toml /root/apps/frps/{LICENSE,frpc}
-  # wget $FRP_PATH/frps.toml -qO /root/apps/frps/frps.toml
 
   touch /root/apps/frps/${FRP_VERSION}.version
-  rm -rf /root/apps/frps/{frps.tar.gz,frpc,frpc_full.toml,frps_full.toml,frpc.toml}
+  rm /root/apps/frps/*.toml /root/apps/frps/{LICENSE,frpc}
+  # wget $FRP_PATH/frps.toml -qO /root/apps/frps/frps.toml
 
   systemctl enable frps.service && systemctl stop frps.service
   systemctl daemon-reload && systemctl start frps.service
