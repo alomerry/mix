@@ -31,6 +31,7 @@ spec:
     metadata:
       labels:
         app: gw-pod
+        log: "true"
     spec:
       containers:
         - name: gw-pod
