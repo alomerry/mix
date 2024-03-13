@@ -2,9 +2,9 @@
 title: 搭建个人博客索引
 desc: 使用 golang 解析 blog markdown 输入 ElasticSearch 构建索引
 date: 2024-03-10T20:01:01.231Z
-update: now
-duration: 5min
-wordCount: 1.1k
+update: 2024-03-11T20:04:12.459Z
+duration: 7min
+wordCount: 1.8k
 ---
 
 [[toc]]

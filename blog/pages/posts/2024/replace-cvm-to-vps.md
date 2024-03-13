@@ -2,7 +2,7 @@
 title: 寻求低延迟海外 vps 笔记
 desc: "#justhost #hostyun #狗云 #腾讯云"
 duration: 1min
-wordCount: 504
+wordCount: 530
 date: 2024-02-24T06:21:40.654Z
 update: 2024-03-05T20:24:43.550Z
 ---
@@ -20,6 +20,8 @@ update: 2024-03-05T20:24:43.550Z
 考虑到即使是抢占式机器，每个月也要近 20¥ 左右（机器是 0.04¥/h，硬盘是 0.012¥/h，流量是 0.8¥/GB），并且抢占式机器理论上是不能注册新备案的，因为 IP 会随着流转而变化（虽然我用了三个多月都没被抢占所以 IP 一直是固定的）于是我就借此放弃使用国内服务器和备案，并在香港和日本寻找价格合适，带宽足够的国内延迟友好的 vps。
 
 ## [狗云](https://www.dogyun.com/?ref=alomerry)（2024.2 至今）
+
+<iframe src="https://app.warp.dev/block/embed/14awjAvS9lsCO6nLeZzAAi" title="embedded warp block" style="width: 1842px; height: 4178px; border:0; overflow:hidden;" allow="clipboard-read; clipboard-write"></iframe>
 
 ![2024-my-dogyun-ping.png](https://cdn.alomerry.com/blog/assets/img/2024-dogyun-ping.jpg)
 

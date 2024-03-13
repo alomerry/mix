@@ -1,0 +1,10 @@
+k8s:
+  version: 1.28.1
+  crictl_version: 1.28.0
+  cni_version: 1.3.0
+  elet_service_version: 0.15.1
+  containerd_version: 1.7.11
+frp:
+  version: 0.51.3
+  frpcPath: /root/apps/frpc
+  frpsPath: /root/apps/frps/

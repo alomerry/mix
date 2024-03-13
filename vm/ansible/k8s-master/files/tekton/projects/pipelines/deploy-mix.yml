@@ -1,0 +1,55 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: deploy-mix
+spec:
+  params:
+  - name: repo-url
+    type: string
+  - name: mix-module
+    type: string
+  - name: build-output-path
+    type: string
+  workspaces:
+  - name: ssh-creds
+  - name: shared-data
+  tasks:
+  - name: fetch-source
+    taskRef:
+      name: git-clone 
+    workspaces:
+    - name: output
+      workspace: shared-data
+    params:
+    - name: url
+      value: $(params.repo-url)
+  - name: build-mix
+    runAfter: [ "fetch-source" ]
+    taskRef:
+      name: build-mix
+    workspaces:
+      - name: source
+        workspace: shared-data
+    params:
+    - name: mix-module
+      value: $(params.mix-module)
+  - name: deploy-mix
+    runAfter: [ "build-mix" ]
+    taskRef:
+      name: rsync
+    params:
+    - name: direction
+      value: "local-to-remote"
+    - name: local-path
+      value: "./$(params.build-output-path)"
+    - name: remote-ip
+      value: "proxy.alomerry.com"
+    - name: remote-username
+      value: "root"
+    - name: remote-path
+      value: "/root/apps/nginx/site/$(params.mix-module).alomerry.com/"
+    workspaces:
+      - name: source
+        workspace: shared-data
+      - name: ssh-directory
+        workspace: ssh-creds

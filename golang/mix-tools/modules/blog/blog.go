@@ -78,6 +78,7 @@ func (c *Client) upsertMarkdown(ctx context.Context, md *markdown.Markdown) {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Printf("update [%v] success!\n", md.Path())
 }
 
 func resolveMarkdowns(markdowns []string) []*markdown.Markdown {

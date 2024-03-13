@@ -19,8 +19,8 @@ _build_mix() {
     esac
 
     tar -zcvf $res -C $distPath .
-    scp -r $res root@alomerry.com:/tmp/
-    ssh root@alomerry.com "rm -rf $website/$module.alomerry.com/*; tar -zxvf $res -C $website/$module.alomerry.com/; rm $res"
+    scp -r $res root@dog.alomerry.com:/tmp/
+    ssh root@dog.alomerry.com "rm -rf $website/$module.alomerry.com/*; tar -zxvf $res -C $website/$module.alomerry.com/; rm $res"
   done 
 }
 

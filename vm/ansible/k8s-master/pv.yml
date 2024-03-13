@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tekton-pv
+  labels:
+    service: tekton
+spec:
+  capacity:
+    storage: 15Gi
+  accessModes:
+  - ReadWriteOnce
+  nfs:
+    path: /mnt/nvme0n1p1/tekton
+    server: 192.168.31.2
+  persistentVolumeReclaimPolicy: Retain

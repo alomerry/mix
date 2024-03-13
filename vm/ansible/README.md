@@ -37,10 +37,10 @@ k8s service destination: 10.1.0.0/16
 ```sh
 netstat -nr
 
-sudo route -n add -net 10.1.0.0/16 192.168.31.100
-sudo route -n add -net 10.244.0.0/16 192.168.31.100
+sudo route -n add -net 10.1.0.0/16 192.168.31.254
+sudo route -n add -net 10.244.0.0/16 192.168.31.254
 
-sudo route -n delete 10.1.0.0/16 192.168.31.100
+sudo route -n delete 10.1.0.0/16 192.168.31.254
 ```
 
 ## other
@@ -53,6 +53,6 @@ https://cloud.tencent.com/document/product/1207/45596
 
 ## vault
 
-- ansible-vault encrypt config.json
+- ansible-vault encrypt config.json --vault-id ~/.ansible/.vault
 - ansible-vault view config.json
 - ansible-playbook vault.yml –ask-vault-pass

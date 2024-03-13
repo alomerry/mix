@@ -7,5 +7,5 @@ import (
 
 func main() {
 	ctx := context.Background()
-	blog.GetClient().BuildIndex(ctx, "/Users/alomerry/workspace/mix/blog")
+	blog.GetClient().BuildIndex(ctx, "/home/runner/work/mix/mix/blog")
 }

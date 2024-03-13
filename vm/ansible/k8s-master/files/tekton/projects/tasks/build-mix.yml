@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-mix
+spec:
+  description: build frontend project.
+  workspaces:
+  - name: source
+  params:
+  - name: mix-module
+    type: string
+  steps:
+    - name: build
+      image: registry.cn-hangzhou.aliyuncs.com/alomerry/base-frontend:v20.5.1
+      env:
+      - name: MIX_MODULE
+        value: $(params.mix-module)
+      script: |
+        #!/bin/sh
+        cd $(workspaces.source.path)/${MIX_MODULE}
+        npm config set registry https://registry.npmmirror.com
+        npm config get registry
+        pnpm install && pnpm build
+      timeout: 180s
