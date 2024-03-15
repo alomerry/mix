@@ -26,6 +26,14 @@ func InitRouter(engine *gin.Engine) {
 	}
 }
 
+type Handler func(c *gin.Context) (any, error)
+
+func HandlerFuncWrapper(handler Handler) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		//resp, err := handler(c)
+	}
+}
+
 func registerRouter(version string, routerFunc func(*gin.RouterGroup)) {
 	_, exits := routerGroupMapper[version]
 	if !exits {

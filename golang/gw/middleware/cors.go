@@ -35,6 +35,7 @@ var (
 	}
 	safeDomains = []string{
 		"https://blog.alomerry.com",
+		"http://localhost:8848",
 	}
 )
 

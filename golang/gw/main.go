@@ -21,7 +21,7 @@ func main() {
 	)
 
 	r.Use(middleware.Cors())
-
+	r.MaxMultipartMemory = 8 << 20
 	controller.InitRouter(r)
 
 	_ = viper.BindPFlag("port", flag.Lookup("port"))
