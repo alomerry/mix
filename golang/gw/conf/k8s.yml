@@ -52,3 +52,18 @@ spec:
               secretKeyRef:
                 name: mix-secret
                 key: es-search-blog-api
+          - name: MYSQL_ADMIN_DSN
+            valueFrom:
+              secretKeyRef:
+                name: mix-secret
+                key: home-lab-admin-mysql-dsn
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: mix-secret
+                key: home-lab-admin-token-secret
+          - name: DATABASE_SALT
+            valueFrom:
+              secretKeyRef:
+                name: mix-secret
+                key: database-salt

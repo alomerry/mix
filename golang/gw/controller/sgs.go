@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"github.com/alomerry/go-tools/sgs/delay"
 	"github.com/alomerry/go-tools/sgs/tools"
-	"github.com/duke-git/lancet/v2/fileutil"
-	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
 	"gw/core/constant"
 	"gw/core/utils"
 	"gw/core/utils/combiner"
 	_const "gw/core/utils/const"
 	"gw/core/utils/zip"
+	"github.com/duke-git/lancet/v2/fileutil"
+	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"io"
 	"net/http"
 	"os"
@@ -27,7 +27,7 @@ const (
 	delaySummaryProgress
 	delaySummarySuccess
 
-	SgsWorkspace = "/Users/alomerry/workspace/mix/golang/gw/output/sgs" // "/tmp/sgs"
+	SgsWorkspace = "/tmp/sgs"
 )
 
 var (
@@ -45,7 +45,7 @@ func init() {
 	s = NewSgsController()
 	s.Register()
 
-	//downloadSgsStarDelayExcelTemplate()
+	downloadSgsStarDelayExcelTemplate()
 }
 
 type SgsController struct {

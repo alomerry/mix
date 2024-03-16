@@ -4,7 +4,7 @@ import "reflect"
 
 // TODO move to go-tools
 
-func IsZero(any interface{}) bool {
+func IsZero(any any) bool {
 	v := reflect.ValueOf(any)
 	return IsEmpty(v)
 }

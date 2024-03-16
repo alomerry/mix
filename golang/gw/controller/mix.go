@@ -2,12 +2,12 @@ package controller
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/gin-gonic/gin"
-	"github.com/goccy/go-json"
-	utils "gw/core"
+	"gw/core/env"
 	"net/http"
 	"time"
 )
@@ -32,9 +32,9 @@ func init() {
 
 	cfg := elasticsearch.Config{
 		Addresses: []string{
-			utils.GetElasticSearchEndpoint(),
+			env.GetElasticSearchEndpoint(),
 		},
-		APIKey: utils.GetElasticSearchAK(),
+		APIKey: env.GetElasticSearchAK(),
 	}
 	var err error
 	client, err = elasticsearch.NewTypedClient(cfg)
