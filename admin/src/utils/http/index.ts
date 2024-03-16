@@ -16,6 +16,7 @@ import { useUserStoreHook } from "@/store/modules/user";
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
 const defaultConfig: AxiosRequestConfig = {
+  baseURL: 'https://mix-gw.alomerry.com',
   // 请求超时时间
   timeout: 360 * 1000,
   headers: {
