@@ -10,7 +10,7 @@ install_nginx() {
   cat /tmp/nginx.sh | sh
 
   mkdir /root/apps/nginx/{site,cert,conf,logs} -p
-  mkdir /root/apps/nginx/site/{docs,blog,empty}.alomerry.com -p
+  mkdir /root/apps/nginx/site/{admin,blog,empty}.alomerry.com -p
   touch /root/apps/nginx/cert/{privkey,fullchain}.pem
 
 #  wget $NGINX_PATH/nginx.service -qO /etc/systemd/system/nginx.service

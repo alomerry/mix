@@ -1,0 +1,54 @@
+name: deploy admin to vps
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'admin/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.3
+          run_install: false
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH_ADMIN=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH_ADMIN }}
+          key: ${{ runner.os }}-pnpm-store-admin-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-admin-
+      - name: build admin
+        run: |
+          cd admin
+          pnpm install && pnpm build
+          tar -zcvf res.tar.gz -C ./dist/ .
+      - name: scp dist
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: admin.alomerry.com
+          username: root
+          key: ${{ secrets.VPS_SECRET_SSH_KEY }}
+          port: 22
+          source: "admin/res.tar.gz"
+          target: "/tmp/"
+      - name: deploy admin
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: admin.alomerry.com
+          username: root
+          key: ${{ secrets.VPS_SECRET_SSH_KEY }}
+          port: 22
+          script: |
+            rm -rf /root/apps/nginx/site/admin.alomerry.com/*
+            tar -zxvf /tmp/admin/res.tar.gz -C /root/apps/nginx/site/admin.alomerry.com/;
+            rm /tmp/admin/res.tar.gz

@@ -2,7 +2,8 @@
 
 _build_mix() {
   res=/tmp/res.tar.gz
-  workspace=/root/workspace/mix
+  # workspace=/root/workspace/mix
+  workspace=/Users/alomerry/workspace/mix
   website=/root/apps/nginx/site
   for module in $@ ; do
     cd $workspace/$module
@@ -16,36 +17,30 @@ _build_mix() {
     docs)
       distPath=$workspace/docs/.vitepress/dist/
       ;;
+    admin)
+      distPath=$workspace/admin/dist/
+      ;;
     esac
 
     tar -zcvf $res -C $distPath .
     scp -r $res root@dog.alomerry.com:/tmp/
     ssh root@dog.alomerry.com "rm -rf $website/$module.alomerry.com/*; tar -zxvf $res -C $website/$module.alomerry.com/; rm $res"
-  done 
-}
-
-build_docs() {
-  _build_mix docs
-}
-
-
-build_blog() {
-  _build_mix blog
+  done
 }
 
 build() {
-  validProjects=(blog docs)
+  validProjects=(blog docs admin)
   for module in $@ ; do
     # 使用 grep 命令查找元素
     if printf '%s\n' "${validProjects[@]}" | grep -q -w "$module"; then
-      eval "build_$module"
+      eval "_build_mix $module"
     fi
-    
+
   done
 }
 
 build_usage() {
-  command=(blog docs)
+  command=(blog docs admin)
   desc=(博客 文档)
   echo "usage: alomerry.sh build 本地构建"
   echo -e "\nOptions:"
