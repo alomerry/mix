@@ -3,8 +3,17 @@ import Footer from "./footer/index.vue";
 import { useGlobal } from "@pureadmin/utils";
 import KeepAliveFrame from "./keepAliveFrame/index.vue";
 import backTop from "@/assets/svg/back_top.svg?component";
-import { h, computed, Transition, defineComponent } from "vue";
+import {
+  h,
+  ref,
+  computed,
+  Transition,
+  defineComponent,
+  onMounted,
+  nextTick
+} from "vue";
 import { usePermissionStoreHook } from "@/store/modules/permission";
+import { useWatermark } from "@pureadmin/utils";
 
 const props = defineProps({
   fixedHeader: Boolean
@@ -81,6 +90,25 @@ const transitionMain = defineComponent({
     );
   }
 });
+
+/* alomerry */
+
+// https://pure-admin-utils.netlify.app/hooks/useWatermark/useWatermark
+const wholePageWatermark = ref();
+const { setWatermark: setNormalWatermark } = useWatermark(wholePageWatermark);
+
+onMounted(() => {
+  nextTick(() => {
+    setNormalWatermark("清欢", {
+      font: "lighter 20px Arial, 'Courier New', 'Droid Sans', sans-serif",
+      forever: true,
+      rotate: -10,
+      color: "rgb(166,166,166)",
+      globalAlpha: 0.3
+    });
+  });
+});
+/* alomerry */
 </script>
 
 <template>
@@ -111,7 +139,7 @@ const transitionMain = defineComponent({
               >
                 <backTop />
               </el-backtop>
-              <div class="grow">
+              <div ref="wholePageWatermark" class="grow">
                 <transitionMain :route="route">
                   <keep-alive
                     v-if="isKeepAlive"
@@ -136,7 +164,7 @@ const transitionMain = defineComponent({
               <Footer v-if="!hideFooter" />
             </el-scrollbar>
             <div v-else class="grow">
-              <transitionMain :route="route">
+              <transitionMain ref="wholePageWatermark" :route="route">
                 <keep-alive
                   v-if="isKeepAlive"
                   :include="usePermissionStoreHook().cachePageList"

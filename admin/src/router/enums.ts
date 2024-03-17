@@ -3,13 +3,14 @@
 const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以后端在返回 rank 的时候需要从非 0 开始
   monitor = 1, // START
   product = 1,
-  build = 1,
+  cicd = 1,
   notice = 1,
   gateway = 1,
-  pve = 1,
   log = 1,
   frp = 1,
   blog = 1,
+  k8s = 1,
+  mq = 1,
   database = 1, // END
   components = 1,
   able = 2,
@@ -28,19 +29,19 @@ const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以�
   formdesign = 15,
   board = 16,
   ppt = 17,
-  guide = 18,
-  menuoverflow = 19;
+  guide = 18;
 
 export {
   home,
   monitor, // START
   product,
-  build,
+  cicd,
   log,
   notice,
   gateway,
-  pve,
   frp,
+  mq,
+  k8s,
   blog,
   database, // END
   components,
@@ -60,6 +61,5 @@ export {
   formdesign,
   board,
   ppt,
-  guide,
-  menuoverflow
+  guide
 };

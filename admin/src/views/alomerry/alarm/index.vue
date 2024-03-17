@@ -1,9 +1,9 @@
 <script setup lang="ts">
 defineOptions({
-  name: "PVE"
+  name: "Alarm"
 });
 </script>
 
 <template>
-  <h1>PVE </h1>
+  <h1>Monitor</h1>
 </template>

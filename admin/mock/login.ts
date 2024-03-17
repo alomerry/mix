@@ -1,10 +1,9 @@
-/*
 // 根据角色动态生成路由
 import { defineFakeRoute } from "vite-plugin-fake-server/client";
 
 export default defineFakeRoute([
   {
-    url: "/login",
+    url: "/v0/admin/login",
     method: "post",
     response: ({ body }) => {
       if (body.username === "admin") {
@@ -35,4 +34,3 @@ export default defineFakeRoute([
     }
   }
 ]);
-*/

@@ -3,21 +3,13 @@ import { able } from "@/router/enums";
 
 export default {
   path: "/able",
-  redirect: "/able/watermark",
+  redirect: "/able/print",
   meta: {
     icon: "ri:ubuntu-fill",
     title: $t("menus.hsAble"),
     rank: able
   },
   children: [
-    {
-      path: "/able/watermark",
-      name: "WaterMark",
-      component: () => import("@/views/able/watermark.vue"),
-      meta: {
-        title: $t("menus.hsWatermark")
-      }
-    },
     {
       path: "/able/print",
       name: "Print",

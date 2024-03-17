@@ -15,6 +15,7 @@ const sgs = {
       meta: {
         icon: "vscode-icons:file-type-excel2", //mdi:report-scatter-plot-hexbin
         title: "月报",
+        extraIcon: "IF-pure-iconfont-new svg",
         showParent: true
       }
     }

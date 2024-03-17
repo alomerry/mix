@@ -12,11 +12,11 @@ export default {
   children: [
     {
       path: "/blog/welcome/index",
-      name: "https://umami.alomerry.com/share/X0KeIzjKkfNzJ33k/blog",
       component: IFrame,
       meta: {
         title: "访问量",
-        // frameSrc: "https://umami.alomerry.com/share/X0KeIzjKkfNzJ33k/blog",
+        icon: "mage:preview-circle-fill",
+        frameSrc: "https://umami.alomerry.com/share/ArR0rXVI3L3p9V1r/blog",
         keepAlive: true
       }
     },
@@ -28,8 +28,7 @@ export default {
         title: "预览",
         icon: "clarity:digital-signature-line",
         frameSrc: "https://blog.alomerry.com/posts",
-        keepAlive: true,
-        extraIcon: "IF-pure-iconfont-new svg"
+        keepAlive: true
       }
     },
     {

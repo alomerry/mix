@@ -1,9 +1,9 @@
 <script setup lang="ts">
 defineOptions({
-  name: "Build"
+  name: "CiCdBuild"
 });
 </script>
 
 <template>
-  <h1>tekton </h1>
+  <h1>deploy</h1>
 </template>

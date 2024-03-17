@@ -125,8 +125,6 @@ menus:
   hsPureTableBase: Base Usage
   hsPureTableHigh: High Usage
   hsboard: Paint Board
-  hsMenuoverflow: Menu Overflow Show Tooltip Text
-  hsChildMenuoverflow: Child Menu Overflow Show Tooltip Text
 status:
   hsLoad: Loading...
 login:

@@ -16,7 +16,28 @@ export default {
       name: "Monitor",
       component: () => import("@/views/alomerry/monitor/index.vue"),
       meta: {
-        title: "监控"
+        title: "TODO",
+        icon: "material-symbols:privacy-screen-outline-sharp"
+      }
+    },
+    {
+      path: "/monitor/pve",
+      component: IFrame,
+      meta: {
+        icon: "arcticons:proxmox-virtual-environment",
+        title: "Promox VE",
+        frameSrc: "https://pve.alomerry.com",
+        keepAlive: true
+      }
+    },
+    {
+      path: "/monitor/pve",
+      name: "Alarm",
+      component: () => import("@/views/alomerry/alarm/index.vue"),
+      meta: {
+        icon: "clarity:alarm-clock-solid-badged",
+        title: "告警",
+        keepAlive: true
       }
     },
     {
@@ -26,6 +47,16 @@ export default {
       meta: {
         icon: "logos:grafana",
         title: "Grafana",
+        frameSrc: "https://grafana.alomerry.com",
+        keepAlive: true
+      }
+    },
+    {
+      path: "/monitor/uptime-kuma",
+      component: IFrame,
+      meta: {
+        icon: "cbi:kuma",
+        title: "Uptime-kuma",
         frameSrc: "https://grafana.alomerry.com",
         keepAlive: true
       }

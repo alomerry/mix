@@ -6,7 +6,7 @@ export default {
   path: "/frp",
   meta: {
     icon: "tabler:brand-react-native",
-    title: "Frp",
+    title: "内网穿透",
     rank: frp
   },
   children: [
