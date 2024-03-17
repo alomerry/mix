@@ -1,23 +1,17 @@
 import { $t } from "@/plugins/i18n";
 import { able } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 
 export default {
   path: "/able",
   redirect: "/able/print",
   meta: {
+    showLink: hidden,
     icon: "ri:ubuntu-fill",
     title: $t("menus.hsAble"),
     rank: able
   },
   children: [
-    {
-      path: "/able/print",
-      name: "Print",
-      component: () => import("@/views/able/print/index.vue"),
-      meta: {
-        title: $t("menus.hsPrint")
-      }
-    },
     {
       path: "/able/download",
       name: "Download",
@@ -71,22 +65,6 @@ export default {
       }
     },
     {
-      path: "/able/barcode",
-      name: "BarCode",
-      component: () => import("@/views/able/barcode.vue"),
-      meta: {
-        title: $t("menus.hsBarcode")
-      }
-    },
-    {
-      path: "/able/qrcode",
-      name: "QrCode",
-      component: () => import("@/views/able/qrcode.vue"),
-      meta: {
-        title: $t("menus.hsQrcode")
-      }
-    },
-    {
       path: "/able/map",
       name: "MapPage",
       component: () => import("@/views/able/map.vue"),
@@ -99,27 +77,11 @@ export default {
       }
     },
     {
-      path: "/able/wavesurfer",
-      name: "Wavesurfer",
-      component: () => import("@/views/able/wavesurfer/index.vue"),
-      meta: {
-        title: $t("menus.hsWavesurfer")
-      }
-    },
-    {
       path: "/able/video",
       name: "VideoPage",
       component: () => import("@/views/able/video.vue"),
       meta: {
         title: $t("menus.hsvideo")
-      }
-    },
-    {
-      path: "/able/video-frame",
-      name: "VideoFrame",
-      component: () => import("@/views/able/video-frame/index.vue"),
-      meta: {
-        title: $t("menus.hsVideoFrame")
       }
     },
     {
@@ -152,14 +114,6 @@ export default {
       component: () => import("@/views/able/line-tree.vue"),
       meta: {
         title: $t("menus.hsLineTree")
-      }
-    },
-    {
-      path: "/able/typeit",
-      name: "Typeit",
-      component: () => import("@/views/able/typeit.vue"),
-      meta: {
-        title: $t("menus.hstypeit")
       }
     },
     {

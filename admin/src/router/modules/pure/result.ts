@@ -1,10 +1,12 @@
 import { $t } from "@/plugins/i18n";
 import { result } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 
 export default {
   path: "/result",
   redirect: "/result/success",
   meta: {
+    showLink: hidden,
     icon: "ri:checkbox-circle-line",
     title: $t("menus.hsResult"),
     rank: result

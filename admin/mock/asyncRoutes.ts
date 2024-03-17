@@ -1,6 +1,7 @@
 // 模拟后端动态生成路由
 import { defineFakeRoute } from "vite-plugin-fake-server/client";
-import { system, permission, frame, tabs } from "@/router/enums";
+import { system, permission, tabs } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 
 /**
  * roles：页面级别权限，这里模拟二种 "admin"、"common"
@@ -13,6 +14,7 @@ const systemRouter = {
   meta: {
     icon: "ri:settings-3-line",
     title: "menus.hssysManagement",
+    showLink: hidden,
     rank: system
   },
   children: [
@@ -60,6 +62,7 @@ const permissionRouter = {
   meta: {
     title: "menus.permission",
     icon: "ep:lollipop",
+    showLink: hidden,
     rank: permission
   },
   children: [
@@ -87,114 +90,12 @@ const permissionRouter = {
   ]
 };
 
-const frameRouter = {
-  path: "/iframe",
-  meta: {
-    icon: "ep:monitor",
-    title: "menus.hsExternalPage",
-    rank: frame
-  },
-  children: [
-    {
-      path: "/iframe/external",
-      meta: {
-        title: "menus.hsExternalDoc"
-      },
-      children: [
-        {
-          path: "/external",
-          name: "https://yiming_chang.gitee.io/pure-admin-doc",
-          meta: {
-            title: "menus.externalLink",
-            roles: ["admin", "common"]
-          }
-        },
-        {
-          path: "/pureutilsLink",
-          name: "https://pure-admin-utils.netlify.app/",
-          meta: {
-            title: "menus.pureutilsLink",
-            roles: ["admin", "common"]
-          }
-        }
-      ]
-    },
-    {
-      path: "/iframe/embedded",
-      meta: {
-        title: "menus.hsEmbeddedDoc"
-      },
-      children: [
-        {
-          path: "/iframe/ep",
-          name: "FrameEp",
-          meta: {
-            title: "menus.hsEpDocument",
-            frameSrc: "https://element-plus.org/zh-CN/",
-            keepAlive: true,
-            roles: ["admin", "common"]
-          }
-        },
-        {
-          path: "/iframe/tailwindcss",
-          name: "FrameTailwindcss",
-          meta: {
-            title: "menus.hsTailwindcssDocument",
-            frameSrc: "https://tailwindcss.com/docs/installation",
-            keepAlive: true,
-            roles: ["admin", "common"]
-          }
-        },
-        {
-          path: "/iframe/vue3",
-          name: "FrameVue",
-          meta: {
-            title: "menus.hsVueDocument",
-            frameSrc: "https://cn.vuejs.org/",
-            keepAlive: true,
-            roles: ["admin", "common"]
-          }
-        },
-        {
-          path: "/iframe/vite",
-          name: "FrameVite",
-          meta: {
-            title: "menus.hsViteDocument",
-            frameSrc: "https://cn.vitejs.dev/",
-            keepAlive: true,
-            roles: ["admin", "common"]
-          }
-        },
-        {
-          path: "/iframe/pinia",
-          name: "FramePinia",
-          meta: {
-            title: "menus.hsPiniaDocument",
-            frameSrc: "https://pinia.vuejs.org/zh/index.html",
-            keepAlive: true,
-            roles: ["admin", "common"]
-          }
-        },
-        {
-          path: "/iframe/vue-router",
-          name: "FrameRouter",
-          meta: {
-            title: "menus.hsRouterDocument",
-            frameSrc: "https://router.vuejs.org/zh/",
-            keepAlive: true,
-            roles: ["admin", "common"]
-          }
-        }
-      ]
-    }
-  ]
-};
-
 const tabsRouter = {
   path: "/tabs",
   meta: {
     icon: "ri:bookmark-2-line",
     title: "menus.hstabs",
+    showLink: false,
     rank: tabs
   },
   children: [
@@ -239,7 +140,7 @@ export default defineFakeRoute([
     response: () => {
       return {
         success: true,
-        data: [systemRouter, permissionRouter, frameRouter, tabsRouter]
+        data: [systemRouter, permissionRouter, tabsRouter]
       };
     }
   }

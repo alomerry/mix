@@ -1,10 +1,12 @@
 import { $t } from "@/plugins/i18n";
 import { list } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 
 export default {
   path: "/list",
   redirect: "/list/card",
   meta: {
+    showLink: hidden,
     icon: "ri:list-check",
     title: $t("menus.hsList"),
     rank: list

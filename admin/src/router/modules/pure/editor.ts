@@ -1,10 +1,12 @@
 import { $t } from "@/plugins/i18n";
 import { editor } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 
 export default {
   path: "/editor",
   redirect: "/editor/index",
   meta: {
+    showLink: hidden,
     icon: "ep:edit",
     title: $t("menus.hseditor"),
     rank: editor

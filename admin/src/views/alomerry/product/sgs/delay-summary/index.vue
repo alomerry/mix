@@ -13,12 +13,59 @@ import {
   STEP_REASON,
   STEP_RESULT,
   validFileTypes,
+  GuideStep,
   beforeUpload
 } from "./constant";
+import qrcode from "./qrcode.vue";
+import barcode from "./barcode.vue";
+import intro from "intro.js";
+import "intro.js/minified/introjs.min.css";
 
 defineOptions({
   name: "ProductSgsDelaySummary"
 });
+
+const onGuide = () => {
+  intro()
+    .setOptions({
+      steps: [
+        {
+          element: document.querySelector(".delay-help-upload") as
+            | string
+            | HTMLElement,
+          title: "上传【月报】必需项",
+          intro: "可多选，会自动合并。",
+          position: "left"
+        },
+        {
+          element: document.querySelector(".delay-help-handle") as
+            | string
+            | HTMLElement,
+          title: "处理月报必需项",
+          intro: "如果上传多个文件，需要等待后代合并完成后才能进入下一项。",
+          position: "right"
+        },
+        {
+          element: document.querySelector(".delay-help-reset") as
+            | string
+            | HTMLElement,
+          title: "重置流程",
+          intro: "如果操作错误，可重置重新开始流程。",
+          position: "right"
+        },
+        {
+          element: document.querySelector(".delay-help-exec") as
+            | string
+            | HTMLElement,
+          title: "计算生成月报/下载月报",
+          intro:
+            "准备好所有必需项后，方可以执行。执行后等待任务完成后即可下载。",
+          position: "right"
+        }
+      ]
+    })
+    .start();
+};
 
 const currentStep = ref(0); // 当前步骤
 const nextStep = (idx: number | null) => {
@@ -108,7 +155,18 @@ const queryStatus = () => {
 </script>
 
 <template>
-  <el-card shadow="never">
+  <el-card class="sgs-delay-summary" shadow="never">
+    <template #header>
+      <el-button
+        type="primary"
+        tag="div"
+        color="#626aef"
+        plain
+        @click="onGuide"
+      >
+        操作说明
+      </el-button>
+    </template>
     <plan />
     <el-steps
       :active="currentStep"
@@ -133,12 +191,24 @@ const queryStatus = () => {
                 :before-upload="value => beforeUpload(validFileTypes)(value)"
               >
                 <template #trigger>
-                  <el-button type="primary" size="small" color="#626aef">
-                    上传
-                  </el-button>
+                  <div>
+                    <el-button
+                      class="delay-help-upload"
+                      type="primary"
+                      size="small"
+                      color="#626aef"
+                    >
+                      上传
+                    </el-button>
+                  </div>
                 </template>
                 &nbsp;
-                <el-button type="primary" size="small" @click="merge(STEP_A)">
+                <el-button
+                  class="delay-help-handle"
+                  type="primary"
+                  size="small"
+                  @click="merge(STEP_A)"
+                >
                   处理
                 </el-button>
                 <template #tip>
@@ -287,13 +357,14 @@ const queryStatus = () => {
         </template>
       </el-step>
     </el-steps>
-
     <el-row class="mb-8 mt-8" justify="center">
       <el-col :span="12" :offset="6">
-        <el-button @click="nextStep(0)"> 重置</el-button>
-        &nbsp;
+        <el-button class="delay-help-reset" @click="nextStep(0)">
+          重置
+        </el-button>
         <el-button
           v-if="currentStep < 5"
+          class="delay-help-exec"
           type="success"
           :disabled="currentStep < 3 || loading.get(STEP_RESULT)"
           plain
@@ -306,7 +377,7 @@ const queryStatus = () => {
         </el-link>
       </el-col>
     </el-row>
+    <qrcode />
+    <barcode />
   </el-card>
 </template>
-
-<style lang="scss" scoped></style>

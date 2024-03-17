@@ -111,12 +111,10 @@ function onCloseTags() {
     <el-button @click="router.push({ name: 'Menu1-2-2' })">
       跳转页内菜单（传name对象，优先推荐）
     </el-button>
-    <el-button @click="router.push('/nested/menu1/menu1-2/menu1-2-2')">
+    <el-button @click="router.push('/blog/index')">
       跳转页内菜单（直接传要跳转的路径）
     </el-button>
-    <el-button
-      @click="router.push({ path: '/nested/menu1/menu1-2/menu1-2-2' })"
-    >
+    <el-button @click="router.push({ path: '/product/sgs/delay-summary' })">
       跳转页内菜单（传path对象）
     </el-button>
 
@@ -134,7 +132,7 @@ function onCloseTags() {
     <el-button
       @click="
         router.push({
-          path: '/nested/menu1/menu1-2/menu1-2-2',
+          path: '/blog/index',
           query: { text: '传path对象' }
         })
       "

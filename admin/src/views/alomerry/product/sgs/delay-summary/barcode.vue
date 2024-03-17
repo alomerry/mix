@@ -4,7 +4,7 @@ import ReBarcode from "@/components/ReBarcode";
 defineOptions({
   name: "BarCode"
 });
-
+// 条形码（基于 JsBarcode 生成）https://lindell.me/JsBarcode/
 const barcodes = [
   {
     text: "CODE128",
@@ -33,17 +33,7 @@ const barcodes = [
   <div>
     <el-card shadow="never">
       <template #header>
-        <div class="font-medium">
-          条形码（基于
-          <el-link
-            href="https://lindell.me/JsBarcode/"
-            target="_blank"
-            style="margin: 0 5px 4px 0; font-size: 16px"
-          >
-            JsBarcode
-          </el-link>
-          生成）
-        </div>
+        <div class="font-medium">ice.ben 别看了，快打钱吧（假的</div>
       </template>
       <el-row :gutter="12">
         <template v-for="(item, index) in barcodes" :key="index">

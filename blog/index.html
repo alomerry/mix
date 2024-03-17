@@ -37,18 +37,6 @@
   src="https://platform.twitter.com/widgets.js"
   charset="utf-8"
 />
-<script>
-  // 获取当前页面的主机名
-  let currentHostname = window.location.hostname;
-
-  // 如果不是 localhost，则加载统计脚本
-  if (currentHostname !== 'localhost') {
-    let umami = document.createElement('script');
-    umami.async = true;
-    umami.src = 'https://umami.alomerry.com/script.js';
-    umami.setAttribute('data-website-id', '2c31cae3-68e1-4326-b8ff-78c63a16374a');
-    document.head.appendChild(umami);
-  }
-</script>
+<script async src="https://umami.alomerry.com/script.js" data-website-id="2c31cae3-68e1-4326-b8ff-78c63a16374a"></script>
 </body>
 </html>

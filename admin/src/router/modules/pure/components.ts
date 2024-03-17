@@ -1,10 +1,12 @@
 import { $t } from "@/plugins/i18n";
 import { components } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 
 export default {
   path: "/components",
   redirect: "/components/dialog",
   meta: {
+    showLink: hidden,
     icon: "ep:menu",
     title: $t("menus.hscomponents"),
     rank: components
@@ -65,14 +67,6 @@ export default {
       component: () => import("@/views/components/time-picker.vue"),
       meta: {
         title: $t("menus.hsTimePicker")
-      }
-    },
-    {
-      path: "/components/icon-select",
-      name: "IconSelect",
-      component: () => import("@/views/components/icon-select.vue"),
-      meta: {
-        title: $t("menus.hsIconSelect")
       }
     },
     {
@@ -163,38 +157,6 @@ export default {
       component: () => import("@/views/components/collapse.vue"),
       meta: {
         title: $t("menus.hsCollapse")
-      }
-    },
-    {
-      path: "/components/cascader",
-      name: "Cascader",
-      component: () => import("@/views/components/cascader.vue"),
-      meta: {
-        title: $t("menus.hsCascader")
-      }
-    },
-    {
-      path: "/components/color-picker",
-      name: "ColorPicker",
-      component: () => import("@/views/components/color-picker.vue"),
-      meta: {
-        title: $t("menus.hsColorPicker")
-      }
-    },
-    {
-      path: "/components/selector",
-      name: "Selector",
-      component: () => import("@/views/components/selector.vue"),
-      meta: {
-        title: $t("menus.hsselector")
-      }
-    },
-    {
-      path: "/components/waterfall",
-      name: "Waterfall",
-      component: () => import("@/views/components/waterfall/index.vue"),
-      meta: {
-        title: $t("menus.hswaterfall")
       }
     },
     {

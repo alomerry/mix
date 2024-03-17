@@ -1,10 +1,12 @@
 import { $t } from "@/plugins/i18n";
 import { table } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 
 export default {
   path: "/pure-table",
   redirect: "/pure-table/index",
   meta: {
+    showLink: hidden,
     icon: "ri:table-line",
     title: "pure-admin-table",
     rank: table

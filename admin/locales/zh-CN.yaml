@@ -41,7 +41,6 @@ menus:
   hsmessage: 消息提示
   hsvideo: 视频
   hssegmented: 分段控制器
-  hswaterfall: 瀑布流无限滚动
   hsmap: 地图
   hsdraggable: 拖拽
   hssplitPane: 切割面板
@@ -52,13 +51,10 @@ menus:
   hscropping: 图片裁剪
   hsanimatecss: animate.css选择器
   hscountTo: 数字动画
-  hsselector: 范围选择器
   hsflowChart: 流程图
   hsseamless: 无缝滚动
   hscontextmenu: 右键菜单
-  hstypeit: 打字机
   hsjsoneditor: JSON编辑器
-  hsColorPicker: 颜色选择器
   hsDatePicker: 日期选择器
   hsDateTimePicker: 日期时间选择器
   hsTimePicker: 时间选择器
@@ -68,52 +64,26 @@ menus:
   hsProgress: 进度条
   hsUpload: 文件上传
   hsCheckCard: 多选卡片
-  hsmenus: 多级菜单
-  hsmenu1: 菜单1
-  hsmenu1-1: 菜单1-1
-  hsmenu1-2: 菜单1-2
-  hsmenu1-2-1: 菜单1-2-1
-  hsmenu1-2-2: 菜单1-2-2
-  hsmenu1-3: 菜单1-3
-  hsmenu2: 菜单2
   permission: 权限管理
   permissionPage: 页面权限
   permissionButton: 按钮权限
   hstabs: 标签页操作
-  hsguide: 引导页
   hsAble: 功能
   hsMenuTree: 菜单树结构
-  hsVideoFrame: 视频帧截取-wasm版
-  hsWavesurfer: 音频可视化
   hsOptimize: 防抖、截流、复制、长按指令
   hsWatermark: 水印
-  hsPrint: 打印
   hsDownload: 下载
-  hsExternalPage: 外部页面
   hsExternalDoc: 文档外链
-  hsEmbeddedDoc: 文档内嵌
-  externalLink: vue-pure-admin
-  pureutilsLink: pure-admin-utils
-  hsEpDocument: element-plus
-  hsTailwindcssDocument: tailwindcss
-  hsVueDocument: vue3
-  hsViteDocument: vite
-  hsPiniaDocument: pinia
-  hsRouterDocument: vue-router
-  hsAbout: 关于
   hsResult: 结果页面
   hsSuccess: 成功页面
   hsFail: 失败页面
-  hsIconSelect: 图标选择器
   hsTimeline: 时间线
   hsLineTree: 树形连接线
   hsList: 列表页
   hsListCard: 卡片列表页
   hsDebounce: 防抖节流
-  hsFormDesign: 表单设计器
   hsBarcode: 条形码
   hsQrcode: 二维码
-  hsCascader: 区域级联选择器
   hsSwiper: Swiper插件
   hsVirtualList: 虚拟列表
   hsPdf: PDF预览
@@ -124,7 +94,6 @@ menus:
   hsdanmaku: 弹幕
   hsPureTableBase: 基础用法（23个示例）
   hsPureTableHigh: 高级用法（11个示例）
-  hsboard: 艺术画板
 status:
   hsLoad: 加载中...
 login:

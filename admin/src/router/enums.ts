@@ -4,7 +4,6 @@ const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以�
   monitor = 1, // START
   product = 1,
   cicd = 1,
-  notice = 1,
   gateway = 1,
   log = 1,
   frp = 1,
@@ -19,15 +18,11 @@ const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以�
   result = 5,
   error = 6,
   frame = 7,
-  nested = 8,
   permission = 9,
   system = 10,
   tabs = 11,
-  about = 12,
   editor = 13,
   flowchart = 14,
-  formdesign = 15,
-  board = 16,
   ppt = 17,
   guide = 18;
 
@@ -37,7 +32,6 @@ export {
   product,
   cicd,
   log,
-  notice,
   gateway,
   frp,
   mq,
@@ -51,15 +45,11 @@ export {
   result,
   error,
   frame,
-  nested,
   permission,
   system,
   tabs,
-  about,
   editor,
   flowchart,
-  formdesign,
-  board,
   ppt,
   guide
 };

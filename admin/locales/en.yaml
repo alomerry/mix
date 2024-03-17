@@ -41,7 +41,6 @@ menus:
   hsmessage: Message Tips
   hsvideo: Video
   hssegmented: Segmented
-  hswaterfall: Waterfall
   hsmap: Map
   hsdraggable: Draggable
   hssplitPane: Split Pane
@@ -52,13 +51,10 @@ menus:
   hscropping: Picture Cropping
   hsanimatecss: AnimateCss Selector
   hscountTo: Digital Animation
-  hsselector: Scope Selector
   hsflowChart: Flow Chart
   hsseamless: Seamless Scroll
   hscontextmenu: Context Menu
-  hstypeit: Typeit
   hsjsoneditor: JSON Editor
-  hsColorPicker: Color Picker
   hsDatePicker: Date Picker
   hsDateTimePicker: DateTimePicker
   hsTimePicker: TimePicker
@@ -68,52 +64,26 @@ menus:
   hsProgress: Progress
   hsUpload: File Upload
   hsCheckCard: CheckCard
-  hsmenus: MultiLevel Menu
-  hsmenu1: Menu1
-  hsmenu1-1: Menu1-1
-  hsmenu1-2: Menu1-2
-  hsmenu1-2-1: Menu1-2-1
-  hsmenu1-2-2: Menu1-2-2
-  hsmenu1-3: Menu1-3
-  hsmenu2: Menu2
   permission: Permission Manage
   permissionPage: Page Permission
   permissionButton: Button Permission
   hstabs: Tabs Operate
-  hsguide: Guide
   hsAble: Able
   hsMenuTree: Menu Tree
-  hsVideoFrame: Video Frame Capture
-  hsWavesurfer: Audio Visualization
   hsOptimize: Debounce、Throttle、Copy、Longpress Directives
   hsWatermark: Water Mark
-  hsPrint: Print
   hsDownload: Download
-  hsExternalPage: External Page
   hsExternalDoc: Docs External
-  hsEmbeddedDoc: Docs Embedded
-  externalLink: Vue-Pure-Admin
-  pureutilsLink: Pure-Admin-Utils
-  hsEpDocument: Element-Plus
-  hsTailwindcssDocument: Tailwindcss
-  hsVueDocument: Vue3
-  hsViteDocument: Vite
-  hsPiniaDocument: Pinia
-  hsRouterDocument: Vue-Router
-  hsAbout: About
   hsResult: Result Page
   hsSuccess: Success Page
   hsFail: Fail Page
-  hsIconSelect: Icon Select
   hsTimeline: Time Line
   hsLineTree: LineTree
   hsList: List Page
   hsListCard: Card List Page
   hsDebounce: Debounce & Throttle
-  hsFormDesign: Form Design
   hsBarcode: Barcode
   hsQrcode: Qrcode
-  hsCascader: Area Cascader
   hsSwiper: Swiper Plugin
   hsVirtualList: Virtual List
   hsPdf: PDF Preview
@@ -124,7 +94,6 @@ menus:
   hsdanmaku: Danmaku
   hsPureTableBase: Base Usage
   hsPureTableHigh: High Usage
-  hsboard: Paint Board
 status:
   hsLoad: Loading...
 login:

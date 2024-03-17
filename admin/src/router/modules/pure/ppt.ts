@@ -1,10 +1,12 @@
 import { ppt } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 const IFrame = () => import("@/layout/frameView.vue");
 
 export default {
   path: "/ppt",
   redirect: "/ppt/index",
   meta: {
+    showLink: hidden,
     icon: "ri:file-ppt-2-line",
     title: "PPT",
     rank: ppt

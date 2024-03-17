@@ -1,5 +1,6 @@
 import { $t } from "@/plugins/i18n";
 import { home } from "@/router/enums";
+import { hidden } from "@/router/hidden";
 const { VITE_HIDE_HOME } = import.meta.env;
 const Layout = () => import("@/layout/index.vue");
 

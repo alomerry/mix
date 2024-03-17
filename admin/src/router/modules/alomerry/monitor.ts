@@ -12,6 +12,15 @@ export default {
   },
   children: [
     {
+      path: "/monitor/notice",
+      name: "Notice",
+      component: () => import("@/views/alomerry/monitor/notice.vue"),
+      meta: {
+        icon: "fe:notice-push",
+        title: "通知"
+      }
+    },
+    {
       path: "/monitor/index",
       name: "Monitor",
       component: () => import("@/views/alomerry/monitor/index.vue"),

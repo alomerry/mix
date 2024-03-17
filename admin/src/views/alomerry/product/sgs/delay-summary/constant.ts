@@ -29,3 +29,10 @@ export const beforeUpload = (
     }
   };
 };
+
+export type GuideStep = {
+  element: string | HTMLElement;
+  title: string;
+  intro: string;
+  position: "left" | "right" | "top" | "bottom";
+};
