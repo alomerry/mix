@@ -1,7 +1,7 @@
 package db
 
 import (
-	"gw/core/env"
+	"github.com/alomerry/go-tools/static/env"
 	m "gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"time"

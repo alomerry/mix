@@ -3,6 +3,7 @@ package blog
 import (
 	"context"
 	"fmt"
+	"github.com/alomerry/go-tools/static/env"
 	"github.com/alomerry/mix/mix-tools/modules/blog/markdown"
 	"github.com/alomerry/mix/mix-tools/utils"
 	"github.com/elastic/go-elasticsearch/v8"
@@ -29,9 +30,9 @@ var (
 func init() {
 	cfg := elasticsearch.Config{
 		Addresses: []string{
-			utils.GetElasticSearchEndpoint(),
+			env.GetElasticSearchEndpoint(),
 		},
-		APIKey: utils.GetElasticSearchAK(),
+		APIKey: env.GetElasticSearchAK(),
 	}
 	tc, err := elasticsearch.NewTypedClient(cfg)
 	if err != nil {

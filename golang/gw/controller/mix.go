@@ -3,11 +3,12 @@ package controller
 import (
 	"context"
 	"encoding/json"
+	"github.com/alomerry/go-tools/static/env"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/gin-gonic/gin"
-	"gw/core/env"
+	"gw/module/k8s"
 	"net/http"
 	"time"
 )
@@ -21,15 +22,25 @@ var (
 )
 
 func init() {
+	initRouter()
+	initEsClient()
+}
+
+func initRouter() {
 	registerRouter(Version0, func(v0 *gin.RouterGroup) {
 		var (
 			mix  = v0.Group("/mix")
 			blog = mix.Group("/blog")
+			gw   = mix.Group("/gw")
 		)
 
 		blog.POST("/search", blogSearch)
-	})
 
+		gw.POST("/restart", gwRestart)
+	})
+}
+
+func initEsClient() {
 	cfg := elasticsearch.Config{
 		Addresses: []string{
 			env.GetElasticSearchEndpoint(),
@@ -38,6 +49,13 @@ func init() {
 	}
 	var err error
 	client, err = elasticsearch.NewTypedClient(cfg)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func gwRestart(c *gin.Context) {
+	_, err := k8s.GetKubernetes().RolloutRestartDeployment(context.TODO(), k8s.MixNamespace, k8s.MixDeploymentGw)
 	if err != nil {
 		panic(err)
 	}

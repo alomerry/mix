@@ -5,6 +5,7 @@ on:
     branches: [ master ]
     paths:
       - 'golang/gw/**'
+      - 'gw/**'
 
 jobs:
   build:
