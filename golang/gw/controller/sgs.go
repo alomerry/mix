@@ -3,8 +3,8 @@ package controller
 import (
 	"errors"
 	"fmt"
-	"github.com/alomerry/go-tools/sgs/delay"
-	"github.com/alomerry/go-tools/sgs/tools"
+	"github.com/alomerry/go-tools/modules/sgs/delay"
+	"github.com/alomerry/go-tools/modules/sgs/tools"
 	"github.com/duke-git/lancet/v2/fileutil"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"

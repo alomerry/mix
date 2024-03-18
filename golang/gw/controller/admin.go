@@ -3,9 +3,9 @@ package controller
 import (
 	"crypto/md5"
 	"fmt"
+	"github.com/alomerry/go-tools/static/env"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"gw/core/env"
 	"gw/core/utils/jwt"
 	"gw/module/admin/model"
 	"net/http"
@@ -65,7 +65,7 @@ func (a *AdminController) login(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	user := model.CUser.FindByNameAndHash(req.Username, fmt.Sprintf("%x", md5.Sum([]byte(req.Password+env.GetDatabaseSalt()))))
+	user := model.CUser.FindByNameAndHash(req.Username, fmt.Sprintf("%x", md5.Sum([]byte(req.Password+env.GetDBSalt()))))
 	if user == nil {
 		c.String(http.StatusForbidden, "账号或密码错误")
 		return
