@@ -36,6 +36,12 @@ var (
 	safeDomains = []string{
 		"https://blog.alomerry.com",
 		"https://admin.alomerry.com",
+		"https://mix-gw.alomerry.com",
+		"https://kibana.alomerry.com",
+		"https://grafana.alomerry.com",
+		"https://influxdb.alomerry.com",
+		"https://it-tools.alomerry.com",
+		"https://ref.alomerry.com",
 	}
 )
 

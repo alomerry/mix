@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"gw/core/utils/jwt"
-	"gw/module/admin/model"
+	"gw/modules/admin/model"
 	"net/http"
 	"time"
 )

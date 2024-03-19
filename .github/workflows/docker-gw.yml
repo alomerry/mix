@@ -28,3 +28,9 @@ jobs:
           chmod +x ./gw
           docker build . --file Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/alomerry/gw:latest
           docker push registry.cn-hangzhou.aliyuncs.com/alomerry/gw:latest
+      # https://github.com/marketplace/actions/http-request-action
+      - name: trigger rollout restart
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{secrets.MIX_GW_RESTART_URL}}
+          method: 'POST'

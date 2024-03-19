@@ -10,6 +10,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/google/uuid v1.6.0
 	github.com/magiconair/properties v1.8.7
+	github.com/panjf2000/ants/v2 v2.9.0
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.18.2

@@ -36,3 +36,14 @@ func TestRolloutRestartDeployment(t *testing.T) {
 
 	assert.Equal(t, true, success)
 }
+
+func TestGetAllNamespaces(t *testing.T) {
+	cluster := GetKubernetes()
+	// 查询 default 命名空间下的所有 pod
+	namespaces, err := cluster.GetAllNamespace(testCtx)
+	if err != nil {
+		panic(err)
+	}
+
+	assert.Greater(t, len(namespaces), 10)
+}

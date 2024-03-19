@@ -17,6 +17,34 @@ spec:
   selector:
     app: gw-pod
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+  namespace: mix
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gw-rw-role
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: mix-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: gw-rw-role
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: mix
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

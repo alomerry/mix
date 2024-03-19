@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/alomerry/go-tools/static/env"
-	"github.com/alomerry/mix/mix-tools/modules/blog/markdown"
-	"github.com/alomerry/mix/mix-tools/utils"
+	"github.com/alomerry/go-tools/utils/array"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/panjf2000/ants/v2"
+	"gw/modules/blog/markdown"
 	"os"
 	"path/filepath"
 	"strings"
@@ -100,7 +100,7 @@ func getDirMarkdown(path string) []string {
 	}
 	var res []string
 	for _, entry := range dir {
-		if utils.ContainsByJudge(ignoreDirKeywords, entry.Name(), strings.Contains) {
+		if array.ContainsByJudge(ignoreDirKeywords, entry.Name(), strings.Contains) {
 			continue
 		}
 

@@ -75,3 +75,20 @@ func (c *Cluster) RolloutRestartDeployment(ctx context.Context, namespace string
 
 	return true, nil
 }
+
+func (c *Cluster) GetAllNamespace(ctx context.Context) ([]string, error) {
+	var (
+		res             []string
+		namespaces, err = c.clientset.CoreV1().Namespaces().List(ctx, v1.ListOptions{})
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	// TODO 监听状态，失败则回滚
+
+	for _, n := range namespaces.Items {
+		res = append(res, n.Name)
+	}
+	return res, nil
+}

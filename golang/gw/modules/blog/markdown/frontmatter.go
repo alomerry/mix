@@ -2,7 +2,7 @@ package markdown
 
 import (
 	"fmt"
-	"github.com/alomerry/mix/mix-tools/utils"
+	utils "github.com/alomerry/go-tools/utils/time"
 	"regexp"
 	"strings"
 	"time"
