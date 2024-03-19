@@ -132,6 +132,15 @@ const fetchNamespaces = (query: string) => {
               <span :style="{ color: colors[idx] }">{{ item.label }}</span>
             </div>
           </el-option>
+          <template #tag>
+            <el-tag
+              v-for="(item, idx) in k8sResourceTypes"
+              :key="item.value"
+              :color="colors[idx]"
+            >
+              {{ item.value }}
+            </el-tag>
+          </template>
         </el-select>
       </el-form-item>
     </el-form>
