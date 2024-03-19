@@ -14,11 +14,10 @@ export default {
     {
       path: "/k8s/index",
       name: "k8s",
-      component: IFrame,
+      component: () => import("@/views/alomerry/k8s/k8s/index.vue"),
       meta: {
         icon: "carbon:kubernetes",
         title: "k8s",
-        frameSrc: "https://www.baidu.com",
         keepAlive: true
       }
     },
