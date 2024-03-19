@@ -1,5 +1,7 @@
 import { product } from "@/router/enums";
 
+const IFrame = () => import("@/layout/frameView.vue");
+
 const sgs = {
   path: "/product/sgs",
   meta: {
@@ -88,6 +90,38 @@ const todo = {
   ]
 } as RouteChildrenConfigsTable;
 
+const tools = {
+  path: "/product/tools",
+  meta: {
+    title: "Tools",
+    icon: "logos:applitools-icon"
+  },
+  children: [
+    {
+      path: "/product/tools/it",
+      name: "ProductToolsIt",
+      component: IFrame,
+      meta: {
+        title: "IT 工具",
+        icon: "material-symbols-light:tools-pliers-wire-stripper-outline",
+        frameSrc: "https://it-tools.alomerry.com",
+        keepAlive: true
+      }
+    },
+    {
+      path: "/product/tools/reference",
+      name: "ProductToolsReference",
+      component: IFrame,
+      meta: {
+        title: "知识库",
+        icon: "tabler:brand-kbin",
+        frameSrc: "https://ref.alomerry.com",
+        keepAlive: true
+      }
+    }
+  ]
+} as RouteChildrenConfigsTable;
+
 export default {
   path: "/product",
   meta: {
@@ -95,5 +129,5 @@ export default {
     icon: "material-symbols:app-badging-outline",
     rank: product
   },
-  children: [infancy7k, sgs, todo]
+  children: [infancy7k, sgs, tools, todo]
 } as RouteConfigsTable;
