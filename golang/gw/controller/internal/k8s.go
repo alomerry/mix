@@ -40,6 +40,7 @@ func (*KubernetesController) namespaces(c *gin.Context) {
 	if err != nil {
 		slog.Error("get namespace failed.", "err", err.Error())
 		c.Error(err)
+		return
 	}
 	c.JSON(http.StatusOK, namespaceResp{Namespaces: namespaces})
 }
