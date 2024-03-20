@@ -5,6 +5,8 @@ metadata:
 spec:
   version: 8.12.2
   count: 1
+  # xpack.security.sameSiteCookies: "None"
+  # csp.frame_ancestors: [ "https://*.alomerry.com", "http://localhost:8848" ]
   config:
     i18n.locale: zh-CN
     server.publicBaseUrl: "https://kibana.alomerry.com/"

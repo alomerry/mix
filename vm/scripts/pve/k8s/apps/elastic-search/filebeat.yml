@@ -15,17 +15,11 @@ spec:
       type: kubernetes
       hints.default_config.enabled: "false"
       templates:
-      - condition.equals.kubernetes.namespace: log-namespace
-        config:
-        - paths: ["/var/log/containers/*${data.kubernetes.container.id}.log"]
-          type: container
       - condition.equals.kubernetes.labels.log: "true"
         config:
         - paths: ["/var/log/containers/*${data.kubernetes.container.id}.log"]
           type: container
     processors:
-    - add_cloud_metadata: {}
-    - add_host_metadata: {}
     logging.level: info 
   daemonSet:
     podTemplate:
