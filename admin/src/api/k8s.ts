@@ -1,9 +1,31 @@
 import { http } from "@/utils/http";
 
-type getK8sNamespacesResp = {
+export type listNamespacesResp = {
   namespaces: Array<string>;
 };
 
-export const getK8sNamespaces = (keyword: string) => {
-  return http.request<getK8sNamespacesResp>("get", `/v0/mix/k8s/namespaces`);
+export type listResourcesResp = {
+  pods: namespacePods[];
+};
+
+export const listNamespaces = (keyword: string) => {
+  return http.request<listNamespacesResp>("get", `/v0/mix/k8s/namespaces`);
+};
+
+export const listResources = () => {
+  return http.request<listResourcesResp>("get", `/v0/mix/k8s/namespaces`);
+};
+
+export type namespacePods = {
+  namespace: string;
+  pods: pod[];
+};
+
+export type pod = {
+  name: string;
+  namespace: string;
+  ip?: string;
+  imageVersion?: string;
+  createdAt: string;
+  status: string;
 };

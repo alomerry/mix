@@ -40,7 +40,7 @@ export function getPluginsList(
       logger: false,
       include: "mock",
       infixName: false,
-      enableProd: true
+      enableProd: false
     }),
     // 自定义主题
     themePreprocessorPlugin({

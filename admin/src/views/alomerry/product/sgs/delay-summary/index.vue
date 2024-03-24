@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import plan from "./plan.vue";
 import { genRandomStr, DOMAIN } from "@/utils/alomerry";
 import { ElMessage, UploadInstance } from "element-plus";
@@ -152,10 +152,18 @@ const queryStatus = () => {
       });
   }
 };
+
+const apiUnhealthy = ref(false);
+onMounted(() => {
+  // check apiHealth
+  setTimeout(function () {
+    apiUnhealthy.value = true;
+  }, 1000);
+});
 </script>
 
 <template>
-  <el-card class="sgs-delay-summary" shadow="never">
+  <el-card class="sgs-delay-summary" shadow="never" :disabled="apiUnhealthy">
     <template #header>
       <el-button
         type="primary"
@@ -166,10 +174,14 @@ const queryStatus = () => {
       >
         操作说明
       </el-button>
+      <el-button type="primary" tag="div" color="red" plain>
+        机器状态：不可用
+      </el-button>
     </template>
     <plan />
     <el-steps
       :active="currentStep"
+      :disabled="apiUnhealthy"
       class="mt-8 mb-6"
       align-center
       finish-status="success"
@@ -359,14 +371,20 @@ const queryStatus = () => {
     </el-steps>
     <el-row class="mb-8 mt-8" justify="center">
       <el-col :span="12" :offset="6">
-        <el-button class="delay-help-reset" @click="nextStep(0)">
+        <el-button
+          class="delay-help-reset"
+          :disabled="apiUnhealthy"
+          @click="nextStep(0)"
+        >
           重置
         </el-button>
         <el-button
           v-if="currentStep < 5"
           class="delay-help-exec"
           type="success"
-          :disabled="currentStep < 3 || loading.get(STEP_RESULT)"
+          :disabled="
+            currentStep < 3 || loading.get(STEP_RESULT) || apiUnhealthy
+          "
           plain
           @click="doDelaySummary()"
         >

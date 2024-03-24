@@ -1,83 +1,43 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import SearchForm from "@/views/alomerry/k8s/k8s/components/SearchForm.vue";
-import { listResourcesResp } from "@/api/k8s";
-import ResourceTable from "@/views/alomerry/k8s/k8s/components/ResourceTable.vue";
+import { reactive } from "vue";
+import {
+  KubernetesNamespace,
+  KubernetesResourceType
+} from "@/views/alomerry/k8s/k8s/constant";
+import Resource from "@/views/alomerry/k8s/k8s/components/search-form/Resource.vue";
+import Namespace from "@/views/alomerry/k8s/k8s/components/search-form/Namespace.vue";
 
-defineOptions({
-  name: "KubernetesIndex"
+const searchForm = reactive({
+  namespaces: [KubernetesNamespace.Default],
+  resourceTypes: [KubernetesResourceType.Pod]
 });
 
-const data = ref<listResourcesResp>();
+const emit = defineEmits(["data-changed"]);
 
-data.value = {
-  pods: [
-    {
-      namespace: "default",
-      pods: [
-        {
-          name: "gw-mix",
-          status: "running",
-          createdAt: "2012-10-12 23:59",
-          ip: "192.168.1.1",
-          imageVersion: "v1",
-          namespace: "default"
-        },
-        {
-          name: "tools-mix",
-          status: "terminating",
-          ip: "192.168.1.1",
-          imageVersion: "v1",
-          createdAt: "2011-10-12 23:59",
-          namespace: "default"
-        }
-      ]
-    },
-    {
-      namespace: "elasticsearch",
-      pods: [
-        {
-          name: "kibana",
-          status: "running",
-          ip: "192.168.1.1",
-          imageVersion: "v1",
-          createdAt: "2012-10-12 23:59",
-          namespace: "default"
-        },
-        {
-          name: "filebeat",
-          status: "terminating",
-          ip: "192.168.1.1",
-          imageVersion: "v1",
-          createdAt: "2011-10-12 23:59",
-          namespace: "default"
-        }
-      ]
-    }
-  ],
-  services: [
-    {
-      namespace: "default",
-      services: [
-        {
-          name: "gw-service",
-          status: "running",
-          createdAt: "2012-10-12 23:59",
-          namespace: "default"
-        }
-      ]
-    }
-  ]
+const queryKubernetes = () => {
+  let length = Math.ceil(Math.random() * 10);
+  let data = ["123"];
+  for (let i = 0; i < length; i++) {
+    data.push(`${i}`);
+  }
+  emit("data-changed", data);
 };
 </script>
 
 <template>
-  <el-card>
-    <SearchForm @data-changed="value => (data = value)" />
-    <el-divider border-style="dashed" />
-    <ResourceTable :data="data" />
-  </el-card>
+  <el-form :model="searchForm" :inline="true" label-width="auto">
+    <Namespace
+      :namespaces="searchForm.namespaces"
+      @namespace-changed="namespaces => (searchForm.namespaces = namespaces)"
+    />
+    <Resource
+      :types="searchForm.resourceTypes"
+      @type-changed="types => (searchForm.resourceTypes = types)"
+    />
+    <el-button @click="queryKubernetes">查询</el-button>
+  </el-form>
 </template>
+
 <style>
 .el-select-dropdown__loading {
   display: flex;
@@ -93,7 +53,6 @@ data.value = {
   width: 30px;
   animation: loading-rotate 2s linear infinite;
 }
-
 .path {
   animation: loading-dash 1.5s ease-in-out infinite;
   stroke-dasharray: 90, 150;
@@ -102,14 +61,12 @@ data.value = {
   stroke: var(--el-color-primary);
   stroke-linecap: round;
 }
-
 .loading-path .dot1 {
   transform: translate(3.75px, 3.75px);
   fill: var(--el-color-primary);
   animation: custom-spin-move 1s infinite linear alternate;
   opacity: 0.3;
 }
-
 .loading-path .dot2 {
   transform: translate(calc(100% - 3.75px), 3.75px);
   fill: var(--el-color-primary);
@@ -117,7 +74,6 @@ data.value = {
   opacity: 0.3;
   animation-delay: 0.4s;
 }
-
 .loading-path .dot3 {
   transform: translate(3.75px, calc(100% - 3.75px));
   fill: var(--el-color-primary);
@@ -125,7 +81,6 @@ data.value = {
   opacity: 0.3;
   animation-delay: 1.2s;
 }
-
 .loading-path .dot4 {
   transform: translate(calc(100% - 3.75px), calc(100% - 3.75px));
   fill: var(--el-color-primary);
@@ -133,13 +88,11 @@ data.value = {
   opacity: 0.3;
   animation-delay: 0.8s;
 }
-
 @keyframes loading-rotate {
   to {
     transform: rotate(360deg);
   }
 }
-
 @keyframes loading-dash {
   0% {
     stroke-dasharray: 1, 200;
@@ -154,7 +107,6 @@ data.value = {
     stroke-dashoffset: -120px;
   }
 }
-
 @keyframes custom-spin-move {
   to {
     opacity: 1;
