@@ -256,7 +256,8 @@ get_version() {
   fi
   RELEASE_LATEST="$(sed 'y/,/\n/' "$TMP_FILE" | grep 'tag_name' | awk -F '"' '{print $4}')"
   "rm" "$TMP_FILE"
-  RELEASE_VERSION="v${RELEASE_LATEST#v}"
+  # RELEASE_VERSION="v${RELEASE_LATEST#v}"
+  RELEASE_VERSION="v5.14.1"
   # Compare V2Ray version numbers
   if [[ "$RELEASE_VERSION" != "$CURRENT_VERSION" ]]; then
     RELEASE_VERSIONSION_NUMBER="${RELEASE_VERSION#v}"
@@ -291,7 +292,8 @@ get_version() {
 }
 
 download_v2ray() {
-  DOWNLOAD_LINK="https://github.com/v2fly/v2ray-core/releases/download/$RELEASE_VERSION/v2ray-linux-$MACHINE.zip"
+  # DOWNLOAD_LINK="https://github.com/v2fly/v2ray-core/releases/download/$RELEASE_VERSION/v2ray-linux-$MACHINE.zip"
+  DOWNLOAD_LINK="https://cdn.alomerry.com/packages/v2ray/$RELEASE_VERSION/v2ray-linux-$MACHINE.zip"
   echo "Downloading V2Ray archive: $DOWNLOAD_LINK"
   if ! curl -x "${PROXY}" -R -H 'Cache-Control: no-cache' -o "$ZIP_FILE" "$DOWNLOAD_LINK"; then
     echo 'error: Download failed! Please check your network or try again.'
@@ -307,13 +309,15 @@ download_v2ray() {
     return 1
   fi
 
+  # 不校验 SHA256
   # Verification of V2Ray archive
-  CHECKSUM=$(awk -F '= ' '/256=/ {print $2}' < "${ZIP_FILE}.dgst")
-  LOCALSUM=$(sha256sum "$ZIP_FILE" | awk '{printf $1}')
-  if [[ "$CHECKSUM" != "$LOCALSUM" ]]; then
-    echo 'error: SHA256 check failed! Please check your network or try again.'
-    return 1
-  fi
+  # CHECKSUM=$(awk -F '= ' '/256=/ {print $2}' < "${ZIP_FILE}.dgst")
+  # LOCALSUM=$(sha256sum "$ZIP_FILE" | awk '{printf $1}')
+  # if [[ "$CHECKSUM" != "$LOCALSUM" ]]; then
+  #   echo 'error: SHA256 check failed! Please check your network or try again.'
+  #   return 1
+  # fi
+
 }
 
 decompression() {

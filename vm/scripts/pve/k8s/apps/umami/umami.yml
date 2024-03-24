@@ -6,10 +6,10 @@ metadata:
   namespace: alomerry
 spec:
   ports:
-  - name: umami
-    port: 3000
-    targetPort: umami
-    protocol: TCP
+    - name: umami
+      port: 3000
+      targetPort: umami
+      protocol: TCP
   selector:
     app: umami
 ---
@@ -31,34 +31,34 @@ spec:
         app: umami
     spec:
       containers:
-      # ghcr.lank8s.cn/umami-software/umami:mysql-latest
-      # registry.cn-hangzhou.aliyuncs.com/alomerry/k8s-umami:latest
-      - image: registry.cn-hangzhou.aliyuncs.com/alomerry/k8s-umami:latest
-        imagePullPolicy: Always
-        name: umami
-        env:
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: mysql-umami-cfg
-              key: dsn
-        - name: APP_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: mysql-umami-cfg
-              key: secret
-        - name: DATABASE_TYPE
-          value: mysql
-        ports:
-        - containerPort: 3000
-          protocol: TCP
+        # ghcr.lank8s.cn/umami-software/umami:mysql-latest
+        # registry.cn-hangzhou.aliyuncs.com/alomerry/k8s-umami:latest
+        - image: registry.cn-hangzhou.aliyuncs.com/alomerry/k8s-umami:latest
+          imagePullPolicy: Always
           name: umami
-        volumeMounts:
-        - name: localtime
-          readOnly: true
-          mountPath: /etc/localtime
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-8-secret
+                  key: Unmami_Dsn
+            - name: APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-8-secret
+                  key: Unmami_Secret
+            - name: DATABASE_TYPE
+              value: mysql
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+              name: umami
+          volumeMounts:
+            - name: localtime
+              readOnly: true
+              mountPath: /etc/localtime
       volumes:
-      - name: localtime
-        hostPath:
-          type: File
-          path: /etc/localtime
+        - name: localtime
+          hostPath:
+            type: File
+            path: /etc/localtime

@@ -22,8 +22,13 @@ install_qemu_guest() {
 }
 
 init_pve_vm() {
-  journalctl --vacuum-time=1d && journalctl --vacuum-size=30M; \
-    timedatectl set-timezone "Asia/Shanghai"
+  journalctl --vacuum-time=1d && journalctl --vacuum-size=70M;
+  timedatectl set-timezone "Asia/Shanghai"
+
+  # 开启 bbr
+  lsmod | grep bbr
+  echo "net.ipv4.tcp_congestion_control = bbr" | tee -a /etc/sysctl.conf
+  sysctl -p
 }
 
 main() {
