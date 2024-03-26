@@ -39,7 +39,7 @@ jobs:
       - name: 构建二进制
         run: |
           cd golang/gw
-          go build -o gw openapi/main.go
+          go build -ldflags "-X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn" -o gw openapi/main.go
       - name: 构建镜像
         run: |
           docker version

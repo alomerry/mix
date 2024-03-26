@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: mix-module-blog
-          image: registry.cn-hangzhou.aliyuncs.com/alomerry/mix-module-blog:latest
+          image: registry.cn-hangzhou.aliyuncs.com/alomerry/mix-blog:latest
           imagePullPolicy: Always
           ports:
             - name: http
