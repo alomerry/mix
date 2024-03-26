@@ -5,7 +5,7 @@ on:
     branches: [ master ]
     paths:
       - 'golang/gw/proto/admin/**'
-      - 'golang/gw/proto/scripts/**'
+      # - 'golang/gw/proto/scripts/**'
       - 'golang/gw/service/admin/**'
 
 jobs:

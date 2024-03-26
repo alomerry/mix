@@ -5,7 +5,7 @@ on:
     branches: [ master ]
     paths:
       - 'golang/gw/proto/k8s/**'
-      - 'golang/gw/proto/scripts/**'
+      # - 'golang/gw/proto/scripts/**'
       - 'golang/gw/service/k8s/**'
 
 jobs:

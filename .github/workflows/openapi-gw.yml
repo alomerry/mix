@@ -4,7 +4,11 @@ on:
   push:
     branches: [master]
     paths:
-      - "golang/gw/**"
+      - ".github/workflows/openapi-gw.yml"
+      - "golang/gw/openapi/**"
+      - "golang/gw/proto/**"
+      - "golang/gw/Dockerfile"
+      - "golang/gw/build.sh"
 
 jobs:
   build:
@@ -31,10 +35,11 @@ jobs:
           export PATH="$PATH:$(go env GOPATH)/bin"
           cd golang/gw
           ./build.sh proto
-      - name: buil构建二进制
+          ./build.sh gateway
+      - name: 构建二进制
         run: |
-          cd golang/gw/openapi
-          go build -o gw main.go
+          cd golang/gw
+          go build -o gw openapi/main.go
       - name: 构建镜像
         run: |
           docker version
