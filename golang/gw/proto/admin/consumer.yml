@@ -5,7 +5,9 @@ http:
   rules:
     - selector: gw.admin.AdminService.Login
       post: "/v0/mix/admin/login"
+      body: '*'
     - selector: gw.admin.AdminService.RefreshLogin
       post: "/v0/mix/admin/token/refresh"
+      body: '*'
     - selector: gw.admin.AdminService.ListAsyncRoutes
       get: "/v0/mix/admin/asyncRoutes"
