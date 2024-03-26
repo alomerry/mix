@@ -53,3 +53,13 @@ spec:
                 secretKeyRef:
                   name: mix-secret
                   key: database-salt
+            - name: REDIS_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: mix-secret
+                  key: redis-cluster-dsn
+            - name: REDIS_AK
+              valueFrom:
+                secretKeyRef:
+                  name: mix-secret
+                  key: redis-cluster-pwd
