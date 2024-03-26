@@ -5,7 +5,7 @@ import { routerArrays } from "@/layout/types";
 import { router, resetRouter } from "@/router";
 import { storageLocal } from "@pureadmin/utils";
 import { getLogin, refreshTokenApi } from "@/api/user";
-import type { UserResult, RefreshTokenResult } from "@/api/user";
+import type { TokenResult, RefreshTokenResult } from "@/api/user";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { type DataInfo, setToken, removeToken, userKey } from "@/utils/auth";
 import { ElMessage } from "element-plus";
@@ -53,17 +53,16 @@ export const useUserStore = defineStore({
     },
     /** 登入 */
     async loginByUsername(data) {
-      return new Promise<UserResult>((resolve, reject) => {
+      return new Promise<TokenResult>((resolve, reject) => {
         getLogin(data)
           .then(data => {
             if (data) {
-              console.log(data);
-              setToken(data.data);
+              setToken(data);
               resolve(data);
             }
           })
           .catch(error => {
-            ElMessage.error(error.response.data);
+            ElMessage.error(error.response);
             reject(error);
           });
       });

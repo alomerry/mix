@@ -135,13 +135,11 @@ const tabsRouter = {
 
 export default defineFakeRoute([
   {
-    url: "/get-async-routes",
+    url: "/async-routes",
     method: "get",
     response: () => {
-      return {
-        success: true,
-        data: [systemRouter, permissionRouter, tabsRouter]
-      };
+      // return [systemRouter, permissionRouter, tabsRouter]
+      return [];
     }
   }
 ]);

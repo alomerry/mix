@@ -53,7 +53,7 @@ spec:
                 secretKeyRef:
                   name: mix-secret
                   key: database-salt
-            - name: REDIS_DSN
+            - name: REDIS_CLUSTER_DSN
               valueFrom:
                 secretKeyRef:
                   name: mix-secret
