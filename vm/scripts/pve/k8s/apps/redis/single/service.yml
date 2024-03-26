@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-service-s
+  name: redis-service-single
   namespace: alomerry
 spec:
   ports:
-  - name: redis-port
-    port: 6379
-    targetPort: 6379
+    - name: redis-port
+      port: 6379
+      targetPort: 6379
   selector:
-    app: redis6-s
+    app: redis6-single
