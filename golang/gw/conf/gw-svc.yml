@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mix-gw-service
+  namespace: alomerry
+spec:
+  ports:
+    - name: http
+      port: 4790
+      targetPort: http
+      protocol: TCP
+  selector:
+    app: mix-gw
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mix-gw-deployment
+  namespace: alomerry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mix-gw
+  template:
+    metadata:
+      labels:
+        app: mix-gw
+        log: "true"
+    spec:
+      containers:
+        - name: mix-gw
+          image: registry.cn-hangzhou.aliyuncs.com/alomerry/mix-gw:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 4790
+              protocol: TCP
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: mix-secret
+                  key: home-lab-admin-token-secret

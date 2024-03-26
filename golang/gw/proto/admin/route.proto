@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package gw.admin;
+
+option go_package = ".;admin";
+
+message ListAsyncRoutesRequest {
+  string username = 1;
+}
+
+message ListAsyncRoutesResponse {
+  // TODO
+  repeated string data = 1;
+}
+

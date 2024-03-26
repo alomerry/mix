@@ -1,0 +1,55 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mix-module-admin-service
+  namespace: alomerry
+spec:
+  ports:
+    - name: http
+      port: 8091
+      targetPort: http
+      protocol: TCP
+  selector:
+    app: mix-module-admin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mix-module-admin-deployment
+  namespace: alomerry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mix-module-admin
+  template:
+    metadata:
+      labels:
+        app: mix-module-admin
+        log: "true"
+    spec:
+      containers:
+        - name: mix-module-admin
+          image: registry.cn-hangzhou.aliyuncs.com/alomerry/mix-admin:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8091
+              protocol: TCP
+          env:
+            - name: MYSQL_ADMIN_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: mix-secret
+                  key: home-lab-admin-mysql-dsn
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: mix-secret
+                  key: home-lab-admin-token-secret
+            - name: DATABASE_SALT
+              valueFrom:
+                secretKeyRef:
+                  name: mix-secret
+                  key: database-salt

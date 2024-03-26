@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package gw.k8s;
+
+option go_package = ".;k8s";
+
+import "namespace.proto";
+import "deployment.proto";
+import "resource.proto";
+
+service KubernetesService {
+  // 获取命名空间
+  rpc ListNamespaces(ListNamespacesRequest) returns (ListNamespacesResponse);
+  rpc RolloutRestartDeployment(RolloutRestartDeploymentRequest) returns (RolloutRestartDeploymentResponse);
+  rpc ListResources(ListResourcesRequest) returns (ListResourcesResponse);
+}

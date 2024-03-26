@@ -1,17 +1,28 @@
 package jwt
 
 import (
+	"context"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
+	"gw/core/log"
 	"time"
 )
 
 const (
 	Issuer = "gw"
+
+	Version = "v0"
+
+	TokenType       Type = "TokenType"
+	RefreshCodeType Type = "RefreshCodeType"
 )
 
+type Type string
+
 type Claims struct {
-	Version string `json:"version"`
+	Version  string `json:"version"`
+	Username string `json:"username"`
+	Type     Type   `json:"type"`
 }
 
 type customClaims struct {
@@ -33,7 +44,7 @@ func GenToken(custom Claims, secret string) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
+	log.Error(context.TODO(), token.Raw)
 	str, err := token.SignedString([]byte(secret))
 	if err != nil {
 		return "", err

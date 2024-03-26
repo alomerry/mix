@@ -1,4 +1,8 @@
 output
-gw
+
+proto/**/*.pb.go
+proto/**/*.pb.gw.go
+proto/gatewayLoader.go
+proto/scripts/genGatewayLoader
 
 .run

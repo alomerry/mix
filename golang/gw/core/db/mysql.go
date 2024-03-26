@@ -9,6 +9,7 @@ import (
 
 var (
 	mysql *gorm.DB
+	debug = true
 )
 
 func init() {
@@ -16,7 +17,9 @@ func init() {
 		dsn = env.GetMysqlAdminDSN()
 		err error
 	)
-	mysql, err = gorm.Open(m.Open(dsn), &gorm.Config{})
+	mysql, err = gorm.Open(m.Open(dsn), &gorm.Config{
+		// PrepareStmt: false, // https://gorm.io/zh_CN/docs/performance.html#缓存预编译语句
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -31,6 +34,9 @@ func init() {
 	sqlDB.SetConnMaxLifetime(time.Hour)
 }
 
-func GetMySQL() *gorm.DB {
-	return mysql
+func MySQL() *gorm.DB {
+	if debug {
+		return mysql.Debug().Session(&gorm.Session{})
+	}
+	return mysql.Session(&gorm.Session{})
 }

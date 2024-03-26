@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package gw.k8s;
+
+option go_package = ".;k8s";
+
+message RolloutRestartDeploymentRequest {
+
+}
+
+message RolloutRestartDeploymentResponse {
+}

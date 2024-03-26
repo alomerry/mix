@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package gw.blog;
+
+option go_package = ".;blog";
+
+import "blog.proto";
+
+service BlogService {
+  rpc SearchBlogs(SearchBlogsRequest) returns (SearchBlogsResponse);
+}

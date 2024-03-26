@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package gw.k8s;
+
+option go_package = ".;k8s";
+
+message ListResourcesRequest {
+
+}
+
+message ListResourcesResponse {
+  repeated NamespacePods namespacePods = 1;
+}
+
+message NamespacePods {
+  string namespace = 1;
+  repeated Pod pods = 2;
+}
+
+message NamespaceService {
+  string namespace = 1;
+  repeated Service service = 2;
+}
+
+
+message Pod {
+  string namespace = 1;
+  string name = 2;
+  string status = 3;
+  string createdAt = 4;
+}
+
+message Service {
+  string namespace = 1;
+  string name = 2;
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package gw.admin;
+
+option go_package = ".;admin";
+
+import "user.proto";
+import "route.proto";
+
+service AdminService {
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc RefreshLogin(RefreshLoginRequest) returns (LoginResponse);
+  rpc ListAsyncRoutes(ListAsyncRoutesRequest) returns (ListAsyncRoutesResponse);
+}

@@ -1,6 +1,7 @@
 package db
 
 import (
+	"github.com/alomerry/go-tools/static/env"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -10,8 +11,8 @@ var (
 
 func init() {
 	rdb = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "WjC120211",
+		Addr:     env.GetRedisDSN(),
+		Password: env.GetRedisAK(),
 	})
 }
 

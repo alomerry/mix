@@ -20,6 +20,7 @@ func TestToken(t *testing.T) {
 	t.Run("test create token", func(t *testing.T) {
 		var err error
 		token, err = GenToken(testClaims, testTokenSecret)
+		t.Log(token)
 		assert.Nil(t, err)
 	})
 
