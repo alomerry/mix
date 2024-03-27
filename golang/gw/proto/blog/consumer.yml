@@ -4,4 +4,4 @@ config_version: 3
 http:
   rules:
     - selector: gw.blog.BlogService.SearchBlogs
-      get: "/v0/blog/search"
+      post: "/v0/blog/search"

@@ -29,7 +29,7 @@ interface blog {
 
 const queryEs = () => {
   if (keyword.value.length > 0) {
-    API.post(`/v0/mix/blog/search?keyword=${keyword.value}`)
+    API.post(`/v0/mix/blog/search`, { keyword: keyword.value })
       .then((resp: AxiosResponse) => {
         searchRes.value = resp.data as blog[];
       })

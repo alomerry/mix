@@ -1,8 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const API: AxiosInstance = axios.create({
-  baseURL: "https://mix-gw.alomerry.com",
-  // baseURL: "http://localhost:4790",
+  // baseURL: "https://mix-gw.alomerry.com",
   timeout: 5000,
 });
 
