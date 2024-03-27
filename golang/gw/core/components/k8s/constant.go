@@ -1,10 +1,17 @@
 package k8s
 
 const (
-	NamespaceMix = "mix"
-
-	DeploymentMixGw = "gw-deployment"
-	PodMixGw        = "gw-deployment"
+	NamespaceAlomerry            = "alomerry"
+	DeploymentAlomerryGw         = "mix-gw-deployment"
+	DeploymentAlomerryAdmin      = "mix-module-admin-deployment"
+	DeploymentAlomerryBlog       = "mix-module-blog-deployment"
+	DeploymentAlomerryKubernetes = "mix-module-k8s-deployment"
 
 	MixOptVersion = "mix-opt-version"
+)
+
+var (
+	MixDeployments = []string{
+		DeploymentAlomerryBlog, DeploymentAlomerryAdmin, DeploymentAlomerryKubernetes, DeploymentAlomerryGw,
+	}
 )

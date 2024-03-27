@@ -7,7 +7,7 @@ import (
 type Code uint32
 
 const (
-	SystemError Code = 100000 + iota
+	SystemError Code = 10000 + iota
 	InternalServerError
 	UnknownError
 	InvalidParams

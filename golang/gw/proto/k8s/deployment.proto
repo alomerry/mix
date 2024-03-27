@@ -5,7 +5,8 @@ package gw.k8s;
 option go_package = ".;k8s";
 
 message RolloutRestartDeploymentRequest {
-
+  string namespace = 1;
+  string deployment = 2;
 }
 
 message RolloutRestartDeploymentResponse {

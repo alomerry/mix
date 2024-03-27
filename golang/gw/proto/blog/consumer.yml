@@ -5,3 +5,4 @@ http:
   rules:
     - selector: gw.blog.BlogService.SearchBlogs
       post: "/v0/mix/blog/search"
+      body: '*'
