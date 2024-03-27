@@ -47,6 +47,13 @@ var (
 
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		if c.Request.Method == "OPTIONS" {
+			setPreflight(c)
+			c.Status(http.StatusOK)
+			c.Abort()
+			return
+		}
+
 		origin := c.GetHeader("Origin")
 		if len(origin) == 0 {
 			c.Next()
@@ -54,15 +61,11 @@ func Cors() gin.HandlerFunc {
 		}
 
 		c.Header("Access-Control-Allow-Origin", origin)
-		if c.Request.Method == "OPTIONS" {
-			setPreflight(c)
-			c.Status(http.StatusOK)
-			return
-		}
 
 		if !valid(c) {
 			c.Header("Content-Type", "application/json; charset=utf-8")
 			c.String(http.StatusForbidden, `{"message":"origin is not allowed"}`)
+			c.Abort()
 			return
 		}
 		setCors(c)
