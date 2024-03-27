@@ -2,11 +2,11 @@ name: 构建 blog 服务 docker 镜像并发送到 aliyun
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - 'golang/gw/proto/blog/**'
-      - 'golang/gw/proto/scripts/**'
-      - 'golang/gw/service/blog/**'
+      - "golang/gw/proto/blog/**"
+      - "golang/gw/proto/scripts/**"
+      - "golang/gw/service/blog/**"
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.21.5'
+          go-version: "1.21.5"
       - name: 安装 protoc-gen-go/grpc/grpc-gateway/openapiv2 插件
         run: |
           go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
@@ -43,8 +43,10 @@ jobs:
           docker build . --file Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/alomerry/mix-blog:latest
           docker push registry.cn-hangzhou.aliyuncs.com/alomerry/mix-blog:latest
       # https://github.com/marketplace/actions/http-request-action
-      # - name: trigger rollout restart
-      #   uses: fjogeleit/http-request-action@v1
-      #   with:
-      #     url: ${{secrets.MIX_GW_RESTART_URL}}
-      #     method: 'POST'
+      - name: trigger rollout restart
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{secrets.MIX_GW_RESTART_URL}}
+          method: "POST"
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{"namespace": "alomerry", "deployment": "mix-module-blog-deployment"}'

@@ -23,7 +23,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.21.5'
+          go-version: "1.21.5"
       - name: 安装 protoc-gen-go/grpc/grpc-gateway/openapiv2 插件
         run: |
           go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
@@ -49,8 +49,12 @@ jobs:
           docker build . --file Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/alomerry/mix-gw:latest
           docker push registry.cn-hangzhou.aliyuncs.com/alomerry/mix-gw:latest
       # https://github.com/marketplace/actions/http-request-action
-      # - name: trigger rollout restart
-      #   uses: fjogeleit/http-request-action@v1
-      #   with:
-      #     url: ${{secrets.MIX_GW_RESTART_URL}}
-      #     method: "POST"
+      - name: trigger rollout restart
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{secrets.MIX_GW_RESTART_URL}}
+          method: "POST"
+          customHeaders: '{"Content-Type": "application/json"}'
+          retry: 3
+          retryWait: 30000
+          data: '{"namespace": "alomerry", "deployment": "mix-gw-deploymentt"}'
