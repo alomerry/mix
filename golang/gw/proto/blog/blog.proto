@@ -18,11 +18,12 @@ message markdown {
   string place = 3;
   string description = 4;
   repeated string types = 5;
-  map<string, highlight> highlight = 6;
+  highlight highlight = 6;
   string createdAt = 7;
   string updatedAt = 8;
 }
 
 message highlight {
   repeated string content = 1;
+  repeated string title = 2;
 }

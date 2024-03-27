@@ -4,7 +4,7 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
-	"github.com/alomerry/go-tools/modules/copier"
+	"github.com/alomerry/copier"
 	"github.com/alomerry/go-tools/static/env"
 	"gw/core/codes"
 	"gw/core/components/token"

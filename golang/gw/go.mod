@@ -3,7 +3,8 @@ module gw
 go 1.22.1
 
 require (
-	github.com/alomerry/go-tools v0.0.2
+	github.com/alomerry/copier v0.0.8
+	github.com/alomerry/go-tools v0.0.3
 	github.com/duke-git/lancet/v2 v2.3.0
 	github.com/elastic/go-elasticsearch/v8 v8.12.1
 	github.com/gin-gonic/gin v1.9.1

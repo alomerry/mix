@@ -1,5 +1,7 @@
-github.com/alomerry/go-tools v0.0.2 h1:azilTHDtEyO8SCNt3mIFBKu3qUjFwubMTbGjD4RqDYY=
-github.com/alomerry/go-tools v0.0.2/go.mod h1:Vb9LTM13Vi69uCFShCzuIRUGlfhD0QmedKGNAdVChPY=
+github.com/alomerry/copier v0.0.8 h1:xaFZA6nmYtnB0xvTHfrN513rqcuPV40ZJqdmZ3klLe0=
+github.com/alomerry/copier v0.0.8/go.mod h1:OHbuXnQxWp04u33z6goMFAmcJL5dNyz3LYTfcW0Zdiw=
+github.com/alomerry/go-tools v0.0.3 h1:OlU0ijHLsewm6RxLo/xbjbI7eaQbHSiakdbmq+rMswg=
+github.com/alomerry/go-tools v0.0.3/go.mod h1:Vb9LTM13Vi69uCFShCzuIRUGlfhD0QmedKGNAdVChPY=
 github.com/bsm/ginkgo/v2 v2.12.0 h1:Ny8MWAHyOepLGlLKYmXG4IEkioBysk6GpaRTLC8zwWs=
 github.com/bsm/ginkgo/v2 v2.12.0/go.mod h1:SwYbGRRDovPVboqFv0tPTcG1sN61LM1Z4ARdbAV9g4c=
 github.com/bsm/gomega v1.27.10 h1:yeMWxP2pV2fG3FgAODIY8EiRE3dy0aeFYt4l7wh6yKA=

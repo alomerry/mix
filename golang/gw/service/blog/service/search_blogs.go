@@ -3,10 +3,12 @@ package service
 import (
 	"context"
 	"encoding/json"
+	"github.com/alomerry/copier"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"gw/core/components/es"
 	"gw/proto/blog"
+	"gw/service/blog/constant"
 	"time"
 )
 
@@ -15,7 +17,10 @@ func (b BlogService) SearchBlogs(ctx context.Context, request *blog.SearchBlogsR
 	if err != nil {
 		return nil, err
 	}
-	var result []*blog.Markdown
+	var (
+		result []*blog.Markdown
+		cp     = copier.Instance(nil)
+	)
 	for _, hit := range resp.Hits.Hits {
 		data := markdown{}
 		err = json.Unmarshal(hit.Source_, &data)
@@ -26,16 +31,18 @@ func (b BlogService) SearchBlogs(ctx context.Context, request *blog.SearchBlogsR
 					data.Highlight[k] = append(data.Highlight[k], v...)
 				}
 			}
-			result = append(result, &blog.Markdown{
-				MarkdownPath: data.Path,
-				Title:        data.Title,
-				Place:        data.Place,
-				Description:  data.Desc,
-				Types:        data.Types,
-				Highlight:    convertMap2HighlightResp(data.Highlight),
-				CreatedAt:    data.CreatedAt.Format(time.DateTime),
-				UpdatedAt:    data.UpdatedAt.Format(time.DateTime),
-			})
+
+			md := blog.Markdown{}
+			_ = cp.RegisterResetDiffField([]copier.DiffFieldPair{
+				{"Path", []string{"MarkdownPath"}},
+				{"Desc", []string{"Description"}},
+			}).RegisterTransformer(copier.Transformer{
+				"Highlight": convertMap2HighlightResp,
+				"CreatedAt": transferTime,
+				"UpdatedAt": transferTime,
+			}).From(data).CopyTo(&md)
+
+			result = append(result, &md)
 		}
 	}
 	return &blog.SearchBlogsResponse{Markdowns: result}, nil
@@ -52,10 +59,22 @@ type markdown struct {
 	UpdatedAt *time.Time          `json:"updatedAt,omitempty"`
 }
 
-func convertMap2HighlightResp(highlight map[string][]string) map[string]*blog.Highlight {
-	var res = make(map[string]*blog.Highlight)
-	for highlightType, highlightContent := range highlight {
-		res[highlightType] = &blog.Highlight{Content: highlightContent}
+func transferTime(t *time.Time) string {
+	if t == nil {
+		return ""
+	}
+	return t.Format(time.DateTime)
+}
+
+func convertMap2HighlightResp(highlight map[string][]string) *blog.Highlight {
+	var res = &blog.Highlight{}
+	for highlightType, highlights := range highlight {
+		switch highlightType {
+		case constant.BlogSearchHighLightTypeContent:
+			res.Content = highlights
+		case constant.BlogSearchHighLightTypeTitle:
+			res.Title = highlights
+		}
 	}
 	return res
 }
