@@ -4,9 +4,11 @@ config_version: 3
 http:
   rules:
     - selector: gw.k8s.KubernetesService.ListNamespaces
-      get: "/v0/mix/k8s/namespaces"
+      post: "/v0/mix/k8s/namespaces"
+      body: '*'
     - selector: gw.k8s.KubernetesService.ListResources
-      get: "/v0/mix/k8s/resources"
+      post: "/v0/mix/k8s/resources"
+      body: '*'
     - selector: gw.k8s.KubernetesService.RolloutRestartDeployment
       post: "/v0/mix/k8s/deployment/restart"
       body: '*'
