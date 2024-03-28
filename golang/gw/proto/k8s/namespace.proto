@@ -6,6 +6,7 @@ option go_package = ".;k8s";
 
 message ListNamespacesRequest {
   string keyword = 1;
+  repeated string namespaces = 2;
 }
 
 message ListNamespacesResponse {

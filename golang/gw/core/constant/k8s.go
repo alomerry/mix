@@ -1,7 +1,9 @@
-package k8s
+package constant
 
 const (
-	NamespaceAlomerry            = "alomerry"
+	NamespaceAlomerry = "alomerry"
+
+	// Deployment
 	DeploymentAlomerryGw         = "mix-gw-deployment"
 	DeploymentAlomerryAdmin      = "mix-module-admin-deployment"
 	DeploymentAlomerryBlog       = "mix-module-blog-deployment"
@@ -9,8 +11,13 @@ const (
 
 	MixOptVersion = "mix-opt-version"
 
+	// 资源类型
 	ResourceTypePod        = "Pod"
 	ResourceTypeDeployment = "Deployment"
+
+	// Pod 状态
+	PodStatusPending = "Pending"
+	PodStatusRunning = "Running"
 )
 
 var (

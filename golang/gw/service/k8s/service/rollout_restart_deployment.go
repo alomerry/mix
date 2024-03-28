@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/alomerry/go-tools/utils/array"
 	core_codes "gw/core/codes"
-	constant "gw/core/components/k8s"
+	"gw/core/constant"
 	"gw/proto/k8s"
 	"gw/service/k8s/codes"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"

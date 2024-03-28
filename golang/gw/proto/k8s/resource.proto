@@ -42,7 +42,9 @@ message Pod {
   string name = 2;
   string status = 3;
   string createdAt = 4;
-  string image = 5;
+  int32 restartCount = 5; // 重启次数
+  string podIp = 6;
+  repeated string imageIds = 7;
 }
 
 message Service {
