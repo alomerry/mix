@@ -16,11 +16,12 @@ export const listResources = (data?: listResourcesReq) => {
 };
 
 export type listNamespacesResp = {
-  keyword: string;
+  namespaces: string[];
 };
 
 export type listNamespacesReq = {
-  namespaces: string[];
+  keyword: string;
+  namespaces?: string[];
 };
 
 export const listNamespaces = (data?: listNamespacesReq) => {

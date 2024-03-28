@@ -7,7 +7,7 @@ import {
 import { Option } from "@/views/alomerry/k8s/k8s/components/search-form/model";
 
 interface ResourceProp {
-  types?: KubernetesResourceType[]; // 选中的资源类型
+  resourceType?: KubernetesResourceType; // 选中的资源类型
 }
 
 const resourceTypeOptions = ref<Array<Option>>(
@@ -23,19 +23,18 @@ const resourceTypeOptions = ref<Array<Option>>(
 const emit = defineEmits(["type-changed"]);
 const props = withDefaults(defineProps<ResourceProp>(), {});
 
-const types = ref(props.types);
+const resourceType = ref(props.resourceType);
 </script>
 
 <template>
   <el-form-item>
     <el-select
-      v-model="types"
+      v-model="resourceType"
       placeholder="资源类型"
       style="width: 240px"
       filterable
       clearable
-      multiple
-      @change="emit('type-changed', types)"
+      @change="emit('type-changed', resourceType)"
     >
       <el-option
         v-for="(type, idx) in resourceTypeOptions"
@@ -48,9 +47,6 @@ const types = ref(props.types);
           <span :style="{ color: colors[idx] }">{{ type.label }}</span>
         </div>
       </el-option>
-      <template #tag>
-        <el-tag v-for="(type, idx) in types" :key="type" :color="colors[idx]" />
-      </template>
     </el-select>
   </el-form-item>
 </template>

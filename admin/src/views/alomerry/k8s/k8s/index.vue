@@ -3,19 +3,27 @@ import { ref } from "vue";
 import SearchForm from "@/views/alomerry/k8s/k8s/components/SearchForm.vue";
 import { namespacePods } from "@/api/k8s";
 import ResourceTable from "@/views/alomerry/k8s/k8s/components/ResourceTable.vue";
+import { KubernetesResourceType } from "@/views/alomerry/k8s/k8s/constant";
 
 defineOptions({
   name: "KubernetesIndex"
 });
 
 const data = ref<namespacePods[]>();
+const resourceType = ref<KubernetesResourceType>();
 </script>
 
 <template>
   <el-card>
-    <SearchForm @resources-changed="value => (data = value)" />
+    <SearchForm
+      @resources-changed="value => (data = value)"
+      @resources-type-changed="
+        newResourceType =>
+          (resourceType = newResourceType as KubernetesResourceType)
+      "
+    />
     <el-divider border-style="dashed" />
-    <ResourceTable :data="data" />
+    <ResourceTable :data="data" :resource-type="resourceType" />
   </el-card>
 </template>
 <style>

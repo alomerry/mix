@@ -1,7 +1,3 @@
-export enum KubernetesNamespace {
-  Default = "default"
-}
-
 export enum KubernetesResourceType {
   Pod = "Pod",
   Service = "Service",

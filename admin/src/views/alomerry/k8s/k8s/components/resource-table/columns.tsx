@@ -4,10 +4,10 @@ import {
   KubernetesPodStatusColor,
   KubernetesResourceType
 } from "@/views/alomerry/k8s/k8s/constant";
-import { onMounted, ref, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import type {
-  LoadingConfig,
   AdaptiveConfig,
+  LoadingConfig,
   PaginationProps
 } from "@pureadmin/table";
 import { delay } from "@pureadmin/utils";
@@ -15,7 +15,8 @@ import { delay } from "@pureadmin/utils";
 export function useColumns() {
   const search = ref("");
   const loading = ref(true);
-  const columns: TableColumnList = [
+
+  const columnsPod: TableColumnList = [
     {
       label: "命名空间",
       prop: "namespace",
@@ -106,6 +107,10 @@ export function useColumns() {
       )
     }
   ];
+
+  const columns = new Map<KubernetesResourceType, TableColumnList>([
+    [KubernetesResourceType.Pod, columnsPod]
+  ]);
 
   const handleEdit = (index: number, row) => {
     message(`您修改了第 ${index} 行，数据为：${JSON.stringify(row)}`, {

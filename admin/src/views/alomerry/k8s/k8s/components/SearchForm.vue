@@ -1,27 +1,38 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-import {
-  KubernetesNamespace,
-  KubernetesResourceType
-} from "@/views/alomerry/k8s/k8s/constant";
+import { KubernetesResourceType } from "@/views/alomerry/k8s/k8s/constant";
 import Resource from "@/views/alomerry/k8s/k8s/components/search-form/Resource.vue";
 import Namespace from "@/views/alomerry/k8s/k8s/components/search-form/Namespace.vue";
 import { listResources, listResourcesResp } from "@/api/k8s";
 
 const searchForm = reactive({
-  namespaces: [KubernetesNamespace.Default],
-  resourceTypes: [KubernetesResourceType.Pod]
+  namespaces: [],
+  resourceType: KubernetesResourceType.Pod as string
 });
 
 const searchLoading = ref(false);
 
-const emit = defineEmits(["resources-changed"]);
+const emit = defineEmits(["resources-changed", "resources-type-changed"]);
+
+const resourceTypeChanged = (newType: string) => {
+  searchForm.resourceType = newType;
+  emit("resources-type-changed", newType);
+  queryKubernetes();
+};
+
+const namespacesChanged = (namespaces: string[]) => {
+  searchForm.namespaces = namespaces;
+  queryKubernetes();
+};
 
 const queryKubernetes = () => {
+  // TODO 防抖
   searchLoading.value = true;
   listResources({
     namespaces: searchForm.namespaces,
-    resourceTypes: searchForm.resourceTypes
+    resourceTypes: searchForm.resourceType
+      ? [searchForm.resourceType as string]
+      : []
   })
     .then((res: listResourcesResp) => {
       emit("resources-changed", res.namespacePods);
@@ -40,17 +51,19 @@ onMounted(() => {
   <el-form :model="searchForm" :inline="true" label-width="auto">
     <Namespace
       :namespaces="searchForm.namespaces"
-      @namespace-changed="namespaces => (searchForm.namespaces = namespaces)"
+      @namespace-changed="namespaces => namespacesChanged(namespaces)"
     />
     <Resource
-      :types="searchForm.resourceTypes"
-      @type-changed="types => (searchForm.resourceTypes = types)"
+      :types="searchForm.resourceType"
+      @type-changed="newType => resourceTypeChanged(newType)"
     />
+    <!--
     <el-form-item>
       <el-button :loading="searchLoading" @click="queryKubernetes"
         >查询</el-button
       >
     </el-form-item>
+    -->
   </el-form>
 </template>
 

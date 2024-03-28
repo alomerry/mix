@@ -17,7 +17,12 @@ interface tableItem {
 
 const props = defineProps({
   data: {
-    type: Array<namespacePods>
+    type: Array<namespacePods>,
+    default: () => []
+  },
+  resourceType: {
+    type: String,
+    default: () => KubernetesResourceType.Pod
   }
 });
 
@@ -65,7 +70,7 @@ const setupResources = (v: namespacePods[]) => {
     adaptive
     :data="resources"
     table-layout="auto"
-    :columns="columns"
+    :columns="columns.get(props.resourceType as KubernetesResourceType)"
     :adaptiveConfig="adaptiveConfig"
     :default-sort="{ prop: 'createdAt', order: 'descending' }"
     :loading="loading"
