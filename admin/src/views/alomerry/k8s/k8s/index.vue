@@ -1,79 +1,19 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SearchForm from "@/views/alomerry/k8s/k8s/components/SearchForm.vue";
-import { listResourcesResp } from "@/api/k8s";
+import { namespacePods } from "@/api/k8s";
 import ResourceTable from "@/views/alomerry/k8s/k8s/components/ResourceTable.vue";
 
 defineOptions({
   name: "KubernetesIndex"
 });
 
-const data = ref<listResourcesResp>();
-
-data.value = {
-  pods: [
-    {
-      namespace: "default",
-      pods: [
-        {
-          name: "gw-mix",
-          status: "running",
-          createdAt: "2012-10-12 23:59",
-          ip: "192.168.1.1",
-          imageVersion: "v1",
-          namespace: "default"
-        },
-        {
-          name: "tools-mix",
-          status: "terminating",
-          ip: "192.168.1.1",
-          imageVersion: "v1",
-          createdAt: "2011-10-12 23:59",
-          namespace: "default"
-        }
-      ]
-    },
-    {
-      namespace: "elasticsearch",
-      pods: [
-        {
-          name: "kibana",
-          status: "running",
-          ip: "192.168.1.1",
-          imageVersion: "v1",
-          createdAt: "2012-10-12 23:59",
-          namespace: "default"
-        },
-        {
-          name: "filebeat",
-          status: "terminating",
-          ip: "192.168.1.1",
-          imageVersion: "v1",
-          createdAt: "2011-10-12 23:59",
-          namespace: "default"
-        }
-      ]
-    }
-  ],
-  services: [
-    {
-      namespace: "default",
-      services: [
-        {
-          name: "gw-service",
-          status: "running",
-          createdAt: "2012-10-12 23:59",
-          namespace: "default"
-        }
-      ]
-    }
-  ]
-};
+const data = ref<namespacePods[]>();
 </script>
 
 <template>
   <el-card>
-    <SearchForm @data-changed="value => (data = value)" />
+    <SearchForm @resources-changed="value => (data = value)" />
     <el-divider border-style="dashed" />
     <ResourceTable :data="data" />
   </el-card>

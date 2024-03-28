@@ -1,27 +1,39 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import {
   KubernetesNamespace,
   KubernetesResourceType
 } from "@/views/alomerry/k8s/k8s/constant";
 import Resource from "@/views/alomerry/k8s/k8s/components/search-form/Resource.vue";
 import Namespace from "@/views/alomerry/k8s/k8s/components/search-form/Namespace.vue";
+import { listResources, listResourcesResp } from "@/api/k8s";
 
 const searchForm = reactive({
   namespaces: [KubernetesNamespace.Default],
   resourceTypes: [KubernetesResourceType.Pod]
 });
 
-const emit = defineEmits(["data-changed"]);
+const searchLoading = ref(false);
+
+const emit = defineEmits(["resources-changed"]);
 
 const queryKubernetes = () => {
-  let length = Math.ceil(Math.random() * 10);
-  let data = ["123"];
-  for (let i = 0; i < length; i++) {
-    data.push(`${i}`);
-  }
-  emit("data-changed", data);
+  searchLoading.value = true;
+  listResources({
+    namespaces: searchForm.namespaces,
+    resourceTypes: searchForm.resourceTypes
+  })
+    .then((res: listResourcesResp) => {
+      emit("resources-changed", res.namespacePods);
+    })
+    .finally(() => {
+      searchLoading.value = false;
+    });
 };
+
+onMounted(() => {
+  queryKubernetes();
+});
 </script>
 
 <template>
@@ -34,7 +46,11 @@ const queryKubernetes = () => {
       :types="searchForm.resourceTypes"
       @type-changed="types => (searchForm.resourceTypes = types)"
     />
-    <el-button @click="queryKubernetes">查询</el-button>
+    <el-form-item>
+      <el-button :loading="searchLoading" @click="queryKubernetes"
+        >查询</el-button
+      >
+    </el-form-item>
   </el-form>
 </template>
 

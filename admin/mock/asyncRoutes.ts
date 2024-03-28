@@ -135,11 +135,11 @@ const tabsRouter = {
 
 export default defineFakeRoute([
   {
-    url: "/async-routes",
+    url: "/v0/mix/admin/asyncRoutes",
     method: "get",
     response: () => {
-      // return [systemRouter, permissionRouter, tabsRouter]
-      return [];
+      return { data: [systemRouter, permissionRouter, tabsRouter] };
+      // return [];
     }
   }
 ]);

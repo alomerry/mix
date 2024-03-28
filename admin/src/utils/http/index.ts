@@ -22,7 +22,8 @@ const defaultConfig: AxiosRequestConfig = {
   headers: {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",
-    "X-Requested-With": "XMLHttpRequest"
+    "X-Requested-With": "XMLHttpRequest",
+    "X-Access-Token": ""
   },
   // 数组格式参数序列化（https://github.com/axios/axios/issues/5142）
   paramsSerializer: {

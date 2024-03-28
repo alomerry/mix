@@ -10,9 +10,9 @@ export enum KubernetesResourceType {
 }
 
 export enum KubernetesPodStatus {
-  Pending = "pending",
-  Running = "running",
-  Terminating = "terminating"
+  Pending = "Pending",
+  Running = "Running",
+  Terminating = "Terminating"
 }
 
 export const KubernetesPodStatusColor = new Map([

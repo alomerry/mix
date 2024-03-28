@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import {
-  KubernetesPodStatus,
-  KubernetesResourceType
-} from "@/views/alomerry/k8s/k8s/constant";
-import { listResourcesResp } from "@/api/k8s";
-import { onMounted, toRefs, watch, ref } from "vue";
+import { KubernetesResourceType } from "@/views/alomerry/k8s/k8s/constant";
+import { namespacePods } from "@/api/k8s";
+import { watch, ref } from "vue";
 import { useColumns } from "@/views/alomerry/k8s/k8s/components/resource-table/columns";
 
 interface tableItem {
@@ -20,7 +17,7 @@ interface tableItem {
 
 const props = defineProps({
   data: {
-    type: Object as () => listResourcesResp
+    type: Array<namespacePods>
   }
 });
 
@@ -34,15 +31,17 @@ const {
   onSizeChange,
   onCurrentChange
 } = useColumns();
-const { data } = toRefs(props);
 const resources = ref([]);
 
-watch(data, async (newData, oldData) => {
-  setupResources(newData);
-});
+watch(
+  () => props.data,
+  newResources => {
+    setupResources(newResources);
+  }
+);
 
-const setupResources = (v: listResourcesResp) => {
-  resources.value = [...(v?.pods || [])].flatMap(item => {
+const setupResources = (v: namespacePods[]) => {
+  resources.value = v.flatMap(item => {
     if (item.pods) {
       return item.pods.map(pod => {
         return {
@@ -58,10 +57,6 @@ const setupResources = (v: listResourcesResp) => {
     }
   });
 };
-
-onMounted(() => {
-  setupResources(data.value);
-});
 </script>
 
 <template>
@@ -69,6 +64,7 @@ onMounted(() => {
     stripe
     adaptive
     :data="resources"
+    table-layout="auto"
     :columns="columns"
     :adaptiveConfig="adaptiveConfig"
     :default-sort="{ prop: 'createdAt', order: 'descending' }"

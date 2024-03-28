@@ -49,9 +49,7 @@ const types = ref(props.types);
         </div>
       </el-option>
       <template #tag>
-        <el-tag v-for="(type, idx) in types" :key="type" :color="colors[idx]">
-          <!--            {{ type }}-->
-        </el-tag>
+        <el-tag v-for="(type, idx) in types" :key="type" :color="colors[idx]" />
       </template>
     </el-select>
   </el-form-item>

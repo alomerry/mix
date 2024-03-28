@@ -23,7 +23,7 @@ export function useColumns() {
       sortable: true
     },
     {
-      label: "资源类型",
+      label: "类型",
       prop: "type",
       filters: Object.values(KubernetesResourceType).map(item => {
         return { text: item, value: item };
@@ -31,6 +31,10 @@ export function useColumns() {
       filterMethod(value, row) {
         return row.type === value;
       }
+    },
+    {
+      label: "名称",
+      prop: "name"
     },
     {
       label: "ip",
@@ -80,7 +84,7 @@ export function useColumns() {
           v-model={search.value}
           size="small"
           clearable
-          placeholder="Type to search"
+          placeholder="过滤"
         />
       ),
       cellRenderer: ({ index, row }) => (
@@ -89,6 +93,7 @@ export function useColumns() {
             日志
           </el-button>
           <el-button
+            v-if={row.type === KubernetesResourceType.Deployment}
             size="small"
             type="danger"
             onClick={() => handleDelete(index + 1, row)}
