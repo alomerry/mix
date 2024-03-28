@@ -2,6 +2,7 @@ import { http } from "@/utils/http";
 
 export type listResourcesReq = {
   namespaces: string[];
+  resourceTypes: string[];
 };
 
 export type listResourcesResp = {
@@ -15,7 +16,7 @@ export const listResources = (data?: listResourcesReq) => {
 };
 
 export type listNamespacesResp = {
-  namespaces: Array<string>;
+  keyword: string;
 };
 
 export type listNamespacesReq = {

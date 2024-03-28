@@ -57,6 +57,7 @@ export function useColumns() {
         <>
           <el-tag
             effect="dark"
+            empty={index}
             style={
               "border-width: 0!important; padding: 0 6px; font-weight: 400; font-size: 13px"
             }
@@ -92,14 +93,15 @@ export function useColumns() {
           <el-button size="small" onClick={() => handleEdit(index + 1, row)}>
             日志
           </el-button>
-          <el-button
-            v-if={row.type === KubernetesResourceType.Deployment}
-            size="small"
-            type="danger"
-            onClick={() => handleDelete(index + 1, row)}
-          >
-            重启
-          </el-button>
+          {row.type === KubernetesResourceType.Deployment ? (
+            <el-button
+              size="small"
+              type="danger"
+              onClick={() => handleDelete(index + 1, row)}
+            >
+              重启
+            </el-button>
+          ) : null}
         </>
       )
     }

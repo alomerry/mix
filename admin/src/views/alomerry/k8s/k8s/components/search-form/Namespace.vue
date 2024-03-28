@@ -28,8 +28,7 @@ const queryNamespaces = (query: string) => {
 
 const fetchNamespaces = (query: string) => {
   loading.value = true;
-
-  listNamespaces(query)
+  listNamespaces({ namespaces: query ? [query] : [] })
     .then(resp => {
       namespaceOpts.value = Array.from(resp.namespaces).map(value => ({
         value: value,

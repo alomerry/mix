@@ -5,7 +5,7 @@ package gw.k8s;
 option go_package = ".;k8s";
 
 message ListNamespacesRequest {
-  repeated string namespaces = 1;
+  string keyword = 1;
 }
 
 message ListNamespacesResponse {
