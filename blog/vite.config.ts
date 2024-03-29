@@ -236,6 +236,9 @@ export default defineConfig({
   },
 
   server: {
+    proxy: {
+      // "/v0": `http://localhost:4790`
+    },
   },
 
   ssgOptions: {

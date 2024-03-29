@@ -31,7 +31,7 @@ const queryEs = () => {
   if (keyword.value.length > 0) {
     API.post(`/v0/mix/blog/search`, { keyword: keyword.value })
       .then((resp: AxiosResponse) => {
-        searchRes.value = resp.markdown as blog[];
+        searchRes.value = resp.data.markdowns as blog[];
       })
       .finally(() => {
         loading.value = false;
@@ -85,7 +85,7 @@ const focus = () => {
       </div>
     </template>
     <el-scrollbar
-      v-show="keyword.length === 0 || loading || searchRes.length > 0"
+      v-show="keyword?.length === 0 || loading || searchRes.length > 0"
       v-load="loading"
       style="height: calc(100% - 50px)"
     >
