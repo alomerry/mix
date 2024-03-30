@@ -51,7 +51,7 @@ ret 指令
 
 ## Base Stack <Badge text="1.16" type="tip"/>
 
-![golang-function-stack-frame](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/golang-function-stack-frame.png)
+![golang-function-stack-frame](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/golang-function-stack-frame.png)
 
 ### 传值/传指针
 
@@ -384,7 +384,6 @@ func main() {
 |         |         ...         | 代码段             |
 | ^addr1^ | create 中的匿名函数 |                    |
 
-
 以上代码中由于 c 初始化后没有其他修改，所以在返回闭包函数时，会直接将变量拷贝到 funcValue 的捕获列表中，执行时通过偏移来获取变量的值，如果函数中修改了被捕获的局部变量，或者变量逃逸了则会将变量分配到堆上，并将地址存到 [funcval](https://github.com/golang/go/blob/release-branch.go1.20/src/runtime/runtime2.go#L197) 的捕获列表中
 
 ```go
@@ -426,7 +425,6 @@ func main() {
 |         |         ...          | 数据段             |
 |         |         ...          | 代码段             |
 | ^addr1^ | create 中的匿名函数  |                    |
-
 
 如果闭包捕获了函数参数或者返回值呢？
 

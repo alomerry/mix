@@ -15,7 +15,7 @@ cards:
       name: draveness
       desc: 面向信仰编程
       link: https://draveness.me/
-    - icon: https://cdn.alomerry.com/blog/assets/img/liuchuo1.png
+    - icon: https://cdn.alomerry.com/blog/assets/liuchuo1.png
       name: 柳婼 の blog
       desc: 我不管，反正我最萌～
       link: https://www.liuchuo.net/

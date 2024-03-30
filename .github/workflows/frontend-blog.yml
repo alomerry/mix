@@ -2,13 +2,13 @@ name: deploy blog to vps
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - 'blog/pages/**'
-      - 'blog/src/**'
+      - "blog/pages/**"
+      - "blog/src/**"
 
 jobs:
-  build:
+  build-deploy-blog:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

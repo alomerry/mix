@@ -59,21 +59,21 @@ wordCount: 2.4k
 <Book
 title="深度探索 Go 语言"
 desc="书中通过探索示例和源码分析：指针、函数栈帧、调用约定、变量逃逸、Function Value、包、defer panic、 方法、Method Value、组合式继承、接口、类型断言、反射、goroutine、抢占式调度、同步、堆和栈的管理，以及 gc 等实现原理。"
-logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/explore-go-runtime.jpg"
+logo="https://cdn.alomerry.com/blog/assets/links/booklists/explore-go-runtime.jpg"
 link="https://book.douban.com/subject/36104087/"
 />
 
 <Book
 title="MySQL 是怎样运行的"
 desc="《MySQL是怎样运行的：从根儿上理解 MySQL》采用诙谐幽默的表达方式，对MySQL的底层运行原理进行了介绍，内容涵盖了使用MySQL的同学在求职面试和工作中常见的一些核心概念。"
-logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/how-mysql-work.jpg"
+logo="https://cdn.alomerry.com/blog/assets/links/booklists/how-mysql-work.jpg"
 link="https://book.douban.com/subject/35231266/"
 />
 
 <Book
 title="Kubernetes in Action"
 desc="《Kubernetes in Action中文版》主要讲解如何在 Kubernetes 中部署分布式容器应用。通过在 Kubernetes 中部署一个应用程序，一点点增加功能，逐步加深我们对于 Kubernetes 架构的理解和操作的实践。在本书的后面部分，也可以学习一些高阶的主题，比如监控、调试及伸缩。"
-logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/kubernetes-in-action.jpg"
+logo="https://cdn.alomerry.com/blog/assets/links/booklists/kubernetes-in-action.jpg"
 link="https://book.douban.com/subject/30418855/"
 />
 
@@ -86,7 +86,6 @@ link="https://book.douban.com/subject/30418855/"
 **职业规划**
 
 因为现在的工作内容偏向监控业务，并且项目中也涉及 JAVA，想来上次用 JAVA 还是在写毕设的时候，准备好好复习一下 JAVA 和 Spring 相关的知识以及很多前司未曾用过的组件、数据库：MySQL、Clickhouse、flink 等等。
-
 
 ## 生活与娱乐
 
@@ -116,7 +115,6 @@ link="https://book.douban.com/subject/30418855/"
 - 佳航机箱 ¥150
 - Gosund 智能插排 ¥200（积分）
 - Razer 巴塞利斯蛇 X ¥250
-
 
 **电影**
 

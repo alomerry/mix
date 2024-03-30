@@ -2,7 +2,7 @@
 date: 2022-08-23T16:00:00.000+00:00
 title: 搭建 vscode web
 duration: 4min
-wordCount: 896
+wordCount: 894
 ---
 
 [[toc]]
@@ -107,7 +107,6 @@ EXPOSE 8000
 EXPOSE 8080
 EXPOSE 4000
 
-
 # if want no token, use `--without-connection-token`
 CMD ./server.sh --accept-server-license-terms --host 0.0.0.0 --connection-token ${VSCODE_TOKEN}
 
@@ -137,7 +136,7 @@ proxy_set_header Connection "Upgrade";
 
 <WaterMark>
 
-![matepad 效果](https://cdn.alomerry.com/blog/assets/img/posts/vscode-matepad-preview.jpg)
+![matepad 效果](https://cdn.alomerry.com/blog/assets/posts/vscode-matepad-preview.jpg)
 
 </WaterMark>
 
@@ -147,5 +146,3 @@ proxy_set_header Connection "Upgrade";
 [^chsh-always-asking-a-password-and-get-pam-authentication-failure]: [chsh always asking a password and get pam authentication failure](https://askubuntu.com/questions/812420/chsh-always-asking-a-password-and-get-pam-authentication-failure)
 [^iPad-vscode]: [用 iPad pro 访问 vscode 网页版写代码](https://www.v2ex.com/t/761391)
 [^Nginx-base-auth]: [配置 Nginx auth_basic 身份验证](https://hyperzsb.io/posts/nginx-auth-basic/)
-
-

@@ -105,34 +105,34 @@ EOF
 
 安装完成后可以看到已经有三个 elasticsearch 和 一个 kibana pod 了
 
-![es pod](https://cdn.alomerry.com/blog/assets/img/local-k8s-es-pod.png)
+![es pod](https://cdn.alomerry.com/blog/assets/local-k8s-es-pod.png)
 
->[!TIP]
+> [!TIP]
 > 如果需要使用反向代理访问 Kibana 注意配置 [publicBaseUrl](https://www.elastic.co/guide/en/kibana/8.12/settings.html#server-publicBaseUrl)
 
 ### 访问 kibana
 
 执行 `k get svc -n default` 查看 kibana 和 elasticsearch 暴露的内网 ip 和 port
 
-![es-service](https://cdn.alomerry.com/blog/assets/img/local-k8s-es-service.png)
+![es-service](https://cdn.alomerry.com/blog/assets/local-k8s-es-service.png)
 
 登录，默认用户名为 `elastic`，密码可以使用以下命令获取：
 
 `k get secret elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo`
 
-![登录](https://cdn.alomerry.com/blog/assets/img/elastic-kibana-login.jpeg)
+![登录](https://cdn.alomerry.com/blog/assets/elastic-kibana-login.jpeg)
 
-![index](https://cdn.alomerry.com/blog/assets/img/elastic-kibana-index.jpeg)
+![index](https://cdn.alomerry.com/blog/assets/elastic-kibana-index.jpeg)
 
 可以在 kibana 中创建索引，也可以使用接口创建
 
-![create-index](https://cdn.alomerry.com/blog/assets/img/elastic-kibana-create-index.jpeg)
+![create-index](https://cdn.alomerry.com/blog/assets/elastic-kibana-create-index.jpeg)
 
 ### 创建 mapping
 
 创建好之后可以查看索引的相关 mapping
 
-![mapping](https://cdn.alomerry.com/blog/assets/img/elastic-kibana-search-blog-index-mapping.jpeg)
+![mapping](https://cdn.alomerry.com/blog/assets/elastic-kibana-search-blog-index-mapping.jpeg)
 
 根据个人博客中的 frontmatter 创建以下 mapping
 
@@ -159,13 +159,13 @@ EOF
 
 索引到 ElasticSearch 后可以在 Kibana 中看到 document
 
-![elastic-kibana-search-blog-index-document](https://cdn.alomerry.com/blog/assets/img/elastic-kibana-search-blog-index-documents.jpeg)
+![elastic-kibana-search-blog-index-document](https://cdn.alomerry.com/blog/assets/elastic-kibana-search-blog-index-documents.jpeg)
 
 剩下的就是将搜索包装成一个接口，暴露给博客，这里我使用的是 gin 和 go-elasticsearch 实现。注意请求 `_search` 时需要传递 highlight 字段，后续方便在页面与渲染关键词。
 
 例如下图中搜索 **vps** 后，**vps** 关键字会被 `<em>` 包裹
 
-![query-mix-gw-search-blog-api](https://cdn.alomerry.com/blog/assets/img/query-mix-gw-search-blog-api.png)
+![query-mix-gw-search-blog-api](https://cdn.alomerry.com/blog/assets/query-mix-gw-search-blog-api.png)
 
 ### 渲染
 
@@ -179,59 +179,59 @@ EOF
 
 ```json
 [
-    {
-        "markdownPath": "/docs/2022/vps-and-home-lab.md",
-        "title": "cvm、vps 和 homelab 手册",
-        "place": "上海",
-        "highlight": {
-            "content": [
-                "[[toc]]\n\n::: tip 2023.05.06 更新\n\n看到一家俄国的 <em>vps</em> 供应商 [justhost](https://justhost.ru/zh)，主打一个低价大带宽，200¥ 可以买到",
-                "## cvm/<em>vps</em> 迁移手册\n\n### 初始化\n\n安装常用软件包"
-            ],
-            "title": [
-                "cvm、<em>vps</em> 和 homelab 手册"
-            ]
-        }
-    },
-    {
-        "markdownPath": "/posts/2024/replace-cvm-to-vps.md",
-        "title": "寻求低延迟海外 vps 笔记",
-        "description": "\"#justhost #hostyun #狗云 #腾讯云\"",
-        "highlight": {
-            "title": [
-                "寻求低延迟海外 <em>vps</em> 笔记"
-            ]
-        },
-        "createdAt": "2024-02-24T14:21:40+08:00",
-        "updatedAt": "2024-03-06T04:24:43+08:00"
-    },
-    {
-        "markdownPath": "/pinned/todo/archive.md",
-        "highlight": {
-            "content": [
-                "512 / nfs host\n- mount 512 backup\n\n- tekton pipeline\n\n  - blog/doc build\n  - golang service build\n\n- <em>vps</em>"
-            ]
-        }
-    },
-    {
-        "markdownPath": "/posts/2019/cn-beian-details.md",
-        "title": "国内网站备案细节",
-        "description": "记录 2019 年 alomerry.com 腾讯云备案流程和细节",
-        "highlight": {
-            "content": [
-                "TIP] 2024.02.24 更新\n> 备案不可以使用抢占式机器，如果期间将域名解析到海外 <em>vps</em>，会被注销域名解析（详见[此文](../2024/replace-cvm-to-vps.html)）"
-            ]
-        }
-    },
-    {
-        "markdownPath": "/posts/2023/nginx-rtmp.md",
-        "title": "使用 nginx 和 rtmp 模块搭建推流服务器",
-        "highlight": {
-            "content": [
-                "nginx-rtmp-module/wiki/Directives#on_play\nhttps://www.hostwinds.com/tutorials/live-streaming-from-a-<em>vps</em>-with-nginx-rtmp"
-            ]
-        }
+  {
+    "markdownPath": "/docs/2022/vps-and-home-lab.md",
+    "title": "cvm、vps 和 homelab 手册",
+    "place": "上海",
+    "highlight": {
+      "content": [
+        "[[toc]]\n\n::: tip 2023.05.06 更新\n\n看到一家俄国的 <em>vps</em> 供应商 [justhost](https://justhost.ru/zh)，主打一个低价大带宽，200¥ 可以买到",
+        "## cvm/<em>vps</em> 迁移手册\n\n### 初始化\n\n安装常用软件包"
+      ],
+      "title": [
+        "cvm、<em>vps</em> 和 homelab 手册"
+      ]
     }
+  },
+  {
+    "markdownPath": "/posts/2024/replace-cvm-to-vps.md",
+    "title": "寻求低延迟海外 vps 笔记",
+    "description": "\"#justhost #hostyun #狗云 #腾讯云\"",
+    "highlight": {
+      "title": [
+        "寻求低延迟海外 <em>vps</em> 笔记"
+      ]
+    },
+    "createdAt": "2024-02-24T14:21:40+08:00",
+    "updatedAt": "2024-03-06T04:24:43+08:00"
+  },
+  {
+    "markdownPath": "/pinned/todo/archive.md",
+    "highlight": {
+      "content": [
+        "512 / nfs host\n- mount 512 backup\n\n- tekton pipeline\n\n  - blog/doc build\n  - golang service build\n\n- <em>vps</em>"
+      ]
+    }
+  },
+  {
+    "markdownPath": "/posts/2019/cn-beian-details.md",
+    "title": "国内网站备案细节",
+    "description": "记录 2019 年 alomerry.com 腾讯云备案流程和细节",
+    "highlight": {
+      "content": [
+        "TIP] 2024.02.24 更新\n> 备案不可以使用抢占式机器，如果期间将域名解析到海外 <em>vps</em>，会被注销域名解析（详见[此文](../2024/replace-cvm-to-vps.html)）"
+      ]
+    }
+  },
+  {
+    "markdownPath": "/posts/2023/nginx-rtmp.md",
+    "title": "使用 nginx 和 rtmp 模块搭建推流服务器",
+    "highlight": {
+      "content": [
+        "nginx-rtmp-module/wiki/Directives#on_play\nhttps://www.hostwinds.com/tutorials/live-streaming-from-a-<em>vps</em>-with-nginx-rtmp"
+      ]
+    }
+  }
 ]
 ```
 
@@ -239,7 +239,7 @@ EOF
 
 highlight 命中 title 可以使用 h1 标签更醒目一些，命中 content 可以使用 p 标签，将 markdownPath 解析成跳转链接并给 em 元素添加高亮的 css 即可，效果如下：
 
-![mix-blog-search-preview](https://cdn.alomerry.com/blog/assets/img/2024-mix-blog-search-preview.jpeg)
+![mix-blog-search-preview](https://cdn.alomerry.com/blog/assets/2024-mix-blog-search-preview.jpeg)
 
 至此自行实现博文全文索引的功能已经全部完成，剩下就是安心的产出内容了。
 
@@ -253,7 +253,7 @@ highlight 命中 title 可以使用 h1 标签更醒目一些，命中 content �
 
 action 执行完成后可以看到 aliyun 镜像已更新
 
-![aliyun-mix-gw](https://cdn.alomerry.com/blog/assets/img/aliyun-mix-gw.jpeg)
+![aliyun-mix-gw](https://cdn.alomerry.com/blog/assets/aliyun-mix-gw.jpeg)
 
 > [!TIP]
 > 其实也可以使用 jenkins 或者 tekton，不过 jenkins 太重了，也会过多的占用集群的资源；tekton 的话虽然也很感兴趣，但是目前我还没时间学习。最后折中选择了一个简单容易的方式。

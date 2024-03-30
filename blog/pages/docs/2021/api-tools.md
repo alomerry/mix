@@ -4,7 +4,7 @@ title: api 工具手册
 todoNext:
   - 文字过少
 duration: 1min
-wordCount: 202
+wordCount: 196
 update: 2024-02-24T19:17:18.318Z
 ---
 
@@ -14,11 +14,11 @@ update: 2024-02-24T19:17:18.318Z
 
 ### Environments
 
-![Environments](https://cdn.alomerry.com/blog/assets/img/posts/postman-globals.png)
+![Environments](https://cdn.alomerry.com/blog/assets/posts/postman-globals.png)
 
 ### Pre-request Script[^postman-javaScript-reference]
 
-![pre-request](https://cdn.alomerry.com/blog/assets/img/posts/postman-pre-request.png)
+![pre-request](https://cdn.alomerry.com/blog/assets/posts/postman-pre-request.png)
 
 ```js
 const lastResponseStatus = pm.environment.get('lastResponseStatus')
@@ -61,7 +61,7 @@ pm.environment.set('lastResponseStatus', pm.response.code)
 
 ### 请求 API
 
-![pre-request](https://cdn.alomerry.com/blog/assets/img/posts/postman-variable-value.png)
+![pre-request](https://cdn.alomerry.com/blog/assets/posts/postman-variable-value.png)
 
 ### Case
 

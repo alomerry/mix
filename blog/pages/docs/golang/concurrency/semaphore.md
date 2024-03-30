@@ -2,7 +2,7 @@
 date: 2023-07-17T16:00:00.000+00:00
 title: sema
 duration: 3min
-wordCount: 567
+wordCount: 565
 ---
 
 - https://www.bilibili.com/video/BV1ZQ4y1f7go/?spm_id_from=333.999.0.0
@@ -19,7 +19,7 @@ go 中的等待队列 semaphore 供协程使用的信号量
 
 sematable 存储 251 棵平衡树根
 
-![semaTable](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/concurrency/sematable.png)
+![semaTable](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/concurrency/sematable.png)
 
 ## acquire
 

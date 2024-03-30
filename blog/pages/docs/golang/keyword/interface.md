@@ -2,7 +2,7 @@
 date: 2023-08-01T16:00:00.000+00:00
 title: interface/_type
 duration: 2min
-wordCount: 596
+wordCount: 592
 ---
 
 方法本质就是函数，只不过调用时接受会作为第一个参数传入
@@ -177,7 +177,7 @@ type interfaceType struct {
 - `rw = f`
   - data = f
 
-![非空接口](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/keyword/interface-io-rw.png)
+![非空接口](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/keyword/interface-io-rw.png)
 
 ## itab 缓存
 
@@ -185,7 +185,7 @@ itab 中的 inter 和 \_type 确定了 itab 就不会改变了 所
 
 key <接口类型，动态类型>
 
-![itab 缓存](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/keyword/itab-hash-table.png)
+![itab 缓存](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/keyword/itab-hash-table.png)
 
 ```go
 // Note: change the formula in the mallocgc call in itabAdd if you change these fields.

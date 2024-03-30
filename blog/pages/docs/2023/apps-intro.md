@@ -13,7 +13,7 @@ wordCount: 2.8k
 
 ### [Proxifier](https://www.proxifier.com/) 介绍
 
-![Proxifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier.png)
+![Proxifier](https://cdn.alomerry.com/blog/assets/posts/proxifier.png)
 
 - 作用：允许不支持通过代理服务器工作的应用程序使用代理。
 - 工作方式：当一个应用程序没有内置代理功能，又不能像 chrome 等内置插件来支持代理时，我们想在程序内访问一个受 GFW
@@ -23,10 +23,10 @@ wordCount: 2.8k
 
 - 安装 Proxifier
 - 添加已有的代理，具体见本机 clash、shadowsocks 等对应的设置
-  ![Proxifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_proxies.png)
+  ![Proxifier](https://cdn.alomerry.com/blog/assets/posts/proxifier_proxies.png)
 - 添加代理规则，选择需要代理的软件，如 chrome、chromium、arc 等，添加需要代理的域名 `translate.googleapis.com`，应用规则选择上一步创建的代理
   proxy
-  ![Proxifier](https://cdn.alomerry.com/blog/assets/img/posts/proxifier_rules.png)
+  ![Proxifier](https://cdn.alomerry.com/blog/assets/posts/proxifier_rules.png)
 
 ::: tip
 设置过程中，发现在 Mac OS 上 chrome 发起全文翻译软件是 `com.google.Chrome.helper`。如果平台不同，注意可以在 Proxifier
@@ -45,7 +45,7 @@ wordCount: 2.8k
 
 Jetbrains IDE 工具，可以统一下载更新旗下的 IDE、参与测试等
 
-![jetbrains-tools-01](https://cdn.alomerry.com/blog/assets/img/posts/apps-intro-jetbrains-tools-01.jpg)
+![jetbrains-tools-01](https://cdn.alomerry.com/blog/assets/posts/apps-intro-jetbrains-tools-01.jpg)
 
 - 安装清理很方便
 - 可以控制全局

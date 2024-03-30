@@ -185,9 +185,9 @@ https://www.bilibili.com/video/BV1c4411d7jb/?p=61&vd_source=ddc8289a36a2bf501f48
 
 ### 传输层
 
-![TCP 协议首部](https://cdn.alomerry.com/blog/assets/img/notes/network/tcp-head.webp)
+![TCP 协议首部](https://cdn.alomerry.com/blog/assets/notes/network/tcp-head.webp)
 
-![UDP 协议首部](https://cdn.alomerry.com/blog/assets/img/notes/network/udp-head.webp)
+![UDP 协议首部](https://cdn.alomerry.com/blog/assets/notes/network/udp-head.webp)
 
 [TCP](https://xiaolincoding.com/network/) `(13/23)`
 

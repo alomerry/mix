@@ -32,19 +32,19 @@ func main() {
 
 `newproc`[^newproc] 旨在创建一个新的 g 并放入等待执行队列
 
-  - 在 g0 栈上生成 g
-  - 调用 `runqput` 将 g 放到 p 的 runnext（当 currentG 执行完就会执行 runnext） 上
-    - p 的本地队列未满时，将 g 放入协程 p 的本地队列
-  - 当 `main` 已经执行，则唤醒该 g
+- 在 g0 栈上生成 g
+- 调用 `runqput` 将 g 放到 p 的 runnext（当 currentG 执行完就会执行 runnext） 上
+  - p 的本地队列未满时，将 g 放入协程 p 的本地队列
+- 当 `main` 已经执行，则唤醒该 g
 
 `newproc1`[^newproc1] 旨在创建一个状态是 `_Grunable` 的 g
 
 - 锁住 g 对应的 m，禁止 m 被抢占，因为在后续逻辑中可能会将 p 保存到局部变量中
-- 调用 `gfget` 获取空闲 g，如果未获取到则调用 `malg`[^malg] 创建一个 g，分配栈空间，并添加到 `allgs` 中，调用 `casgstatus` g 状态从 `_Gidle` 转为 `_Gdead` *TODO*，并添加到[^allgadd] `allg` 中
-- 如果协程入口有参数如何处理 *TODO*
+- 调用 `gfget` 获取空闲 g，如果未获取到则调用 `malg`[^malg] 创建一个 g，分配栈空间，并添加到 `allgs` 中，调用 `casgstatus` g 状态从 `_Gidle` 转为 `_Gdead` _TODO_，并添加到[^allgadd] `allg` 中
+- 如果协程入口有参数如何处理 _TODO_
 - 计算栈指针，并将程序及乎其设置为 `goexit` 函数地址入口加上 1 指令大小[^newproc1.setpc]，然后调用 `gostartcallfn`，最终会调用 `gostartcall`[^gostartcallfn]，在该函数中，将栈指针下移一位后并写入 pc 的值，这意味着在入栈了一个新的栈帧，原 pc 成为了返回地址，且新的 pc 被设置成协程函数入口。因此协程函数最终执行完后会返回到 `goexit` 并回收参数等资源，就仿佛是从 `goexit` 中调用了协程函数却没有执行一样
 - `casgstatus` 更新 g 的状态为 `_Grunnable`
-- `gcController.addScannableStack(pp, int64(newg.stack.hi-newg.stack.lo))` *TODO*
+- `gcController.addScannableStack(pp, int64(newg.stack.hi-newg.stack.lo))` _TODO_
 - 释放 m 的锁
 
 `gfget`[^gfget] 旨在获取一个空闲的 g
@@ -53,7 +53,7 @@ func main() {
 - 如果 p 上不存在空闲的 g 并且调度器全局 gFree 非空，则会将全局 gFree 中的空闲 g 弹出并设置到 p 上，直到 p 上的空闲 gFree 个数超过 32 个或者是全局空闲 gFree 已耗尽
 - 清理该 g 已有的栈空间
 
-![p-runq](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/concurrency/goroutine/p-runq.png)
+![p-runq](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/concurrency/goroutine/p-runq.png)
 
 `runqput`[^runqput] 旨在将 g 放到 p 的 runq 队列
 
@@ -81,38 +81,38 @@ TEXT runtime·mstart(SB),NOSPLIT|TOPFRAME|NOFRAME,$0
 
 `schedule`[^schedule] 每执行一次，就表示发生了一次调度
 
-- 执行一些检测[^schedule_check]，例如：当前 m 是否持有锁（`newproc`）、m 是否被 g 绑定（*TODO*） <!-- TODO 绑定的 m 无法执行其他 g （TODO 哪些时候绑定，为什么会绑定 -->
+- 执行一些检测[^schedule_check]，例如：当前 m 是否持有锁（`newproc`）、m 是否被 g 绑定（_TODO_） <!-- TODO 绑定的 m 无法执行其他 g （TODO 哪些时候绑定，为什么会绑定 -->
 - 进入一个循环中[^schedule_top]，直到获取可执行的 g 并执行
   - 首先获取当前 m 的 p 并设置 `p.preempt` 为 false 禁止 p 被抢占（因为已经被调度到了，无需再抢占了）
   - 安全检查如果 m 处于自旋状态，p 不应有任何任何待执行的 g
   - 调用 `findRunnable` 获取一个可执行的 g 找到待执行的 g
     - `inheritTime`（表示从 `p.runnext` 中窃取，则可以继承时间片，未继承时间片时说明执行了一次 `schedule`，则 `p.schedtick` 会增加）
-    - `tryWakeP` 表示找到的是特殊的 g（GC worker、tracereader 为什么特殊）*TODO*
+    - `tryWakeP` 表示找到的是特殊的 g（GC worker、tracereader 为什么特殊）_TODO_
   - 获取到可执行 g 后原本自旋的 m 可以停止自旋 `resetspinning`
   - `sched.disable.user && !schedEnabled(gp)` 找到 g 后调度器检测是否允许调度用户协程，如果不允许则将该 g 放入调度器的 disable 队列暂存，并重新寻找可执行的 g，等到允许调度用户协程后，将 disable 队列中的 g 重新加入 runq 中
-  - `tryWakeP` 为 true 就会调用 `wakeup`[^wakeup] 唤醒 p 以保证有足够线程来调度 TraceReader 和 GC Worker *TODO*
-  - `startlockedm` ((如果 g 有绑定 m 则调用 `startlockedm`[^startlockedm] 唤醒对应绑定的 m 执行 g 且当前线程也要重新查找待执行的 g；如果 g 没有绑定的 m 则调用 `execute`[^execute] 执行 *TODO*
+  - `tryWakeP` 为 true 就会调用 `wakeup`[^wakeup] 唤醒 p 以保证有足够线程来调度 TraceReader 和 GC Worker _TODO_
+  - `startlockedm` ((如果 g 有绑定 m 则调用 `startlockedm`[^startlockedm] 唤醒对应绑定的 m 执行 g 且当前线程也要重新查找待执行的 g；如果 g 没有绑定的 m 则调用 `execute`[^execute] 执行 _TODO_
   - 调用 `execute` 执行 g
 
 ### `findRunnable`
 
->Finds a runnable goroutine to execute.
+> Finds a runnable goroutine to execute.
 >
->Tries to steal from other P's, get g from local or global queue, poll network.
+> Tries to steal from other P's, get g from local or global queue, poll network.
 >
->`tryWakeP` indicates that the returned goroutine is not normal (GC worker, trace reader) so the caller should try to wake a P.
+> `tryWakeP` indicates that the returned goroutine is not normal (GC worker, trace reader) so the caller should try to wake a P.
 
 `findRunnable`[^findRunnable] 旨在会本地队列、全局队列、其他 p 的本地队列寻找一个可执行的 g，会阻塞到找到为止
 
 - 检测 `sched.gcwaiting`，如果执行 gc 则调用 `gcstopm`[^gcstopm] <!-- 为什么要休眠当前 m --> 休眠当前 m
 - 执行安全点检查 `runSafePointFn`[^runSafePointFn]
 - `checkTimers`[^checkTimers] 会运行当前 p 上所有已经达到触发时间的计时器 <!-- （TODOODODODO 如何处理的？如何唤醒对应额 goroutine 的，计时器变更了怎么办） -->
-  >now and pollUntil are saved for work stealing later, which may steal timers. It's important that between now and then, nothing blocks, so these numbers remain mostly relevant.
-- gcBlackenEnabled traceReader 这两种是非正常协程 *TODO*
+  > now and pollUntil are saved for work stealing later, which may steal timers. It's important that between now and then, nothing blocks, so these numbers remain mostly relevant.
+- gcBlackenEnabled traceReader 这两种是非正常协程 _TODO_
 - 为了公平[^findRunnable_fairness]，每调用 `schedule` 函数 61 次就要调用 `globrunqget` 从全局可运行 G 队列中获取 1 个，保证效率的基础上兼顾公平性，防止本地队列上的两个持续唤醒的 goroutine 造成全局队列一直得不到调度 <!-- // Wake up the finalizer G. TODOODODO -->
 - 从本地队列获取 g `runqget`[^runqget]
 - 从全局 runq 中获取 g `globrunqget`
-- 执行 `netpull` 从网络 I/O 轮询器获取 glist，若返回值非空则将第一个 g 从列表中弹出，将剩余的尝试按本地 runq、全局 runq 的顺序插入 *TODO*
+- 执行 `netpull` 从网络 I/O 轮询器获取 glist，若返回值非空则将第一个 g 从列表中弹出，将剩余的尝试按本地 runq、全局 runq 的顺序插入 _TODO_
 - 判断 p 是否可以窃取其他 p 的 runq，需要满足两个条件[^findRunnable_steal_check]：当前 m 处于自旋等待或者出于自旋的 m 要小于处于工作中 p 的一半。这样是为了防止程序中 p 很大，但是并发性很低时，CPU 不必要的消耗
 - 满足窃取 g 条件时[^findRunnable_steal]，将 m 标记为自旋并调用 `stealWork` 窃取 g
 - // gcBlackenEnabled != 0 && gcMarkWorkAvailable(pp) && gcController.addIdleMarkWorker()
@@ -126,9 +126,9 @@ TEXT runtime·mstart(SB),NOSPLIT|TOPFRAME|NOFRAME,$0
 
 `globrunqget`[^globrunqget] 旨在从全局 runq 队列中获取最多 max 个待执行的 g
 
-  - 首先调用 `assertLockHeld`[^assertLockHeld] 保证调用者已经锁住调度器
-  - 计算得出最多能获取的 g 数量 n，g 的数量不能超过：max（非 0）、p 的 runq 一半
-  - 将首个可执行的 g 作为返回值，剩余的 n-1 个 g 放入 p 的 runq 中
+- 首先调用 `assertLockHeld`[^assertLockHeld] 保证调用者已经锁住调度器
+- 计算得出最多能获取的 g 数量 n，g 的数量不能超过：max（非 0）、p 的 runq 一半
+- 将首个可执行的 g 作为返回值，剩余的 n-1 个 g 放入 p 的 runq 中
 
 ### `stealWork`
 
@@ -136,7 +136,7 @@ TEXT runtime·mstart(SB),NOSPLIT|TOPFRAME|NOFRAME,$0
 
 - 尝试窃取四次，前三次会从其他 p 的 runq 中窃取，最后一次会查找其他 p 的 timer[^checkTimers]。
   - 窃取 p 的 runq 时使用 `randomOrder`[^stealOrder] <!-- TODODOOD --> 结构尝试随机窃取某个 p，找到 p 后判断 p 是否空闲[^stealWork_check_p_idle]，如果非空闲，则调用 `runqsteal`[^runqsteal] 窃取[^runqgrab]，窃取成功则返回该 g
-  - 窃取 timer *TODO*
+  - 窃取 timer _TODO_
 
 <!-- // 从 p2 窃取计时器。 对 checkTimers 的调用是我们可以锁定不同 P 的计时器的唯一地方。 我们在检查 runnext 之前在最后一次传递中执行此操作，因为从其他 P 的 runnext 窃取应该是最后的手段，因此如果有计时器要窃取，请首先执行此操作。 我们只在一次窃取迭代中检查计时器，因为 now 中存储的时间在此循环中不会改变，并且使用相同的 now 值多次检查每个 P 的计时器可能是浪费时间。timerpMask 告诉我们是否 P可能有定时器。 如果不能的话，根本不需要检查。 -->
 
@@ -726,20 +726,21 @@ var (
 ```
 
 调度器
+
 - g
 - m
 - p
   - runqhead uint32 无锁环形队列
-	- runqtail uint32
-	- runq     [256]guintptr
+  - runqtail uint32
+  - runq [256]guintptr
 
 ## 相关函数
 
-- `runtime.systemstack`[^systemstack]*TODO* 该函数旨在临时性切换至当前 M 的 g0 栈，完成操作后再切换回原来的协程栈，主要用于执行触发栈增长函数。如果处于 gsignal??? 或 g0 栈上，则 `systemstack` 不会产生作用（当从 g0 切换回 g 后，会丢弃 g0 栈上的内容*TODO*）
+- `runtime.systemstack`[^systemstack]_TODO_ 该函数旨在临时性切换至当前 M 的 g0 栈，完成操作后再切换回原来的协程栈，主要用于执行触发栈增长函数。如果处于 gsignal??? 或 g0 栈上，则 `systemstack` 不会产生作用（当从 g0 切换回 g 后，会丢弃 g0 栈上的内容*TODO*）
 - `runtime.mcall`[^mcall] 和 `systemstack` 类似，但是不可以在 g0 栈上调用，也不会切换回 g。作用？？？将自己挂起
 - `runtime.gosave`[^gosave]
 
-- func handoffp(pp *p)
+- func handoffp(pp \*p)
 - gcstopm
 
 - wakeup()
@@ -828,7 +829,6 @@ bad:
   INT	$3
 ```
 
-
 ## GMP
 
 ### GM 模型
@@ -899,7 +899,6 @@ mstart -> schedule()
 ## Codes
 
 [^schedule_top]:
-
     ```go
     func schedule() {
       ...
@@ -940,7 +939,6 @@ mstart -> schedule()
     ```
 
 [^runtimer]:
-
     ```go
     // runtimer examines the first timer in timers. If it is ready based on now,
     // it runs the timer and removes or updates it.
@@ -1014,7 +1012,6 @@ mstart -> schedule()
     ```
 
 [^checkTimers]:
-
     ```go
     // checkTimers runs any timers for the P that are ready.
     // If now is not 0 it is the current time.
@@ -1084,7 +1081,6 @@ mstart -> schedule()
     ```
 
 [^runqsteal]:
-
     ```go
     // Steal half of elements from local runnable queue of p2
     // and put onto local runnable queue of p.
@@ -1110,7 +1106,6 @@ mstart -> schedule()
     ```
 
 [^startlockedm]:
-
     ```go
     // Schedules the locked m to run the locked gp.
     // May run during STW, so write barriers are not allowed.
@@ -1134,7 +1129,6 @@ mstart -> schedule()
     ```
 
 [^wakeup]:
-
     ```go
     // Tries to add one more P to execute G's.
     // Called when a G is made runnable (newproc, ready).
@@ -1177,7 +1171,6 @@ mstart -> schedule()
     ```
 
 [^resetspinning]:
-
     ```go
     func resetspinning() {
       gp := getg()
@@ -1197,7 +1190,6 @@ mstart -> schedule()
     ```
 
 [^gfput]:
-
     ```go
     // Put on gfree list.
     // If local list is too long, transfer a batch to the global list.
@@ -1244,7 +1236,6 @@ mstart -> schedule()
     ```
 
 [^netpoll]:
-
     ```go
     // netpoll checks for ready network connections.
     // Returns list of goroutines that become runnable.
@@ -1335,7 +1326,6 @@ mstart -> schedule()
     ```
 
 [^globrunqget]:
-
     ```go
     // Try get a batch of G's from the global runnable queue.
     // sched.lock must be held.
@@ -1370,7 +1360,6 @@ mstart -> schedule()
     ```
 
 [^runqget]:
-
     ```go
     // Get g from local runnable queue.
     // If inheritTime is true, gp should inherit the remaining time in the
@@ -1401,7 +1390,6 @@ mstart -> schedule()
     ```
 
 [^checkTimers]:
-
     ```go
     // checkTimers runs any timers for the P that are ready.
     // If now is not 0 it is the current time.
@@ -1471,7 +1459,6 @@ mstart -> schedule()
     ```
 
 [^runSafePointFn]:
-
     ```go
     // runSafePointFn runs the safe point function, if any, for this P.
     // This should be called like
@@ -1503,7 +1490,6 @@ mstart -> schedule()
     ```
 
 [^gcstopm]:
-
     ```go
     // Stops the current m for stopTheWorld.
     // Returns when the world is restarted.
@@ -1534,7 +1520,6 @@ mstart -> schedule()
     ```
 
 [^schedule]:
-
     ```go
     / One round of scheduler: find a runnable goroutine and execute it.
     // Never returns.
@@ -1610,7 +1595,6 @@ mstart -> schedule()
     ```
 
 [^mstart0]:
-
     ```go
     // mstart0 is the Go entry-point for new Ms.
     // This must not split the stack because we may not even have stack
@@ -1661,7 +1645,6 @@ mstart -> schedule()
     ```
 
 [^mstart1]:
-
     ```go
     // The go:noinline is to guarantee the getcallerpc/getcallersp below are safe,
     // so that we can set up g0.sched to return to the call of mstart1 above.
@@ -1706,7 +1689,6 @@ mstart -> schedule()
     ```
 
 [^runqput]:
-
     ```go
     // runqput tries to put g on the local runnable queue.
     // If next is false, runqput adds g to the tail of the runnable queue.
@@ -1748,7 +1730,6 @@ mstart -> schedule()
     ```
 
 [^mcall]:
-
     ```asm
     // func mcall(fn func(*g))
     // Switch to m->g0's stack, call fn(g).
@@ -1784,9 +1765,7 @@ mstart -> schedule()
       RET
     ```
 
-
 [^goexit1]:
-
     ```go
     // Finishes execution of the current goroutine.
     func goexit1() {
@@ -1801,7 +1780,6 @@ mstart -> schedule()
     ```
 
 [^runtime·goexit]:
-
     ```asm
     // The top-most function running on a goroutine
     // returns to goexit+PCQuantum.
@@ -1813,7 +1791,6 @@ mstart -> schedule()
     ```
 
 [^goexit0]:
-
     ```go
     // goexit continuation on g0.
     func goexit0(gp *g) {
@@ -1880,9 +1857,7 @@ mstart -> schedule()
     }
     ```
 
-
 [^execute]:
-
     ```go
     // Schedules gp to run on the current M.
     // If inheritTime is true, gp inherits the remaining time in the
@@ -1935,7 +1910,6 @@ mstart -> schedule()
     ```
 
 [^gogo]:
-
     ```asm
     // func gogo(buf *gobuf)
     // restore state from Gobuf; longjmp
@@ -1961,9 +1935,7 @@ mstart -> schedule()
       JMP	BX
     ```
 
-
 [^findRunnable_fairness]:
-
     ```go
     // Check the global runnable queue once in a while to ensure fairness.
     // Otherwise two goroutines can completely occupy the local runqueue
@@ -1979,7 +1951,6 @@ mstart -> schedule()
     ```
 
 [^findRunnable_steal_check]:
-
     ```go
     // Spinning Ms: steal work from other Ps.
     //
@@ -1992,7 +1963,6 @@ mstart -> schedule()
     ```
 
 [^findRunnable_release_p]:
-
     ```go
     // return P and block
     lock(&sched.lock)
@@ -2019,7 +1989,6 @@ mstart -> schedule()
     ```
 
 [^findRunnable_steal]:
-
     ```go
     if !mp.spinning {
       mp.becomeSpinning()
@@ -2044,7 +2013,6 @@ mstart -> schedule()
     ```
 
 [^assertLockHeld]:
-
     ```go
     // assertLockHeld throws if l is not held by the caller.
     //
@@ -2071,7 +2039,6 @@ mstart -> schedule()
     ```
 
 [^findRunnable]:
-
     ```go
     // Finds a runnable goroutine to execute.
     // Tries to steal from other P's, get g from local or global queue, poll network.
@@ -2418,7 +2385,6 @@ mstart -> schedule()
     ```
 
 [^stealWork]:
-
     ```go
     // stealWork attempts to steal a runnable goroutine or timer from any P.
     //
@@ -2497,7 +2463,6 @@ mstart -> schedule()
     ```
 
 [^randomOrder]:
-
     ```go
     var stealOrder randomOrder
 
@@ -2519,7 +2484,6 @@ mstart -> schedule()
     ```
 
 [^stealWork_check_p_idle]:
-
     ```go
     // Don't bother to attempt to steal if p2 is idle.
     if !idlepMask.read(enum.position()) {
@@ -2530,7 +2494,6 @@ mstart -> schedule()
     ```
 
 [^runqgrab]:
-
     ```go
     // Grabs a batch of goroutines from _p_'s runnable queue into batch.
     // Batch is a ring buffer starting at batchHead.
@@ -2589,9 +2552,7 @@ mstart -> schedule()
     }
     ```
 
-
 [^schedule_check]:
-
     ```go
     mp := getg().m
 
@@ -2612,7 +2573,6 @@ mstart -> schedule()
     ```
 
 [^_rt0_amd64]:
-
     ```asm
     TEXT _rt0_amd64(SB),NOSPLIT,$-8
       MOVQ	0(SP), DI	// argc
@@ -2621,7 +2581,6 @@ mstart -> schedule()
     ```
 
 [^rt0_go]:
-
     ```asm
     TEXT runtime·rt0_go(SB),NOSPLIT|TOPFRAME,$0
       CALL	runtime·check(SB)
@@ -2648,7 +2607,6 @@ mstart -> schedule()
     ```
 
 [^schedinit]:
-
     ```go
     func schedinit() {
       gp := getg()
@@ -2698,7 +2656,6 @@ mstart -> schedule()
     ```
 
 [^newproc]:
-
     ```go
     // Create a new g running fn.
     // Put it on the queue of g's waiting to run.
@@ -2720,7 +2677,6 @@ mstart -> schedule()
     ```
 
 [^newproc1]:
-
     ```go
     // Create a new g in state _Grunnable, starting at fn. callerpc is the
     // address of the go statement that created this. The caller is responsible
@@ -2820,7 +2776,6 @@ mstart -> schedule()
     ```
 
 [^gostartcallfn]:
-
     ```go
     // adjust Gobuf as if it executed a call to fn
     // and then stopped before the first instruction in fn.
@@ -2847,7 +2802,6 @@ mstart -> schedule()
     ```
 
 [^gfget]:
-
     ```go
     // Get from gfree list.
     // If local list is empty, grab a batch from global list.
@@ -2910,7 +2864,6 @@ mstart -> schedule()
     ```
 
 [^malg]:
-
     ```go
     // Allocate a new g, with a stack big enough for stacksize bytes.
     func malg(stacksize int32) *g {
@@ -2931,7 +2884,6 @@ mstart -> schedule()
     ```
 
 [^allgadd]:
-
     ```go
     func allgadd(gp *g) {
       if readgstatus(gp) == _Gidle {
@@ -2949,7 +2901,6 @@ mstart -> schedule()
     ```
 
 [^newproc1.setpc]:
-
     ```go
     totalSize := uintptr(4*goarch.PtrSize + sys.MinFrameSize) // extra space in case of reads slightly beyond frame
     totalSize = alignUp(totalSize, sys.StackAlign)
@@ -2975,7 +2926,6 @@ mstart -> schedule()
     ```
 
 [^runqputslow]:
-
     ```go
     // Put g and a batch of work from local runnable queue on global queue.
     // Executed only by the owner P.
@@ -3020,7 +2970,6 @@ mstart -> schedule()
     ```
 
 [^globrunqputbatch]:
-
     ```go
     func globrunqputbatch(batch *gQueue, n int32) {
       assertLockHeld(&sched.lock)
@@ -3030,4 +2979,3 @@ mstart -> schedule()
       *batch = gQueue{}
     }
     ```
-

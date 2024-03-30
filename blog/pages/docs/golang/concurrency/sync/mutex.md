@@ -101,12 +101,12 @@ for {
 
 进入循环后首先是一个判断，`old&(mutexLocked|mutexStarving)` 表示取出 mutex 的锁位和操作模式位并判断是不是正常模式下锁被持有：
 
-|操作模式位|锁位|结果|
-|:-:|:-:|:-:|
-|正常模式|可用|0x0|
-|正常模式|已被持有|01|
-|饥饿模式|可用|10|
-|饥饿模式|已被持有|11|
+| 操作模式位 |   锁位   | 结果 |
+| :--------: | :------: | :--: |
+|  正常模式  |   可用   | 0x0  |
+|  正常模式  | 已被持有 |  01  |
+|  饥饿模式  |   可用   |  10  |
+|  饥饿模式  | 已被持有 |  11  |
 
 ```go
 const (
@@ -200,7 +200,7 @@ if atomic.CompareAndSwapInt32(&m.state, old, new) {
 }
 ```
 
-![尝试获得锁](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/concurrency/sync/try-to-lock.png)
+![尝试获得锁](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/concurrency/sync/try-to-lock.png)
 
 计算完新的状态后执行 CAS 更新锁，如果更新失败了，则获取锁最新的状态重新执行 for 循环
 
@@ -210,7 +210,7 @@ if old&(mutexLocked|mutexStarving) == 0 {
 }
 ```
 
-![饥饿模式](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/concurrency/sync/stave-mode.png)
+![饥饿模式](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/concurrency/sync/stave-mode.png)
 
 CAS 更新成功之后会验证锁之前是否是未锁定/正常模式状态，如果是的话说明 CAS 函数已经成功使当前协程持有锁了
 
@@ -240,7 +240,7 @@ starving = starving || runtime_nanotime()-waitStartTime > starvationThresholdNs
 old = m.state
 ```
 
-![被唤醒后](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/concurrency/sync/wake-up.png)
+![被唤醒后](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/concurrency/sync/wake-up.png)
 
 当某个协程释放锁，当前协程被唤醒，会更新 mutex 的饥饿状态，已经是饥饿状态或者等待了 `starvationThresholdNs` 即 1ms 都会标记是饥饿状态并获取锁的最新状态。
 
@@ -339,7 +339,6 @@ func (m *Mutex) unlockSlow(new int32) {
 ## Codes
 
 [^runtime_Semrelease]:
-
     ```go
     // Semrelease atomically increments *s and notifies a waiting goroutine
     // if one is blocked in Semacquire.
@@ -352,7 +351,6 @@ func (m *Mutex) unlockSlow(new int32) {
     ```
 
 [^lockSlow]:
-
     ```go
     func (m *Mutex) lockSlow() {
       var waitStartTime int64
@@ -445,7 +443,6 @@ func (m *Mutex) unlockSlow(new int32) {
     ```
 
 [^semacquire1]:
-
     ```go
     func semacquire1(addr *uint32, lifo bool, profile semaProfileFlags, skipframes int, reason waitReason) {
       gp := getg()

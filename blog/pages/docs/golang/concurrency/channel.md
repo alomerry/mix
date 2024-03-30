@@ -29,7 +29,7 @@ type hchan struct {
 }
 ```
 
-<!-- ![hchan-struct](https://cdn.alomerry.com/blog/assets/img/notes/golang/golang/concurrency/hchan-struct.png) -->
+<!-- ![hchan-struct](https://cdn.alomerry.com/blog/assets/notes/golang/golang/concurrency/hchan-struct.png) -->
 
 - qcount channel 中的元素个数
 - dataqsize channel 中的缓冲区数量
@@ -57,8 +57,7 @@ http://go.cyub.vip/concurrency/channel.html
 
 https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-select/
 
-![channel](https://cdn.alomerry.com/blog/assets/img/notes/languare/golang/golang/concurrency/hchan.png)
-
+![channel](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/concurrency/hchan.png)
 
 `ch := make(chan int, 5)` 在运行时调用的是 `makechan`[^makechan.switch] 函数。
 
@@ -536,7 +535,6 @@ sclose:
 ## Codes
 
 [^makechan.switch]:
-
     ```go {1,2,3}
     func makechan(t *chantype, size int) *hchan {
       ...
@@ -563,7 +561,6 @@ sclose:
     ```
 
 [^waitq]:
-
     ```go
     type waitq struct {
       first *sudog

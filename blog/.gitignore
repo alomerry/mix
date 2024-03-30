@@ -9,7 +9,7 @@ auto-imports.d.ts
 temp
 sponsors.*
 drafts
-public/og
+public/assets
 *.log
 
 pages/assets/**/*.jpeg

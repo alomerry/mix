@@ -157,7 +157,7 @@ recommend:
 一面
 
 - MongoDB 和 MySQL 有什么区别
-- MongoDB 分片的工作原理是什么？ObjectId 怎么生成的？怎么转成 String？_id 可以排序吗，排序是真实时间顺序吗
+- MongoDB 分片的工作原理是什么？ObjectId 怎么生成的？怎么转成 String？\_id 可以排序吗，排序是真实时间顺序吗
 - gin 如何允许处理跨域
 - MySQL 没有查询时，数据库负载很高，如何排查
 - `insert info select from` 用过吗，这个语句有问题吗
@@ -301,7 +301,7 @@ B 站面试个人感觉考察业务的问题比较难，可能前司主要业务
 <Book
 title="MySQL 是怎样运行的"
 desc="《MySQL是怎样运行的：从根儿上理解 MySQL》采用诙谐幽默的表达方式，对MySQL的底层运行原理进行了介绍，内容涵盖了使用MySQL的同学在求职面试和工作中常见的一些核心概念。"
-logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/how-mysql-work.jpg"
+logo="https://cdn.alomerry.com/blog/assets/links/booklists/how-mysql-work.jpg"
 link="https://book.douban.com/subject/35231266/"
 />
 
@@ -310,7 +310,7 @@ link="https://book.douban.com/subject/35231266/"
 <Book
 title="深度探索 Go 语言"
 desc="书中主要内容包括：指针、函数栈帧、调用约定、变量逃逸、Function Value、包、defer panic、 方法、Method、Value、组合式继承、接口、类型断言、反射、goroutine、抢占式调度、同步、堆和栈的管理,以及GC等。书中包含大的探索示例和源码分析，在学会应用的同时还能了解实现原理。"
-logo="https://cdn.alomerry.com/blog/assets/img/links/booklists/explore-go-runtime.jpg"
+logo="https://cdn.alomerry.com/blog/assets/links/booklists/explore-go-runtime.jpg"
 link="https://book.douban.com/subject/36104087/"
 />
 

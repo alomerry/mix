@@ -4,7 +4,7 @@ date: 2020-06-21T16:00:00.000+00:00
 update: 2024-02-22T13:27:18.589Z
 subtitle: 一个基于 vite 的博客，主要记录开发笔记、个人日常。
 duration: 2min
-wordCount: 660
+wordCount: 656
 todoNext:
   - 切换博客心得
 cards:
@@ -32,7 +32,7 @@ cards:
 ---
 
 <!--
-    - icon: 'https://cdn.alomerry.com/blog/assets/img/about/tencent-cvm.svg'
+    - icon: 'https://cdn.alomerry.com/blog/assets/about/tencent-cvm.svg'
       name: '腾讯云'
       desc: '抢占式 CVM 供应商。'
       link: 'i-logos-active-campaign-icon saturate-0'
@@ -40,7 +40,7 @@ cards:
       name: 'VuePress'
       desc: '博客驱动引擎。'
       link: 'https://vuepress.vuejs.org/zh/'
-    - icon: 'https://cdn.alomerry.com/blog/assets/img/about/jenkins-ci.svg'
+    - icon: 'https://cdn.alomerry.com/blog/assets/about/jenkins-ci.svg'
       name: 'Jenkins'
       desc: '自动化构建发布工具。'
       link: 'https://buddy.works'

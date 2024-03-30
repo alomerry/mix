@@ -22,7 +22,7 @@ wordCount: 1.4k
 
 ### 架构
 
-![架构](https://cdn.alomerry.com/blog/assets/img/notes/ci/jenkins/architecture.png)
+![架构](https://cdn.alomerry.com/blog/assets/notes/ci/jenkins/architecture.png)
 
 Jenkins Master 和 Jenkins Slave 以 Pod 形式运行在 Kubernetes 集群的 Node 上，Master是常驻服务，所有的配置数据都存储在一个
 Volume 中，Slave 不是一直处于运行状态，它会按照需求动态的创建并自动删除。
@@ -154,7 +154,7 @@ Service 用于将 Jenkins Pod 的端口以服务的形式统一暴露，如需�
 
 执行 `kubectl apply -f jenkins.yml` 后即可进入初始化页面：
 
-![初始化](https://cdn.alomerry.com/blog/assets/img/notes/ci/jenkins/unlock-jenkins.png)
+![初始化](https://cdn.alomerry.com/blog/assets/notes/ci/jenkins/unlock-jenkins.png)
 
 执行 `kubectl logs -n ${namespace} ${pod name}`
 
@@ -184,11 +184,11 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 
 设置好用户名密码后就进入 Jenkins 主页面了
 
-![jenkins-home](https://cdn.alomerry.com/blog/assets/img/notes/ci/jenkins/jenkins-home.png)
+![jenkins-home](https://cdn.alomerry.com/blog/assets/notes/ci/jenkins/jenkins-home.png)
 
 将内置的节点执行数量设置成 0，设置除非指定节点名时才能使用以保证主节点的稳定
 
-![prevent build-in node](https://cdn.alomerry.com/blog/assets/img/notes/ci/jenkins/prevent-use-build-in-node.png)
+![prevent build-in node](https://cdn.alomerry.com/blog/assets/notes/ci/jenkins/prevent-use-build-in-node.png)
 
 配置 k8s 环境
 
@@ -204,13 +204,13 @@ echo ${certificate-authority-data} | base64 -d
 
 jenkins 地址可以写 jenkins-service 的地址
 
-![k8s config](https://cdn.alomerry.com/blog/assets/img/notes/ci/jenkins/jenkins-k8s-config-1.png)
+![k8s config](https://cdn.alomerry.com/blog/assets/notes/ci/jenkins/jenkins-k8s-config-1.png)
 
-![k8s config](https://cdn.alomerry.com/blog/assets/img/notes/ci/jenkins/jenkins-k8s-config-2.png)
+![k8s config](https://cdn.alomerry.com/blog/assets/notes/ci/jenkins/jenkins-k8s-config-2.png)
 
-![build pipeline](https://cdn.alomerry.com/blog/assets/img/notes/ci/jenkins/jenkins-build-by-k8s-pod.png)
+![build pipeline](https://cdn.alomerry.com/blog/assets/notes/ci/jenkins/jenkins-build-by-k8s-pod.png)
 
-![jenkins build pod](https://cdn.alomerry.com/blog/assets/img/notes/ci/jenkins/jenkins-build-pod.png)
+![jenkins build pod](https://cdn.alomerry.com/blog/assets/notes/ci/jenkins/jenkins-build-pod.png)
 
 ### 优势
 
@@ -249,7 +249,7 @@ spec:
           name: docker-sock
       readinessProbe:
         exec:
-          command: [ "docker", "info" ]
+          command: [docker, info]
         initialDelaySeconds: 10
         failureThreshold: 6
     - name: docker-builder
