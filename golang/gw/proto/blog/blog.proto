@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package gw.blog;
 
-option go_package = ".;blog";
+option go_package = "gw/proto/blog";
 
 message SearchBlogsRequest {
   string keyword = 1;

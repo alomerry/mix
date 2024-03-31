@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"github.com/alomerry/go-tools/modules/sgs/delay"
 	"github.com/alomerry/go-tools/modules/sgs/tools"
+	"github.com/alomerry/go-tools/static/constant"
+	file_util "github.com/alomerry/go-tools/utils/files"
+	"github.com/alomerry/go-tools/utils/zip"
 	"github.com/duke-git/lancet/v2/fileutil"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"gw/core/constant"
-	"gw/core/utils"
 	"gw/core/utils/combiner"
 	_const "gw/core/utils/const"
-	"gw/core/utils/zip"
 	"io"
 	"net/http"
 	"os"
@@ -202,7 +202,7 @@ func mergeAndRename(category, code string) (err error) {
 	}
 
 	var (
-		fileType = utils.GetFileType(files[0].Name())
+		fileType = file_util.GetFileType(files[0].Name())
 		source   = genAbsoluteFilePath(code, category, files[0].Name())
 		target   = genAbsoluteFilePath(code, _const.StrEmpty, getTargetFileName(category, fileType))
 	)

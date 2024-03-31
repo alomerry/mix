@@ -2,11 +2,11 @@ syntax = "proto3";
 
 package gw.k8s;
 
-option go_package = ".;k8s";
+option go_package = "gw/proto/k8s";
 
-import "namespace.proto";
-import "deployment.proto";
-import "resource.proto";
+import "proto/k8s/namespace.proto";
+import "proto/k8s/deployment.proto";
+import "proto/k8s/resource.proto";
 
 service KubernetesService {
   // 获取命名空间

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package gw.admin;
 
-option go_package = ".;admin";
+option go_package = "gw/proto/admin";
 
 message LoginRequest {
   string username = 1;

@@ -1,6 +1,8 @@
 package middleware
 
 import (
+	"github.com/alomerry/go-tools/static/constant"
+	"github.com/alomerry/go-tools/static/env"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -44,6 +46,12 @@ var (
 		"https://ref.alomerry.com",
 	}
 )
+
+func init() {
+	if env.GetEnv() == constant.EnvLocal {
+		safeDomains = append(safeDomains, "http://localhost:3333", "http://localhost:8848")
+	}
+}
 
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {

@@ -2,10 +2,13 @@ syntax = "proto3";
 
 package gw.blog;
 
-option go_package = ".;blog";
+option go_package = "gw/proto/blog";
 
-import "blog.proto";
+import "proto/blog/blog.proto";
+import "proto/common/request.proto";
+import "proto/common/response.proto";
 
 service BlogService {
   rpc SearchBlogs(SearchBlogsRequest) returns (SearchBlogsResponse);
+  rpc BuildBlogIndex(gw.common.EmptyRequest) returns (gw.common.EmptyResponse);
 }

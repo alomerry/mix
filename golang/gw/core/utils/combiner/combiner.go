@@ -1,7 +1,7 @@
 package combiner
 
 import (
-	"gw/core/utils"
+	"github.com/alomerry/go-tools/utils/base"
 )
 
 type CombineOpt struct {
@@ -38,7 +38,7 @@ func WithIgnoreEmpty() CombineOptWrapFunc {
 func (c *Combiner[T]) Combine(arr ...T) []T {
 	var res []T
 	for i, item := range arr {
-		if c.option.ignoreEmpty && utils.IsZero(item) {
+		if c.option.ignoreEmpty && base.IsZero(item) {
 			continue
 		}
 		res = append(res, arr[i])

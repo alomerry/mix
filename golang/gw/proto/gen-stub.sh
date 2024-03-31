@@ -33,14 +33,22 @@ generate_protobuf_stub() {
     GEN_GO_COMMAND="--go_out=${folder} --go_opt=paths=source_relative"
     GEN_GRPC_COMMAND="--go-grpc_out=${folder} --go-grpc_opt=require_unimplemented_servers=false,paths=source_relative"
     GEN_GATEWAY_COMMAND="--grpc-gateway_out=${folder} --grpc-gateway_opt=paths=source_relative"
+
+    local gateway_command="${GEN_GATEWAY_COMMAND},grpc_api_configuration=${folder}/consumer.yml"
+
     if [ ${folder/common/-} == ${folder} ]; then
-      local gateway_command="${GEN_GATEWAY_COMMAND},grpc_api_configuration=${folder}/consumer.yml"
-      command_str="protoc ${GEN_GO_COMMAND} ${GEN_GRPC_COMMAND} ${gateway_command} ${folder}/*.proto -I${folder} -I."
+      # 生成模块 service proto
+      gen_service_cmd="protoc ${GEN_GO_COMMAND} ${GEN_GRPC_COMMAND} ${gateway_command} ${folder}/service.proto -I${folder} -I."
+      $gen_service_cmd
+
+      proto_files=$(find ${folder} -name "*.proto" | grep -v "service.proto")
+      gen_proto_cmd="protoc ${GEN_GO_COMMAND} ${GEN_GRPC_COMMAND} $proto_files -I${folder} -I."
+      $gen_proto_cmd
     else
-      command_str="protoc ${GEN_GO_COMMAND} ${GEN_GRPC_COMMAND} ${folder}/*.proto -I${folder} -I."
+      # 生成 common proto
+      gen_proto_cmd="protoc ${GEN_GO_COMMAND} ${GEN_GRPC_COMMAND} ${folder}/*.proto -I${folder} -I."
+      $gen_proto_cmd
     fi
-#    echo "${command_str}"
-    $command_str
   done
 }
 

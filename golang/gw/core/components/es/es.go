@@ -16,7 +16,7 @@ func init() {
 func initEsClient() {
 	cfg := elasticsearch.Config{
 		Addresses: []string{
-			env.GetElasticSearchEndpoint(),
+			env.GetWithLocalElasticSearchEndpoint(),
 		},
 		APIKey: env.GetElasticSearchAK(),
 	}

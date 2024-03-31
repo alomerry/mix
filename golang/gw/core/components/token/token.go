@@ -6,10 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/alomerry/go-tools/static/env"
+	"github.com/alomerry/go-tools/utils/random"
 	"gw/core/db"
 	"gw/core/log"
 	"gw/core/utils/jwt"
-	"gw/core/utils/random"
 	"time"
 )
 

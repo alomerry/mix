@@ -30,6 +30,7 @@ jobs:
         run: |
           export PATH="$PATH:$(go env GOPATH)/bin"
           cd golang/gw
+          ./build.sh pre-proto
           ./build.sh proto
       - name: buil构建二进制
         run: |

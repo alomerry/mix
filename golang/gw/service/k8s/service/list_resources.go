@@ -24,7 +24,7 @@ func (k *KubernetesService) ListResources(ctx context.Context, req *proto.ListRe
 	for _, resourceType := range req.ResourceTypes {
 		switch resourceType {
 		case constant.ResourceTypeDeployment:
-			// res.NamespacePods = k.fetchNamespacesPods(ctx, resp.Namespaces)
+			res.NamespaceDeployments = k.fetchNamespacesDeployments(ctx, resp.Namespaces)
 		case constant.ResourceTypePod:
 			res.NamespacePods = k.fetchNamespacesPods(ctx, resp.Namespaces)
 		}

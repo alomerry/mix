@@ -20,8 +20,10 @@ func main() {
 		r = gin.Default()
 	)
 
-	r.Use(middleware.Cors())
+	r.Use(middleware.Cors()).Use(middleware.Auth())
+
 	r.MaxMultipartMemory = 8 << 20
+
 	controller.InitRouter(r)
 
 	_ = viper.BindPFlag("port", flag.Lookup("port"))

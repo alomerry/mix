@@ -16,6 +16,14 @@ main() {
       go build -o "${PROTO_PATH}"/scripts/genGatewayLoader/genGatewayLoader "${PROTO_PATH}"/scripts/genGatewayLoader/generate_gateway_loader.go
       "${PROTO_PATH}"/scripts/genGatewayLoader/genGatewayLoader
       ;;
+    clean)
+      rm "${PROTO_PATH}"/**/*.pb.go
+      rm "${PROTO_PATH}"/**/*.pb.gw.go
+      ;;
+    pre-proto)
+      "${PROTO_PATH}"/scripts/pre-proto.sh ${PROTO_PATH}
+#      find "${PROTO_PATH}" -type f -name "service.proto" -exec perl -pi -e 's/import "[^"]*\/([^"]*)";/import "\1";/g' {} +
+      ;;
     proto)
       "${PROTO_PATH}"/gen-stub.sh "${@:2}"
       ;;

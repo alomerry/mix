@@ -16,6 +16,8 @@ var (
 	routerGroupMapper = map[string][]func(*gin.RouterGroup){}
 )
 
+type Handler func(c *gin.Context) (any, error)
+
 func InitRouter(engine *gin.Engine) {
 	engine.GET("/ping", ping)
 
@@ -26,8 +28,6 @@ func InitRouter(engine *gin.Engine) {
 		}
 	}
 }
-
-type Handler func(c *gin.Context) (any, error)
 
 func registerRouter(version string, routerFunc func(*gin.RouterGroup)) {
 	_, exits := routerGroupMapper[version]

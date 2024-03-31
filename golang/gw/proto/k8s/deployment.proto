@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package gw.k8s;
 
-option go_package = ".;k8s";
+option go_package = "gw/proto/k8s";
 
 message RolloutRestartDeploymentRequest {
   string namespace = 1;

@@ -14,9 +14,10 @@ var (
 
 func init() {
 	var (
-		dsn = env.GetMysqlAdminDSN()
+		dsn = env.GetWithLocalMysqlAdminDSN()
 		err error
 	)
+
 	mysql, err = gorm.Open(m.Open(dsn), &gorm.Config{
 		// PrepareStmt: false, // https://gorm.io/zh_CN/docs/performance.html#缓存预编译语句
 	})
