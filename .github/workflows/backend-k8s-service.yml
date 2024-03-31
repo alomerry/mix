@@ -1,4 +1,4 @@
-name: 构建 k8s 服务 docker 镜像并发送到 aliyun
+name: 构建 k8s 服务
 
 on:
   push:
@@ -29,13 +29,12 @@ jobs:
         run: |
           export PATH="$PATH:$(go env GOPATH)/bin"
           cd golang/gw
-          ./build.sh pre-proto
           ./build.sh proto
       - name: 构建二进制
         run: |
           cd golang/gw/
           go build -o gw service/k8s/main.go
-      - name: 构建镜像
+      - name: 构建镜像发推送到 aliyun
         run: |
           docker version
           docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com

@@ -20,12 +20,10 @@ main() {
       rm "${PROTO_PATH}"/**/*.pb.go
       rm "${PROTO_PATH}"/**/*.pb.gw.go
       ;;
-    pre-proto)
-      "${PROTO_PATH}"/scripts/pre-proto.sh ${PROTO_PATH}
-#      find "${PROTO_PATH}" -type f -name "service.proto" -exec perl -pi -e 's/import "[^"]*\/([^"]*)";/import "\1";/g' {} +
-      ;;
     proto)
+      "${PROTO_PATH}"/scripts/pre-proto.sh ${PROTO_PATH}
       "${PROTO_PATH}"/gen-stub.sh "${@:2}"
+      "${PROTO_PATH}"/scripts/post-proto.sh ${PROTO_PATH}
       ;;
     service)
       "${SERVICE_PATH}"/scripts/build "${@:2}"
