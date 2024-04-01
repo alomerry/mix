@@ -2,10 +2,12 @@ package middleware
 
 import (
 	"context"
-	"github.com/alomerry/go-tools/utils/array"
-	"github.com/gin-gonic/gin"
 	"gw/core/components/token"
 	"net/http"
+	"strings"
+
+	"github.com/alomerry/go-tools/utils/array"
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -14,6 +16,7 @@ var (
 		"/v0/mix/admin/login",
 		"/v0/mix/admin/token/refresh",
 		"/v0/mix/blog/search",
+		"/v0/mix/admin/asyncRoutes", // TODO remove
 	}
 )
 
@@ -22,7 +25,7 @@ func Auth() gin.HandlerFunc {
 		jwt := getTokenFromHeader(c)
 		path := c.Request.URL.Path
 
-		if array.Contains(NoAuthRoutes, path) {
+		if array.Contains(NoAuthRoutes, path) || strings.HasPrefix(path, "/v0/sgs") {
 			c.Next() // TODO
 			return
 		}
@@ -38,7 +41,6 @@ func Auth() gin.HandlerFunc {
 		// 设置 header
 		// fmt.Println(claims.Username, claims.Version)
 		c.Next()
-		return
 	}
 }
 

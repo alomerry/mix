@@ -56,5 +56,5 @@ jobs:
           method: "POST"
           customHeaders: '{"Content-Type": "application/json"}'
           retry: 3
-          retryWait: 30000
-          data: '{"namespace": "alomerry", "deployment": "mix-gw-deploymentt"}'
+          retryWait: 10000
+          data: '{"namespace": "alomerry", "deployment": "mix-gw-deployment"}'

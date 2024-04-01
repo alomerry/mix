@@ -1,1 +1,1 @@
-export const DOMAIN = "http://127.0.0.1:4790";
+export const DOMAIN = "https://admin.alomerry.com";

@@ -38,6 +38,11 @@ spec:
               containerPort: 4790
               protocol: TCP
           env:
+            - name: MYSQL_ADMIN_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: mix-secret
+                  key: home-lab-admin-mysql-dsn
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
