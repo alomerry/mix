@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import plan from "./plan.vue";
-import { genRandomStr, DOMAIN } from "@/utils/alomerry";
+import { genRandomStr } from "@/utils/alomerry";
 import { ElMessage, UploadInstance } from "element-plus";
 import { Check, Picture, Upload } from "@element-plus/icons-vue";
 import type { UploadUserFile } from "element-plus";
@@ -199,7 +199,7 @@ onMounted(() => {
                 v-model:file-list="dataA"
                 name="excels"
                 multiple
-                :action="`${DOMAIN}/v0/sgs/upload?type=${STEP_A}&code=${randomString}`"
+                :action="`/v0/sgs/upload?type=${STEP_A}&code=${randomString}`"
                 :before-upload="value => beforeUpload(validFileTypes)(value)"
               >
                 <template #trigger>
@@ -260,7 +260,7 @@ onMounted(() => {
                 ref="uploadB"
                 v-model:file-list="dataB"
                 name="excels"
-                :action="`${DOMAIN}/v0/sgs/upload?type=${STEP_B}&code=${randomString}`"
+                :action="`/v0/sgs/upload?type=${STEP_B}&code=${randomString}`"
                 multiple
                 :before-upload="value => beforeUpload(validFileTypes)(value)"
               >
@@ -310,7 +310,7 @@ onMounted(() => {
                 ref="uploadReason"
                 v-model:file-list="dataReason"
                 name="excels"
-                :action="`${DOMAIN}/v0/sgs/upload?type=${STEP_REASON}&code=${randomString}`"
+                :action="`/v0/sgs/upload?type=${STEP_REASON}&code=${randomString}`"
                 multiple
                 :before-upload="value => beforeUpload(validFileTypes)(value)"
               >
@@ -383,14 +383,16 @@ onMounted(() => {
           class="delay-help-exec"
           type="success"
           :disabled="
-            currentStep < 3 || loading.get(STEP_RESULT) || apiUnhealthy
+            currentStep < 3 ||
+            loading.get(STEP_RESULT) ||
+            (false && apiUnhealthy)
           "
           plain
           @click="doDelaySummary()"
         >
           执行
         </el-button>
-        <el-link v-else :href="`${DOMAIN}/v0/sgs/download/${randomString}.zip`">
+        <el-link v-else :href="`/v0/sgs/download/${randomString}.zip`">
           <el-button type="primary" plain> 下载</el-button>
         </el-link>
       </el-col>

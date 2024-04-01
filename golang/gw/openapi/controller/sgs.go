@@ -6,6 +6,7 @@ import (
 	"github.com/alomerry/go-tools/modules/sgs/delay"
 	"github.com/alomerry/go-tools/modules/sgs/tools"
 	"github.com/alomerry/go-tools/static/constant"
+	"github.com/alomerry/go-tools/static/env"
 	file_util "github.com/alomerry/go-tools/utils/files"
 	"github.com/alomerry/go-tools/utils/zip"
 	"github.com/duke-git/lancet/v2/fileutil"
@@ -26,8 +27,6 @@ const (
 	delaySummaryFailed
 	delaySummaryProgress
 	delaySummarySuccess
-
-	SgsWorkspace = "/tmp/sgs"
 )
 
 var (
@@ -38,12 +37,18 @@ var (
 		constant.StepReason: "_未出数据",
 	}
 
+	SgsWorkspace = "/tmp/sgs"
+
 	statusMap = map[string]int{}
 )
 
 func init() {
 	s = NewSgsController()
 	s.Register()
+
+	if env.GetEnv() == constant.EnvLocal {
+		SgsWorkspace = "/Users/alomerry/workspace/mix/golang/gw/output"
+	}
 
 	downloadSgsStarDelayExcelTemplate()
 }
@@ -218,6 +223,11 @@ func mergeAndRename(category, code string) (err error) {
 	if err != nil {
 		panic(err)
 	}
+	err = os.RemoveAll(genDirPath(code, category))
+	if err != nil {
+		panic(err)
+	}
+
 	return
 }
 
