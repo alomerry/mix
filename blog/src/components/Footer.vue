@@ -5,6 +5,6 @@
       <!-- commit version 3422056b065d47d9e973ccf8815a893e68b891f3 -->
     </span>
     <div class="flex-auto" />
-    <span class="text-sm op50">2018-Present © Alomerry Wu</span>
+    <span class="text-sm op50">2018 - Present © Alomerry Wu</span>
   </div>
 </template>

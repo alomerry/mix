@@ -41,11 +41,11 @@ location = /mirror {
 }
 ```
 
-- - https://www.hangge.com/blog/cache/detail_2979.html
-  - https://blog.csdn.net/zzhongcy/article/details/129853042
-  - http://wenpf.xyz/2020/07/02/%E4%BD%BF%E7%94%A8nginx-mirror%E8%BF%9B%E8%A1%8C%E5%AE%9E%E6%97%B6%E6%B5%81%E9%87%8F%E5%A4%8D%E5%88%B6/
-  - https://blog.csdn.net/aiwangtingyun/article/details/120320341
-  - https://juejin.cn/post/7005850566333218830
-  - https://github.com/Finb/bark-server/issues/100
-  - https://github.com/Finb/bark-server/issues/205
-  - https://medium.com/@TimvanBaarsen/how-to-connect-to-the-docker-host-from-inside-a-docker-container-112b4c71bc66
+- https://www.hangge.com/blog/cache/detail_2979.html
+- https://blog.csdn.net/zzhongcy/article/details/129853042
+- http://wenpf.xyz/2020/07/02/%E4%BD%BF%E7%94%A8nginx-mirror%E8%BF%9B%E8%A1%8C%E5%AE%9E%E6%97%B6%E6%B5%81%E9%87%8F%E5%A4%8D%E5%88%B6/
+- https://blog.csdn.net/aiwangtingyun/article/details/120320341
+- https://juejin.cn/post/7005850566333218830
+- https://github.com/Finb/bark-server/issues/100
+- https://github.com/Finb/bark-server/issues/205
+- https://medium.com/@TimvanBaarsen/how-to-connect-to-the-docker-host-from-inside-a-docker-container-112b4c71bc66

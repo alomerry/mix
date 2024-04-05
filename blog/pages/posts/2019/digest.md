@@ -5,6 +5,7 @@ title: 美文文摘
 desc: 来源于读者、网易云、文苑、知乎的一些自己喜欢的文字
 duration: 1min
 wordCount: 152
+pinned: true
 html:
   zhihu:
     how_many_cvm_one_website_need:
@@ -25,6 +26,12 @@ Troubleshooting any problem without the error log is like driving with your eyes
 
 -->
 
+## 知乎
+
+<!-- - [文言文中的哪一句话让你最难忘怀](../hidden/digest/zhihu/memorable-sentence) -->
+- [什么是知识的诅咒？](../hidden/digest/zhihu/curse-of-knowledge)
+- <HTML :html="frontmatter.html.zhihu.how_many_cvm_one_website_need" />
+
 ## 作家
 
 - [村上春树](../hidden/digest/writer/murakami-haruki)
@@ -33,12 +40,6 @@ Troubleshooting any problem without the error log is like driving with your eyes
 
 - [石康](../hidden/digest/blogger/shikang)
 - [核电站](../hidden/digest/blogger/hedianzhan)
-
-## 知乎
-
-- [文言文中的哪一句话让你最难忘怀](../hidden/digest/zhihu/memorable-sentence)
-- [什么是知识的诅咒？](../hidden/digest/zhihu/curse-of-knowledge)
-- <HTML :html="frontmatter.html.zhihu.how_many_cvm_one_website_need" />
 
 ## 其它
 

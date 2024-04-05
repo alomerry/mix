@@ -2,7 +2,7 @@
 title: 寻求低延迟海外 vps 笔记
 desc: "#justhost #hostyun #狗云 #腾讯云"
 duration: 1min
-wordCount: 522
+wordCount: 526
 date: 2024-02-24T06:21:40.654Z
 update: 2024-03-05T20:24:43.550Z
 ---
@@ -21,7 +21,11 @@ update: 2024-03-05T20:24:43.550Z
 
 ## [狗云](https://www.dogyun.com/?ref=alomerry)（2024.2 至今）
 
-<iframe src="https://app.warp.dev/block/embed/14awjAvS9lsCO6nLeZzAAi" title="embedded warp block" style="width: 1842px; height: 4178px; border:0; overflow:hidden;" allow="clipboard-read; clipboard-write"></iframe>
+::: details VPS 测试
+
+<iframe src="https://app.warp.dev/block/embed/14awjAvS9lsCO6nLeZzAAi" title="embedded warp block" style="width: 100%; height: 4178px; border:0; overflow:hidden;" allow="clipboard-read; clipboard-write"></iframe>
+
+:::
 
 ![2024-my-dogyun-ping.png](https://cdn.alomerry.com/blog/assets/2024-dogyun-ping.jpg)
 

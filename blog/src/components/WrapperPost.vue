@@ -53,6 +53,7 @@ onMounted(() => {
       && link
       && event.button === 0
       && link.target !== '_blank'
+      && link.fix !== 'alomerry-component'
       && link.rel !== 'external'
       && !link.download
       && !event.metaKey

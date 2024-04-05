@@ -39,6 +39,7 @@ onMounted(() => {
 
 <template>
   <a
+    fix="alomerry-component"
     v-for="page in html"
     :key="`${page.url}${page.title}`"
     @click="showDialog(page)"

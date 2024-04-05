@@ -12,6 +12,7 @@ const (
 
 var (
 	action string
+	env    string
 
 	blog = &cobra.Command{
 		Use:   "blog-tools",
@@ -27,6 +28,7 @@ var (
 
 func init() {
 	blog.Flags().StringVarP(&action, "action", "a", "", "")
+	blog.Flags().StringVarP(&env, "env", "e", "", "")
 	blog.MarkFlagRequired("action")
 }
 

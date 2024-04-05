@@ -2,7 +2,7 @@ name: build blog search idx after pages changed
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
     paths:
       - "blog/pages/**"
 

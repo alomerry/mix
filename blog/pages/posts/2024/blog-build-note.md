@@ -2,29 +2,27 @@
 title: 搭建个人博客索引
 desc: 使用 golang 解析 blog markdown 输入 ElasticSearch 构建索引
 date: 2024-03-10T20:01:01.231Z
-update: 2024-03-11T20:04:12.459Z
-duration: 7min
-wordCount: 1.8k
+update: 2024-04-04T15:53:49.206Z
+duration: 8min
+wordCount: 2k
 ---
 
 [[toc]]
 
-待整理，草稿
-
 ## 前提
 
-博客之前使用的都是主题自带的或者插件（vuepress/vitepress 之类），也用过基于爬虫的aligo search、客户端搜索。客户端搜索缺点需要加载很大的索引文件，在浏览器里搜索匹配，爬虫的要么需要自己写爬虫（没有相关经验），要么需要配置，会比较繁琐，其实全文搜索本身使用 es 很方便，加上换了 antfu 基于 vitessg 的博客主题，可定制程度更高，决定自行实现博客的全文搜索功能。
+博客之前使用的都是主题自带的或者插件（vuepress/vitepress 之类），也用过基于爬虫的 aligo search、客户端搜索。客户端搜索缺点需要加载很大的索引文件，在浏览器里搜索匹配，爬虫的要么需要自己写爬虫（没有相关经验），要么需要配置，会比较繁琐，其实全文搜索本身使用 es 很方便，加上换了 antfu 基于 vitessg 的博客主题，可定制程度更高，决定自行实现博客的全文搜索功能。
 
 主要步骤是：
 
 - 读取 git 中需要索引的 markdown 文件列表
 - 依次解析，并结构化成标题、时间、内容的数据，剔除内容中的 frontmatter，html 标签之类
-- 对接 es，将数据插入，并暴露一个查询接口
+- 对接 ElasticSearch，将数据插入，并暴露一个查询接口
 - 前端适配
 
 ## 搭建集群
 
-由于屋里有一套 PVE 的 k8s 集群，所以直接使用 [ECK（Elasticsearch on Kubernetes）](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html) 快速部署一个 Elasticsearch 集群
+由于屋内有一套 PVE 的 k8s 集群，所以直接使用 [ECK（Elasticsearch on Kubernetes）](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html) 快速部署一个 Elasticsearch 集群
 
 ### 部署 ElasticSearch
 
@@ -39,9 +37,12 @@ kubectl apply -f https://download.elastic.co/downloads/eck/2.11.1/operator.yaml
 
 提前准备好 pv/pvc 后可以使用下面的 yaml 文件部署，由于我是内网访问，额外的服务暴露查询接口，所以我禁用了证书，并且初始化时安装部分插件
 
+> [!TIP]
+> 如果想使用 nfs 为 k8s 集群提供存储服务，可见[此文](../../docs/2023/k8s-1.28-install)。
+
 ::: details ElasticSearch 资源
 
-```yml
+```yaml
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
@@ -81,7 +82,7 @@ spec:
 
 :::
 
-### 部署 kibana 实例
+### 部署 Kibana 实例
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -103,16 +104,16 @@ spec:
 EOF
 ```
 
-安装完成后可以看到已经有三个 elasticsearch 和 一个 kibana pod 了
+安装完成后可以看到已经有三个 Elasticsearch 和 一个 Kibana pod 了
 
 ![es pod](https://cdn.alomerry.com/blog/assets/local-k8s-es-pod.png)
 
 > [!TIP]
-> 如果需要使用反向代理访问 Kibana 注意配置 [publicBaseUrl](https://www.elastic.co/guide/en/kibana/8.12/settings.html#server-publicBaseUrl)
+> 如果需要使用反向代理访问 Kibana 注意配置 [publicBaseUrl](https://www.elastic.co/guide/en/kibana/8.12/settings.html#server-publicBaseUrl)。
 
-### 访问 kibana
+**访问 Kibana**
 
-执行 `k get svc -n default` 查看 kibana 和 elasticsearch 暴露的内网 ip 和 port
+执行 `k get svc -n default` 查看 Kibana 和 Elasticsearch 暴露的内网 ip 和 port
 
 ![es-service](https://cdn.alomerry.com/blog/assets/local-k8s-es-service.png)
 
@@ -124,7 +125,7 @@ EOF
 
 ![index](https://cdn.alomerry.com/blog/assets/elastic-kibana-index.jpeg)
 
-可以在 kibana 中创建索引，也可以使用接口创建
+可以在 Kibana 中创建索引，也可以使用接口创建
 
 ![create-index](https://cdn.alomerry.com/blog/assets/elastic-kibana-create-index.jpeg)
 
@@ -146,7 +147,7 @@ EOF
 
 ### 解析
 
-因为个人比较熟悉的原因，所以选择了 golang，可以使用任意自己喜欢的语言。完整源码见 [Github](https://github.com/alomerry/mix/blob/dc0f95c0dd3100197c42ee20c6dfee55086e3af8/golang/mix-tools/modules/blog/)。
+个人选择了 golang 来解析 markdown 文件，也可以使用任意自己喜欢的语言。完整源码见 [Github](https://github.com/alomerry/mix/blob/dc0f95c0dd3100197c42ee20c6dfee55086e3af8/golang/mix-tools/modules/blog/)。
 
 - 递归遍历查找所有满足条件的 markdown 文件
 - 解析每个 markdown 文件，使用 `^---\n([\s\S]*?)\n---` 解析 frontmatter，清洗 content 中的 html 元素、代码块标记、多余的换行、`[[toc]]`、`![]`、`[]()` 等并序列化。
@@ -245,27 +246,57 @@ highlight 命中 title 可以使用 h1 标签更醒目一些，命中 content �
 
 ## 更多
 
-剩下一些收尾工作就是博文变化了之后自动更新索引，以及搜索接口变化后重新部署，虽然已经超出本文的范畴，但是又不是没有任何联系，所以在此记录一下。
+额外的收尾工作就是博文变化了之后自动更新索引，以及搜索接口变化后重新部署。
 
 ### 构建镜像
 
-使用 Github Action 来执行镜像构建和推送，家里的 PVE 只需要删除旧 pod 即可。具体见 [workflow](https://github.com/alomerry/mix/blob/dc0f95c0dd3100197c42ee20c6dfee55086e3af8/.github/workflows/docker-gw.yml)
-
-action 执行完成后可以看到 aliyun 镜像已更新
+使用 Github Action 来执行镜像构建和推送，家里的 ProxmoxVE 只需要删除旧 pod 即可。具体见 [workflow](https://github.com/alomerry/mix/blob/00d4dde7fa88ce1e2a328a98c2305e79dcdd4a2b/.github/workflows/openapi-gw.yml)。
 
 ![aliyun-mix-gw](https://cdn.alomerry.com/blog/assets/aliyun-mix-gw.jpeg)
 
 > [!TIP]
-> 其实也可以使用 jenkins 或者 tekton，不过 jenkins 太重了，也会过多的占用集群的资源；tekton 的话虽然也很感兴趣，但是目前我还没时间学习。最后折中选择了一个简单容易的方式。
+> 其实也可以使用 jenkins 或者 tekton，不过 jenkins 太重了，也会过多的占用集群的资源；tekton 的话虽然也很感兴趣，但是目前我还没学会。最后折中选择了一个简单容易的方式。
 
 ### 更新索引
 
-待更新 TODO
+由于 [mix](https://github.com/alomerry/mix) 是 monorepo，其中包含了上文构建索引的代码，因此我仍使用 Github Action 来执行这部分代码。
+
+使用 `actions/setup-go@v5` 设置 go 环境以及对应版本，添加 ElasticSearch 的 endpoint 和 API 密钥，执行构建函数即可。
+
+> [!TIP]
+> 当然在 Github Action 中使用的 ElasticSearch endpoint 需要公网可访问，我使用的 frp 暴露的局域网服务。
+
+
+```yml
+name: build blog search idx after pages changed
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - "blog/pages/**"
+
+jobs:
+  gen-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.21.5"
+      - name: build gw bin
+        env:
+          ELASTICSEARCH_ENDPOINT: ${{ secrets.ELASTICSEARCH_ENDPOINT }}
+          ELASTICSEARCH_PASSWORD: ${{ secrets.ELASTICSEARCH_PASSWORD }}
+        run: |
+          cd golang/gw
+          go run service/blog/cmd/blog.go -a build-index -e "${{env.ELASTICSEARCH_ENDPOINT}}" "${{env.ELASTICSEARCH_PASSWORD}}"
+```
 
 ## Reference
 
 - [ECK](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-elasticsearch.html)
-- [使用k8s部署elasticsearch8.7.0](https://juejin.cn/post/7221075271201980474)
+- [使用 k8s 部署 Elasticsearch 8.7.0](https://juejin.cn/post/7221075271201980474)
 - [ES8 生产实践—— k8s 部署与维护 ELK 集群（ECK）](https://blog.csdn.net/qq_33816243/article/details/132677567)
 - [学好 Elasticsearch 系列 Query DSL](https://www.cnblogs.com/booksea/p/17603369.html#%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2)
 - [Github go action](https://github.com/actions/setup-go)
