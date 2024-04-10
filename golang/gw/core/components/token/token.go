@@ -47,6 +47,7 @@ func (*Tool) GenUserToken(ctx context.Context, username string) (*Group, error) 
 
 	res, err := db.Redis().Set(ctx, getUserTokenKey(username), token, tokenExpireDuration).Result()
 	if err != nil {
+		log.Error(ctx, "set token failed", err.Error())
 		return nil, err
 	}
 	if res != "OK" {

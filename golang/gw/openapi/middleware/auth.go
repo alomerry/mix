@@ -15,6 +15,7 @@ var (
 		"/ping",
 		"/v0/mix/admin/login",
 		"/v0/mix/admin/token/refresh",
+		"/v0/mix/k8s/deployment/restart", // TODO remove
 		"/v0/mix/blog/search",
 		"/v0/mix/admin/asyncRoutes", // TODO remove
 	}

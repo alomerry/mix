@@ -14,7 +14,7 @@ func init() {
 		Addrs: env.GetRedisClusterDSN(),
 		// To route commands by latency or randomly, enable one of the following.
 		// RouteByLatency: true,
-		// RouteRandomly: true,
+		RouteRandomly:       true,
 		Password:            env.GetRedisAK(),
 		CredentialsProvider: nil,
 	})
