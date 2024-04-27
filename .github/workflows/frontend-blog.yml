@@ -6,6 +6,7 @@ on:
     paths:
       - "blog/pages/**"
       - "blog/src/**"
+      - ".github/workflows/frontend-blog.yml"
 
 jobs:
   build-deploy-blog:
@@ -39,7 +40,7 @@ jobs:
           host: blog.alomerry.com
           username: root
           key: ${{ secrets.VPS_SECRET_SSH_KEY }}
-          port: 22
+          port: ${{ vars.VPS_SSH_PORT }}
           source: "blog/res.tar.gz"
           target: "/tmp/"
       - name: deploy blog
@@ -48,7 +49,7 @@ jobs:
           host: blog.alomerry.com
           username: root
           key: ${{ secrets.VPS_SECRET_SSH_KEY }}
-          port: 22
+          port: ${{ vars.VPS_SSH_PORT }}
           script: |
             rm -rf /root/apps/nginx/site/blog.alomerry.com/*
             tar -zxvf /tmp/blog/res.tar.gz -C /root/apps/nginx/site/blog.alomerry.com/;

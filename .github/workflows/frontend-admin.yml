@@ -38,7 +38,7 @@ jobs:
           host: admin.alomerry.com
           username: root
           key: ${{ secrets.VPS_SECRET_SSH_KEY }}
-          port: 22
+          port: ${{ vars.VPS_SSH_PORT }}
           source: "admin/res.tar.gz"
           target: "/tmp/"
       - name: deploy admin
@@ -47,7 +47,7 @@ jobs:
           host: admin.alomerry.com
           username: root
           key: ${{ secrets.VPS_SECRET_SSH_KEY }}
-          port: 22
+          port: ${{ vars.VPS_SSH_PORT }}
           script: |
             rm -rf /root/apps/nginx/site/admin.alomerry.com/*
             tar -zxvf /tmp/admin/res.tar.gz -C /root/apps/nginx/site/admin.alomerry.com/;
