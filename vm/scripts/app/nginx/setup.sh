@@ -6,9 +6,7 @@ if [ ! -f /etc/systemd/system/nginx.service ]; then
   systemctl enable nginx
 fi
 
-if [ ! -f /etc/nginx/nginx.conf ]; then
-  wget ${NGINX_PATH}/cfg/nginx.conf -qO /etc/nginx/nginx.conf
-fi
+wget ${NGINX_PATH}/cfg/nginx.conf -qO /etc/nginx/nginx.conf
 
 if [ ! -f /root/apps/nginx/conf/website.conf ]; then
   wget ${NGINX_PATH}/cfg/website.conf -qO /root/apps/nginx/conf/website.conf
