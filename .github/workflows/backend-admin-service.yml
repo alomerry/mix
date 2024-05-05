@@ -41,7 +41,7 @@ jobs:
           docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
           cd golang/gw
           chmod +x ./gw
-          docker build . --file Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/alomerry/mix-admin:latest
+          docker build . --file docker/service/Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/alomerry/mix-admin:latest
           docker push registry.cn-hangzhou.aliyuncs.com/alomerry/mix-admin:latest
       # https://github.com/marketplace/actions/http-request-action
       - name: trigger rollout restart

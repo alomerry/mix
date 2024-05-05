@@ -1,12 +1,11 @@
-name: 构建 k8s 服务
+name: 构建 admin 备份 db job 镜像
 
 on:
   push:
     branches: [master]
     paths:
-      - "golang/gw/proto/k8s/**"
-      - "golang/gw/proto/scripts/**"
-      - "golang/gw/service/k8s/**"
+      - "golang/gw/service/admin/**"
+      - "golang/gw/core/db/**"
 
 jobs:
   build:
@@ -33,15 +32,15 @@ jobs:
       - name: 构建二进制
         run: |
           cd golang/gw/
-          go build -o gw service/k8s/main.go
-      - name: 构建镜像发推送到 aliyun
+          go build -o gw service/admin/main.go
+      - name: 构建镜像推送到 aliyun
         run: |
           docker version
           docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
           cd golang/gw
           chmod +x ./gw
-          docker build . --file docker/service/Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/alomerry/mix-k8s:latest
-          docker push registry.cn-hangzhou.aliyuncs.com/alomerry/mix-k8s:latest
+          docker build . --file docker/jobs/Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/alomerry/mix-admin:latest
+          docker push registry.cn-hangzhou.aliyuncs.com/alomerry/mix-admin:latest
       # https://github.com/marketplace/actions/http-request-action
       - name: trigger rollout restart
         uses: fjogeleit/http-request-action@v1
@@ -49,4 +48,4 @@ jobs:
           url: ${{secrets.MIX_GW_RESTART_URL}}
           method: "POST"
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"namespace": "alomerry", "deployment": "mix-module-k8s-deployment"}'
+          data: '{"namespace": "alomerry", "deployment": "mix-module-admin-deployment"}'

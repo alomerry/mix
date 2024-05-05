@@ -1,8 +1,8 @@
 package model
 
 import (
+	"github.com/alomerry/go-tools/utils/db/mysql"
 	"gorm.io/gorm"
-	mysql "gw/core/db"
 )
 
 const (
@@ -12,7 +12,7 @@ const (
 var CRole = &Role{}
 
 func init() {
-	mysql.MySQL().AutoMigrate(&Role{})
+	mysql.Session().AutoMigrate(&Role{})
 }
 
 type Role struct {

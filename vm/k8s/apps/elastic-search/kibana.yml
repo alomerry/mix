@@ -17,5 +17,4 @@ spec:
   elasticsearchRef:
     name: elasticsearch
 # k get pod --selector='kibana.k8s.elastic.co/name=kibana'
-# k get secret quickstart-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
-
+# k get secret elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo

@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/alomerry/go-tools/static/constant"
+	"github.com/alomerry/go-tools/static/cons"
 	"github.com/alomerry/go-tools/static/env"
 	"html/template"
 	"log"
@@ -34,7 +34,7 @@ import (
 	{{range .Services}} "gw/proto/{{.ServiceName}}"
 	{{end}}
 
-	"github.com/alomerry/go-tools/static/constant"
+	"github.com/alomerry/go-tools/static/cons"
 	"github.com/alomerry/go-tools/static/env"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
@@ -80,7 +80,7 @@ type service struct {
 }
 
 var (
-	debug = env.GetEnv() == constant.EnvLocal
+	debug = env.GetEnv() == cons.EnvLocal
 )
 
 func main() {

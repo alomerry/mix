@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/alomerry/go-tools/static/constant"
+	"github.com/alomerry/go-tools/static/cons"
 	"github.com/alomerry/go-tools/static/env"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -48,7 +48,7 @@ var (
 )
 
 func init() {
-	if env.GetEnv() == constant.EnvLocal {
+	if env.GetEnv() == cons.EnvLocal {
 		safeDomains = append(safeDomains, "http://localhost:3333", "http://localhost:8848")
 	}
 }

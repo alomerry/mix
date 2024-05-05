@@ -1,7 +1,7 @@
 package k8s
 
 import (
-	"github.com/alomerry/go-tools/static/constant"
+	"github.com/alomerry/go-tools/static/cons"
 	"github.com/alomerry/go-tools/static/env"
 	"k8s.io/client-go/kubernetes"
 	v12 "k8s.io/client-go/kubernetes/typed/apps/v1"
@@ -24,7 +24,7 @@ func initClient() {
 		err    error
 	)
 	switch env.GetEnv() {
-	case constant.EnvLocal:
+	case cons.EnvLocal:
 		config, err = clientcmd.BuildConfigFromFlags("", env.GetKubeConfig())
 		if err != nil {
 			panic(err.Error())

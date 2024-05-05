@@ -3,18 +3,17 @@ package service
 import (
 	"context"
 	"fmt"
+	"github.com/alomerry/go-tools/utils/array"
 	core_codes "gw/core/codes"
 	"gw/core/constant"
 	"gw/core/log"
 	"gw/core/utils/algo"
 	"gw/proto/k8s"
 	"gw/service/k8s/codes"
-	"time"
-
-	"github.com/alomerry/go-tools/utils/array"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	v12 "k8s.io/client-go/kubernetes/typed/apps/v1"
+	"time"
 )
 
 type DeployIdentifier struct {
@@ -74,3 +73,4 @@ func (k *KubernetesService) genRolloutFunction() func(DeployIdentifier) {
 		}
 	}
 }
+

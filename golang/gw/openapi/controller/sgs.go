@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/alomerry/go-tools/modules/sgs/delay"
 	"github.com/alomerry/go-tools/modules/sgs/tools"
-	"github.com/alomerry/go-tools/static/constant"
+	"github.com/alomerry/go-tools/static/cons"
 	"github.com/alomerry/go-tools/static/env"
 	file_util "github.com/alomerry/go-tools/utils/files"
 	"github.com/alomerry/go-tools/utils/zip"
@@ -32,9 +32,9 @@ const (
 var (
 	s         *SgsController
 	targetMap = map[string]string{
-		constant.StepA:      constant.StepA,
-		constant.StepB:      constant.StepB,
-		constant.StepReason: "_未出数据",
+		cons.StepA:      cons.StepA,
+		cons.StepB:      cons.StepB,
+		cons.StepReason: "_未出数据",
 	}
 
 	SgsWorkspace = "/tmp/sgs"
