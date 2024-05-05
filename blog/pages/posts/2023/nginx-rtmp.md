@@ -3,7 +3,7 @@ title: 使用 nginx 和 rtmp 模块搭建推流服务器
 update: 2024-02-24T19:17:18.318Z
 date: 2023-04-13T16:00:00.000+00:00
 duration: 1min
-wordCount: 471
+wordCount: 425
 ---
 
 ::: tip 起因

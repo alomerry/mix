@@ -1183,14 +1183,14 @@ case stdFracSecond9: // Take any number of digits, even more than asked for, bec
 ## GVM 安装 Golang
 
 ```shell
-curl -s -S -L https://cdn.alomerry.com/packages/gvm/gvm-installer.sh)
+bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 ```
 
 need bison gcc make
 
 ```shell
-gvm install go1.4 -B
-gvm use go1.4 [--default]
+gvm install go1.22.2 -B
+gvm use go1.22.2 --default
 ```
 
 [gvm]([GitHub - moovweb/gvm: Go Version Manager](https://github.com/moovweb/gvm))

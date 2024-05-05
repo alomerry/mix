@@ -4,7 +4,7 @@ date: 2020-06-21T16:00:00.000+00:00
 update: 2024-02-22T13:27:18.589Z
 subtitle: 一个基于 vite 的博客，主要记录开发笔记、个人日常。
 duration: 2min
-wordCount: 656
+wordCount: 658
 todoNext:
   - 切换博客心得
 cards:
