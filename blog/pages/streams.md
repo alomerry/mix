@@ -1,7 +1,7 @@
 ---
 title: Streams - Alomerry Wu
 display: ''
-plum: true
+art: plum
 items:
   - title: 'xxxx'
     date: '2022-07-08'

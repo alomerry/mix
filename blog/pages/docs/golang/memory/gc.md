@@ -1,5 +1,5 @@
 ---
-title: gc
+title: Golang 垃圾回收
 update: 2024-02-27T20:36:56.146Z
 duration: 4min
 wordCount: 1.3k

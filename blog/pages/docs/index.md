@@ -1,6 +1,6 @@
 ---
 title: Docs - Alomerry Wu
-plum: true
+art: plum
 display: ''
 ---
 

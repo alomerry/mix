@@ -1,6 +1,6 @@
 ---
 date: 2023-06-09T16:00:00.000+00:00
-title: 深入理解 golang 哈希表
+title: 深入理解 Golang 哈希表
 desc: 从源码出发，理解 golang map 设计
 update: 2024-03-01T08:10:56.771Z
 duration: 49min

@@ -1,30 +1,41 @@
 ---
 date: 2023-07-04T16:00:00.000+00:00
-title: 函数调用 Function call
+title: 深入理解 Golang 函数调用
 duration: 7min
 wordCount: 1.9k
 ---
 
-::: tip
-函数参数皆是值拷贝，只是区别是拷贝目标对象还是拷贝指针，函数调用前就会为形参和返回值分配内存空间，并将实参拷贝到形参中
-:::
+[[toc]]
 
-了解 go 的函数调用底层逻辑，能更清晰的理解 defer、recover、panic 的工作方式
+## 函数栈
 
-## Basic
+了解 go 的函数调用底层逻辑，能更清晰的理解 defer、recover、panic 的工作方式。go 的函数栈如下：
 
+![golang-function-stack-frame](https://cdn.alomerry.com/blog/assets/2024/golang-function-stack-frame.png =400x)
+
+栈从高地址往低地址依次是：
+
+- 栈基
 - 局部标量
 - 调用函数返回值
 - 调用函数参数
 - 函数返回地址
-- 栈基
 - 栈指针
 
-:::tip
-go 是一次性分配栈空间
-:::
+```go
+func main() {
+  int a = 5;
+  println(a);
+}
+```
 
-call 指令：
+在为 `main` 函数分配函数栈时，会将使用两个 int 大小的空间 r1、r2 分别存储变量 `a` 和传入 `println` 函数的参数 `a`。你可能会好奇为什么 `a` 需要占两份，因为对于 go 来说，函数参数皆是值拷贝，只是区别是拷贝目标对象还是拷贝指针，函数调用前就会一次性为形参和返回值分配内存空间，并将实参拷贝到形参中。由于 println 没有返回值，所以仅有两个变量 `a` 的空间。
+
+## 指令
+
+理解了以上后，就需要知道一些额外的指令
+
+### call 指令
 
 - 将下一条指令入栈，作为返回地址
 - 跳转到被调用者函数执行
@@ -44,14 +55,12 @@ call 指令：
 - 恢复调用函数的栈基
 - 释放被调函数的函数栈
 
-ret 指令
+### ret 指令
 
 - 弹出调用前入栈的返回地址
 - 跳转到该返回地址
 
 ## Base Stack <Badge text="1.16" type="tip"/>
-
-![golang-function-stack-frame](https://cdn.alomerry.com/blog/assets/notes/languare/golang/golang/golang-function-stack-frame.png)
 
 ### 传值/传指针
 

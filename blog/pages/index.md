@@ -1,7 +1,7 @@
 ---
 title: 清欢
 desc: TODO
-plum: true
+art: dot
 ---
 
 你好，我是清欢，一个后端开发。喜欢编程，也喜欢玩游戏、踢足球和骑行。

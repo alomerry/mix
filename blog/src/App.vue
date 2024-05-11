@@ -75,6 +75,9 @@ onKeyStroke('Escape', (e) => {
       <img
         :alt="imageModel.alt"
         :src="imageModel.src"
+        :class="imageModel.className"
+        max-w-screen
+        max-h-screen
         h-full
         object-contain
         w-full

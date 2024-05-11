@@ -1,7 +1,7 @@
 ---
 title: IOI Leetcode SQL - Alomerry Wu
 display: ''
-plum: true
+art: plum
 ---
 
 <SubNav />

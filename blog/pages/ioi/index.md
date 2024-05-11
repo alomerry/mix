@@ -1,7 +1,7 @@
 ---
 title: IOI - Alomerry Wu
 display: ''
-plum: true
+art: plum
 ---
 
 <!--

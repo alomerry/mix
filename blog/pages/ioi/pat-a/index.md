@@ -1,7 +1,7 @@
 ---
 title: IOI PAT 甲级 - Alomerry Wu
 display: ''
-plum: true
+art: plum
 ---
 
 <SubNav />

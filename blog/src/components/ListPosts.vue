@@ -97,10 +97,13 @@ function getGroupName(p: Post) {
             <div flex="~ gap-2 items-center">
               <span
                 v-if="route.redirect"
-                align-middle op50 flex-none text-xs ml--1 mt--1
+                align-middle op50 flex-none text-xs ml--1.5
                 i-carbon-arrow-up-right
                 title="External"
               />
+            </div>
+
+            <div flex="~ gap-2 items-center">
               <span
                 v-if="route.inperson"
                 align-middle op50 flex-none

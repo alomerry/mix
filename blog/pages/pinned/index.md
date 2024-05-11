@@ -1,7 +1,7 @@
 ---
 title: Pinned
 description: List of projects that I am proud of
-plum: true
+art: plum
 wrapperClass: 'text-center'
 tocAlwaysOn: false
 others:

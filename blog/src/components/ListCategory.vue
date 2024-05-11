@@ -147,12 +147,14 @@ function getGroupName(p: Post) {
                 align-middle
                 flex-none
                 i-carbon-arrow-up-right
-                ml--1
-                mt--1
+                ml--1.5
                 op50
                 text-xs
                 title="External"
               />
+            </div>
+
+            <div flex="~ gap-2 items-center">
               <span
                 v-if="route.inperson"
                 align-middle

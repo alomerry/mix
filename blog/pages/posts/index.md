@@ -1,7 +1,7 @@
 ---
 title: Blog - Alomerry Wu
 display: ''
-plum: true
+art: plum
 ---
 
 <SubNav />

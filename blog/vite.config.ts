@@ -47,7 +47,7 @@ import {
   sup,
 } from "./scripts/md";
 
-// antfu.me commitId 3ab0d433847648780f491bedfdb10d798b09fd60
+// antfu.me commitId 2b475a7459ba443624ac5a91229628106962697c
 
 const promises: Promise<any>[] = [];
 
@@ -69,8 +69,7 @@ export default defineConfig({
 
     Vue({
       include: [/\.vue$/, /\.md$/],
-      // @ts-expect-error missing types
-      reactivityTransform: true,
+      // reactivityTransform: true,
       script: {
         defineModel: true,
       },

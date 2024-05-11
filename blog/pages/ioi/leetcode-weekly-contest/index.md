@@ -1,7 +1,7 @@
 ---
 title: IOI Leetcode 周赛 - Alomerry Wu
 display: ''
-plum: true
+art: plum
 ---
 
 <SubNav />
