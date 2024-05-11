@@ -1,0 +1,120 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: game
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dst-service
+  namespace: game
+spec:
+  ports:
+  - name: dashboard
+    port: 8082
+    targetPort: dashboard
+  - name: master
+    port: 10999
+    protocol: UDP
+    targetPort: 10999
+  - name: cave
+    port: 10998
+    protocol: UDP
+    targetPort: 10998
+  - name: unknow
+    port: 10888
+    protocol: UDP
+    targetPort: 10888
+  selector:
+    app: dst
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dst-deployment
+  namespace: game
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dst
+  template:
+    metadata:
+      labels:
+        app: dst
+    spec:
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/alomerry/dst-admin:latest
+        name: dst
+        env:
+        - name: TZ
+          value: "Asia/Shanghai"
+        volumeMounts:
+        - mountPath: /root/.klei/DoNotStarveTogether
+          name: save
+        - mountPath: /app/backup
+          name: backup
+        - mountPath: /app/mod
+          name: mod
+        ports:
+        - name: dashboard
+          containerPort: 8082
+        - containerPort: 10888
+          protocol: UDP
+        - containerPort: 10998
+          protocol: UDP
+        - containerPort: 10999
+          protocol: UDP
+      volumes:
+      - name: save
+        persistentVolumeClaim:
+          claimName: dst-save-pvc
+      - name: mod
+        persistentVolumeClaim:
+          claimName: dst-mod-pvc
+      - name: backup
+        persistentVolumeClaim:
+          claimName: dst-backup-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dst-mod-pvc
+  namespace: game
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dst-backup-pvc
+  namespace: game
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dst-save-pvc
+  namespace: game
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
+  storageClassName: nfs-csi
+  accessModes:
+    - ReadWriteOnce

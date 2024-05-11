@@ -11,8 +11,17 @@ install_depandence() {
     cron \
     socat \
     lsof \
+    aptitude \
+    ca-certificates \
+    gnupg \
     netcat-openbsd
     # nfs
+}
+
+install_nfs() {
+  apt install nfs-kernel-server -y
+  systemctl start nfs-kernel-server
+  systemctl enable nfs-kernel-server
 }
 
 install_qemu_guest() {
