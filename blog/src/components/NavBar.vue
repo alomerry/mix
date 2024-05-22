@@ -4,11 +4,11 @@ import Search from "~/components/alomerry/Search.vue";
 function toTop() {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth',
-  })
+    behavior: "smooth",
+  });
 }
 
-const { y: scroll } = useWindowScroll()
+const { y: scroll } = useWindowScroll();
 </script>
 
 <template>
@@ -22,8 +22,18 @@ const { y: scroll } = useWindowScroll()
     </RouterLink>
     <button
       title="Scroll to top"
-      fixed right-3 bottom-3 w-10 h-10 hover:op100 rounded-full
-      hover-bg-hex-8883 transition duration-300 z-100 print:hidden
+      fixed
+      right-3
+      bottom-3
+      w-10
+      h-10
+      hover:op100
+      rounded-full
+      hover-bg-hex-8883
+      transition
+      duration-300
+      z-100
+      print:hidden
       :class="scroll > 300 ? 'op30' : 'op0! pointer-events-none'"
       @click="toTop()"
     >
@@ -57,14 +67,40 @@ const { y: scroll } = useWindowScroll()
         <a href="/ioi" title="IOI">
           <div i-tabler-brand-leetcode />
         </a>
-        <a href="https://umami.alomerry.com/share/ArR0rXVI3L3p9V1r/blog" target="_blank" title="Umami">
-          <div i-simple-icons-umami />
-        </a>
-        <Search/>
-        <a href="https://github.com/alomerry/mix" target="_blank" title="GitHub" class="lt-md:hidden">
+        <Search />
+        <a
+          href="https://github.com/alomerry/mix"
+          target="_blank"
+          title="GitHub"
+          class="lt-md:hidden"
+        >
           <div i-uil-github-alt />
         </a>
-        <a href="https://twitter.com/alomerry_qwq" target="_blank" title="Twitter" class="lt-md:hidden">
+        <a href="/diary" title="Diary">
+          <div i-ion-journal />
+        </a>
+        <a
+          href="https://umami.alomerry.com/share/ArR0rXVI3L3p9V1r/blog"
+          target="_blank"
+          title="Umami"
+        >
+          <div i-simple-icons-umami />
+        </a>
+        
+        <a
+          href="https://medium.com/@alomerry.wu/about"
+          target="_blank"
+          title="Medium"
+          class="lt-md:hidden"
+        >
+          <div i-basil-medium-solid />
+        </a>
+        <a
+          href="https://twitter.com/alomerry_qwq"
+          target="_blank"
+          title="Twitter"
+          class="lt-md:hidden"
+        >
           <div i-ri-twitter-x-fill />
         </a>
         <ToggleTheme />
