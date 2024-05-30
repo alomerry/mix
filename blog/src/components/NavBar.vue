@@ -80,7 +80,7 @@ const { y: scroll } = useWindowScroll();
           <div i-ion-journal />
         </a>
         <a
-          href="https://umami.alomerry.com/share/ArR0rXVI3L3p9V1r/blog"
+          href="https://cloud.umami.is/share/JiMJBPEtX9WuB4Xb/blog.alomerry.com"
           target="_blank"
           title="Umami"
         >
