@@ -3,8 +3,8 @@ date: 2023-06-09T16:00:00.000+00:00
 title: 深入理解 Golang 哈希表
 desc: 从源码出发，理解 golang map 设计
 update: 2024-03-01T08:10:56.771Z
-duration: 49min
-wordCount: 10k
+duration: 53min
+wordCount: 10.8k
 ---
 
 [[toc]]
@@ -33,7 +33,7 @@ type hmap struct {
 
 以上看起来可能晦涩、难以理解，那我们就先来分析需要如何自行实现 map。
 
-### 实现一个 map
+### 实现 map
 
 map 通常被翻译成**字典**或者是**映射**，它表达了一种一对一的关系，即使用任意 key 通过 _某种方式_ 可以获得对应的 value。
 
@@ -107,7 +107,9 @@ const (
 
 TODO ；extra `mapextra`[^mapextra]
 
-#### **map 中的 bucket** （TODO 如果和xxx 一样，表示桶满了）
+#### **map 中的 bucket** 
+
+（TODO 如果和xxx 一样，表示桶满了）
 
 看了 map 的结构后，可能会 hmap 中的 bucket 相关结构会比较困惑，此处结合下图 hmap 结构简述
 
@@ -207,7 +209,140 @@ for i := 0; i < len(vstak); i++ {
 
 ### 运行时
 
-运行时 map 的创建由 `makemap`[^makemap] 执行：
+```go
+// walkMakeMap walks an OMAKEMAP node.
+func walkMakeMap(n *ir.MakeExpr, init *ir.Nodes) ir.Node {
+  ...
+
+	if ir.IsConst(hint, constant.Int) && constant.Compare(hint.Val(), token.LEQ, constant.MakeInt64(reflectdata.BUCKETSIZE)) {
+		// Handling make(map[any]any) and
+		// make(map[any]any, hint) where hint <= BUCKETSIZE
+		// special allows for faster map initialization and
+		// improves binary size by using calls with fewer arguments.
+		// For hint <= BUCKETSIZE overLoadFactor(hint, 0) is false
+		// and no buckets will be allocated by makemap. Therefore,
+		// no buckets need to be allocated in this code path.
+		if n.Esc() == ir.EscNone {
+			// Only need to initialize h.hash0 since
+			// hmap h has been allocated on the stack already.
+			// h.hash0 = rand32()
+			rand := mkcall("rand32", types.Types[types.TUINT32], init)
+			hashsym := hmapType.Field(4).Sym // hmap.hash0 see reflect.go:hmap
+			appendWalkStmt(init, ir.NewAssignStmt(base.Pos, ir.NewSelectorExpr(base.Pos, ir.ODOT, h, hashsym), rand))
+			return typecheck.ConvNop(h, t)
+		}
+		// Call runtime.makehmap to allocate an
+		// hmap on the heap and initialize hmap's hash0 field.
+		fn := typecheck.LookupRuntime("makemap_small", t.Key(), t.Elem())
+		return mkcall1(fn, n.Type(), init)
+	}
+
+	...
+
+	// When hint fits into int, use makemap instead of
+	// makemap64, which is faster and shorter on 32 bit platforms.
+	fnname := "makemap64"
+	argtype := types.Types[types.TINT64]
+
+	// Type checking guarantees that TIDEAL hint is positive and fits in an int.
+	// See checkmake call in TMAP case of OMAKE case in OpSwitch in typecheck1 function.
+	// The case of hint overflow when converting TUINT or TUINTPTR to TINT
+	// will be handled by the negative range checks in makemap during runtime.
+	if hint.Type().IsKind(types.TIDEAL) || hint.Type().Size() <= types.Types[types.TUINT].Size() {
+		fnname = "makemap"
+		argtype = types.Types[types.TINT]
+	}
+
+	fn := typecheck.LookupRuntime(fnname, hmapType, t.Key(), t.Elem())
+	return mkcall1(fn, n.Type(), init, reflectdata.MakeMapRType(base.Pos, n), typecheck.Conv(hint, argtype), h)
+}
+```
+
+字面量在编译时转换后，运行时 `make(map)` 会由 `runtime.makemap/makemap_small`[^makemap] 执行，区别在于编译期会检查 map 需要的大小，未超过 `reflectdata.BUCKETSIZE` 则运行时执行 `runtime.makemap_small` 已追求更快的初始化速度。在 map 大小小于 `reflectdata.BUCKETSIZE` 的情况下，如果 map 未逃逸，则仅初始化随机数种子 hash0，hmap 已经在函数栈上初始化了；如果 map 逃逸了，则需要调用 makemap_small 在堆上初始化 map，后面我们详细看。当 map 初始容量超过 `reflectdata.BUCKETSIZE` 时，根据容量的类型，执行 makemap/makemap64
+
+#### makemap_small
+
+```go
+// makemap_small implements Go map creation for make(map[k]v) and
+// make(map[k]v, hint) when hint is known to be at most bucketCnt
+// at compile time and the map needs to be allocated on the heap.
+func makemap_small() *hmap {
+	h := new(hmap)
+	h.hash0 = uint32(rand())
+	return h
+}
+```
+
+makemap_small 上的注释说的清晰，makemap_small 用于处理 make(map[k]v) 和 make(map[k]v, hint) 这两种类型的 map 的创建，不过需要 hint 至少超过 bucketCnt 并且需要分配在堆上。
+
+makemap_small 实现很简单，new 一个 hmap 的指针，B 默认是 0，因为一个 bmap 可以保存 8 个元素
+
+例如：
+
+::: code-group
+
+```go [code]
+package main
+
+func main() {
+	m := make(map[string]int, 3)
+	m["a"] = 1
+	m["b"] = 2
+	m["c"] = 2
+}
+```
+
+```asm [debug]
+// TODO
+```
+
+:::
+
+// TODO fmt.println(map) 会导致 map 逃逸
+
+#### makemap
+
+```go
+// makemap implements Go map creation for make(map[k]v, hint).
+// If the compiler has determined that the map or the first bucket
+// can be created on the stack, h and/or bucket may be non-nil.
+// If h != nil, the map can be created directly in h.
+// If h.buckets != nil, bucket pointed to can be used as the first bucket.
+func makemap(t *maptype, hint int, h *hmap) *hmap {
+	mem, overflow := math.MulUintptr(uintptr(hint), t.Bucket.Size_)
+	if overflow || mem > maxAlloc {
+		hint = 0
+	}
+
+	// initialize Hmap
+	if h == nil {
+		h = new(hmap)
+	}
+	h.hash0 = uint32(rand())
+
+	// Find the size parameter B which will hold the requested # of elements.
+	// For hint < 0 overLoadFactor returns false since hint < bucketCnt.
+	B := uint8(0)
+	for overLoadFactor(hint, B) {
+		B++
+	}
+	h.B = B
+
+	// allocate initial hash table
+	// if B == 0, the buckets field is allocated lazily later (in mapassign)
+	// If hint is large zeroing this memory could take a while.
+	if h.B != 0 {
+		var nextOverflow *bmap
+		h.buckets, nextOverflow = makeBucketArray(t, h.B, nil)
+		if nextOverflow != nil {
+			h.extra = new(mapextra)
+			h.extra.nextOverflow = nextOverflow
+		}
+	}
+
+	return h
+}
+```
 
 - 根据 hit 计算出 map 需要申请的内存大小，检测内存是否溢出或申请的内存超过限制
 - 初始化 h 并引入随机种子[^fastrand]

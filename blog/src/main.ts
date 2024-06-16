@@ -33,7 +33,7 @@ import 'element-plus/es/components/badge/style/css'
 
 import { vLoading } from "element-plus/es/components/loading/src/directive";
 
-import autoRoutes from 'pages-generated'
+import { routes } from 'vue-router/auto-routes'
 import NProgress from 'nprogress'
 import { ViteSSG } from 'vite-ssg'
 import dayjs from 'dayjs'
@@ -46,14 +46,6 @@ import './styles/alomerry/custom.css'
 import './styles/alomerry/breath.css'
 import './styles/alomerry/max-limit.css'
 import './styles/alomerry/nav-search.css'
-// blog 历史 commit 5b8cac053bea34f25861c4d90ebccc4c595b6e3d
-
-const routes = autoRoutes.map((i) => {
-  return {
-    ...i,
-    alias: i.path.endsWith('/') ? `${i.path}index.html` : `${i.path}.html`,
-  }
-})
 
 export const createApp = ViteSSG(
   App,

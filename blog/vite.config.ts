@@ -17,6 +17,9 @@ import GitHubAlerts from "markdown-it-github-alerts";
 import UnoCSS from "unocss/vite";
 import SVG from "vite-svg-loader";
 
+import VueRouter from "unplugin-vue-router/vite";
+import { VueRouterAutoImports } from "unplugin-vue-router";
+
 // https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs
 // @ts-expect-error missing types
 import { full as emojiPlugin } from "markdown-it-emoji";
@@ -47,7 +50,8 @@ import {
   sup,
 } from "./scripts/md";
 
-// antfu.me commitId 2b475a7459ba443624ac5a91229628106962697c
+// antfu.me commitId 32849c8f0b2ceb7e3454a2f57962618b47d9131a
+// https://github.com/antfu/antfu.me/compare/32849c8f0b2ceb7e3454a2f57962618b47d9131a..${NEXT}
 
 const promises: Promise<any>[] = [];
 
@@ -75,19 +79,20 @@ export default defineConfig({
       },
     }),
 
-    Pages({
-      extensions: ["vue", "md"],
-      dirs: "pages",
+    VueRouter({
+      extensions: [".vue", ".md"],
+      routesFolder: "pages",
+      logs: true,
       extendRoute(route) {
-        const path = resolve(__dirname, route.component.slice(1));
+        const path = route.components.get("default");
+        if (!path) return;
 
         if (!path.includes("others.md") && path.endsWith(".md")) {
-          const md = fs.readFileSync(path, "utf-8");
-          const { data } = matter(md);
-          route.meta = Object.assign(route.meta || {}, { frontmatter: data });
+          const { data } = matter(fs.readFileSync(path, "utf-8"));
+          route.addToMeta({
+            frontmatter: data,
+          });
         }
-
-        return route;
       },
     }),
 
@@ -190,7 +195,7 @@ export default defineConfig({
     }),
 
     AutoImport({
-      imports: ["vue", "vue-router", "@vueuse/core"],
+      imports: ["vue", VueRouterAutoImports, "@vueuse/core"],
       resolvers: [ElementPlusResolver()],
     }),
 

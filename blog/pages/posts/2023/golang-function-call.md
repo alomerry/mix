@@ -1,8 +1,8 @@
 ---
 date: 2023-07-04T16:00:00.000+00:00
 title: 深入理解 Golang 函数调用
-duration: 7min
-wordCount: 1.9k
+duration: 8min
+wordCount: 2k
 ---
 
 [[toc]]

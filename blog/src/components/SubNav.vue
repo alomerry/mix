@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+import { useRoute } from 'vue-router/auto'
 import { englishOnly } from "~/logics";
 import { button_english_only_enable, categories } from "~/alomerry";
 

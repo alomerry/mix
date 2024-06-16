@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router/auto'
 import { englishOnly, formatDate } from '~/logics'
 import type { Post } from '~/types'
 import { DEFAULT_LANG } from '~/alomerry'
