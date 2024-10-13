@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package gw.common;
-
-option go_package = "gw/proto/common";
-
-message EmptyRequest {}

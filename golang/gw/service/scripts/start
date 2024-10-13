@@ -1,5 +1,0 @@
-#!/bin/bash
-
-PORT=${PORT:-4790}
-
-exec /app/gw/gw --port=${PORT}

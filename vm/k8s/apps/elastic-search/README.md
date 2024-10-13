@@ -1,1 +1,0 @@
-https://blog.alomerry.com/posts/2024/blog-build-note

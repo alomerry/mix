@@ -3,3 +3,5 @@
 .fleet
 .vscode
 node_modules
+dist
+public
